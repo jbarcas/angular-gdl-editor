@@ -1,0 +1,67 @@
+<!-- index.html -->
+<!DOCTYPE html>
+
+<!-- ASSIGN OUR ANGULAR MODULE -->
+<html ng-app="angularGDLEditor">
+<head>
+    <!-- META -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
+
+    <title>Node/Angular GDL Editor App</title>
+
+    <!-- SCROLLS -->
+    <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"><!-- load bootstrap -->
+    <style>
+        html                    { overflow-y:scroll; }
+        body                    { padding-top:50px; }
+        #guide-list             { margin-bottom:30px; }
+    </style>
+
+</head>
+<!-- SET THE CONTROLLER AND GET ALL GUIDES -->
+<body ng-controller="mainController">
+    <div class="container">
+
+        <!-- HEADER AND GUIDE COUNT -->
+        <div class="jumbotron text-center">
+            <h1>Guideline counter <span class="label label-info">{{ guides.length }}</span></h1>
+        </div>
+
+        <!-- GUIDE LIST -->
+        <div id="guide-list" class="row">
+            <div class="col-sm-4 col-sm-offset-4">
+
+                <!-- LOOP OVER THE GUIDES IN $scope.guides -->
+                <div class="checkbox" ng-repeat="guide in guides">
+                    <label>
+                        <input type="checkbox" ng-click="deleteGuide(guide._id)"> {{ guide.name }}
+                    </label>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- FORM TO CREATE GUIDES -->
+        <div id="guide-form" class="row">
+            <div class="col-sm-8 col-sm-offset-2 text-center">
+                <form>
+                    <div class="form-group">
+
+                        <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
+                        <input type="text" class="form-control input-lg text-center" placeholder="Insert guide name" ng-model="formData.name">
+                    </div>
+
+                    <!-- createGuide() WILL CREATE NEW GUIDES -->
+                    <button type="submit" class="btn btn-primary btn-lg" ng-click="createGuide()">Add GDL guide</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <!-- SPELLS -->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> <!--load jQuery-->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.min.js"></script>
+    <script type="text/javascript" src="javascripts/controllers.js"></script>
+</body>
+</html>
