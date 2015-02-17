@@ -6,3 +6,15 @@ body {
 a {
   color: #00B7FF;
 }
+
+/* UI Bootstrap css */
+
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+/* ng-grid css */
+
+.gridStyle {
+    border: 1px solid rgb(212,212,212);
+    width: 400px;
+    height: 300px
+}
