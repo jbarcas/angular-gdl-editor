@@ -23,7 +23,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 // shows all request logs on the console.
 app.use(logger('dev'));
 // parse application/json
@@ -42,6 +42,7 @@ var Guide = mongoose.model('Guide', {
     name : String,
     gdl : String
 });
+
 
 // routes ======================================================================
 
@@ -131,7 +132,7 @@ app.use(function(err, req, res, next) {
 // Load the single HTML view file where our Single App Page goes
 // Angular will handle the page changes on the front-end
 app.get('*', function(req, res) {
-    res.sendfile('./app/index.html');
+    res.sendfile('./public/index.html');
 })
 
 // Listens on port 8080 and runs the server

@@ -13,8 +13,8 @@
     <!-- SCROLLS -->
     <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"><!-- load bootstrap -->
     <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
-    <link rel="stylesheet" type="text/css" href="stylesheets/ui-grid-stable.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/ng-draggable.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/xeditable.css">
     <style>
         html                    { overflow-y:scroll; }
         body                    { padding-top:50px; }
@@ -24,60 +24,216 @@
 </head>
 <!-- SET THE CONTROLLER AND GET ALL GUIDES -->
 <body>
-    <div ng-controller="mainController" class="container">
-
-        <!-- HEADER AND GUIDE COUNT -->
-        <div class="jumbotron text-center">
-            <h1>Guideline counter <span class="label label-info">{{ guides.length }}</span></h1>
-        </div>
-
-        <!-- GUIDE LIST -->
-        <div id="guide-list" class="row">
-            <div class="col-sm-4 col-sm-offset-4">
-
-                <!-- LOOP OVER THE GUIDES IN $scope.guides -->
-                <div class="checkbox" ng-repeat="guide in guides">
-                    <label>
-                        <input type="checkbox" ng-click="deleteGuide(guide._id)"> {{ guide.name }}
-                    </label>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- FORM TO CREATE GUIDES -->
-        <div id="guide-form" class="row">
-            <div class="col-sm-8 col-sm-offset-2 text-center">
-                <form>
-                    <div class="form-group">
-
-                        <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
-                        <input type="text" class="form-control input-lg text-center" placeholder="Insert guide name" ng-model="formData.name">
-                    </div>
-
-                    <!-- createGuide() WILL CREATE NEW GUIDES -->
-                    <button type="submit" class="btn btn-primary btn-lg" ng-click="createGuide()">Add GDL guide</button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <hr>
-
-    <div ng-controller="TabsDemoCtrl">
-        <h1>GDL Editor: Tabs</h1>
+    <div ng-controller="tabsController">
+        <h2>GDL Editor: Tabs</h2>
         <p>Select a tab by setting active binding to true:</p>
         <p>
-            <button class="btn btn-default btn-sm" ng-click="tabs[0].active = true">Select second tab</button>
-            <button class="btn btn-default btn-sm" ng-click="tabs[1].active = true">Select third tab</button>
+            <button class="btn btn-default btn-sm" ng-click="tabs[0].active = true">Select Definitions</button>
+            <button class="btn btn-default btn-sm" ng-click="tabs[1].active = true">Select Rule list</button>
+            <button class="btn btn-default btn-sm" ng-click="tabs[3].active = true">Select Terminology</button>
         </p>
         <p>
-            <button class="btn btn-default btn-sm" ng-click="tabs[1].disabled = ! tabs[1].disabled">Enable / Disable third tab</button>
+            <button class="btn btn-default btn-sm" ng-click="tabs[2].disabled = ! tabs[2].disabled">Enable / Disable Preconditions</button>
         </p>
         <hr />
 
         <tabset>
-            <tab heading="Static title">Static content</tab>
+            <tab heading="REST test">
+                <div ng-controller="restController" class="container">
+                    <br>
+                    <!-- HEADER AND GUIDE COUNT -->
+                    <div class="jumbotron text-center">
+                        <h2>Guideline counter <span class="label label-info">{{ guides.length }}</span></h2>
+                    </div>
+
+                    <!-- GUIDE LIST -->
+                    <div id="guide-list" class="row">
+                        <div class="col-sm-4 col-sm-offset-4">
+
+                            <!-- LOOP OVER THE GUIDES IN $scope.guides -->
+                            <div class="checkbox" ng-repeat="guide in guides">
+                                <label>
+                                    <input type="checkbox" ng-click="deleteGuide(guide._id)"> {{ guide.name }}
+                                </label>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- FORM TO CREATE GUIDES -->
+                    <div id="guide-form" class="row">
+                        <div class="col-sm-8 col-sm-offset-2 text-center">
+                            <form>
+                                <div class="form-group">
+                                    <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
+                                    <input type="text" class="form-control input-lg text-center" placeholder="Insert guide name" ng-model="formData.name">
+                                </div>
+
+                                <!-- createGuide() WILL CREATE NEW GUIDES -->
+                                <button type="submit" class="btn btn-primary btn-lg" ng-click="createGuide()">Add GDL guide</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab heading="Grid (row)">
+                <br>
+                <div ng-controller="editableRowController" class="container">
+                    <!-- HEADER AND GUIDE COUNT -->
+                    <div class="jumbotron text-center">
+                        <h2>Editable grid - Elements: <span class="label label-info"> {{terms.length}} </span></h2>
+                    </div>
+                    <table class="table table-bordered table-hover table-condensed table-striped">
+                        <tr style="font-weight: bold">
+                            <td style="width:35%">Code</td>
+                            <td style="width:20%">Status</td>
+                            <td style="width:20%">Group</td>
+                            <td style="width:25%">Edit</td>
+                        </tr>
+                        <tr ng-repeat="term in terms">
+                            <td>
+                                <!-- editable term (text with validation) -->
+                                <span editable-text="term.code" e-name="name" e-form="rowform" onbeforesave="checkName($data, term.id)" e-required>{{ term.code || 'empty' }}</span>
+                            </td>
+                            <td>
+                                <!-- editable status (select-local) -->
+                                <span editable-select="term.status" e-name="status" e-form="rowform" e-ng-options="s.value as s.text for s in statuses">{{ showStatus(term) }}</span>
+                            </td>
+                            <td>
+                                <!-- editable group (select-remote) -->
+                                <span editable-select="term.group" e-name="group" onshow="loadGroups()" e-form="rowform" e-ng-options="g.id as g.text for g in groups">{{ showGroup(term) }}</span>
+                            </td>
+                            <td style="white-space: nowrap">
+                                <!-- form -->
+                                <form editable-form name="rowform" onbeforesave="saveUser($data, term.id)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == term">
+                                    <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">save</button>
+                                    <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">cancel</button>
+                                </form>
+                                <div class="buttons" ng-show="!rowform.$visible">
+                                    <button class="btn btn-primary" ng-click="rowform.$show()">edit</button>
+                                    <button class="btn btn-danger" ng-click="removeUser($index)">del</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <button class="btn btn-default" ng-click="addUser()">Add row</button>
+                </div>
+            </tab>
+            <tab heading="Grid (col)">
+                <br>
+                <div ng-controller="editableColumnController" class="container">
+                    <div class="jumbotron text-center">
+                        <h2>Editable grid - Elements: <span class="label label-info"> {{terms.length}} </span></h2>
+                    </div>
+                    <table class="table table-bordered table-hover table-condensed">
+                        <tr style="font-weight: bold; white-space: nowrap">
+
+                            <!-- code header -->
+                            <td style="width:40%">
+                                Code
+                                <form editable-form name="nameform" onaftersave="saveColumn('code')" ng-show="nameform.$visible">
+                                    <button type="submit" ng-disabled="nameform.$waiting" class="btn btn-primary">save</button>
+                                    <button type="button" ng-disabled="nameform.$waiting" ng-click="nameform.$cancel()" class="btn btn-default">cancel</button>
+                                </form>
+                                <button class="btn btn-default" ng-show="!nameform.$visible" ng-click="nameform.$show()">edit</button>
+                            </td>
+
+                            <!-- status header -->
+                            <td style="width:30%">
+                                Status
+                                <form editable-form name="statusform" onaftersave="saveColumn('status')" ng-show="statusform.$visible">
+                                    <button type="submit" ng-disabled="statusform.$waiting" class="btn btn-primary">save</button>
+                                    <button type="button" ng-disabled="statusform.$waiting" ng-click="statusform.$cancel()" class="btn btn-default">cancel</button>
+                                </form>
+                                <button class="btn btn-default" ng-show="!statusform.$visible" ng-click="statusform.$show()">
+                                    edit
+                                </button>
+                            </td>
+
+                            <!-- group header -->
+                            <td style="width:30%">
+                                Group
+                                <form editable-form name="groupform" onaftersave="saveColumn('group')" ng-show="groupform.$visible">
+                                    <button type="submit" ng-disabled="groupform.$waiting" class="btn btn-primary">save</button>
+                                    <button type="button" ng-disabled="groupform.$waiting" ng-click="groupform.$cancel()" class="btn btn-default">cancel</button>
+                                </form>
+                                <button class="btn btn-default" ng-show="!groupform.$visible" ng-click="groupform.$show()">edit</button>
+                            </td>
+                        </tr>
+
+                        <tr ng-repeat="term in terms">
+                            <td>
+                                <!-- editable term (text with validation) -->
+                                <span editable-text="term.code" e-name="name" e-form="nameform" onbeforesave="checkName($data)">{{ term.code || 'empty' }}</span>
+                            </td>
+
+                            <td>
+                                <!-- editable status (select-local) -->
+                                <span editable-select="term.status" e-name="status" e-form="statusform" e-ng-options="s.value as s.text for s in statuses">{{ showStatus(term) }}</span>
+                            </td>
+
+                            <td>
+                                <!-- editable group (select-remote) -->
+                                <span editable-select="term.group" e-name="group" onshow="loadGroups()" e-form="groupform" e-ng-options="g.id as g.text for g in groups">{{ showGroup(term) }}</span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </tab>
+            <tab heading="Drag&drop">
+                <br>
+                <div class="container" ng-controller="dragDropController">
+                    <div class="jumbotron text-center">
+                        <h2>Drag&Drop - Dropped elements 1: <span class="label label-info"> {{droppedObjects1.length}} </span> 2: <span class="label label-info"> {{droppedObjects2.length}} </span></h2>
+                    </div>
+
+                    <ul class="draggable-objects">
+                        <li  ng-repeat="obj in draggableObjects" >
+                            <div ng-drag="true" ng-drag-data="obj"> {{obj.name}} </div>
+                        </li>
+                    </ul>
+
+                    <hr/>
+                    <div ng-drop="true" ng-drop-success="onDropComplete1($data,$event)">
+                        <span class="title">Drop area #1</span>
+
+                        <div ng-repeat="obj in droppedObjects1" ng-drag="true" ng-drag-data="obj" ng-drag-success="onDragSuccess1($data,$event)" ng-center-anchor="{{centerAnchor}}">
+                            {{obj.name}}
+                        </div>
+
+                    </div>
+
+                    <div ng-drop="true" ng-drop-success="onDropComplete2($data,$event)">
+                        <span class="title">Drop area #2</span>
+
+                        <div ng-repeat="obj in droppedObjects2" ng-drag="true" ng-drag-data="obj" ng-drag-success="onDragSuccess2($data,$event)" ng-center-anchor="{{centerAnchor}}">
+                            {{obj.name}}
+                        </div>
+
+                    </div>
+                </div>
+            </tab>
+            <tab heading="Description">
+                <br>
+                <div class="container" ng-controller="Html5InputsCtrl">
+                    <div class="jumbotron text-center">
+                        <h2>Basic information about the guideline.</h2>
+                    </div>
+                    <div>Email: <a href="#" editable-email="guideline.email">{{ guideline.email || 'empty' }}</a></div>
+                    <div>Tel: <a href="#" editable-tel="guideline.tel" e-pattern="\d{3}\-\d{2}\-\d{2}" e-title="xxx-xx-xx">{{ guideline.tel || 'empty' }}</a></div>
+                    <div>Number: <a href="#" editable-number="guideline.number" e-min="18">{{ guideline.number || 'empty' }}</a></div>
+                    <div>Range: <a href="#" editable-range="guideline.range" e-step="5">{{ guideline.range || 'empty' }}</a></div>
+                    <div>Url: <a href="#" editable-url="guideline.url">{{ guideline.url || 'empty' }}</a></div>
+                    <div>Search: <a href="#" editable-search="guideline.search">{{ guideline.search || 'empty' }}</a></div>
+                    <div>Color: <a href="#" editable-color="guideline.color">{{ guideline.color || 'empty' }}</a></div>
+                    <div>Date: <a href="#" editable-date="guideline.date">{{ guideline.date || 'empty' }}</a></div>
+                    <div>Time: <a href="#" editable-time="guideline.time">{{ guideline.time || 'empty' }}</a></div>
+                    <div>Datetime: <a href="#" editable-datetime="guideline.datetime">{{ guideline.datetime || 'empty' }}</a></div>
+                    <div>Month: <a href="#" editable-month="guideline.month">{{ guideline.month || 'empty' }}</a></div>
+                    <div>Week: <a href="#" editable-week="guideline.week">{{ guideline.week || 'empty' }}</a></div>
+                </div>
+            </tab>
             <tab ng-repeat="tab in tabs" heading="{{tab.title}}" active="tab.active" disabled="tab.disabled">
                 {{tab.content}}
             </tab>
@@ -89,81 +245,25 @@
             </tab>
         </tabset>
 
-        <hr />
 
-        <tabset vertical="true" type="pills">
-            <tab heading="Vertical 1">Vertical content 1</tab>
-            <tab heading="Vertical 2">Vertical content 2</tab>
-        </tabset>
-
-        <hr />
-
-        <tabset justified="true">
-            <tab heading="Justified">Justified content</tab>
-            <tab heading="SJ">Short Labeled Justified content</tab>
-            <tab heading="Long Justified">Long Labeled Justified content</tab>
-        </tabset>
     </div>
-    <br><hr>
-
-
-    <div ng-controller="GridCtrl">
-        <h1>GDL Editor: Editable grid</h1>
-        <div class="gridStyle" ng-grid="gridOptions">
-        </div>
-    </div>
-    <br><br>
-
-    <div class="container" ng-controller="DragAndDropCtrl">
-
-
-        <div class="row">
-            <h1>GDL Editor: Drag & drop</h1>
-        </div>
-
-        <ul class="draggable-objects">
-            <li  ng-repeat="obj in draggableObjects" >
-                <div ng-drag="true" ng-drag-data="obj"> {{obj.name}} </div>
-            </li>
-        </ul>
-
-        <hr/>
-        <div ng-drop="true" ng-drop-success="onDropComplete1($data,$event)">
-            <span class="title">Drop area #1</span>
-
-            <div ng-repeat="obj in droppedObjects1" ng-drag="true" ng-drag-data="obj" ng-drag-success="onDragSuccess1($data,$event)" ng-center-anchor="{{centerAnchor}}">
-                {{obj.name}}
-            </div>
-
-        </div>
-
-        <div ng-drop="true" ng-drop-success="onDropComplete2($data,$event)">
-            <span class="title">Drop area #2</span>
-
-            <div ng-repeat="obj in droppedObjects2" ng-drag="true" ng-drag-data="obj" ng-drag-success="onDragSuccess2($data,$event)" ng-center-anchor="{{centerAnchor}}">
-                {{obj.name}}
-            </div>
-
-        </div>
-
-        <hr>
-    </div>
-
-<!--<div ng-controller="DragAndDropCtrl">
-        <div class="btn btn-primary" data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model="list1" jqyoui-draggable="{animate:true}" ng-hide="!list1.title">{{list1.title}}</div><br><br>
-        <div class="thumbnail" data-drop="true" data-jqyoui-options ng-model="list2" jqyoui-droppable style='height:50px;'>
-            <div class="btn btn-success" data-drag="false" data-jqyoui-options ng-model="list2" jqyoui-draggable ng-hide="!list2.title">{{list2.title}}</div>
-        </div>
-    </div>  -->
 
     <!-- SPELLS -->
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> <!--load jQuery-->
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.min.js"></script>
+    <!-- Load the AngularGDLEditor module -->
+    <script type="text/javascript" src="app.module.js"></script>
+    <!-- Load the javascript files -->
+    <script type="text/javascript" src="javascripts/xeditable.js"></script>
     <script type="text/javascript" src="javascripts/ui-bootstrap-tpls-0.12.0.js"></script>
-    <script type="text/javascript" src="javascripts/controllers.js"></script>
-    <script type="text/javascript" src="javascripts/ui-grid-stable.js"></script>
-<!--<script type="text/javascript" src="javascripts/angular-dragdrop.js"></script> -->
     <script type="text/javascript" src="javascripts/ngDraggable.js"></script>
+    <!-- Load the controllers -->
+    <script type="text/javascript" src="controllers/editableRowController.js"></script>
+    <script type="text/javascript" src="controllers/restController.js"></script>
+    <script type="text/javascript" src="controllers/tabsController.js"></script>
+    <script type="text/javascript" src="controllers/dragDropController.js"></script>
+    <script type="text/javascript" src="controllers/editableColumnController.js"></script>
+    <script type="text/javascript" src="controllers/Html5InputsCtrl.js"></script>
 
 </body>
 </html>

@@ -11,10 +11,12 @@ a {
 
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
 
-/* ng-grid css */
-
-.gridStyle {
-    border: 1px solid rgb(212,212,212);
-    width: 400px;
-    height: 300px
+/* Editables */
+a.editable-click {
+    color: green;
+    border-bottom: dotted 2px green;
+}
+a.editable-click:hover {
+    color: #47a447;
+    border-bottom-color: #47a447;
 }
