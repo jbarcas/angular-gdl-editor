@@ -2,9 +2,8 @@
  * Created by jbarros on 22/02/2015.
  */
 
-angular.module('angularGDLEditor').controller('tabsController', tabsController);
+app.controller('TabsController', function($scope, $window) {
 
-function tabsController ($scope, $window) {
     $scope.tabs = [
         { title:'Definitions', content:'References to the archetypes used in the rules and preconditions' },
         { title:'Rule list', content:'Allows managing of all the rules inside the guideline.', disabled: true },
@@ -21,4 +20,4 @@ function tabsController ($scope, $window) {
             $window.alert('You\'ve selected the alert tab!');
         });
     };
-};
+});

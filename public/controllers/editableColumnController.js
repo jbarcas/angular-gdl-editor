@@ -2,7 +2,7 @@
  * Created by jbarros on 23/02/2015.
  */
 
-app.controller('editableColumnController', function($scope, $filter, $http, $q) {
+app.controller('EditableColumnController', function($scope, $filter, $http, $q) {
     
     $scope.terms = [
         {id: 1, code: 'gt0001', status: 2, group: 4, groupName: 'admin'},

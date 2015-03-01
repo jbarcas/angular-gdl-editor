@@ -2,54 +2,54 @@
  * Created by jbarros on 22/02/2015.
  */
 
-app.controller('editableRowController', function($scope, $filter, $http) {
+app.controller('EditableRowController', function($scope, $filter, $http) {
 
     $scope.terms = [
-        {id: 1, code: 'gt0001', status: 2, group: 4, groupName: 'admin'},
-        {id: 2, code: 'gt0002', status: undefined, group: 3, groupName: 'vip'},
-        {id: 3, code: 'gt0003', status: 2, group: null}
+        {id: 1, code: 'gt0001', description: 2, status: 4, statusName: 'status 4'},
+        {id: 2, code: 'gt0002', description: undefined, status: 3, statusName: 'status 3'},
+        {id: 3, code: 'gt0003', description: 2, status: null}
     ];
 
-    $scope.statuses = [
-        {value: 1, text: 'status1'},
-        {value: 2, text: 'status2'},
-        {value: 3, text: 'status3'},
-        {value: 4, text: 'status4'}
+    $scope.descriptions = [
+        {value: 1, text: 'description1'},
+        {value: 2, text: 'description2'},
+        {value: 3, text: 'description3'},
+        {value: 4, text: 'description4'}
     ];
 
-    $scope.groups = [];
-    $scope.loadGroups = function() {
-        return $scope.groups.length ? null : $http.get('/groups').success(function(data) {
-            $scope.groups = data;
-        });
-        //return $scope.groups.length ? null : $scope.groups = [
-        //    {id: 1, text: 'user'},
-        //    {id: 2, text: 'customer'},
-        //    {id: 3, text: 'vip'},
-        //    {id: 4, text: 'admin'}
-        //]
+    $scope.statuses = [];
+    $scope.loadStatuses = function() {
+        //return $scope.statuses.length ? null : $http.get('/statuses').success(function(data) {
+        //    $scope.statuses = data;
+        //});
+        return $scope.statuses.length ? null : $scope.statuses = [
+            {id: 1, text: 'status 1'},
+            {id: 2, text: 'status 2'},
+            {id: 3, text: 'status 3'},
+            {id: 4, text: 'status 4'}
+        ]
     };
 
-    $scope.showGroup = function(user) {
-        if(user.group && $scope.groups.length) {
-            var selected = $filter('filter')($scope.groups, {id: user.group});
+    $scope.showStatus = function(term) {
+        if(term.status && $scope.statuses.length) {
+            var selected = $filter('filter')($scope.statuses, {id: term.status});
             return selected.length ? selected[0].text : 'Not set';
         } else {
-            return user.groupName || 'Not set';
+            return term.statusName || 'Not set';
         }
     };
 
-    $scope.showStatus = function(user) {
+    $scope.showDescription = function(term) {
         var selected = [];
-        if(user.status) {
-            selected = $filter('filter')($scope.statuses, {value: user.status});
+        if(term.description) {
+            selected = $filter('filter')($scope.descriptions, {value: term.description});
         }
         return selected.length ? selected[0].text : 'Not set';
     };
 
     $scope.checkName = function(data, id) {
         if (id === 2 && data !== 'gt0005') {
-            return "code 2 should be 'gt0005'";
+            return "term 2 should be 'gt0005'";
         }
     };
 
@@ -66,18 +66,18 @@ app.controller('editableRowController', function($scope, $filter, $http) {
         $scope.terms.splice(index, 1);
     };
 
-    // add user
+    // add term
     $scope.addUser = function() {
         $scope.inserted = {
             id: $scope.terms.length+1,
             code: '',
-            status: null,
-            group: null
+            description: null,
+            status: null
         };
         $scope.terms.push($scope.inserted);
     };
 });
 
-app.run(function(editableOptions) {
-    editableOptions.theme = 'bs3';
-});
+//app.run(function(editableOptions) {
+//    editableOptions.theme = 'bs3';
+//});

@@ -2,7 +2,7 @@
  * Created by jbarros on 23/02/2015.
  */
 
-app.controller('Html5InputsCtrl', function($scope) {
+app.controller('Html5InputsController', function($scope) {
     $scope.guideline = {
         email: 'email@example.com',
         tel: '123-45-67',

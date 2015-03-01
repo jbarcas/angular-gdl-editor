@@ -2,7 +2,7 @@
  * Created by jbarros on 22/02/2015.
  */
 
-app.controller('dragDropController', function($scope) {
+app.controller('DragDropController', function($scope) {
 
     $scope.centerAnchor = true;
     $scope.toggleCenterAnchor = function () {$scope.centerAnchor = !$scope.centerAnchor}

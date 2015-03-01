@@ -2,7 +2,7 @@
  * Created by jbarros on 22/02/2015.
  */
 
-app.controller('restController', function($scope, $http) {
+app.controller('RestController', function($scope, $http) {
 
     $scope.formData = {};
 

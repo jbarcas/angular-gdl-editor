@@ -753,7 +753,7 @@ function($parse, $compile, editableThemes, $rootScope, $document, editableContro
             hasForm = true;
           } else { // form exists below or not exist at all: check document.forms
             for(var i=0; i<$document[0].forms.length;i++){
-              if($document[0].forms[i].code === attrs.eForm) {
+              if($document[0].forms[i].name === attrs.eForm) {
                 // form is below and not processed yet
                 eFormCtrl = null;
                 hasForm = true;
@@ -977,7 +977,7 @@ angular.module('xeditable').factory('editableFormController',
         //activate by name
         if (angular.isString(name)) {
           for(i=0; i<this.$editables.length; i++) {
-            if (this.$editables[i].code === name) {
+            if (this.$editables[i].name === name) {
               this.$editables[i].activate();
               return;
             }
@@ -1058,7 +1058,7 @@ angular.module('xeditable').factory('editableFormController',
      */
     $setError: function(name, msg) {
       angular.forEach(this.$editables, function(editable) {
-        if(!name || editable.code === name) {
+        if(!name || editable.name === name) {
           editable.setError(msg);
         }
       });
