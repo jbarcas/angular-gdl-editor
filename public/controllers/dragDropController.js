@@ -6,7 +6,7 @@ app.controller('DragDropController', function($scope) {
 
     $scope.centerAnchor = true;
     $scope.toggleCenterAnchor = function () {$scope.centerAnchor = !$scope.centerAnchor}
-    $scope.draggableObjects = [{name:'one'}, {name:'two'}, {name:'three'}];
+    $scope.draggableObjects = [{name:'one'}, {name:'two'}, {name:'three'}, {name:'four'}, {name:'five'}, {name:'six'}];
     $scope.droppedObjects1 = [];
     $scope.droppedObjects2= [];
     $scope.onDropComplete1=function(data,evt){

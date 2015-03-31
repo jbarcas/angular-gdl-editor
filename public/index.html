@@ -153,6 +153,75 @@
                     </div>
                 </div>
             </tab>
+            <tab heading="Multi-select">
+                <br>
+                <div class="container" ng-controller="FormController">
+                    <div class="jumbotron text-center">
+                        <h2>Angular Checkboxes and Radio Buttons</h2>
+                    </div>
+                    <form>
+                        <!-- NAME INPUT -->
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" class="form-control" name="name" ng-model="formData.name">
+                        </div>
+                        <br>
+                        <!-- MULTIPLE CHECKBOXES -->
+                        <label>ICD10 codes</label>
+                        <div class="form-group">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="codes" ng-model="formData.codes.headache"> Headache (R51)
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="codes" ng-model="formData.codes.cholera"> Cholera (A00)
+                            </label>
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="codes" ng-model="formData.codes.diphtheria"> Diphtheria (A36)
+                            </label>
+                        </div>
+                        <br>
+                        <!-- CUSTOM VALUE CHECKBOXES -->
+                        <label>Personal Question</label>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="awesome" ng-model="formData.awesome" ng-true-value="'ofCourse'" ng-false-value="'iWish'">
+                                Are you awesome?
+                            </label>
+                        </div>
+                        <br>
+                        <!-- RADIO BUTTONS -->
+                        <label>Terminology:</label>
+                        <div class="form-group">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="terminology" value="SNOMED-CT" ng-model="formData.terminology">
+                                    SNOMED-CT
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="terminology" value="ICD10" ng-model="formData.terminology">
+                                    ICD10
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="terminology" value="ICPC-2" ng-model="formData.terminology">
+                                    ICPC-2
+                                </label>
+                            </div>
+                        </div>
+                        <!-- SUBMIT BUTTON (DOESNT DO ANYTHING) -->
+                        <button type="submit" class="btn btn-primary btn-lg">Send</button>
+
+                    </form>
+                    <!-- SHOW OFF OUR FORMDATA OBJECT -->
+                    <h2>Sample Form Object</h2>
+                    <pre>
+                        {{ formData }}
+                    </pre>
+                </div>
+            </tab>
             <tab heading="Description">
                 <br>
                 <div class="container" ng-controller="Html5InputsController">
@@ -202,6 +271,7 @@
     <script type="text/javascript" src="controllers/tabsController.js"></script>
     <script type="text/javascript" src="controllers/dragDropController.js"></script>
     <script type="text/javascript" src="controllers/html5InputsController.js"></script>
+    <script type="text/javascript" src="controllers/formController.js"></script>
 
 </body>
 </html>
