@@ -1,0 +1,10 @@
+<div class="ngdialog-content">
+    <h1>Rule name</h1>
+    <p>External scope: <code>{{$parent.value}}</code></p>
+    <p>Name:</p>
+    <input type="text" class="form-control" name="name" ng-model="$parent.value.name">
+</div>
+<div class="ngdialog-buttons">
+    <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="clickToClose()">Accept</button>
+    <button type="button" class="ngdialog-button ngdialog-button-secondary" ng-click="clickToClose()" >Cancel</button>
+</div>

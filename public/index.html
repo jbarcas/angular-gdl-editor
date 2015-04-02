@@ -15,6 +15,9 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/ng-draggable.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/xeditable.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/ngDialog.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/ngDialog-theme-default.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/ngDialog-theme-plain.css">
     <style>
         html                    { overflow-y:scroll; }
         body                    { padding-top:50px; }
@@ -222,6 +225,19 @@
                     </pre>
                 </div>
             </tab>
+            <tab heading="Dialog">
+                <br>
+                <div class="container" ng-controller="DialogController">
+                    <div class="jumbotron text-center">
+                        <h2>Angular Dialog</h2>
+                    </div>
+                    <h2>Sample Dialog Object</h2>
+                    <pre>
+                        {{ value }}
+                    </pre>
+                    <button type="submit" class="btn btn-primary btn-lg" ng-click="clickToOpen()">Open pop-up</button>
+                </div>
+            </tab>
             <tab heading="Description">
                 <br>
                 <div class="container" ng-controller="Html5InputsController">
@@ -265,6 +281,7 @@
     <script type="text/javascript" src="javascripts/xeditable.js"></script>
     <script type="text/javascript" src="javascripts/ui-bootstrap-tpls-0.12.0.js"></script>
     <script type="text/javascript" src="javascripts/ngDraggable.js"></script>
+    <script type="text/javascript" src="javascripts/ngDialog.js"></script>
     <!-- Load the controllers -->
     <script type="text/javascript" src="controllers/editableRowController.js"></script>
     <script type="text/javascript" src="controllers/restController.js"></script>
@@ -272,6 +289,7 @@
     <script type="text/javascript" src="controllers/dragDropController.js"></script>
     <script type="text/javascript" src="controllers/html5InputsController.js"></script>
     <script type="text/javascript" src="controllers/formController.js"></script>
+    <script type="text/javascript" src="controllers/dialogController.js"></script>
 
 </body>
 </html>

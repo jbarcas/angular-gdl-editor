@@ -3,5 +3,5 @@
  */
 
 
-app = angular.module('angularGDLEditor', ['ui.bootstrap', 'ngDraggable', 'xeditable']);
+app = angular.module('angularGDLEditor', ['ui.bootstrap', 'ngDraggable', 'xeditable', 'ngDialog']);
 
