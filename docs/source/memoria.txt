@@ -1,0 +1,126 @@
+Editor de guías clínicas GDL
+============================
+Jesus Barros <j.barros@udc.es>
+v0.0.1, April 2015: Initial skeleton
+
+
+Introducción
+------------
+Nec vitae mus fringilla eu vel pede sed pellentesque. Nascetur fugiat
+nobis. Eu felis id mauris sollicitudin ut. Sem volutpat feugiat.
+Ornare convallis urna vitae.
+
+Nec mauris sed aliquam nam mauris dolor lorem imperdiet.
+
+Contextualización
+~~~~~~~~~~~~~~~~~
+Text.
+
+Objetivos
+~~~~~~~~~
+Text.
+
+
+Fundamentos tecnológicos
+------------------------
+Ut suspendisse nulla. Auctor felis facilisis. Rutrum vivamus nec
+lectus porttitor dui dapibus eu ridiculus tempor sodales et. Sit a
+cras. Id tellus cubilia erat.
+
+Quisque nullam et. Blandit dui tempor. Posuere in elit diam egestas
+sem vivamus vel ac.
+
+
+Estado del arte
+---------------
+Aquí el estado de la cuestión
+
+
+Métodos
+-------
+Text.
+
+
+Desarrollo
+----------
+Text
+
+Iteración 1
+~~~~~~~~~~~
+Text iteración 1
+
+Análisis
+^^^^^^^^
+Texto análisis iteración 1
+
+Diseño
+^^^^^^
+Texto diseño iteración 1
+
+Implementación
+^^^^^^^^^^^^^^
+Texto implementación iteración 1
+
+Pruebas
+^^^^^^^
+Texto pruebas iteración 1
+
+Iteración 2
+~~~~~~~~~~~
+Texto análisis iteración 2
+
+Análisis
+^^^^^^^^
+Texto análisis iteración 2
+
+Diseño
+^^^^^^
+Texto diseño iteración 2
+
+Implementación
+^^^^^^^^^^^^^^
+Texto implementación iteración 1
+
+Pruebas
+^^^^^^^
+Texto pruebas iteración 2
+
+
+Implantación y seguimiento (si corresponde)
+-------------------------------------------
+Texto implantación y seguimiento
+
+
+Planificación y costes (planificación inicial vs. final)
+--------------------------------------------------------
+Texto planificacion y costes
+
+
+Resultados y discusión
+----------------------
+Texto resultados y discusión
+
+
+Conclusiones
+------------
+Texto conclusiones
+
+
+Futuros trabajos
+----------------
+Texto futuros trabajos
+
+
+Material utilizado
+------------------
+Texto material utilizado
+
+
+Bibliografía
+------------
+Bibliografía
+
+
+Anexos
+------
+Anexos
