@@ -1,8 +1,10 @@
 <div class="ngdialog-content">
-    <h1>Rule name</h1>
-    <p>External scope: <code>{{$parent.value}}</code></p>
-    <p>Name:</p>
-    <input type="text" class="form-control" name="name" ng-model="$parent.value.name">
+    <div class="container" ng-controller="TreeController" id="gdlEditorTree">
+        <h2>ICD 10</h2>
+<!--    <input type="text" id="gdlEditorFilter" placeholder="search"> -->
+        <js-tree tree-plugins="checkbox,search" tree-data="json" tree-src="../jstree/data/tree-json.json"></js-tree>
+
+    </div>
 </div>
 <div class="ngdialog-buttons">
     <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="clickToClose()">Accept</button>

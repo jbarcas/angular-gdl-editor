@@ -1,0 +1,44 @@
+[
+  {
+    "id": "A00",
+    "parent": "#",
+    "text": "Cholera (A00)"
+  }, {
+    "id": "A01",
+    "parent": "#",
+    "text": "Typhoid and paratyphoid fevers (A01)"
+  }, {
+    "id": "A000",
+    "parent": "A00",
+    "text": "Type of cholera #1 (A000)"
+  }, {
+    "id": "A001",
+    "parent": "A00",
+    "text": "Type of cholera #1 (A001)"
+  },
+  {
+    "id": "A010",
+    "parent": "A01",
+    "text": "Typhoid fever (A010)"
+  },
+  {
+    "id": "A011",
+    "parent": "A01",
+    "text": "Paratyphoid fever A (A011)"
+  },
+  {
+    "id": "A012",
+    "parent": "A01",
+    "text": "Paratyphoid fever B (A012)"
+  },
+  {
+    "id": "A013",
+    "parent": "A01",
+    "text": "Paratyphoid fever C (A013)"
+  },
+  {
+    "id": "A02",
+    "parent": "#",
+    "text": "Salmonella infections (A02)"
+  }
+]
