@@ -12,18 +12,13 @@
 
     <!-- SCROLLS -->
     <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"><!-- load bootstrap -->
-    <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
-    <link rel="stylesheet" type="text/css" href="stylesheets/ng-draggable.css">
-    <link rel="stylesheet" type="text/css" href="stylesheets/xeditable.css">
-    <link rel="stylesheet" type="text/css" href="stylesheets/ngDialog.css">
-    <link rel="stylesheet" type="text/css" href="stylesheets/ngDialog-theme-default.css">
-    <link rel="stylesheet" type="text/css" href="stylesheets/ngDialog-theme-plain.css">
-    <link rel="stylesheet" type="text/css" href="stylesheets/themes/default/style.min.css">
-    <style>
-        html                    { overflow-y:scroll; }
-        body                    { padding-top:50px; }
-        #guide-list             { margin-bottom:30px; }
-    </style>
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css">                    <!-- editable -->
+    <link rel="stylesheet" type="text/css" href="stylesheets/xeditable.css">                <!-- Grid -->
+    <link rel="stylesheet" type="text/css" href="stylesheets/ngDialog.css">                 <!-- Dialog -->
+    <link rel="stylesheet" type="text/css" href="stylesheets/ngDialog-theme-default.css">   <!-- Dialog -->
+    <link rel="stylesheet" type="text/css" href="stylesheets/ngDialog-theme-plain.css">     <!-- Dialog -->
+    <link rel="stylesheet" type="text/css" href="stylesheets/themes/default/style.min.css"> <!-- jsTree theme -->
+    <link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/cupertino/jquery-ui.css"> <!-- jQuery UI -->
 
 </head>
 <!-- SET THE CONTROLLER AND GET ALL GUIDES -->
@@ -124,39 +119,50 @@
                     <button class="btn btn-default" ng-click="addUser()">Add local term</button>
                 </div>
             </tab>
+
+
             <tab heading="Drag&drop">
                 <br>
                 <div class="container" ng-controller="DragDropController">
                     <div class="jumbotron text-center">
-                        <h2>Drag&Drop - Dropped elements 1: <span class="label label-info"> {{droppedObjects1.length}} </span> 2: <span class="label label-info"> {{droppedObjects2.length}} </span></h2>
+                        <h2>Drag&Drop</h2>
                     </div>
-
-                    <ul class="draggable-objects">
-                        <li  ng-repeat="obj in draggableObjects" >
-                            <div ng-drag="true" ng-drag-data="obj"> {{obj.name}} </div>
-                        </li>
-                    </ul>
-
-                    <hr/>
-                    <div ng-drop="true" ng-drop-success="onDropComplete1($data,$event)">
-                        <span class="title">Drop area #1</span>
-
-                        <div ng-repeat="obj in droppedObjects1" ng-drag="true" ng-drag-data="obj" ng-drag-success="onDragSuccess1($data,$event)" ng-center-anchor="{{centerAnchor}}">
-                            {{obj.name}}
+                    <div class="btn btn-primary level-1" data-drag="true" data-jqyoui-options="{revert: 'invalid'}"
+                         ng-model="list1" jqyoui-draggable="{animate:false}" ng-hide="!list1.title">{{list1.title}}
+                    </div>
+                    <div class="btn btn-primary level-2" data-drag="true" data-jqyoui-options="{revert: 'invalid'}"
+                         ng-model="list2" jqyoui-draggable="{animate:true}" ng-hide="!list2.title">{{list2.title}}
+                    </div>
+                    <div class="btn btn-primary level-2" data-drag="true" data-jqyoui-options="{revert: 'invalid'}"
+                         ng-model="list3" jqyoui-draggable="{animate:true}" ng-hide="!list3.title">{{list3.title}}
+                    </div>
+                    <br><br>
+                    <div class="thumbnail" data-drop="{{list4.drag}}" data-jqyoui-options="{accept: '.level-1'}"
+                         ng-model="list4" jqyoui-droppable="{onDrop:'dropCallback(list4)'}" style="min-height:200px;">
+                        Definitions
+                        <div class="thumbnail" data-drop="{{list4.drag}}" data-jqyoui-options="{accept: '.level-2'}"
+                             ng-model="list4" jqyoui-droppable="{onDrop:'dropCallback(list4)'}" ng-if="list4.title"
+                             style="height:auto;width:300px;background-color: lightgrey">
+                            {{list4.title}}
+                            <div class="thumbnail" data-drop="true" data-jqyoui-options="{accept: '.level-2'}"
+                                 ng-model="list5" jqyoui-droppable="{}" style="height:80px;">
+                                <div class="btn btn-success" ng-repeat="item in list5" ng-hide="!item.title">
+                                    {{item.title}}
+                                </div>
+                            </div>
                         </div>
-
                     </div>
-
-                    <div ng-drop="true" ng-drop-success="onDropComplete2($data,$event)">
-                        <span class="title">Drop area #2</span>
-
-                        <div ng-repeat="obj in droppedObjects2" ng-drag="true" ng-drag-data="obj" ng-drag-success="onDragSuccess2($data,$event)" ng-center-anchor="{{centerAnchor}}">
-                            {{obj.name}}
-                        </div>
-
-                    </div>
+                    <pre>
+                        list 1: {{list1}}
+                        list 2: {{list2}}
+                        list 3: {{list3}}
+                        list 4: {{list4}}
+                        list 5: {{list5}}
+                        dropVar: {{drop}}
+                    </pre>
                 </div>
             </tab>
+
             <tab heading="Multi-select">
                 <br>
                 <div class="container" ng-controller="FormController">
@@ -274,26 +280,28 @@
     </div>
 
     <!-- SPELLS -->
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> <!--load jQuery-->
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>       <!--load jQuery-->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script> <!--load jQuery UI-->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.min.js"></script>  <!--load AngularJS-->
     <!-- Load the AngularGDLEditor module -->
     <script type="text/javascript" src="app.module.js"></script>
     <!-- Load the javascript files -->
-    <script type="text/javascript" src="javascripts/xeditable.js"></script>
-    <script type="text/javascript" src="javascripts/ui-bootstrap-tpls-0.12.0.js"></script>
-    <script type="text/javascript" src="javascripts/ngDraggable.js"></script>
-    <script type="text/javascript" src="javascripts/ngDialog.js"></script>
-    <script type="text/javascript" src="javascripts/jstree.js"></script>
-    <script type="text/javascript" src="javascripts/jsTree.directive.js"></script>
+    <script type="text/javascript" src="javascripts/xeditable.js"></script>                <!-- Grid -->
+    <!--<script type="text/javascript" src="javascripts/ui-bootstrap-tpls-0.12.0.js"></script>--> <!-- Angular UI bootstrap (Grid) -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.0/ui-bootstrap-tpls.min.js"></script>
+    <script type="text/javascript" src="javascripts/ngDialog.js"></script>                 <!-- Dialog -->
+    <script type="text/javascript" src="javascripts/jstree.js"></script>                   <!-- Tree -->
+    <script type="text/javascript" src="javascripts/jsTree.directive.js"></script>         <!-- Tree -->
+    <script type="text/javascript" src="javascripts/angular-dragdrop.min.js"></script>     <!-- Drag and drop -->
     <!-- Load the controllers -->
     <script type="text/javascript" src="controllers/editableRowController.js"></script>
     <script type="text/javascript" src="controllers/restController.js"></script>
     <script type="text/javascript" src="controllers/tabsController.js"></script>
-    <script type="text/javascript" src="controllers/dragDropController.js"></script>
-    <script type="text/javascript" src="controllers/html5InputsController.js"></script>
     <script type="text/javascript" src="controllers/formController.js"></script>
     <script type="text/javascript" src="controllers/dialogController.js"></script>
     <script type="text/javascript" src="controllers/treeController.js"></script>
+    <script type="text/javascript" src="controllers/html5InputsController.js"></script>
+    <script type="text/javascript" src="controllers/dragDropController.js"></script>
 
 </body>
 </html>
