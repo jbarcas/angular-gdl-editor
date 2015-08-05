@@ -6,7 +6,7 @@ $(function() {
     $("#catalog").accordion();
 });
 
-app.controller('DragDropController', function($scope) {
+app.controller('DragDropCtrl', function($scope) {
 
     $scope.drop = true;
 

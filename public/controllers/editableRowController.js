@@ -2,7 +2,7 @@
  * Created by jbarros on 22/02/2015.
  */
 
-app.controller('EditableRowController', function($scope, $filter, $http) {
+app.controller('EditableRowCtrl', function($scope, $filter, $http) {
 
     $scope.terms = [
         {id: 1, code: 'gt0001', description: 2, status: 4, statusName: 'status 4'},

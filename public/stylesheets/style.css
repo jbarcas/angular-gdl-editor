@@ -20,3 +20,7 @@ a.editable-click:hover {
     color: #47a447;
     border-bottom-color: #47a447;
 }
+
+.inline {
+    display: flex;
+}

@@ -2,13 +2,13 @@
  * Created by jbarros on 01/04/2015.
  */
 
-app.controller('DialogController', function($scope, ngDialog) {
+app.controller('DialogCtrl', function($scope, ngDialog) {
 
     $scope.clickToOpen = function () {
         ngDialog.open({
-            template: '../dialogTemplate.html',
+            template: '../views/dialogTemplate.html',
             className: 'ngdialog-theme-default',
-            controller: 'TemplateController',
+            controller: 'TemplateCtrl',
             scope: $scope
         });
     };
@@ -17,7 +17,7 @@ app.controller('DialogController', function($scope, ngDialog) {
     }
 });
 
-app.controller('TemplateController', function($scope, ngDialog) {
+app.controller('TemplateCtrl', function($scope, ngDialog) {
 
     $scope.$parent.value = {name: 'CHA2DS2VASc_Score_calculation.v1'};
 

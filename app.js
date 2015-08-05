@@ -136,8 +136,10 @@ app.get('*', function(req, res) {
 })
 
 // Listens on port 8080 and runs the server
-app.listen(8080, function() {
-    console.log('App listening on port 8080');
+app.listen(8081, function() {
+    console.log('App listening on port 8081');
 })
 
 module.exports = app;
+
+

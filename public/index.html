@@ -1,321 +1,69 @@
-<!-- index.html -->
 <!DOCTYPE html>
+<html ng-app="GDLEditor">
+    <head>
+        <!-- META -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
+        <title>Node/Angular GDL Editor App</title>
+        <!-- SCROLLS -->
+        <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"><!-- load bootstrap -->
+        <link rel="stylesheet" type="text/css" href="stylesheets/style.css">                    <!-- editable -->
+        <link rel="stylesheet" type="text/css" href="stylesheets/xeditable.css">                <!-- Grid -->
+        <link rel="stylesheet" type="text/css" href="stylesheets/ngDialog.css">                 <!-- Dialog -->
+        <link rel="stylesheet" type="text/css" href="stylesheets/ngDialog-theme-default.css">   <!-- Dialog -->
+        <link rel="stylesheet" type="text/css" href="stylesheets/ngDialog-theme-plain.css">     <!-- Dialog -->
+        <link rel="stylesheet" type="text/css" href="stylesheets/themes/default/style.min.css"> <!-- jsTree theme -->
+        <link rel="stylesheet" type="text/css" href="stylesheets/dragDrop.css">                 <!-- drag and drop css-->
+        <link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/cupertino/jquery-ui.css"> <!-- jQuery UI -->
+    </head>
 
-<!-- ASSIGN OUR ANGULAR MODULE -->
-<html ng-app="angularGDLEditor">
-<head>
-    <!-- META -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
-
-    <title>Node/Angular GDL Editor App</title>
-
-    <!-- SCROLLS -->
-    <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"><!-- load bootstrap -->
-    <link rel="stylesheet" type="text/css" href="stylesheets/style.css">                    <!-- editable -->
-    <link rel="stylesheet" type="text/css" href="stylesheets/xeditable.css">                <!-- Grid -->
-    <link rel="stylesheet" type="text/css" href="stylesheets/ngDialog.css">                 <!-- Dialog -->
-    <link rel="stylesheet" type="text/css" href="stylesheets/ngDialog-theme-default.css">   <!-- Dialog -->
-    <link rel="stylesheet" type="text/css" href="stylesheets/ngDialog-theme-plain.css">     <!-- Dialog -->
-    <link rel="stylesheet" type="text/css" href="stylesheets/themes/default/style.min.css"> <!-- jsTree theme -->
-    <link rel="stylesheet" type="text/css" href="stylesheets/dragDrop.css">                 <!-- drag and drop css-->
-    <link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/cupertino/jquery-ui.css"> <!-- jQuery UI -->
-
-</head>
-<!-- SET THE CONTROLLER AND GET ALL GUIDES -->
-<body>
-    <div ng-controller="TabsController">
-        <h2>GDL Editor: Tabs</h2>
-        <p>Select a tab by setting active binding to true:</p>
-        <p>
-            <button class="btn btn-default btn-sm" ng-click="tabs[0].active = true">Select Definitions</button>
-            <button class="btn btn-default btn-sm" ng-click="tabs[1].active = true">Select Rule list</button>
-            <button class="btn btn-default btn-sm" ng-click="tabs[3].active = true">Select Terminology</button>
-        </p>
-        <p>
-            <button class="btn btn-default btn-sm" ng-click="tabs[2].disabled = ! tabs[2].disabled">Enable / Disable Preconditions</button>
-        </p>
-        <hr />
-
-        <tabset>
-            <tab heading="REST test">
-                <div ng-controller="RestController" class="container">
-                    <br>
-                    <!-- HEADER AND GUIDE COUNT -->
+    <body>
+        <div class="page-header">
+            <h1>GDL Editor <small> Guideline Definition Language</small></h1>
+        </div>
+        <div class="inline" ng-controller="RestController">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Guidelines</h3>
+                </div>
+                <div class="panel-body">
                     <div class="jumbotron text-center">
                         <h2>Guideline counter <span class="label label-info">{{ guides.length }}</span></h2>
                     </div>
-
-                    <!-- GUIDE LIST -->
-                    <div id="guide-list" class="row">
-                        <div class="col-sm-4 col-sm-offset-4">
-
-                            <!-- LOOP OVER THE GUIDES IN $scope.guides -->
-                            <div class="checkbox" ng-repeat="guide in guides">
-                                <label>
-                                    <input type="checkbox" ng-click="deleteGuide(guide._id)"> {{ guide.name }}
-                                </label>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <!-- FORM TO CREATE GUIDES -->
-                    <div id="guide-form" class="row">
-                        <div class="col-sm-8 col-sm-offset-2 text-center">
-                            <form>
-                                <div class="form-group">
-                                    <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
-                                    <input type="text" class="form-control input-lg text-center" placeholder="Insert guide name" ng-model="formData.name">
-                                </div>
-
-                                <!-- createGuide() WILL CREATE NEW GUIDES -->
-                                <button type="submit" class="btn btn-primary btn-lg" ng-click="createGuide()">Add GDL guide</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </tab>
-            <tab heading="Grid">
-                <br>
-                <div ng-controller="EditableRowController" class="container">
-                    <!-- HEADER AND GUIDE COUNT -->
-                    <div class="jumbotron text-center">
-                        <h2>Editable grid - Elements: <span class="label label-info"> {{terms.length}} </span></h2>
-                    </div>
-                    <table class="table table-bordered table-hover table-condensed table-striped">
-                        <tr style="font-weight: bold">
-                            <td style="width:15%">Code</td>
-                            <td style="width:40%">Description</td>
-                            <td style="width:20%">Status</td>
-                            <td style="width:25%">Edit</td>
-                        </tr>
-                        <tr ng-repeat="term in terms">
-                            <td>
-                                <!-- editable term (text with validation) -->
-                                <span editable-text="term.code" e-name="code" e-form="rowform" onbeforesave="checkName($data, term.id)" e-required>{{ term.code || 'empty' }}</span>
-                            </td>
-                            <td>
-                                <!-- editable description (select-local) -->
-                                <span editable-select="term.description" e-name="description" e-form="rowform" e-ng-options="s.value as s.text for s in descriptions">{{ showDescription(term) }}</span>
-                            </td>
-                            <td>
-                                <!-- editable status (select-remote) -->
-                                <span editable-select="term.status" e-name="status" onshow="loadStatuses()" e-form="rowform" e-ng-options="g.id as g.text for g in statuses">{{ showStatus(term) }}</span>
-                            </td>
-                            <td style="white-space: nowrap">
-                                <!-- form -->
-                                <form editable-form name="rowform" onbeforesave="saveUser($data, term.id)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == term">
-                                    <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">save</button>
-                                    <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">cancel</button>
-                                </form>
-                                <div class="buttons" ng-show="!rowform.$visible">
-                                    <button class="btn btn-primary" ng-click="rowform.$show()">edit</button>
-                                    <button class="btn btn-danger" ng-click="removeUser($index)">del</button>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-
-                    <button class="btn btn-default" ng-click="addUser()">Add local term</button>
-                </div>
-            </tab>
-
-
-            <tab heading="Drag&drop">
-                <br>
-
-                <div class="container" ng-controller="DragDropController">
-                    <div class="jumbotron text-center">
-                        <h2>Drag&Drop</h2>
-                    </div>
-
-                    <div class="row">
-
-                        <!-- Left panel -->
-                        <div class="thumbnail col-left" data-drop="{{true}}" data-jqyoui-options="{accept: '.level-1'}" ng-model="list2" jqyoui-droppable="{onDrop:'dropCallback(list2)'}">
-                            Definitions
-                            <div class="thumbnail" data-drop="{{list2.drag}}" data-jqyoui-options="{accept: '.level-2'}" ng-model="list2" jqyoui-droppable="{onDrop:'dropCallback(list2)'}" ng-if="list2.title" style="height:auto;width:300px;background-color: lightgrey">
-                                {{list2.title}}
-                                <div class="thumbnail" data-drop="true" data-jqyoui-options="{accept: '.level-2'}" ng-model="list3" jqyoui-droppable="{}" style="min-height:90px;">
-                                    <div class="btn btn-success btn-block" data-drag="true" jqyoui-draggable="{animate: true}" data-jqyoui-options="{revert: 'invalid'}" ng-repeat="item in list3 track by $index" >
-                                        {{item.title}} {{$index}}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Right panel -->
-                        <div class="well col-right">
-                            Definitions
-                            <div class="btn btn-droppable" ng-repeat="item in list0" data-drop="true" ng-model='list0' data-jqyoui-options="{accept:'.btn-draggable:not([ng-model=list0])'}"  jqyoui-droppable="{index: {{$index}}}" >
-                                <div class="btn btn-primary level-1" data-drag="true"
-                                     data-jqyoui-options="{revert: 'invalid', helper: 'clone'}"
-                                     ng-model="list0" jqyoui-draggable="{index: {{$index}}, placeholder: 'keep'}"
-                                     ng-show="item.title">{{item.title}}
-                                </div>
-                            </div>
-                            <div class="btn btn-droppable" ng-repeat="item in list1" data-drop="true" ng-model='list1' data-jqyoui-options="{accept:'.btn-draggable:not([ng-model=list1])'}"  jqyoui-droppable="{index: {{$index}}}" >
-                                <div class="btn btn-primary level-2" data-drag="true"
-                                     data-jqyoui-options="{revert: 'invalid', helper: 'clone'}"
-                                     ng-model="list1" jqyoui-draggable="{index: {{$index}}, placeholder: 'keep'}"
-                                     ng-show="item.title">{{item.title}}
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-
-                    <pre>
-                        list 0: {{list0}}
-                        list 1: {{list1}}
-                        list 2: {{list2}}
-                        list 3: {{list3}}
-                        dropVar: {{drop}}
-                    </pre>
-                </div>
-            </tab>
-
-            <tab heading="Multi-select">
-                <br>
-                <div class="container" ng-controller="FormController">
-                    <div class="jumbotron text-center">
-                        <h2>Angular Checkboxes and Radio Buttons</h2>
-                    </div>
-                    <form>
-                        <!-- NAME INPUT -->
-                        <div class="form-group">
-                            <label>Name</label>
-                            <input type="text" class="form-control" name="name" ng-model="formData.name">
-                        </div>
-                        <br>
-                        <!-- MULTIPLE CHECKBOXES -->
-                        <label>ICD10 codes</label>
-                        <div class="form-group">
-                            <label class="checkbox-inline">
-                                <input type="checkbox" name="codes" ng-model="formData.codes.headache"> Headache (R51)
-                            </label>
-                            <label class="checkbox-inline">
-                                <input type="checkbox" name="codes" ng-model="formData.codes.cholera"> Cholera (A00)
-                            </label>
-                            <label class="checkbox-inline">
-                                <input type="checkbox" name="codes" ng-model="formData.codes.diphtheria"> Diphtheria (A36)
-                            </label>
-                        </div>
-                        <br>
-                        <!-- CUSTOM VALUE CHECKBOXES -->
-                        <label>Personal Question</label>
-                        <div class="checkbox">
+                    <div class="form-group">
+                        <div class="radio" ng-repeat="guide in guides">
                             <label>
-                                <input type="checkbox" name="awesome" ng-model="formData.awesome" ng-true-value="'ofCourse'" ng-false-value="'iWish'">
-                                Are you awesome?
+                                <input type="radio" ng-click="showGuide(guide)" name="guide-name" value="guide">{{ guide }}
                             </label>
                         </div>
-                        <br>
-                        <!-- RADIO BUTTONS -->
-                        <label>Terminology:</label>
-                        <div class="form-group">
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="terminology" value="SNOMED-CT" ng-model="formData.terminology">
-                                    SNOMED-CT
-                                </label>
-                            </div>
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="terminology" value="ICD10" ng-model="formData.terminology">
-                                    ICD10
-                                </label>
-                            </div>
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="terminology" value="ICPC-2" ng-model="formData.terminology">
-                                    ICPC-2
-                                </label>
-                            </div>
-                        </div>
-                        <!-- SUBMIT BUTTON (DOESNT DO ANYTHING) -->
-                        <button type="submit" class="btn btn-primary btn-lg">Send</button>
-
-                    </form>
-                    <!-- SHOW OFF OUR FORMDATA OBJECT -->
-                    <h2>Sample Form Object</h2>
-                    <pre>
-                        {{ formData }}
-                    </pre>
-                </div>
-            </tab>
-            <tab heading="Dialog">
-                <br>
-                <div class="container" ng-controller="DialogController">
-                    <div class="jumbotron text-center">
-                        <h2>Angular Dialog</h2>
                     </div>
-<!--                <h2>Sample Dialog Object</h2>
-                    <pre>
-                        {{ value }}
-                    </pre> -->
-                    <button type="submit" class="btn btn-primary btn-lg" ng-click="clickToOpen()">Open pop-up</button>
                 </div>
-            </tab>
-            <tab heading="Description">
-                <br>
-                <div class="container" ng-controller="Html5InputsController">
-                    <div class="jumbotron text-center">
-                        <h2>Basic information about the guideline.</h2>
-                    </div>
-                    <div>Email: <a href="#" editable-email="guideline.email">{{ guideline.email || 'empty' }}</a></div>
-                    <div>Tel: <a href="#" editable-tel="guideline.tel" e-pattern="\d{3}\-\d{2}\-\d{2}" e-title="xxx-xx-xx">{{ guideline.tel || 'empty' }}</a></div>
-                    <div>Number: <a href="#" editable-number="guideline.number" e-min="18">{{ guideline.number || 'empty' }}</a></div>
-                    <div>Range: <a href="#" editable-range="guideline.range" e-step="5">{{ guideline.range || 'empty' }}</a></div>
-                    <div>Url: <a href="#" editable-url="guideline.url">{{ guideline.url || 'empty' }}</a></div>
-                    <div>Search: <a href="#" editable-search="guideline.search">{{ guideline.search || 'empty' }}</a></div>
-                    <div>Color: <a href="#" editable-color="guideline.color">{{ guideline.color || 'empty' }}</a></div>
-                    <div>Date: <a href="#" editable-date="guideline.date">{{ guideline.date || 'empty' }}</a></div>
-                    <div>Time: <a href="#" editable-time="guideline.time">{{ guideline.time || 'empty' }}</a></div>
-                    <div>Datetime: <a href="#" editable-datetime="guideline.datetime">{{ guideline.datetime || 'empty' }}</a></div>
-                    <div>Month: <a href="#" editable-month="guideline.month">{{ guideline.month || 'empty' }}</a></div>
-                    <div>Week: <a href="#" editable-week="guideline.week">{{ guideline.week || 'empty' }}</a></div>
-                </div>
-            </tab>
-            <tab ng-repeat="tab in tabs" heading="{{tab.title}}" active="tab.active" disabled="tab.disabled">
-                {{tab.content}}
-            </tab>
-            <tab select="alertMe()">
-                <tab-heading>
-                    <i class="glyphicon glyphicon-bell"></i> Alert!
-                </tab-heading>
-                I've got an HTML heading, and a select callback. Pretty cool!
-            </tab>
-        </tabset>
+            </div>
+            <div class="container-fluid" ui-view></div>
+        </div>
 
-
-    </div>
-
-    <!-- SPELLS -->
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>       <!--load jQuery-->
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script> <!--load jQuery UI-->
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.min.js"></script>  <!--load AngularJS-->
-    <!-- Load the AngularGDLEditor module -->
-    <script type="text/javascript" src="app.module.js"></script>
-    <!-- Load the javascript files -->
-    <script type="text/javascript" src="javascripts/xeditable.js"></script>                <!-- Grid -->
-    <!--<script type="text/javascript" src="javascripts/ui-bootstrap-tpls-0.12.0.js"></script>--> <!-- Angular UI bootstrap (Grid) -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.0/ui-bootstrap-tpls.min.js"></script>
-    <script type="text/javascript" src="javascripts/ngDialog.js"></script>                 <!-- Dialog -->
-    <script type="text/javascript" src="javascripts/jstree.js"></script>                   <!-- Tree -->
-    <script type="text/javascript" src="javascripts/jsTree.directive.js"></script>         <!-- Tree -->
-    <script type="text/javascript" src="javascripts/angular-dragdrop.min.js"></script>     <!-- Drag and drop -->
-    <!-- Load the controllers -->
-    <script type="text/javascript" src="controllers/editableRowController.js"></script>
-    <script type="text/javascript" src="controllers/restController.js"></script>
-    <script type="text/javascript" src="controllers/tabsController.js"></script>
-    <script type="text/javascript" src="controllers/formController.js"></script>
-    <script type="text/javascript" src="controllers/dialogController.js"></script>
-    <script type="text/javascript" src="controllers/treeController.js"></script>
-    <script type="text/javascript" src="controllers/html5InputsController.js"></script>
-    <script type="text/javascript" src="controllers/dragDropController.js"></script>
-
-</body>
+        <!-- SPELLS -->
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>       <!--load jQuery-->
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script> <!--load jQuery UI-->
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.min.js"></script>  <!--load AngularJS-->
+        <!-- Load the Angular GDLEditor module -->
+        <script type="text/javascript" src="app.module.js"></script>
+        <!-- Load the javascript files -->
+        <script type="text/javascript" src="javascripts/xeditable.js"></script>                <!-- Grid -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.0/ui-bootstrap-tpls.min.js"></script> <!-- Angular UI bootstrap (Grid) -->
+        <script type="text/javascript" src="javascripts/ngDialog.js"></script>                 <!-- Dialog -->
+        <script type="text/javascript" src="javascripts/jstree.js"></script>                   <!-- Tree -->
+        <script type="text/javascript" src="javascripts/jsTree.directive.js"></script>         <!-- Tree -->
+        <script type="text/javascript" src="javascripts/angular-dragdrop.min.js"></script>     <!-- Drag and drop -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>    <!-- UI Router -->
+        <!-- Load the controllers -->
+        <script type="text/javascript" src="controllers/editableRowController.js"></script>
+        <script type="text/javascript" src="controllers/restController.js"></script>
+        <script type="text/javascript" src="controllers/formController.js"></script>
+        <script type="text/javascript" src="controllers/dialogController.js"></script>
+        <script type="text/javascript" src="controllers/treeController.js"></script>
+        <script type="text/javascript" src="controllers/html5InputsController.js"></script>
+        <script type="text/javascript" src="controllers/dragDropController.js"></script>
+        <script type="text/javascript" src="controllers/mainController.js"></script>
+    </body>
 </html>

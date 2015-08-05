@@ -1,0 +1,26 @@
+<div class="container" ng-controller="Html5InputsCtrl">
+    <br>
+    <!-- HEADER -->
+    <div class="jumbotron text-center">
+        <h2>Basic information about the guideline.</h2>
+    </div>
+    <div>Email: <a href="#" editable-email="guideline.email">{{ guideline.email || 'empty' }}</a></div>
+    <div>Tel: <a href="#" editable-tel="guideline.tel" e-pattern="\d{3}\-\d{2}\-\d{2}" e-title="xxx-xx-xx">{{ guideline.tel || 'empty' }}</a></div>
+    <div>Number: <a href="#" editable-number="guideline.number" e-min="18">{{ guideline.number || 'empty' }}</a></div>
+    <div>Range: <a href="#" editable-range="guideline.range" e-step="5">{{ guideline.range || 'empty' }}</a></div>
+    <div>Url: <a href="#" editable-url="guideline.url">{{ guideline.url || 'empty' }}</a></div>
+    <div>Search: <a href="#" editable-search="guideline.search">{{ guideline.search || 'empty' }}</a></div>
+    <div>Color: <a href="#" editable-color="guideline.color">{{ guideline.color || 'empty' }}</a></div>
+    <div>Date: <a href="#" editable-date="guideline.date">{{ guideline.date || 'empty' }}</a></div>
+    <div>Time: <a href="#" editable-time="guideline.time">{{ guideline.time || 'empty' }}</a></div>
+    <div>Datetime: <a href="#" editable-datetime="guideline.datetime">{{ guideline.datetime || 'empty' }}</a></div>
+    <div>Month: <a href="#" editable-month="guideline.month">{{ guideline.month || 'empty' }}</a></div>
+    <div>Week: <a href="#" editable-week="guideline.week">{{ guideline.week || 'empty' }}</a></div>
+
+    <div id="foo" class="panel panel-default">
+        <div class="panel-body">
+            Basic panel example
+        </div>
+        <div>This is the left pane of the minimal vertical splitter. Easy, eh?</div>
+    </div>
+</div>
