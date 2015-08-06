@@ -1,0 +1,64 @@
+<div class="container">
+    <br>
+    <!-- HEADER -->
+    <div class="jumbotron text-center">
+        <h2>Guideline: <span class="label label-info">{{checked}}</span></h2>
+    </div>
+    <!-- Guideline name -->
+    <div class="form-group">
+        <label for="guideName">Name:</label>
+        <input type="text" class="form-control" id="guideName" ng-model="guidelineName" placeholder="Guideline name">
+    </div>
+    <!-- Author details -->
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Author details</h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label for="inputAuthorName" class="col-sm-2 control-label">Name</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="inputAuthorName" ng-model="authorName" placeholder="Name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputAuthorEmail" class="col-sm-2 control-label">Email</label>
+                    <div class="col-sm-10">
+                        <input type="email" class="form-control" id="inputAuthorEmail" ng-model="authorEmail" placeholder="Email">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputOrganisation" class="col-sm-2 control-label">Organisation</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="inputOrganisation" ng-model="authorOrganisation" placeholder="Organisation">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputDate" class="col-sm-2 control-label">Date</label>
+                    <div class="col-sm-10">
+                        <input type="date" class="form-control" id="inputDate" ng-model="authorDate">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Authorship lifecycle -->
+    <form role="form">
+        <div class="form-group">
+            <label for="lifecycle">Lifecycle state:</label>
+            <select class="form-control" id="lifecycle" ng-model="lifecycleState" ng-options="lcs.name for lcs in lifecycleStates"/>
+        </div>
+    </form>
+    <!-- Copyright -->
+    <div class="form-group">
+        <label for="copyright">Copyright:</label>
+        <input type="text" class="form-control" id="copyright" ng-model="copyright" placeholder="Copyright">
+    </div>
+
+
+    <div>
+        <pre>{{ currentGuide | json }}</pre>
+    </div>
+
+</div>
