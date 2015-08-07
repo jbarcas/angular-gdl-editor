@@ -55,7 +55,40 @@
         <label for="copyright">Copyright:</label>
         <input type="text" class="form-control" id="copyright" ng-model="copyright" placeholder="Copyright">
     </div>
+    <!-- Keywords -->
+    <div ng-controller="ModalKeywordsCtrl">
+        <div class="inline">
+            <label>Keywords:&nbsp;</label>
+            <a href="#">
+                <img src="../images/add.png" ng-click="open('sm')">
+            </a>
+        </div>
+        <ul ui-sortable class="list-group" ng-model="keywords">
+            <li class="list-group-item" ng-repeat="keyword in keywords">
+                <a href="#">
+                    <img src="../images/delete.png" ng-click="removeKeyword(this.keyword)">
+                </a>&nbsp;{{keyword}}
+            </li>
+        </ul>
+    </div>
 
+    <!-- Other contributors -->
+
+    <div ng-controller="ModalContributorsCtrl">
+        <div class="inline">
+            <label>Other contributors:&nbsp;</label>
+            <a href="#">
+                <img src="../images/add.png" ng-click="open('sm')">
+            </a>
+        </div>
+        <ul ui-sortable class="list-group" ng-model="otherContributors">
+            <li class="list-group-item" ng-repeat="otherContributor in otherContributors">
+                <a href="#">
+                    <img src="../images/delete.png" ng-click="removeOtherContributor(this.otherContributor)">
+                </a>&nbsp;{{otherContributor}}
+            </li>
+        </ul>
+    </div>
 
     <div>
         <pre>{{ currentGuide | json }}</pre>

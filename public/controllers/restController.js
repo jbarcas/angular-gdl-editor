@@ -22,6 +22,7 @@ app.controller('RestController', function($scope, guideFactory, language) {
     ];
 
     $scope.lifecycleState = $scope.lifecycleStates[0];
+    $scope.keywords = [];
 
     getGuides();
 
@@ -48,12 +49,16 @@ app.controller('RestController', function($scope, guideFactory, language) {
                 $scope.authorDate = new Date(data.description.originalAuthor.date);
                 $scope.lifecycleState.name = data.description.lifecycleState;
                 $scope.copyright = Object.byString(data, "description.details." + language + ".copyright");
+                $scope.keywords = Object.byString(data, "description.details." + language + ".keywords");
+                $scope.otherContributors = data.description.otherContributors;
                 console.log(data);
             })
             .error(function(data) {
                 console.log('Error: ' + data);
             });
     };
+
+
 
     Object.byString = function(o, s) {
         s = s.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties

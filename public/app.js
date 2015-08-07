@@ -5,6 +5,8 @@
 
 app = angular.module('gdl-editor', ['ui.router',
                                     'ui.bootstrap',
+                                    'dialogs',
+                                    'ui.sortable',
                                     'configuration',
                                     'gdl-editor.services',
                                     'xeditable',

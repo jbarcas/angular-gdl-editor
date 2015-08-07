@@ -24,3 +24,7 @@ a.editable-click:hover {
 .inline {
     display: flex;
 }
+
+.navbar-brand {
+    padding: 0px;
+}
