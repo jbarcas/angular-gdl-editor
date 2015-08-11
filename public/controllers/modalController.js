@@ -13,23 +13,20 @@ app.controller('ModalKeywordsCtrl', function ($scope, $modal, $log) {
             size: size,
             scope: $scope,
             resolve: {
-                items: function () {
-                    return $scope.items;
+                keywords: function () {
+                    return $scope.guide.description.details[$scope.language].keywords;
                 }
             }
-        });
-
-        modalInstance.result.then(function (selectedItem) {
-            $scope.selected = selectedItem;
-        }, function () {
-            $log.info('Modal dismissed at: ' + new Date());
         });
     };
 
     $scope.removeKeyword = function (id) {
-        var i = $scope.keywords.indexOf(id);
-        if(i != -1) {
-            $scope.keywords.splice(i, 1);
+        var i = $scope.guide.description.details[$scope.language].keywords.indexOf(id);
+        if (i != -1) {
+            $scope.guide.description.details[$scope.language].keywords.splice(i, 1);
+        }
+        if ($scope.guide.description.details[$scope.language].keywords.length <= 0) {
+            delete $scope.guide.description.details[$scope.language].keywords;
         }
     }
 
@@ -47,23 +44,20 @@ app.controller('ModalContributorsCtrl', function ($scope, $modal, $log) {
             size: size,
             scope: $scope,
             resolve: {
-                items: function () {
-                    return $scope.items;
+                otherContributors: function () {
+                    return $scope.guide.description.otherContributors;
                 }
             }
-        });
-
-        modalInstance.result.then(function (selectedItem) {
-            $scope.selected = selectedItem;
-        }, function () {
-            $log.info('Modal dismissed at: ' + new Date());
         });
     };
 
     $scope.removeOtherContributor = function (id) {
-        var i = $scope.otherContributors.indexOf(id);
-        if(i != -1) {
-            $scope.otherContributors.splice(i, 1);
+        var i = $scope.guide.description.otherContributors.indexOf(id);
+        if (i != -1) {
+            $scope.guide.description.otherContributors.splice(i, 1);
+        }
+        if ($scope.guide.description.otherContributors.length <= 0) {
+            delete $scope.guide.description.otherContributors;
         }
     }
 
@@ -73,12 +67,15 @@ app.controller('ModalContributorsCtrl', function ($scope, $modal, $log) {
 // Please note that $modalInstance represents a modal window (instance) dependency.
 // It is not the same as the $modal service used above.
 
-app.controller('ModalKeywordsInstanceCtrl', function ($scope, $modalInstance) {
+app.controller('ModalKeywordsInstanceCtrl', function ($scope, $modalInstance, keywords) {
 
     $scope.kw;
 
     $scope.ok = function () {
-        $scope.$parent.keywords.push($scope.kw);
+        $scope.guide.description.details[$scope.language].keywords =
+            ( typeof $scope.guide.description.details[$scope.language].keywords != 'undefined' && $scope.guide.description.details[$scope.language].keywords instanceof Array ) ?
+                $scope.guide.description.details[$scope.language].keywords : [];
+        $scope.guide.description.details[$scope.language].keywords.push($scope.kw);
         $modalInstance.close();
     };
 
@@ -87,12 +84,15 @@ app.controller('ModalKeywordsInstanceCtrl', function ($scope, $modalInstance) {
     };
 });
 
-app.controller('ModalContributorsInstanceCtrl', function ($scope, $modalInstance) {
+app.controller('ModalContributorsInstanceCtrl', function ($scope, $modalInstance, otherContributors) {
 
     $scope.co;
 
     $scope.ok = function () {
-        $scope.otherContributors.push($scope.co);
+        $scope.guide.description.otherContributors =
+            ( typeof $scope.guide.description.otherContributors != 'undefined' && $scope.guide.description.otherContributors instanceof Array ) ?
+                $scope.guide.description.otherContributors : [];
+        $scope.guide.description.otherContributors.push($scope.co);
         $modalInstance.close();
     };
 

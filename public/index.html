@@ -17,29 +17,32 @@
         <link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/cupertino/jquery-ui.css"> <!-- jQuery UI -->
     </head>
 
-    <body>
+    <body ng-controller="LanguageCtrl">
         <div class="page-header">
             <h1>GDL Editor <small> Guideline Definition Language</small></h1>
+            <label>language: {{language}}</label>
         </div>
-        <div class="inline" ng-controller="RestController">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Guidelines</h3>
-                </div>
-                <div class="panel-body">
-                    <div class="jumbotron text-center">
-                        <h2>Guideline counter <span class="label label-info">{{ guides.length }}</span></h2>
+        <div class="container-fluid" ng-controller="RestController">
+            <div class="row">
+                <div class="col-sm-3 col-md-3">
+                    <div>
+                        <h3>Guidelines</h3>
                     </div>
-                    <div class="form-group">
-                        <div class="radio" ng-repeat="guide in guides">
-                            <label>
-                                <input type="radio" ng-click="getGuide(guide)" name="guide-name" value="guide">{{ guide }}
-                            </label>
+                    <div>
+                        <div class="jumbotron text-center">
+                            <h2>Guideline counter <span class="label label-info">{{ guides.length }}</span></h2>
+                        </div>
+                        <div>
+                            <div class="radio" ng-repeat="guide in guides">
+                                <label>
+                                    <input type="radio" ng-click="getGuide(guide)" name="guide-name" value="guide">{{ guide }}
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <div class="col-sm-9 col-md-9" ui-view></div>
             </div>
-            <div class="container-fluid" ui-view></div>
         </div>
 
         <!-- SPELLS -->
@@ -73,5 +76,6 @@
         <script type="text/javascript" src="controllers/dragDropController.js"></script>
         <script type="text/javascript" src="controllers/mainController.js"></script>
         <script type="text/javascript" src="controllers/modalController.js"></script>
+        <script type="text/javascript" src="controllers/languageController.js"></script>
     </body>
 </html>

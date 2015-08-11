@@ -1,4 +1,4 @@
-<div class="container">
+<div>
     <br>
     <!-- HEADER -->
     <div class="jumbotron text-center">
@@ -7,7 +7,7 @@
     <!-- Guideline name -->
     <div class="form-group">
         <label for="guideName">Name:</label>
-        <input type="text" class="form-control" id="guideName" ng-model="guidelineName" placeholder="Guideline name">
+        <input type="text" class="form-control" id="guideName" ng-model="guide.ontology.termDefinitions[language].terms[guide.concept].text" placeholder="Guideline name">
     </div>
     <!-- Author details -->
     <div class="panel panel-default">
@@ -19,25 +19,25 @@
                 <div class="form-group">
                     <label for="inputAuthorName" class="col-sm-2 control-label">Name</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputAuthorName" ng-model="authorName" placeholder="Name">
+                        <input type="text" class="form-control" id="inputAuthorName" ng-model="guide.description.originalAuthor.name;" placeholder="Name">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="inputAuthorEmail" class="col-sm-2 control-label">Email</label>
                     <div class="col-sm-10">
-                        <input type="email" class="form-control" id="inputAuthorEmail" ng-model="authorEmail" placeholder="Email">
+                        <input type="email" class="form-control" id="inputAuthorEmail" ng-model="guide.description.originalAuthor.email" placeholder="Email">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="inputOrganisation" class="col-sm-2 control-label">Organisation</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputOrganisation" ng-model="authorOrganisation" placeholder="Organisation">
+                        <input type="text" class="form-control" id="inputOrganisation" ng-model="guide.description.originalAuthor.organisation" placeholder="Organisation">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="inputDate" class="col-sm-2 control-label">Date</label>
                     <div class="col-sm-10">
-                        <input type="date" class="form-control" id="inputDate" ng-model="authorDate">
+                        <input type="date" class="form-control" id="inputDate" ng-model="authorDate" ng-change="updateDate(this.authorDate)">
                     </div>
                 </div>
             </form>
@@ -47,51 +47,56 @@
     <form role="form">
         <div class="form-group">
             <label for="lifecycle">Lifecycle state:</label>
-            <select class="form-control" id="lifecycle" ng-model="lifecycleState" ng-options="lcs.name for lcs in lifecycleStates"/>
+            <select class="form-control" id="lifecycle" ng-model="guide.description.lifecycleState" >
+                <option ng-repeat="lifecycleState in lifecycleStates" value="{{ lifecycleState.value }}" >{{ lifecycleState.name }}</option>
+            </select>
+
         </div>
     </form>
     <!-- Copyright -->
     <div class="form-group">
         <label for="copyright">Copyright:</label>
-        <input type="text" class="form-control" id="copyright" ng-model="copyright" placeholder="Copyright">
+        <input type="text" class="form-control" id="copyright" ng-model="guide.description.details[language].copyright" placeholder="Copyright">
     </div>
     <!-- Keywords -->
     <div ng-controller="ModalKeywordsCtrl">
         <div class="inline">
             <label>Keywords:&nbsp;</label>
             <a href="#">
-                <img src="../images/add.png" ng-click="open('sm')">
+                <img ng-src="../images/add.png" ng-click="open()">
             </a>
         </div>
-        <ul ui-sortable class="list-group" ng-model="keywords">
-            <li class="list-group-item" ng-repeat="keyword in keywords">
+        <ul ui-sortable class="list-group" ng-model="guide.description.details[language].keywords">
+            <li class="list-group-item" ng-repeat="keyword in guide.description.details[language].keywords">
                 <a href="#">
-                    <img src="../images/delete.png" ng-click="removeKeyword(this.keyword)">
+                    <img ng-src="../images/delete.png" ng-click="removeKeyword(this.keyword)">
                 </a>&nbsp;{{keyword}}
             </li>
         </ul>
     </div>
-
     <!-- Other contributors -->
-
     <div ng-controller="ModalContributorsCtrl">
         <div class="inline">
             <label>Other contributors:&nbsp;</label>
             <a href="#">
-                <img src="../images/add.png" ng-click="open('sm')">
+                <img ng-src="../images/add.png" ng-click="open()">
             </a>
         </div>
-        <ul ui-sortable class="list-group" ng-model="otherContributors">
-            <li class="list-group-item" ng-repeat="otherContributor in otherContributors">
+        <ul ui-sortable class="list-group" ng-model="guide.description.otherContributors">
+            <li class="list-group-item" ng-repeat="otherContributor in guide.description.otherContributors">
                 <a href="#">
-                    <img src="../images/delete.png" ng-click="removeOtherContributor(this.otherContributor)">
+                    <img ng-src="../images/delete.png" ng-click="removeOtherContributor(this.otherContributor)">
                 </a>&nbsp;{{otherContributor}}
             </li>
         </ul>
     </div>
 
+    <div class="text-center">
+        <button type="button" class="btn btn-success" ng-click="insertGuide()">Update guideline</button>
+    </div>
+    <br>
     <div>
-        <pre>{{ currentGuide | json }}</pre>
+        <pre>{{ guide | json }}</pre>
     </div>
 
 </div>

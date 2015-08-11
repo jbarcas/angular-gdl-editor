@@ -22,7 +22,8 @@ angular.module('gdl-editor.services', ['configuration'])
         }
 
         guideFactory.insertGuide = function (guide) {
-            return $http.post(API_URL + '/guidelines/json/', guide);
+            var options = {headers : { 'Content-Type' : 'text/plain'}};
+            return $http.post(API_URL + '/guidelines/json/' + guide.id , guide, options);
         }
 
         guideFactory.updateGuide = function (guide) {
