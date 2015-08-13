@@ -6,7 +6,7 @@
     return $resource(URL_BASE + "/guidelines/json/:guidelineId");
 }); */
 
-angular.module('gdl-editor.services', ['configuration'])
+angular.module('app.services', ['app.core'])
     // a simple service
     // each function returns a promise object
     .factory('guideFactory', function($http, API_URL) {
@@ -36,5 +36,4 @@ angular.module('gdl-editor.services', ['configuration'])
 
         return guideFactory;
 
-    })
-;
+    });

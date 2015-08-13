@@ -2,7 +2,13 @@
  * Created by jbarros on 7/08/15.
  */
 
-app.controller('ModalKeywordsCtrl', function ($scope, $modal, $log) {
+angular.module('app')
+    .controller('ModalKeywordsCtrl', ModalKeywordsCtrl)
+    .controller('ModalContributorsCtrl', ModalContributorsCtrl)
+    .controller('ModalKeywordsInstanceCtrl', ModalKeywordsInstanceCtrl)
+    .controller('ModalContributorsInstanceCtrl', ModalContributorsInstanceCtrl);
+
+function ModalKeywordsCtrl ($scope, $modal, $log) {
 
     $scope.open = function (size) {
 
@@ -30,10 +36,9 @@ app.controller('ModalKeywordsCtrl', function ($scope, $modal, $log) {
         }
     }
 
-});
+}
 
-
-app.controller('ModalContributorsCtrl', function ($scope, $modal, $log) {
+function ModalContributorsCtrl ($scope, $modal, $log) {
 
     $scope.open = function (size) {
 
@@ -61,13 +66,13 @@ app.controller('ModalContributorsCtrl', function ($scope, $modal, $log) {
         }
     }
 
-});
+}
 
 
-// Please note that $modalInstance represents a modal window (instance) dependency.
+// Note that $modalInstance represents a modal window (instance) dependency.
 // It is not the same as the $modal service used above.
 
-app.controller('ModalKeywordsInstanceCtrl', function ($scope, $modalInstance, keywords) {
+function ModalKeywordsInstanceCtrl ($scope, $modalInstance, keywords) {
 
     $scope.kw;
 
@@ -82,9 +87,9 @@ app.controller('ModalKeywordsInstanceCtrl', function ($scope, $modalInstance, ke
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
     };
-});
+}
 
-app.controller('ModalContributorsInstanceCtrl', function ($scope, $modalInstance, otherContributors) {
+function ModalContributorsInstanceCtrl ($scope, $modalInstance, otherContributors) {
 
     $scope.co;
 
@@ -99,4 +104,4 @@ app.controller('ModalContributorsInstanceCtrl', function ($scope, $modalInstance
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
     };
-});
+}

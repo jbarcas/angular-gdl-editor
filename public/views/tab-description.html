@@ -1,4 +1,4 @@
-<div>
+<div ng-controller="DescriptionCtrl">
     <br>
     <div class="container-fluid">
         <div class="row">
@@ -36,7 +36,7 @@
                             <div class="form-group">
                                 <label for="inputDate" class="col-sm-2 control-label">Date</label>
                                 <div class="col-sm-10">
-                                    <input type="date" class="form-control" id="inputDate" ng-model="authorDate" ng-change="updateDate(this.authorDate)">
+                                    <input my-directive type="date" class="form-control" id="inputDate" ng-model="guide.description.originalAuthor.date" >
                                 </div>
                             </div>
                         </form>

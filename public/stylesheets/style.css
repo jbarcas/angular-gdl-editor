@@ -9,17 +9,7 @@ a {
 
 /* UI Bootstrap css */
 
-.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
-
-/* Editables */
-a.editable-click {
-    color: green;
-    border-bottom: dotted 2px green;
-}
-a.editable-click:hover {
-    color: #47a447;
-    border-bottom-color: #47a447;
-}
+/*.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }*/
 
 .inline {
     display: flex;
@@ -27,4 +17,25 @@ a.editable-click:hover {
 
 .navbar-brand {
     padding: 0px;
+}
+
+/* So that the guideline panel shows a scroll bar when needed*/
+#guideline-panel {
+    overflow-x:auto;
+}
+
+/* Page header styles */
+.page-header h1 {
+    display: inline;
+}
+
+.page-header label {
+    float: right;
+    line-height: 60px;
+    padding: 0;
+}
+
+/* 'Terminology' tab: to center align text in the table */
+.table tbody tr td {
+    vertical-align: middle;
 }

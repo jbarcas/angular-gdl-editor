@@ -2,31 +2,30 @@
  * Created by jbarros on 22/02/2015.
  */
 
-
-app = angular.module('gdl-editor', ['ui.router',
-                                    'ui.bootstrap',
-                                    'dialogs',
-                                    'ui.sortable',
-                                    'configuration',
-                                    'gdl-editor.services',
-                                    'xeditable',
-                                    'ngDialog',
-                                    'jsTree.directive',
-                                    'ngDragDrop',
-                                    'ngResource'])
+angular.module('app', [
+    'ui.router',
+    'ui.bootstrap',
+    'dialogs',
+    'ui.sortable',
+    'app.core',
+    'app.services',
+    'app.directives',
+    'xeditable',
+    'ngDialog',
+    'jsTree.directive',
+    'ngDragDrop',
+    'ngResource'
+])
 
 .config(function($stateProvider, $urlRouterProvider){
-
-    $urlRouterProvider.otherwise("/main/tabDescription");
-
+    $urlRouterProvider.otherwise("/main/tab-description");
     $stateProvider
-        .state("main", { abtract: true, url: "/main",           templateUrl: "views/main.html" })
-        .state("main.tabDescription", { url: "/tabDescription", templateUrl: "views/tabDescription.html" })
-        .state("main.tabTerminology", { url: "/tabTerminology", templateUrl: "views/tabTerminology.html" })
-        .state("main.tabDragDrop", {    url: "/tabDragDrop",    templateUrl: "views/tabDragDrop.html" })
-        .state("main.tabMultiSelect", { url: "/tabMultiSelect", templateUrl: "views/tabMultiSelect.html" })
-        .state("main.tabDialog", {      url: "/tabDialog",      templateUrl: "views/tabDialog.html" })
-        .state("main.tabInput", {       url: "/tabInput",       templateUrl: "views/tabInput.html" });
-
+        .state("main", { abtract: true,  url: "/main",              templateUrl: "views/main.html" })
+        .state("main.tab-description",  {url: "/tab-description",   templateUrl: "views/tab-description.html" })
+        .state("main.tab-terminology",  {url: "/tab-terminology",   templateUrl: "views/tab-terminology.html" })
+        .state("main.tab-drag-and-drop",{url: "/tab-drag-and-drop", templateUrl: "views/tab-drag-and-drop.html" })
+        .state("main.tab-multiselect",  {url: "/tab-multiselect",   templateUrl: "views/tab-multiselect.html" })
+        .state("main.tab-dialog",       {url: "/tab-dialog",        templateUrl: "views/tab-dialog.html" })
+        .state("main.tab-input",        {url: "/tab-input",         templateUrl: "views/tab-input.html" });
 });
 

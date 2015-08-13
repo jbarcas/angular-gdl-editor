@@ -2,7 +2,9 @@
  * Created by jbarros on 22/02/2015.
  */
 
-app.controller('EditableRowCtrl', function($scope, $filter, $http, GT_HEADER) {
+angular.module('app').controller('TerminologyCtrl', TerminologyCtrl);
+
+function TerminologyCtrl ($scope, GT_HEADER) {
 
     // save term
     $scope.saveTerm = function(data, id) {
@@ -35,6 +37,6 @@ app.controller('EditableRowCtrl', function($scope, $filter, $http, GT_HEADER) {
         generatedCode++;
         generatedCode = "" + generatedCode;
         var pad = "0000";
-        return  GT_HEADER + pad.substring(0, pad.length - generatedCode.length) + generatedCode;;
+        return  GT_HEADER + pad.substring(0, pad.length - generatedCode.length) + generatedCode;
     }
-});
+}

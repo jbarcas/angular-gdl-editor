@@ -6,7 +6,7 @@ $(function() {
     $("#catalog").accordion();
 });
 
-app.controller('DragDropCtrl', function($scope) {
+angular.module('app').controller('DragDropCtrl', function($scope) {
 
     $scope.drop = true;
 

@@ -2,7 +2,7 @@
  * Created by jbarros on 23/02/2015.
  */
 
-app.controller('Html5InputsCtrl', function($scope) {
+angular.module('app').controller('Html5InputsCtrl', function($scope) {
     $scope.guideline = {
         email: 'email@example.com',
         tel: '123-45-67',
@@ -19,7 +19,7 @@ app.controller('Html5InputsCtrl', function($scope) {
     };
 });
 
-app.run(function(editableOptions) {
+angular.module('app').run(function(editableOptions) {
     editableOptions.theme = 'bs3';
 });
 

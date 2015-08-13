@@ -1,23 +1,23 @@
-<div ng-controller="EditableRowCtrl">
+<div ng-controller="TerminologyCtrl">
     <!-- Anoher option: https://editor.datatables.net/examples/styling/bootstrap.html -->
     <table class="table table-bordered table-hover table-condensed table-striped">
         <tr style="font-weight: bold">
             <td style="width:10%">Code</td>
             <td style="width:30%">Text</td>
-            <td style="width:50%">Description</td>
-            <td style="width:10%">Edit</td>
+            <td style="width:45%">Description</td>
+            <td style="width:15%">Edit</td>
         </tr>
         <tr ng-repeat="term in guide.ontology.termDefinitions[language].terms">
             <td>
-                <!-- editable id (id with validation) -->
+                <!-- editable id -->
                 <span>{{ term.id|| 'empty' }}</span>
             </td>
             <td>
-                <!-- editable text (text with validation) -->
+                <!-- editable text -->
                 <span editable-text="term.text" e-name="text" e-form="rowform" e-required>{{ term.text|| 'empty' }}</span>
             </td>
             <td>
-                <!-- editable description (description with validation) -->
+                <!-- editable description -->
                 <span editable-text="term.description" e-name="description" e-form="rowform" e-required>{{ term.description|| 'empty' }}</span>
             </td>
             <td style="white-space: nowrap">

@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html ng-app="gdl-editor">
+<html ng-app="app">
     <head>
         <!-- META -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
-        <title>Node/Angular GDL Editor App</title>
+        <title>GDL Editor</title>
         <!-- SCROLLS -->
         <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"><!-- load bootstrap -->
         <link rel="stylesheet" type="text/css" href="stylesheets/style.css">                    <!-- editable -->
-        <link rel="stylesheet" type="text/css" href="stylesheets/xeditable.css">                <!-- Grid -->
+        <link rel="stylesheet" type="text/css" href="stylesheets/xeditable.css">                <!-- Grid (terminologies) -->
         <link rel="stylesheet" type="text/css" href="stylesheets/ngDialog.css">                 <!-- Dialog -->
         <link rel="stylesheet" type="text/css" href="stylesheets/ngDialog-theme-default.css">   <!-- Dialog -->
         <link rel="stylesheet" type="text/css" href="stylesheets/ngDialog-theme-plain.css">     <!-- Dialog -->
@@ -19,17 +19,25 @@
 
     <body ng-controller="LanguageCtrl">
         <div class="page-header">
-            <h1>GDL Editor <small> Guideline Definition Language</small></h1>
-            <label>language: {{language}}</label>
+            <h1>GDL Editor <small>Guideline Definition Language</small></h1>
+            <h1>
+                <small>
+                    <label>language:
+                        <a href="#" ng-click="open()">
+                            <img ng-src="../images/languages/{{language}}.png">&nbsp;{{language}}
+                        </a>
+                    </label>
+                </small>
+            </h1>
         </div>
-        <div class="container-fluid" ng-controller="RestController">
+        <div class="container-fluid" ng-controller="RestCtrl">
             <div class="row">
-                <div class="col-xs-3">
+                <div class="col-md-3">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h3 class="panel-title">Guidelines</h3>
                         </div>
-                        <div class="panel-body">
+                        <div id="guideline-panel" class="panel-body">
                             <div class="jumbotron text-center">
                                 <h2>Guideline counter <span class="label label-info">{{ guides.length }}</span></h2>
                             </div>
@@ -41,7 +49,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-9">
+                <div class="col-md-9">
                     <div ui-view></div>
                 </div>
             </div>
@@ -68,16 +76,19 @@
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.3/angular-resource.min.js"></script>             <!-- Angular Resource -->
         <!-- Load services -->
         <script type="text/javascript" src="services/services.js"></script>
+        <!-- Load directives -->
+        <script type="text/javascript" src="directives/directives.js"></script>
         <!-- Load the controllers -->
-        <script type="text/javascript" src="controllers/editableRowController.js"></script>
-        <script type="text/javascript" src="controllers/restController.js"></script>
-        <script type="text/javascript" src="controllers/formController.js"></script>
-        <script type="text/javascript" src="controllers/dialogController.js"></script>
-        <script type="text/javascript" src="controllers/treeController.js"></script>
-        <script type="text/javascript" src="controllers/html5InputsController.js"></script>
-        <script type="text/javascript" src="controllers/dragDropController.js"></script>
-        <script type="text/javascript" src="controllers/mainController.js"></script>
-        <script type="text/javascript" src="controllers/modalController.js"></script>
-        <script type="text/javascript" src="controllers/languageController.js"></script>
+        <script type="text/javascript" src="controllers/controller.description.js"></script>
+        <script type="text/javascript" src="controllers/controller.terminology.js"></script>
+        <script type="text/javascript" src="controllers/controller.rest.js"></script>
+        <script type="text/javascript" src="controllers/controller.form.js"></script>
+        <script type="text/javascript" src="controllers/controller.dialog.js"></script>
+        <script type="text/javascript" src="controllers/controller.tree.js"></script>
+        <script type="text/javascript" src="controllers/controller.html5Inputs.js"></script>
+        <script type="text/javascript" src="controllers/controller.draganddrop.js"></script>
+        <script type="text/javascript" src="controllers/controller.main.js"></script>
+        <script type="text/javascript" src="controllers/controller.modal.js"></script>
+        <script type="text/javascript" src="controllers/controller.language.js"></script>
     </body>
 </html>
