@@ -1,9 +1,4 @@
 <div ng-controller="Html5InputsCtrl">
-    <br>
-    <!-- HEADER -->
-    <div class="jumbotron text-center">
-        <h2>Basic information about the guideline.</h2>
-    </div>
     <div>Email: <a href="#" editable-email="guideline.email">{{ guideline.email || 'empty' }}</a></div>
     <div>Tel: <a href="#" editable-tel="guideline.tel" e-pattern="\d{3}\-\d{2}\-\d{2}" e-title="xxx-xx-xx">{{ guideline.tel || 'empty' }}</a></div>
     <div>Number: <a href="#" editable-number="guideline.number" e-min="18">{{ guideline.number || 'empty' }}</a></div>

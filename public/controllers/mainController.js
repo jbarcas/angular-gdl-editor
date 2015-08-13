@@ -14,7 +14,7 @@ app.controller("mainController", function($rootScope, $scope, $state) {
 
     $scope.tabs = [
         { heading: "Description", route:"main.tabDescription", active:false },
-        { heading: "Grid", route:"main.tabGrid", active:false },
+        { heading: "Terminology", route:"main.tabTerminology", active:false },
         { heading: "Drag & Drop", route:"main.tabDragDrop", active:false },
         { heading: "Multi-select", route:"main.tabMultiSelect", active:false },
         { heading: "Dialog", route:"main.tabDialog", active:false },

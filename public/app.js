@@ -22,7 +22,7 @@ app = angular.module('gdl-editor', ['ui.router',
     $stateProvider
         .state("main", { abtract: true, url: "/main",           templateUrl: "views/main.html" })
         .state("main.tabDescription", { url: "/tabDescription", templateUrl: "views/tabDescription.html" })
-        .state("main.tabGrid", {        url: "/tabGrid",        templateUrl: "views/tabGrid.html" })
+        .state("main.tabTerminology", { url: "/tabTerminology", templateUrl: "views/tabTerminology.html" })
         .state("main.tabDragDrop", {    url: "/tabDragDrop",    templateUrl: "views/tabDragDrop.html" })
         .state("main.tabMultiSelect", { url: "/tabMultiSelect", templateUrl: "views/tabMultiSelect.html" })
         .state("main.tabDialog", {      url: "/tabDialog",      templateUrl: "views/tabDialog.html" })
