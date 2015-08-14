@@ -1,0 +1,27 @@
+{
+  "name": "gdl-editor",
+  "version": "0.0.0",
+  "main": "app.js",
+  "homepage": "https://github.com/jbarcas/angular-gdl-editor",
+  "authors": [
+    "Jesús Barros <j.barros@udc.es>"
+  ],
+  "description": "Angular GDL Editor application",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-ui-tree": "~2.8.0",
+    "jstree-directive": "~0.1.5",
+    "jstree": "~3.2.0",
+    "angular-dragdrop": "~1.0.11",
+    "ngDialog": "~0.4.0",
+    "angular-ui-sortable": "~0.13.4",
+    "angular-xeditable": "~0.1.9"
+  }
+}

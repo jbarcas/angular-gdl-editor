@@ -14,7 +14,8 @@ angular.module('app', [
     'ngDialog',
     'jsTree.directive',
     'ngDragDrop',
-    'ngResource'
+    'ngResource',
+    'ui.tree'
 ])
 
 .config(function($stateProvider, $urlRouterProvider){
@@ -24,6 +25,7 @@ angular.module('app', [
         .state("main.tab-description",  {url: "/tab-description",   templateUrl: "views/tab-description.html" })
         .state("main.tab-terminology",  {url: "/tab-terminology",   templateUrl: "views/tab-terminology.html" })
         .state("main.tab-drag-and-drop",{url: "/tab-drag-and-drop", templateUrl: "views/tab-drag-and-drop.html" })
+        .state("main.tab-drag-and-drop-2",{url: "/tab-drag-and-drop-2", templateUrl: "views/tab-drag-and-drop-2.html" })
         .state("main.tab-multiselect",  {url: "/tab-multiselect",   templateUrl: "views/tab-multiselect.html" })
         .state("main.tab-dialog",       {url: "/tab-dialog",        templateUrl: "views/tab-dialog.html" })
         .state("main.tab-input",        {url: "/tab-input",         templateUrl: "views/tab-input.html" });

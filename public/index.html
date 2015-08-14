@@ -8,13 +8,14 @@
         <!-- SCROLLS -->
         <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"><!-- load bootstrap -->
         <link rel="stylesheet" type="text/css" href="stylesheets/style.css">                    <!-- editable -->
-        <link rel="stylesheet" type="text/css" href="stylesheets/xeditable.css">                <!-- Grid (terminologies) -->
-        <link rel="stylesheet" type="text/css" href="stylesheets/ngDialog.css">                 <!-- Dialog -->
-        <link rel="stylesheet" type="text/css" href="stylesheets/ngDialog-theme-default.css">   <!-- Dialog -->
-        <link rel="stylesheet" type="text/css" href="stylesheets/ngDialog-theme-plain.css">     <!-- Dialog -->
-        <link rel="stylesheet" type="text/css" href="stylesheets/themes/default/style.min.css"> <!-- jsTree theme -->
+        <link rel="stylesheet" type="text/css" href="angular-xeditable/dist/css/xeditable.css"> <!-- Bower: Grid (terminologies) -->
+        <link rel="stylesheet" type="text/css" href="ngDialog/css/ngDialog.css">                <!-- Bower: Dialog -->
+        <link rel="stylesheet" type="text/css" href="ngDialog/css/ngDialog-theme-default.css">  <!-- Bower: Dialog -->
+        <link rel="stylesheet" type="text/css" href="jstree/dist/themes/default/style.min.css"> <!-- Bower: jsTree theme -->
         <link rel="stylesheet" type="text/css" href="stylesheets/dragDrop.css">                 <!-- drag and drop css-->
-        <link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/cupertino/jquery-ui.css"> <!-- jQuery UI -->
+        <link rel="stylesheet" type="text/css" href="jquery-ui/themes/blitzer/jquery-ui.css">   <!-- Bower: jQuery UI -->
+        <!-- Bower compopnents -->
+        <link rel="stylesheet" type="text/css" href="stylesheets/angular-ui-tree.css">          <!-- Angular UI Tree -->
     </head>
 
     <body ng-controller="LanguageCtrl">
@@ -56,21 +57,23 @@
         </div>
 
         <!-- SPELLS -->
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>       <!--load jQuery-->
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script> <!--load jQuery UI-->
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.min.js"></script>  <!--load AngularJS-->
+        <script type="text/javascript" src="jquery/dist/jquery.min.js"></script>                        <!-- Bower: jQuery-->
+        <script type="text/javascript" src="jquery-ui/jquery-ui.min.js"></script>                       <!-- Bower: jQuery UI-->
+        <!-- Load Angular from bower_components -->
+        <script type="text/javascript" src="angular/angular.min.js"></script>
         <!-- Load the Angular GDLEditor module -->
         <script type="text/javascript" src="app.js"></script>
         <!-- Load a configuration file -->
         <script type="text/javascript" src="configuration.js"></script>
         <!-- Load the javascript files -->
-        <script type="text/javascript" src="javascripts/xeditable.js"></script>                <!-- Grid -->
+        <script type="text/javascript" src="angular-xeditable/dist/js/xeditable.min.js"></script>       <!-- Bower: Grid (terminologies) -->
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.0/ui-bootstrap-tpls.min.js"></script> <!-- Angular UI bootstrap (Grid) -->
-        <script type="text/javascript" src="javascripts/ngDialog.js"></script>                 <!-- Dialog -->
-        <script type="text/javascript" src="javascripts/jstree.js"></script>                   <!-- Tree -->
-        <script type="text/javascript" src="javascripts/jsTree.directive.js"></script>         <!-- Tree -->
-        <script type="text/javascript" src="javascripts/angular-dragdrop.min.js"></script>     <!-- Drag and drop -->
-        <script type="text/javascript" src="javascripts/sortable.min.js"></script>             <!-- Sortable -->
+        <script type="text/javascript" src="ngDialog/js/ngDialog.min.js"></script>                      <!-- Bower: Dialog -->
+        <script type="text/javascript" src="jstree/dist/jstree.min.js"></script>                        <!-- Bower: JS Tree -->
+        <script type="text/javascript" src="jstree-directive/jsTree.directive.js"></script>             <!-- Bower: JS Tree Directive -->
+        <script type="text/javascript" src="angular-dragdrop/src/angular-dragdrop.min.js"></script>     <!-- Bower: Drag and drop -->
+        <script type="text/javascript" src="angular-ui-sortable/sortable.min.js"></script>              <!-- Bower: Sortable -->
+        <script type="text/javascript" src="angular-ui-tree/dist/angular-ui-tree.js"></script>          <!-- Bower: Angular UI Tree -->
         <script type="text/javascript" src="http://m-e-conroy.github.io/angular-dialog-service/javascripts/dialogs.min.js"></script>               <!-- Dialog Add Keywords/contributors-->
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>    <!-- Angular UI Router -->
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.3/angular-resource.min.js"></script>             <!-- Angular Resource -->
@@ -87,8 +90,11 @@
         <script type="text/javascript" src="controllers/controller.tree.js"></script>
         <script type="text/javascript" src="controllers/controller.html5Inputs.js"></script>
         <script type="text/javascript" src="controllers/controller.draganddrop.js"></script>
+        <script type="text/javascript" src="controllers/controller.draganddrop-2.js"></script>
         <script type="text/javascript" src="controllers/controller.main.js"></script>
         <script type="text/javascript" src="controllers/controller.modal.js"></script>
         <script type="text/javascript" src="controllers/controller.language.js"></script>
+
+
     </body>
 </html>

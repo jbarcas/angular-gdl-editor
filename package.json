@@ -1,9 +1,13 @@
 {
   "name": "gdl-editor",
   "version": "0.0.0",
-  "description": "GDL Editor app",
+  "description": "Angular GDL Editor application",
   "main": "app.js",
   "author": "jbarcas",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jbarcas/angular-gdl-editor.git"
+  },
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
@@ -15,7 +19,6 @@
     "express": "~4.11.1",
     "jade": "~1.9.1",
     "morgan": "~1.5.1",
-    "serve-favicon": "~2.2.0",
-    "pg": "~4.4.0"
+    "serve-favicon": "~2.2.0"
   }
 }
