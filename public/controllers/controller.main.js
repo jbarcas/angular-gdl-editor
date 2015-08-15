@@ -20,8 +20,7 @@ function MainCtrl ($rootScope, $scope, $state) {
         { heading: "Drag & Drop(I)", route:"main.tab-drag-and-drop", active:false },
         { heading: "Drag & Drop(II)", route:"main.tab-drag-and-drop-2", active:false },
         { heading: "Multi-select", route:"main.tab-multiselect", active:false },
-        { heading: "Dialog", route:"main.tab-dialog", active:false },
-        { heading: "Input", route:"main.tab-input", active:false }
+        { heading: "Dialog", route:"main.tab-dialog", active:false }
     ];
 
     $scope.$on("$stateChangeSuccess", function() {

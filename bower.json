@@ -22,6 +22,12 @@
     "angular-dragdrop": "~1.0.11",
     "ngDialog": "~0.4.0",
     "angular-ui-sortable": "~0.13.4",
-    "angular-xeditable": "~0.1.9"
+    "angular-xeditable": "~0.1.9",
+    "angular-bootstrap": "~0.13.3",
+    "angular-ui-router": "~0.2.15",
+    "angular-resource": "~1.4.4"
+  },
+  "resolutions": {
+    "angular": "1.4.4"
   }
 }

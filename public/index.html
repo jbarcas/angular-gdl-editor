@@ -8,12 +8,12 @@
         <!-- SCROLLS -->
         <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"><!-- load bootstrap -->
         <link rel="stylesheet" type="text/css" href="stylesheets/style.css">                    <!-- editable -->
-        <link rel="stylesheet" type="text/css" href="angular-xeditable/dist/css/xeditable.css"> <!-- Bower: Grid (terminologies) -->
-        <link rel="stylesheet" type="text/css" href="ngDialog/css/ngDialog.css">                <!-- Bower: Dialog -->
-        <link rel="stylesheet" type="text/css" href="ngDialog/css/ngDialog-theme-default.css">  <!-- Bower: Dialog -->
-        <link rel="stylesheet" type="text/css" href="jstree/dist/themes/default/style.min.css"> <!-- Bower: jsTree theme -->
+        <link rel="stylesheet" type="text/css" href="/bower_components/angular-xeditable/dist/css/xeditable.css"> <!-- Bower: Grid (terminologies) -->
+        <link rel="stylesheet" type="text/css" href="/bower_components/ngDialog/css/ngDialog.css">                <!-- Bower: Dialog -->
+        <link rel="stylesheet" type="text/css" href="/bower_components/ngDialog/css/ngDialog-theme-default.css">  <!-- Bower: Dialog -->
+        <link rel="stylesheet" type="text/css" href="/bower_components/jstree/dist/themes/default/style.min.css"> <!-- Bower: jsTree theme -->
         <link rel="stylesheet" type="text/css" href="stylesheets/dragDrop.css">                 <!-- drag and drop css-->
-        <link rel="stylesheet" type="text/css" href="jquery-ui/themes/blitzer/jquery-ui.css">   <!-- Bower: jQuery UI -->
+        <link rel="stylesheet" type="text/css" href="/bower_components/jquery-ui/themes/blitzer/jquery-ui.css">   <!-- Bower: jQuery UI -->
         <!-- Bower compopnents -->
         <link rel="stylesheet" type="text/css" href="stylesheets/angular-ui-tree.css">          <!-- Angular UI Tree -->
     </head>
@@ -57,26 +57,24 @@
         </div>
 
         <!-- SPELLS -->
-        <script type="text/javascript" src="jquery/dist/jquery.min.js"></script>                        <!-- Bower: jQuery-->
-        <script type="text/javascript" src="jquery-ui/jquery-ui.min.js"></script>                       <!-- Bower: jQuery UI-->
-        <!-- Load Angular from bower_components -->
-        <script type="text/javascript" src="angular/angular.min.js"></script>
+        <script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>  <!-- Bower: jQuery-->
+        <script type="text/javascript" src="/bower_components/jquery-ui/jquery-ui.min.js"></script> <!-- Bower: jQuery UI-->
+        <script type="text/javascript" src="/bower_components/angular/angular.js"></script>         <!-- Bower: AngularJS -->
         <!-- Load the Angular GDLEditor module -->
         <script type="text/javascript" src="app.js"></script>
         <!-- Load a configuration file -->
         <script type="text/javascript" src="configuration.js"></script>
         <!-- Load the javascript files -->
-        <script type="text/javascript" src="angular-xeditable/dist/js/xeditable.min.js"></script>       <!-- Bower: Grid (terminologies) -->
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.0/ui-bootstrap-tpls.min.js"></script> <!-- Angular UI bootstrap (Grid) -->
-        <script type="text/javascript" src="ngDialog/js/ngDialog.min.js"></script>                      <!-- Bower: Dialog -->
-        <script type="text/javascript" src="jstree/dist/jstree.min.js"></script>                        <!-- Bower: JS Tree -->
-        <script type="text/javascript" src="jstree-directive/jsTree.directive.js"></script>             <!-- Bower: JS Tree Directive -->
-        <script type="text/javascript" src="angular-dragdrop/src/angular-dragdrop.min.js"></script>     <!-- Bower: Drag and drop -->
-        <script type="text/javascript" src="angular-ui-sortable/sortable.min.js"></script>              <!-- Bower: Sortable -->
-        <script type="text/javascript" src="angular-ui-tree/dist/angular-ui-tree.js"></script>          <!-- Bower: Angular UI Tree -->
-        <script type="text/javascript" src="http://m-e-conroy.github.io/angular-dialog-service/javascripts/dialogs.min.js"></script>               <!-- Dialog Add Keywords/contributors-->
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>    <!-- Angular UI Router -->
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.3/angular-resource.min.js"></script>             <!-- Angular Resource -->
+        <script type="text/javascript" src="/bower_components/angular-xeditable/dist/js/xeditable.min.js"></script>         <!-- Bower: Grid (terminologies) -->
+        <script type="text/javascript" src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>         <!-- Bower: Angular UI bootstrap (Grid) -->
+        <script type="text/javascript" src="/bower_components/ngDialog/js/ngDialog.min.js"></script>                        <!-- Bower: Dialog (pop-up dialog tab (remove in the future)) -->
+        <script type="text/javascript" src="/bower_components/jstree/dist/jstree.min.js"></script>                          <!-- Bower: JS Tree (checkbox tree) -->
+        <script type="text/javascript" src="/bower_components/jstree-directive/jsTree.directive.js"></script>               <!-- Bower: JS Tree Directive (checkbox tree) -->
+        <script type="text/javascript" src="/bower_components/angular-dragdrop/src/angular-dragdrop.min.js"></script>       <!-- Bower: Drag and drop -->
+        <script type="text/javascript" src="/bower_components/angular-ui-sortable/sortable.min.js"></script>                <!-- Bower: Sortable -->
+        <script type="text/javascript" src="/bower_components/angular-ui-tree/dist/angular-ui-tree.js"></script>            <!-- Bower: Angular UI Tree -->
+        <script type="text/javascript" src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script> <!-- Bower: Angular UI Router -->
+        <script type="text/javascript" src="/bower_components/angular-resource/angular-resource.min.js"></script>           <!-- Bower: Angular Resource -->
         <!-- Load services -->
         <script type="text/javascript" src="services/services.js"></script>
         <!-- Load directives -->
@@ -86,15 +84,12 @@
         <script type="text/javascript" src="controllers/controller.terminology.js"></script>
         <script type="text/javascript" src="controllers/controller.rest.js"></script>
         <script type="text/javascript" src="controllers/controller.form.js"></script>
-        <script type="text/javascript" src="controllers/controller.dialog.js"></script>
+        <script type="text/javascript" src="controllers/controller.dialog.js"></script>         <!-- Used for Multi-select example. //TODO: remove -->
         <script type="text/javascript" src="controllers/controller.tree.js"></script>
-        <script type="text/javascript" src="controllers/controller.html5Inputs.js"></script>
         <script type="text/javascript" src="controllers/controller.draganddrop.js"></script>
         <script type="text/javascript" src="controllers/controller.draganddrop-2.js"></script>
         <script type="text/javascript" src="controllers/controller.main.js"></script>
         <script type="text/javascript" src="controllers/controller.modal.js"></script>
         <script type="text/javascript" src="controllers/controller.language.js"></script>
-
-
     </body>
 </html>

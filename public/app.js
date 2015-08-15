@@ -5,7 +5,6 @@
 angular.module('app', [
     'ui.router',
     'ui.bootstrap',
-    'dialogs',
     'ui.sortable',
     'app.core',
     'app.services',
@@ -27,7 +26,6 @@ angular.module('app', [
         .state("main.tab-drag-and-drop",{url: "/tab-drag-and-drop", templateUrl: "views/tab-drag-and-drop.html" })
         .state("main.tab-drag-and-drop-2",{url: "/tab-drag-and-drop-2", templateUrl: "views/tab-drag-and-drop-2.html" })
         .state("main.tab-multiselect",  {url: "/tab-multiselect",   templateUrl: "views/tab-multiselect.html" })
-        .state("main.tab-dialog",       {url: "/tab-dialog",        templateUrl: "views/tab-dialog.html" })
-        .state("main.tab-input",        {url: "/tab-input",         templateUrl: "views/tab-input.html" });
+        .state("main.tab-dialog",       {url: "/tab-dialog",        templateUrl: "views/tab-dialog.html" });
 });
 

@@ -23,7 +23,7 @@ app.use(logger('dev'));                                     // shows all request
 app.use(bodyParser.json());                                 // parse application/json
 app.use(bodyParser.urlencoded({ extended: false }));        // parse application/x-www-form-urlencoded
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));    // static file location. Set the static files location /app/img will be /img for users
+app.use(express.static(path.join(__dirname, '/public')));    // static file location. Set the static files location /app/img will be /img for users
 app.use('/bower_components', express.static(path.join(__dirname, '/bower_components')));    // static file location. Set the static files location /app/img will be /img for users
 
 app.use('/', routes);
