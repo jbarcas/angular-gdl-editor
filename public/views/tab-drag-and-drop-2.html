@@ -1,45 +1,24 @@
-<div ng-controller="DragDrop2Ctrl">
+<div ng-controller="DragDropCtrl2">
+    <!-- Nested node template -->
     <div class="row">
-        <!-- Left panel -->
-        <div class="thumbnail col-left" data-drop="{{true}}" data-jqyoui-options="{accept: '.level-1'}" ng-model="list2" jqyoui-droppable="{onDrop:'dropCallback(list2)'}">
-            Definitions
-            <div class="thumbnail" data-drop="{{list2.drag}}" data-jqyoui-options="{accept: '.level-2'}" ng-model="list2" jqyoui-droppable="{onDrop:'dropCallback(list2)'}" ng-if="list2.title" style="height:auto;width:300px;background-color: lightgrey">
-                {{list2.title}}
-                <div class="thumbnail" data-drop="true" data-jqyoui-options="{accept: '.level-2'}" ng-model="list3" jqyoui-droppable="{}" style="min-height:90px;">
-                    <div class="btn btn-success btn-block" data-drag="true" jqyoui-draggable="{animate: true}" data-jqyoui-options="{revert: 'invalid'}" ng-repeat="item in list3 track by $index" >
-                        {{item.title}} {{$index}}
-                    </div>
-                </div>
+        <div class="col-sm-12">
+            <h3>Definitions</h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-7">
+            <div ui-tree id="tree-root">
+                <ol ui-tree-nodes ng-model="data">
+                    <li ng-repeat="node in data" ui-tree-node ng-include="'views/templates/nodes-renderer-2.html'"></li>
+                </ol>
             </div>
         </div>
 
-        <!-- Right panel -->
-        <div class="well col-right">
-            Definitions
-            <div class="btn btn-droppable" ng-repeat="item in list0" data-drop="true" ng-model='list0' data-jqyoui-options="{accept:'.btn-draggable:not([ng-model=list0])'}"  jqyoui-droppable="{index: {{$index}}}" >
-                <div class="btn btn-primary level-1" data-drag="true"
-                     data-jqyoui-options="{revert: 'invalid', helper: 'clone'}"
-                     ng-model="list0" jqyoui-draggable="{index: {{$index}}, placeholder: 'keep'}"
-                     ng-show="item.title">{{item.title}}
-                </div>
-            </div>
-            <div class="btn btn-droppable" ng-repeat="item in list1" data-drop="true" ng-model='list1' data-jqyoui-options="{accept:'.btn-draggable:not([ng-model=list1])'}"  jqyoui-droppable="{index: {{$index}}}" >
-                <div class="btn btn-primary level-2" data-drag="true"
-                     data-jqyoui-options="{revert: 'invalid', helper: 'clone'}"
-                     ng-model="list1" jqyoui-draggable="{index: {{$index}}, placeholder: 'keep'}"
-                     ng-show="item.title">{{item.title}}
-                </div>
-            </div>
+        <div class="col-sm-5">
+            <pre class="code">{{ data | json }}</pre>
         </div>
-
     </div>
 
 
-    <pre>
-        list 0: {{list0}}
-        list 1: {{list1}}
-        list 2: {{list2}}
-        list 3: {{list3}}
-        dropVar: {{drop}}
-    </pre>
 </div>

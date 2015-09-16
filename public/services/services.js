@@ -36,4 +36,24 @@ angular.module('app.services', ['app.core'])
 
         return guideFactory;
 
+    })
+
+    .factory('archetypeFactory', function($http, API_URL, API_URL_MISC) {
+
+        var archetypeFactory = {};
+
+        archetypeFactory.getArchetypes = function () {
+            return $http.get(API_URL + '/archetypes');
+        }
+
+        archetypeFactory.getArchetype = function (id) {
+            return $http.get(API_URL + '/archetype/json/' + id);
+        }
+
+        archetypeFactory.getArchetypeTerms = function (archetypeId, language) {
+            return $http.get(API_URL_MISC + '/archetypes/' + archetypeId + '/' +language + '/terms');
+        }
+
+        return archetypeFactory;
+
     });

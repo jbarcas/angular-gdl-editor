@@ -35,6 +35,10 @@ a {
     padding: 0;
 }
 
+sup {
+    color: #00B7FF;
+}
+
 /* 'Terminology' tab: to center align text in the table */
 .table tbody tr td {
     vertical-align: middle;

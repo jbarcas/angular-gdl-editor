@@ -4,12 +4,14 @@
 
 angular.module('app').controller('RestCtrl', RestCtrl);
 
-function RestCtrl ($scope, guideFactory) {
+function RestCtrl ($scope, guideFactory, archetypeFactory) {
 
     $scope.guide = {};
+    $scope.archetype = {};
     $scope.checked;
 
     getGuides();
+    getArchetypes();
 
     function getGuides() {
         guideFactory.getGuides()
@@ -20,7 +22,7 @@ function RestCtrl ($scope, guideFactory) {
             .error(function(data) {
                 console.log('Error: ' + data);
             });
-    }
+    };
 
     $scope.getGuide = function(id) {
         guideFactory.getGuide(id)
@@ -42,6 +44,28 @@ function RestCtrl ($scope, guideFactory) {
             error(function (data, status, headers, config) {
                 console.log('Error at inserting guide: ' + data);
             })
+    };
+
+    function getArchetypes() {
+        archetypeFactory.getArchetypes()
+            .success(function(data) {
+                $scope.archetypes = data;
+                console.log(data);
+            })
+            .error(function(data) {
+                console.log('Error: ' + data);
+            });
     }
+
+    $scope.getArchetype = function(id) {
+        archetypeFactory.getArchetype(id)
+            .success(function(data, status, headers, config) {
+                $scope.archetype = data;
+                console.log(data);
+            })
+            .error(function(data) {
+                console.log('Error at getting archetype: ' + data);
+            });
+    };
 
 }
