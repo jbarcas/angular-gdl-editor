@@ -2,13 +2,20 @@ Editor de guías clínicas GDL
 ============================
 Jesus Barros <j.barros@udc.es>
 v0.0.1, April 2015: Initial skeleton
+:Author:	Jesús Barros Castro
+:Email:		j.barros@udc.es
+:Revision: 	v0.0.1
 
+
+Resumen
+-------
+Resumen
 
 Introducción
 ------------
-Nec vitae mus fringilla eu vel pede sed pellentesque. Nascetur fugiat
-nobis. Eu felis id mauris sollicitudin ut. Sem volutpat feugiat.
-Ornare convallis urna vitae.
+Expresar y compartir soporte a la decision clínica de forma automatizada independientemente del lenguaje y de plataformas técnicas ha sido una tarea a evitar durante mucho tiempo. Los dos principales motivos para compartir lógica de decisión entre diferentes sistemas son, por un lado, la carencia de modelos de información clínica compartidos y, por otro, el soporte flexible para varios recursos terminológicos.
+
+GDL (Guideline Definition Language) es un lenguaje formal diseñado para expresat lógica de soporte a la decisión médica. Ha sido diseñado para ser independiente de lenguaje naturales y de terminologías haciendo, para ello se ha utilizado los diseños del Modelo deReferencia de openEHR y el Modelo de arquetipos.
 
 Nec mauris sed aliquam nam mauris dolor lorem imperdiet.
 
@@ -115,12 +122,42 @@ Material utilizado
 ------------------
 Texto material utilizado
 
+[appendix]
+Example Appendix
+----------------
+One or more optional appendixes go here at section level 1.
 
-Bibliografía
-------------
-Bibliografía
+Appendix Sub-section
+~~~~~~~~~~~~~~~~~~~
+Sub-section body.
 
+[bibliography]
+Example Bibliography
+--------------------
+The bibliography list is a style of AsciiDoc bulleted list.
 
-Anexos
-------
-Anexos
+[bibliography]
+- [[[taoup]]] Eric Steven Raymond. 'The Art of Unix Programming'. Addison-Wesley. ISBN 0-13-142901-9.
+- [[[walsh-muellner]]] Norman Walsh & Leonard Muellner. 'DocBook - The Definitive Guide'. O'Reilly & Associates. 1999. ISBN 1-56592-580-7.
+
+[glossary]
+Example Glossary
+----------------
+Glossaries are optional. Glossaries entries are an example of a style
+of AsciiDoc labeled lists.
+
+[glossary]
+A glossary term::
+  The corresponding (indented) definition.
+
+A second glossary term::
+  The corresponding (indented) definition.
+
+[index]
+Example Index
+-------------
+////////////////////////////////////////////////////////////////
+The index is normally left completely empty, it's contents being
+generated automatically by the DocBook toolchain.
+////////////////////////////////////////////////////////////////
+

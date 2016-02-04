@@ -22,8 +22,30 @@ angular.module('app.services', ['app.core'])
         }
 
         guideFactory.insertGuide = function (guide) {
-            var options = {headers : { 'Content-Type' : 'text/plain'}};
-            return $http.post(API_URL + '/guidelines/json/' + guide.id , guide, options);
+            // FIXME: Handle with an interceptor
+            var options = {headers: {'Content-Type': 'text/plain'}};
+            return $http.post(API_URL + '/guidelines/json/' + guide.id, guide, {
+                transformRequest: function (data, headers) {
+                    headers()['Content-Type'] = 'text/plain';
+                    data.definition.archetypeBindings.map(function (value, key) {
+                        if (!angular.isUndefined(value.elements)) {
+                            value.elements.map(function (_value, _key) {
+                                data.definition.archetypeBindings[key].elements[_value.id] = _value;
+                                delete data.definition.archetypeBindings[key].elements[_key];
+                            });
+                            var element = {};
+                            angular.extend(element, data.definition.archetypeBindings[key].elements);
+                            data.definition.archetypeBindings[key].elements = element;
+                            data.definition.archetypeBindings[value.id] = value;
+                            delete data.definition.archetypeBindings[key];
+                        }
+                    })
+                    var newObj = {};
+                    angular.extend(newObj, data.definition.archetypeBindings);
+                    data.definition.archetypeBindings = newObj;
+                    return angular.toJson(data);
+                }
+            });
         }
 
         guideFactory.updateGuide = function (guide) {

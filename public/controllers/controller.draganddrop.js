@@ -7,6 +7,7 @@ $(function() {
 });
 
 angular.module('app').controller('DragDropCtrl', function($scope) {
+
     $scope.remove = function (scope) {
         scope.remove();
     };
@@ -21,7 +22,7 @@ angular.module('app').controller('DragDropCtrl', function($scope) {
     };
 
     $scope.newSubItem = function (scope) {
-/*        var nodeData = scope.$modelValue;
+/*      var nodeData = scope.$modelValue;
         nodeData.elements.push({
             id: nodeData.id * 10 + nodeData.nodes.length,
             title: nodeData.title + '.' + (nodeData.nodes.length + 1),
@@ -39,7 +40,6 @@ angular.module('app').controller('DragDropCtrl', function($scope) {
 
     $scope.openArchetypes = function () {
         alert("show Archetype tree modal");
-    }
-
+    };
 
 });

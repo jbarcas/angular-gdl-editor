@@ -7,18 +7,13 @@
     </div>
 
     <div class="row">
-        <div class="col-sm-7">
-            <div ui-tree id="tree-root">
-                <ol ui-tree-nodes ng-model="guide.definition.archetypeBindings">
+        <div class="col-sm-12">
+            <div ui-tree data-nodrop-enabled id="tree-root">
+                <ol ui-tree-nodes="" ng-model="guide.definition.archetypeBindings">
                     <li ng-repeat="node in guide.definition.archetypeBindings" ui-tree-node ng-include="'views/templates/nodes-renderer.html'"></li>
                 </ol>
             </div>
         </div>
-
-        <div class="col-sm-5">
-            <pre class="code">{{ guide.definition.archetypeBindings | json }}</pre>
-        </div>
     </div>
-
 
 </div>

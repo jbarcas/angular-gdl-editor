@@ -17,8 +17,8 @@ function MainCtrl ($rootScope, $scope, $state) {
     $scope.tabs = [
         { heading: "Description", route:"main.tab-description", active:false },
         { heading: "Terminology", route:"main.tab-terminology", active:false },
-        { heading: "Drag & Drop(I)", route:"main.tab-drag-and-drop", active:false },
-        { heading: "Drag & Drop(II)", route:"main.tab-drag-and-drop-2", active:false },
+        { heading: "Definitions", route:"main.tab-definitions", active:false },
+        //{ heading: "GDL", route:"main.tab-gdl", active:false },
         { heading: "Multi-select", route:"main.tab-multiselect", active:false },
         { heading: "Dialog", route:"main.tab-dialog", active:false }
     ];

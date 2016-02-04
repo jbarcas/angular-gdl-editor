@@ -7,6 +7,7 @@ angular.module('app').controller('RestCtrl', RestCtrl);
 function RestCtrl ($scope, guideFactory, archetypeFactory) {
 
     $scope.guide = {};
+    $scope.guideUpload = {};
     $scope.archetype = {};
     $scope.checked;
 
@@ -29,6 +30,8 @@ function RestCtrl ($scope, guideFactory, archetypeFactory) {
             .success(function(data, status, headers, config) {
                 $scope.checked = id;
                 $scope.guide = data;
+                // FIXME: Handle with an interceptor
+                $scope.guide.definition.archetypeBindings = getArchetypeBindings($scope.guide.definition.archetypeBindings);
                 console.log(data);
             })
             .error(function(data) {
@@ -37,7 +40,8 @@ function RestCtrl ($scope, guideFactory, archetypeFactory) {
     };
 
     $scope.insertGuide = function () {
-        guideFactory.insertGuide($scope.guide)
+        angular.copy($scope.guide, $scope.guideUpload);
+        guideFactory.insertGuide($scope.guideUpload)
             .success(function (data, status, headers, config) {
                 alert($scope.guide.id + "updated!");
             }).
@@ -46,11 +50,30 @@ function RestCtrl ($scope, guideFactory, archetypeFactory) {
             })
     };
 
+    function getArchetypeBindings (archetypeBindings) {
+        var archetypeBindingsArray = Object.keys(archetypeBindings).map(function(key) {
+            archetypeBindings[key].elements = getElements(archetypeBindings[key].elements);
+            return archetypeBindings[key];
+        });
+        $scope.guide.definition.archetypeBindings = archetypeBindingsArray;
+        return archetypeBindingsArray;
+    }
+
+    function getElements (elements) {
+        if (elements == null) {
+            return [];
+        }
+        var elementsArray = Object.keys(elements).map(function(key) {
+            return elements[key];
+        });
+        return elementsArray;
+    }
+
     function getArchetypes() {
         archetypeFactory.getArchetypes()
             .success(function(data) {
                 $scope.archetypes = data;
-                console.log(data);
+                //console.log(data);
             })
             .error(function(data) {
                 console.log('Error: ' + data);
@@ -61,7 +84,7 @@ function RestCtrl ($scope, guideFactory, archetypeFactory) {
         archetypeFactory.getArchetype(id)
             .success(function(data, status, headers, config) {
                 $scope.archetype = data;
-                console.log(data);
+                //console.log(data);
             })
             .error(function(data) {
                 console.log('Error at getting archetype: ' + data);
