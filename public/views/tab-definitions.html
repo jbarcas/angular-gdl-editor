@@ -1,4 +1,4 @@
-<div ng-controller="DragDropCtrl">
+<div>
     <!-- Nested node template -->
     <div class="row">
         <div class="col-sm-12">
@@ -8,9 +8,10 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <div ui-tree data-nodrop-enabled id="tree-root">
+            <div ui-tree="treeOptions" data-nodrop-enabled id="tree-root">
                 <ol ui-tree-nodes="" ng-model="guide.definition.archetypeBindings">
-                    <li ng-repeat="node in guide.definition.archetypeBindings" ui-tree-node ng-include="'views/templates/nodes-renderer.html'"></li>
+                    <li ng-repeat="node in guide.definition.archetypeBindings" ui-tree-node
+                        ng-include="'views/templates/nodes-renderer.html'"></li>
                 </ol>
             </div>
         </div>

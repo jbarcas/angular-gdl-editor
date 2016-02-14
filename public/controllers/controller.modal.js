@@ -8,7 +8,7 @@ angular.module('app')
     .controller('ModalKeywordsInstanceCtrl', ModalKeywordsInstanceCtrl)
     .controller('ModalContributorsInstanceCtrl', ModalContributorsInstanceCtrl);
 
-function ModalKeywordsCtrl ($scope, $modal, $log) {
+function ModalKeywordsCtrl($scope, $modal, $log) {
 
     $scope.open = function (size) {
 
@@ -38,7 +38,7 @@ function ModalKeywordsCtrl ($scope, $modal, $log) {
 
 }
 
-function ModalContributorsCtrl ($scope, $modal, $log) {
+function ModalContributorsCtrl($scope, $modal, $log) {
 
     $scope.open = function (size) {
 
@@ -72,7 +72,7 @@ function ModalContributorsCtrl ($scope, $modal, $log) {
 // Note that $modalInstance represents a modal window (instance) dependency.
 // It is not the same as the $modal service used above.
 
-function ModalKeywordsInstanceCtrl ($scope, $modalInstance, keywords) {
+function ModalKeywordsInstanceCtrl($scope, $modalInstance, keywords) {
 
     $scope.kw;
 
@@ -89,7 +89,7 @@ function ModalKeywordsInstanceCtrl ($scope, $modalInstance, keywords) {
     };
 }
 
-function ModalContributorsInstanceCtrl ($scope, $modalInstance, otherContributors) {
+function ModalContributorsInstanceCtrl($scope, $modalInstance, otherContributors) {
 
     $scope.co;
 

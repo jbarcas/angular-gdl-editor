@@ -2,7 +2,7 @@
  * Created by jbarros on 01/04/2015.
  */
 
-angular.module('app').controller('DialogCtrl', function($scope, ngDialog) {
+angular.module('app').controller('DialogCtrl', function ($scope, ngDialog) {
 
     $scope.clickToOpen = function () {
         ngDialog.open({
@@ -17,7 +17,7 @@ angular.module('app').controller('DialogCtrl', function($scope, ngDialog) {
     }
 });
 
-angular.module('app').controller('TemplateCtrl', function($scope, ngDialog) {
+angular.module('app').controller('TemplateCtrl', function ($scope, ngDialog) {
 
     $scope.$parent.value = {name: 'CHA2DS2VASc_Score_calculation.v1'};
 

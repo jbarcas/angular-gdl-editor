@@ -1,29 +1,25 @@
 <!-- Nested node template -->
 <div ui-tree-handle class="tree-node tree-node-content">
-    <a class="btn btn-success btn-xs" data-nodrag ng-click="toggle(this)">
-        <span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span>
+    <a class="btn btn-success btn-xs" ng-if="node.elements && node.elements.length > 0" data-nodrag
+       ng-click="toggle(this)">
+        <span class="glyphicon"
+              ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span>
     </a>
     Instantiate archetype: <sup>{{node.domain}}</sup> <a href="#" ng-click="openArchetypes()">{{node.archetypeId}}</a>
-    <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="remove(this)">                                                 <!-- red button -->
-        <span class="glyphicon glyphicon-remove"></span>
+    <a class="pull-right btn btn-xs" data-nodrag ng-click="remove(this)">
+        <img ng-src="../images/delete.png">
     </a>
-    <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="newSubItem(this)" style="margin-right: 8px;">                                <!-- "plus" button" -->
-        <span class="glyphicon glyphicon-plus"></span>
+    <a class="pull-right btn btn-xs" data-nodrag ng-click="newSubItem(this)">
+        <img ng-src="../images/add.png">
     </a>
 </div>
 
 <ol ng-class="{hidden: collapsed}" ui-tree-nodes ng-model="node.elements">
     <li ng-repeat="element in node.elements" ui-tree-node>
-        <div ui-tree-handle class="tree-node tree-node-content">
-            <a class="btn btn-success btn-xs" data-nodrag ng-click="toggle(this)">
-                <span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span>
-            </a>
-            Instantiate element: <a href="#"> {{element.id}}</a>
-            <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="remove(this)">                                         <!-- red button -->
-                <span class="glyphicon glyphicon-remove"></span>
-            </a>
-            <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="newSubItem(this)" style="margin-right: 8px;">                        <!-- "plus" button" -->
-                <span class="glyphicon glyphicon-plus"></span>
+        <div ui-tree-handle class="tree-node tree-node-content element-background">
+            Instantiate element: <a href="#"> {{element.name}}</a>
+            <a class="pull-right btn btn-xs" data-nodrag ng-click="remove(this)">
+                <img ng-src="../images/delete.png">
             </a>
         </div>
     </li>

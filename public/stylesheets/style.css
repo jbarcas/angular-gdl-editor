@@ -43,3 +43,14 @@ sup {
 .table tbody tr td {
     vertical-align: middle;
 }
+
+/*
+ * Styles for Definitions tab
+ */
+
+/* Red background in Element instantiation div */
+
+.element-background {
+    background: #FDF5F5 !important;
+}
+

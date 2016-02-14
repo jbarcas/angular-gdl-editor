@@ -1,12 +1,12 @@
 <div class="ngdialog-content">
     <div class="container" ng-controller="TreeCtrl" id="gdlEditorTree">
         <h2>ICD 10</h2>
-<!--    <input type="text" id="gdlEditorFilter" placeholder="search"> -->
+        <!--    <input type="text" id="gdlEditorFilter" placeholder="search"> -->
         <js-tree tree-plugins="checkbox,search" tree-data="json" tree-src="../jstree/data/tree-json.json"></js-tree>
 
     </div>
 </div>
 <div class="ngdialog-buttons">
     <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="clickToClose()">Accept</button>
-    <button type="button" class="ngdialog-button ngdialog-button-secondary" ng-click="clickToClose()" >Cancel</button>
+    <button type="button" class="ngdialog-button ngdialog-button-secondary" ng-click="clickToClose()">Cancel</button>
 </div>

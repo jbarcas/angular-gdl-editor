@@ -2,7 +2,7 @@
  * Created by jbarros on 16/04/15.
  */
 
-angular.module('app').controller('TreeCtrl', function($scope) {
+angular.module('app').controller('TreeCtrl', function ($scope) {
 
     $scope.arbol = [{
         "id": "ajson1",

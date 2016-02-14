@@ -4,7 +4,7 @@
 
 angular.module('app').controller('DescriptionCtrl', DescriptionCtrl);
 
-function DescriptionCtrl ($scope) {
+function DescriptionCtrl($scope) {
     //TODO: lifecycleState = 'Not set' should remove the JSON entry description.lifecycleState
     $scope.lifecycleStates = [
         {name: '-- choose lifecycle state --'},

@@ -6,16 +6,16 @@ angular.module('app')
     .controller('LanguageCtrl', LanguageCtrl)
     .controller('ModalLanguageInstanceCtrl', ModalLanguageInstanceCtrl);
 
-function LanguageCtrl ($scope, $modal, $log) {
+function LanguageCtrl($scope, $modal, $log) {
 
     var url_languages = "../images/laguages/"
 
     $scope.languages = [
-        { language: "English", twoLetterIdentifier: "en", url: "en.png"},
-        { language: "Swedish", twoLetterIdentifier : "sv", url: "sv.png" },
-        { language: "Greek", twoLetterIdentifier : "el", url: "el.png" },
-        { language: "Danish", twoLetterIdentifier : "da", url: "da.png" },
-        { language: "Spanish", twoLetterIdentifier : "es", url: "es.png" }
+        {language: "English", twoLetterIdentifier: "en", url: "en.png"},
+        {language: "Swedish", twoLetterIdentifier: "sv", url: "sv.png"},
+        {language: "Greek", twoLetterIdentifier: "el", url: "el.png"},
+        {language: "Danish", twoLetterIdentifier: "da", url: "da.png"},
+        {language: "Spanish", twoLetterIdentifier: "es", url: "es.png"}
     ];
 
     $scope.language = $scope.languages[0].twoLetterIdentifier; // Select language
@@ -44,7 +44,7 @@ function LanguageCtrl ($scope, $modal, $log) {
 
 }
 
-function ModalLanguageInstanceCtrl ($scope, $modalInstance, languages) {
+function ModalLanguageInstanceCtrl($scope, $modalInstance, languages) {
 
     $scope.languages = languages;
     $scope.selectedLanguage = {

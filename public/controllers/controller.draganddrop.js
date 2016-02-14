@@ -2,11 +2,13 @@
  * Created by jbarros on 11/05/15.
  */
 
-$(function() {
+$(function () {
     $("#catalog").accordion();
 });
 
-angular.module('app').controller('DragDropCtrl', function($scope) {
+angular.module('app').controller('DragDropCtrl', function ($scope, archetypeFactory) {
+
+    $scope.path = {};
 
     $scope.remove = function (scope) {
         scope.remove();
@@ -22,12 +24,12 @@ angular.module('app').controller('DragDropCtrl', function($scope) {
     };
 
     $scope.newSubItem = function (scope) {
-/*      var nodeData = scope.$modelValue;
-        nodeData.elements.push({
-            id: nodeData.id * 10 + nodeData.nodes.length,
-            title: nodeData.title + '.' + (nodeData.nodes.length + 1),
-            nodes: []
-        }); */
+        /*      var nodeData = scope.$modelValue;
+         nodeData.elements.push({
+         id: nodeData.id * 10 + nodeData.nodes.length,
+         title: nodeData.title + '.' + (nodeData.nodes.length + 1),
+         nodes: []
+         }); */
     };
 
     $scope.collapseAll = function () {
