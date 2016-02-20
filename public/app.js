@@ -12,7 +12,6 @@ angular.module('app', [
     'xeditable',
     'ngDialog',
     'jsTree.directive',
-    'ngDragDrop',
     'ngResource',
     'ui.tree'
 ])

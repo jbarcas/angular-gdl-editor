@@ -2,11 +2,29 @@
  * Created by jbarros on 11/05/15.
  */
 
-$(function () {
-    $("#catalog").accordion();
-});
+angular.module('app').controller('DragDropCtrl', function ($scope, $log, archetypeFactory) {
 
-angular.module('app').controller('DragDropCtrl', function ($scope, archetypeFactory) {
+    $scope.treeOptions = {
+        accept: function(sourceNodeScope, destNodesScope, destIndex) {
+
+            $log.debug("sourceNodeScope.$parent.$type: " + sourceNodeScope.$parent.$type);
+
+            $log.debug("sourceNodeScope.$type: " + sourceNodeScope.$type);
+
+            $log.debug("destNodesScope.$parent.$type: " + destNodesScope.$parent.$type);
+
+            $log.debug("destNodesScope.$type: " + destNodesScope.$type);
+
+            if (sourceNodeScope.depth() === 2 && destNodesScope.depth() === 1) {
+                return true;
+            } else if (sourceNodeScope.depth() === 1 && destNodesScope.depth() === 0) {
+                return true;
+            } else{
+                return false;
+            }
+
+        }
+    };
 
     $scope.path = {};
 
@@ -42,6 +60,10 @@ angular.module('app').controller('DragDropCtrl', function ($scope, archetypeFact
 
     $scope.openArchetypes = function () {
         alert("show Archetype tree modal");
+    };
+
+    $scope.openElements = function () {
+        alert("show elements tree modal");
     };
 
 });

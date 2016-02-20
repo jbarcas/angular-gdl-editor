@@ -6,7 +6,7 @@ angular.module('app')
     .controller('LanguageCtrl', LanguageCtrl)
     .controller('ModalLanguageInstanceCtrl', ModalLanguageInstanceCtrl);
 
-function LanguageCtrl($scope, $modal, $log) {
+function LanguageCtrl($scope, $uibModal, $log) {
 
     var url_languages = "../images/laguages/"
 
@@ -22,7 +22,7 @@ function LanguageCtrl($scope, $modal, $log) {
 
     $scope.open = function (size) {
 
-        var modalInstance = $modal.open({
+        var modalInstance = $uibModal.open({
             animation: true,
             templateUrl: '../views/modals/modalLanguage.html',
             controller: 'ModalLanguageInstanceCtrl',
@@ -44,7 +44,7 @@ function LanguageCtrl($scope, $modal, $log) {
 
 }
 
-function ModalLanguageInstanceCtrl($scope, $modalInstance, languages) {
+function ModalLanguageInstanceCtrl($scope, $uibModalInstance, languages) {
 
     $scope.languages = languages;
     $scope.selectedLanguage = {
@@ -52,10 +52,10 @@ function ModalLanguageInstanceCtrl($scope, $modalInstance, languages) {
     };
 
     $scope.ok = function () {
-        $modalInstance.close($scope.selectedLanguage.item);
+        $uibModalInstance.close($scope.selectedLanguage.item);
     };
 
     $scope.cancel = function () {
-        $modalInstance.dismiss('cancel');
+        $uibModalInstance.dismiss('cancel');
     };
 }

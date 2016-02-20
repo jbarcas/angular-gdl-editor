@@ -1,11 +1,11 @@
 <div>
-    <tabset>
-        <tab ng-repeat="t in tabs"
+    <uib-tabset>
+        <uib-tab ng-repeat="t in tabs"
              heading="{{t.heading}}"
              select="go(t.route)"
              active="t.active">
-        </tab>
-    </tabset>
+        </uib-tab>
+    </uib-tabset>
     <br>
     <!-- HEADER -->
     <div class="jumbotron text-center">

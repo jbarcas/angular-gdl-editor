@@ -5,7 +5,7 @@
         <span class="glyphicon"
               ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span>
     </a>
-    Instantiate archetype: <sup>{{node.domain}}</sup> <a href="#" ng-click="openArchetypes()">{{node.archetypeId}}</a>
+    Instantiate archetype: <sup>{{node.domain}}</sup> <a ng-click="openArchetypes()" data-nodrag>{{node.archetypeId}}</a>
     <a class="pull-right btn btn-xs" data-nodrag ng-click="remove(this)">
         <img ng-src="../images/delete.png">
     </a>
@@ -14,10 +14,10 @@
     </a>
 </div>
 
-<ol ng-class="{hidden: collapsed}" ui-tree-nodes ng-model="node.elements">
+<ol ng-class="{hidden: collapsed}" ui-tree-nodes="" ng-model="node.elements">
     <li ng-repeat="element in node.elements" ui-tree-node>
         <div ui-tree-handle class="tree-node tree-node-content element-background">
-            Instantiate element: <a href="#"> {{element.name}}</a>
+            Instantiate element: <a ng-click="openElements()" data-nodrag> {{element.name}}</a>
             <a class="pull-right btn btn-xs" data-nodrag ng-click="remove(this)">
                 <img ng-src="../images/delete.png">
             </a>

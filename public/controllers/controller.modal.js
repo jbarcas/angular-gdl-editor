@@ -8,11 +8,11 @@ angular.module('app')
     .controller('ModalKeywordsInstanceCtrl', ModalKeywordsInstanceCtrl)
     .controller('ModalContributorsInstanceCtrl', ModalContributorsInstanceCtrl);
 
-function ModalKeywordsCtrl($scope, $modal, $log) {
+function ModalKeywordsCtrl($scope, $uibModal, $log) {
 
     $scope.open = function (size) {
 
-        var modalInstance = $modal.open({
+        var modalInstance = $uibModal.open({
             animation: true,
             templateUrl: '../views/modals/modalAddKeyword.html',
             controller: 'ModalKeywordsInstanceCtrl',
@@ -38,11 +38,11 @@ function ModalKeywordsCtrl($scope, $modal, $log) {
 
 }
 
-function ModalContributorsCtrl($scope, $modal, $log) {
+function ModalContributorsCtrl($scope, $uibModal, $log) {
 
     $scope.open = function (size) {
 
-        var modalInstance = $modal.open({
+        var modalInstance = $uibModal.open({
             animation: true,
             templateUrl: '../views/modals/modalAddContributor.html',
             controller: 'ModalContributorsInstanceCtrl',
@@ -69,10 +69,10 @@ function ModalContributorsCtrl($scope, $modal, $log) {
 }
 
 
-// Note that $modalInstance represents a modal window (instance) dependency.
-// It is not the same as the $modal service used above.
+// Note that $uibModalInstance represents a modal window (instance) dependency.
+// It is not the same as the $uibModal service used above.
 
-function ModalKeywordsInstanceCtrl($scope, $modalInstance, keywords) {
+function ModalKeywordsInstanceCtrl($scope, $uibModalInstance, keywords) {
 
     $scope.kw;
 
@@ -81,15 +81,15 @@ function ModalKeywordsInstanceCtrl($scope, $modalInstance, keywords) {
             ( typeof $scope.guide.description.details[$scope.language].keywords != 'undefined' && $scope.guide.description.details[$scope.language].keywords instanceof Array ) ?
                 $scope.guide.description.details[$scope.language].keywords : [];
         $scope.guide.description.details[$scope.language].keywords.push($scope.kw);
-        $modalInstance.close();
+        $uibModalInstance.close();
     };
 
     $scope.cancel = function () {
-        $modalInstance.dismiss('cancel');
+        $uibModalInstance.dismiss('cancel');
     };
 }
 
-function ModalContributorsInstanceCtrl($scope, $modalInstance, otherContributors) {
+function ModalContributorsInstanceCtrl($scope, $uibModalInstance, otherContributors) {
 
     $scope.co;
 
@@ -98,10 +98,10 @@ function ModalContributorsInstanceCtrl($scope, $modalInstance, otherContributors
             ( typeof $scope.guide.description.otherContributors != 'undefined' && $scope.guide.description.otherContributors instanceof Array ) ?
                 $scope.guide.description.otherContributors : [];
         $scope.guide.description.otherContributors.push($scope.co);
-        $modalInstance.close();
+        $uibModalInstance.close();
     };
 
     $scope.cancel = function () {
-        $modalInstance.dismiss('cancel');
+        $uibModalInstance.dismiss('cancel');
     };
 }

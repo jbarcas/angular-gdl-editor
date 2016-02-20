@@ -65,7 +65,7 @@
                             <img ng-src="../images/add.png" ng-click="open()">
                         </a>
                     </div>
-                    <ul ui-sortable class="list-group" ng-model="guide.description.details[language].keywords">
+                    <ul class="list-group" ng-model="guide.description.details[language].keywords">
                         <li class="list-group-item" ng-repeat="keyword in guide.description.details[language].keywords">
                             <a href="#">
                                 <img ng-src="../images/delete.png" ng-click="removeKeyword(this.keyword)">
@@ -81,7 +81,7 @@
                             <img ng-src="../images/add.png" ng-click="open()">
                         </a>
                     </div>
-                    <ul ui-sortable class="list-group" ng-model="guide.description.otherContributors">
+                    <ul class="list-group" ng-model="guide.description.otherContributors">
                         <li class="list-group-item" ng-repeat="otherContributor in guide.description.otherContributors">
                             <a href="#">
                                 <img ng-src="../images/delete.png" ng-click="removeOtherContributor(this.otherContributor)">
