@@ -1,0 +1,14 @@
+<div class="container" ng-controller="CreateElementCtrl">
+    <div class="ngdialog-content">
+        <div class="container">
+            <h2>Elements in archetype {{archetypeBinding.archetypeId}}</h2>
+            <js-tree tree-plugins="search" tree-data="scope" tree-model="elementIds"
+                     tree-events="ready:readyCB;changed:changedCB;open_node:openNodeCB;create_node:createNodeCB;get_selected:getSelectedCB"></js-tree>
+        </div>
+    </div>
+
+    <div class="ngdialog-buttons">
+        <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="accept()">Accept</button>
+        <button type="button" class="ngdialog-button ngdialog-button-secondary" ng-click="cancel()">Cancel</button>
+    </div>
+</div>

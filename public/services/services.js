@@ -6,7 +6,7 @@
  return $resource(URL_BASE + "/guidelines/json/:guidelineId");
  }); */
 
-angular.module('app.services', ['app.core'])
+angular.module('app.services', [])
     // a simple service
     // each function returns a promise object
     .factory('guideFactory', function ($http, API_URL) {
@@ -22,33 +22,7 @@ angular.module('app.services', ['app.core'])
         }
 
         guideFactory.insertGuide = function (guide) {
-            // FIXME: Handle with an interceptor ??
-            return $http.post(API_URL + '/guidelines/json/' + guide.id, guide, {
-                transformRequest: function (data, headers) {
-                    headers()['Content-Type'] = 'text/plain';
-                    data.definition.archetypeBindings.map(function (archetypeBindingValue, archetypebindingKey) {
-                        if (!angular.isUndefined(archetypeBindingValue.elements)) {
-                            archetypeBindingValue.elements.map(function (elementValue, elementKey) {
-                                data.definition.archetypeBindings[archetypebindingKey].elements[elementValue.id] = elementValue;
-                                /*
-                                 * Delete the "name" property (used to map the gt code element to its name in the archetype)
-                                 */
-                                delete data.definition.archetypeBindings[archetypebindingKey].elements[elementValue.id].name;
-                                delete data.definition.archetypeBindings[archetypebindingKey].elements[elementKey];
-                            });
-                            var element = {};
-                            angular.extend(element, data.definition.archetypeBindings[archetypebindingKey].elements);
-                            data.definition.archetypeBindings[archetypebindingKey].elements = element;
-                            data.definition.archetypeBindings[archetypeBindingValue.id] = archetypeBindingValue;
-                            delete data.definition.archetypeBindings[archetypebindingKey];
-                        }
-                    })
-                    var newObj = {};
-                    angular.extend(newObj, data.definition.archetypeBindings);
-                    data.definition.archetypeBindings = newObj;
-                    return angular.toJson(data);
-                }
-            });
+            return $http.post(API_URL + '/guidelines/json/' + guide.id, guide);
         }
 
         guideFactory.updateGuide = function (guide) {
@@ -75,19 +49,8 @@ angular.module('app.services', ['app.core'])
             return $http.get(API_URL + '/archetypes');
         }
 
-        archetypeFactory.getArchetype = function (id) {
-            var deferred = $q.defer();
-            var promise = deferred.promise;
-            var url = API_URL + '/archetypes/json/' + id;
-            $http.get(url)
-                .success(function (data) {
-                    deferred.resolve(data);
-                })
-                .error(function (err) {
-                    deferred.reject(err)
-                });
-
-            return promise;
+        archetypeFactory.getArchetype = function(archetypeId) {
+            return $http.get(API_URL + '/archetypes/json/' + archetypeId);
         }
 
         archetypeFactory.getArchetypeTerms = function (archetypeId, language) {
@@ -95,5 +58,31 @@ angular.module('app.services', ['app.core'])
         }
 
         return archetypeFactory;
+
+    })
+
+    .factory('gtService', function (GT_HEADER) {
+
+        var gtService = {};
+
+        gtService.generateGt = function (guide) {
+
+            var originalLanguage = guide.language.originalLanguage.codeString;
+            var usedTerms = Object.keys(guide.ontology.termDefinitions[originalLanguage].terms);
+
+            if (guide.definition && guide.definition.archetypeBindings) {
+                angular.forEach(guide.definition.archetypeBindings, function(archetypeBinding) {
+                    usedTerms.push(archetypeBinding.id)
+                })
+            }
+            var high = usedTerms.sort().slice(-1).pop();
+            var generatedCode = high.split(GT_HEADER)[1];
+            generatedCode++;
+            generatedCode = "" + generatedCode;
+            var pad = "0000";
+            return GT_HEADER + pad.substring(0, pad.length - generatedCode.length) + generatedCode;
+        }
+
+        return gtService;
 
     });

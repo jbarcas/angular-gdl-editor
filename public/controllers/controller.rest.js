@@ -30,8 +30,7 @@ function RestCtrl($scope, guideFactory, archetypeFactory) {
             .success(function (data, status, headers, config) {
                 $scope.checked = id;
                 $scope.guide = data;
-                // FIXME: Handle with an interceptor??
-                $scope.guide.definition.archetypeBindings = getArchetypeBindings($scope.guide.definition.archetypeBindings);
+                $scope.guide.definition.archetypeBindings = convertArchetypeBindings($scope.guide.definition.archetypeBindings);
                 console.log(data);
             })
             .error(function (data) {
@@ -50,16 +49,21 @@ function RestCtrl($scope, guideFactory, archetypeFactory) {
             })
     };
 
-    function getArchetypeBindings(archetypeBindings) {
+    /*
+     * It is necessary to convert the model because the angular-ui-tree component expects an array instead of an object
+     */
+    function convertArchetypeBindings(archetypeBindings) {
         var archetypeBindingsArray = Object.keys(archetypeBindings).map(function (key) {
-            archetypeBindings[key].elements = getElements(archetypeBindings[key].elements, archetypeBindings[key].archetypeId);
+            archetypeBindings[key].elements = getElements(archetypeBindings[key]);
             return archetypeBindings[key];
         });
         $scope.guide.definition.archetypeBindings = archetypeBindingsArray;
         return archetypeBindingsArray;
     }
 
-    function getElements(elements, archetypeId) {
+    function getElements(archetypeBinding) {
+        var elements = archetypeBinding.elements;
+        var archetypeId = archetypeBinding.archetypeId;
         if (elements == null) {
             return [];
         }
@@ -68,14 +72,14 @@ function RestCtrl($scope, guideFactory, archetypeFactory) {
              * Create "name" property used to map the element path with its name
              */
             archetypeFactory.getArchetype(archetypeId)
-                .then(function (data) {
-                    angular.forEach(data.elementMaps, function (_value, _key) {
-                        if (_value.path === elements[key].path) {
-                            elements[key].name = _value.elementMapId;
+                .success(function (data) {
+                    angular.forEach(data.elementMaps, function (elementMap) {
+                        if (elementMap.path === elements[key].path) {
+                            elements[key].name = elementMap.elementMapId;
                         }
                     })
                 })
-                .catch(function (err) {
+                .error(function (err) {
                     console.log('Error at getting archetype: ' + err);
                 });
             return elements[key];

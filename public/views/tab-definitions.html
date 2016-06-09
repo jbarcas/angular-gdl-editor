@@ -10,7 +10,7 @@
         <div class="col-sm-12">
             <div ui-tree="treeOptions">
                 <ol ui-tree-nodes="" ng-model="guide.definition.archetypeBindings">
-                    <li ng-repeat="node in guide.definition.archetypeBindings" ui-tree-node
+                    <li ng-repeat="archetypeBinding in guide.definition.archetypeBindings" ui-tree-node
                         ng-include="'views/templates/nodes-renderer.html'"></li>
                 </ol>
             </div>

@@ -53,4 +53,8 @@ sup {
 .element-background {
     background: #FDF5F5 !important;
 }
+.ngdialog-content{
+    width : auto !important;
+}
+
 

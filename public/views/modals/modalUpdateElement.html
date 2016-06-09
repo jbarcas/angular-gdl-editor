@@ -1,0 +1,15 @@
+<div class="ngdialog-content">
+    <div class="container" ng-controller="UpdateElementCtrl">
+        <h2>Elements in archetype {{archetypeBinding.archetypeId}}</h2>
+        <!--    <input type="text" id="gdlEditorFilter" placeholder="search"> -->
+        <js-tree tree-plugins="search" tree-data="scope" tree-model="elementIds"
+                 tree-events="ready:readyCB;changed:changedCB;open_node:openNodeCB;create_node:createNodeCB"></js-tree>
+        <!--<div js-tree="treeConfig" ng-model="archetypesInModal" should-apply="ignoreModelChanges()" tree="treeInstance" tree-events="ready:readyCB;create_node:createNodeCB"></div>-->
+
+    </div>
+</div>
+
+<div class="ngdialog-buttons">
+    <button type="button" class="ngdialog-button ngdialog-button-primary" ng-click="clickToClose()">Accept</button>
+    <button type="button" class="ngdialog-button ngdialog-button-secondary" ng-click="clickToClose()">Cancel</button>
+</div>

@@ -43,7 +43,7 @@
                         </div>
                         <div id="guideline-panel" class="panel-body">
                             <div class="jumbotron text-center">
-                                <h2>Guideline counter <span class="label label-info">{{ guides.length }}</span></h2>
+                                <h2>Guideline counter <span class="label label-info" ng-bind="guides.length"></span></h2>
                             </div>
                             <div class="radio" ng-repeat="guide in guides">
                                 <label>
@@ -65,18 +65,23 @@
         <script type="text/javascript" src="/bower_components/angular/angular.js"></script>         <!-- Bower: AngularJS -->
         <!-- Load the Angular GDLEditor module -->
         <script type="text/javascript" src="app.js"></script>
-        <!-- Load a configuration file -->
-        <script type="text/javascript" src="configuration.js"></script>
+        <!-- Load a configuration -->
+        <script type="text/javascript" src="config/constants.js"></script>
+        <script type="text/javascript" src="config/routes.js"></script>
+        <script type="text/javascript" src="config/http.js"></script>
         <!-- Load the javascript files -->
         <script type="text/javascript" src="/bower_components/angular-xeditable/dist/js/xeditable.min.js"></script>         <!-- Bower: Grid (terminologies) -->
         <script type="text/javascript" src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>         <!-- Bower: Angular UI bootstrap (Grid) -->
         <script type="text/javascript" src="/bower_components/ngDialog/js/ngDialog.min.js"></script>                        <!-- Bower: Dialog (pop-up dialog tab (remove in the future)) -->
         <script type="text/javascript" src="/bower_components/jstree/dist/jstree.min.js"></script>                          <!-- Bower: JS Tree (checkbox tree) -->
-        <script type="text/javascript" src="/bower_components/jstree-directive/jsTree.directive.js"></script>               <!-- Bower: JS Tree Directive (checkbox tree) -->
+        <script type="text/javascript" src="/bower_components/jstree-directive/jsTree.directive.js"></script>               <!--Bower: JS Tree Directive (checkbox tree) -->
+        <!--<script type="text/javascript" src="/bower_components/ng-js-tree/ngJsTree.js"></script> -->
         <script type="text/javascript" src="/bower_components/angular-ui-sortable/sortable.min.js"></script>                <!-- Bower: Sortable -->
         <script type="text/javascript" src="/bower_components/angular-ui-tree/dist/angular-ui-tree.js"></script>            <!-- Bower: Angular UI Tree -->
         <script type="text/javascript" src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script> <!-- Bower: Angular UI Router -->
         <script type="text/javascript" src="/bower_components/angular-resource/angular-resource.min.js"></script>           <!-- Bower: Angular Resource -->
+        <!-- Load filters -->
+        <script type="text/javascript" src="filters/filters.js"></script>
         <!-- Load services -->
         <script type="text/javascript" src="services/services.js"></script>
         <!-- Load directives -->
@@ -87,11 +92,12 @@
         <script type="text/javascript" src="controllers/controller.rest.js"></script>
         <script type="text/javascript" src="controllers/controller.form.js"></script>
         <script type="text/javascript" src="controllers/controller.dialog.js"></script>                                     <!-- Used for Multi-select example. //TODO: remove -->
-        <script type="text/javascript" src="controllers/controller.tree.js"></script>
-        <script type="text/javascript" src="controllers/controller.draganddrop.js"></script>
+        <script type="text/javascript" src="controllers/controller.definitions.js"></script>
         <script type="text/javascript" src="controllers/controller.main.js"></script>
         <script type="text/javascript" src="controllers/controller.modal.js"></script>
         <script type="text/javascript" src="controllers/controller.language.js"></script>
         <script type="text/javascript" src="controllers/controller.gdl.js"></script>
+        <script type="text/javascript" src="controllers/controller.template.js"></script>
+        <script type="text/javascript" src="controllers/controller.elements.js"></script>
     </body>
 </html>

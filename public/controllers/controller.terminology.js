@@ -4,7 +4,7 @@
 
 angular.module('app').controller('TerminologyCtrl', TerminologyCtrl);
 
-function TerminologyCtrl($scope, GT_HEADER) {
+function TerminologyCtrl($scope, gtService) {
 
     // save term
     $scope.saveTerm = function (data, id) {
@@ -19,24 +19,14 @@ function TerminologyCtrl($scope, GT_HEADER) {
     // add term
     $scope.addTerm = function () {
         $scope.inserted = {
-            id: generateGtCode($scope.guide.ontology.termDefinitions[$scope.language].terms),
+            id: generateGtCode($scope.guide),
             text: '',
             description: ''
         };
         $scope.guide.ontology.termDefinitions[$scope.language].terms[$scope.inserted.id] = $scope.inserted;
     };
 
-    function generateGtCode(object) {
-        var higher = "";
-        for (var key in object) {
-            if (object.hasOwnProperty(key) && key > higher) {
-                higher = key;
-            }
-        }
-        var generatedCode = higher.split(GT_HEADER)[1];
-        generatedCode++;
-        generatedCode = "" + generatedCode;
-        var pad = "0000";
-        return GT_HEADER + pad.substring(0, pad.length - generatedCode.length) + generatedCode;
+    function generateGtCode(guide) {
+        return gtService.generateGt(guide);
     }
 }
