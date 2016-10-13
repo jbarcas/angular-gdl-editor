@@ -1,0 +1,1235 @@
+{
+  "gdlVersion": "0.1",
+  "id": "Estimated_GFR.v1",
+  "concept": "gt0016",
+  "language": {
+    "originalLanguage": {
+      "terminologyId": {
+        "name": "ISO_639-1",
+        "value": "ISO_639-1"
+      },
+      "codeString": "en"
+    }
+  },
+  "description": {
+    "originalAuthor": {
+      "date": "2012-09-12",
+      "name": "Rong Chen",
+      "organisation": "Cambio Healthcare Systems",
+      "email": "rong.chen@cambio.se"
+    },
+    "otherContributors": [
+      "Gustavo Barcelar",
+      "Iago Corbal"
+    ],
+    "lifecycleState": "Author draft",
+    "details": {
+      "sv": {
+        "id": "sv",
+        "copyright": "Cambio Healthcare Systems"
+      },
+      "pt": {
+        "id": "pt"
+      },
+      "el": {
+        "id": "el"
+      },
+      "en": {
+        "id": "en",
+        "purpose": "To calculate estimated glomerular filtration rate based on serum creatine lab test result according to the Cockcroft-Gault formula , in males, females and children.",
+        "keywords": [
+          "estimated glomerular filtration rate",
+          "estimated GFR",
+          "kidney function",
+          "creatinine",
+          "kidney",
+          "Cockcroft-Gault"
+        ],
+        "use": "Use for calculating eGFR based on Cockcroft-Gault formula.",
+        "misuse": "Do not use for caulculating eGFR based on other formulas.",
+        "copyright": "Cambio Healthcare Systems"
+      },
+      "da": {
+        "id": "da",
+        "copyright": "Cambio Healthcare Systems"
+      },
+      "es": {
+        "id": "es",
+        "purpose": "Calcular el índice de filtrado glomerular estimado basándose en el nivel de creatinina del sujeto",
+        "keywords": [
+          "IFG estimado"
+        ]
+      }
+    },
+    "otherDetails": {
+      "references": "1. M. Rowland and T. N. Tozer, “Clinical Pharmacokinetics. Concepts and Applications,” 3rd Edition, Lea & Febiger, Philadelphia, London, 1995."
+    }
+  },
+  "definition": {
+    "archetypeBindings": {
+      "gt0021": {
+        "id": "gt0021",
+        "archetypeId": "openEHR-EHR-OBSERVATION.estimated_glomerular_filtration_rate.v1",
+        "domain": "CDS",
+        "elements": {
+          "gt0011": {
+            "id": "gt0011",
+            "path": "/data[at0001]/events[at0002]/data[at0003]/items[at0004]"
+          }
+        },
+        "predicates": []
+      },
+      "gt0020": {
+        "id": "gt0020",
+        "archetypeId": "openEHR-EHR-OBSERVATION.lab_test-urea_and_electrolytes.v1",
+        "domain": "EHR",
+        "elements": {
+          "gt0009": {
+            "id": "gt0009",
+            "path": "/data[at0001]/events[at0002]/data[at0003]/items[at0078.7]"
+          }
+        },
+        "predicates": [
+          "max(/data/events/time)"
+        ],
+        "predicateStatements": [
+          {
+            "type": "UnaryExpression",
+            "expressionItem": {
+              "operand": {
+                "type": "Variable",
+                "expressionItem": {
+                  "path": "/data/events/time"
+                }
+              },
+              "operator": "MAX"
+            }
+          }
+        ]
+      },
+      "gt0018": {
+        "id": "gt0018",
+        "archetypeId": "openEHR-EHR-OBSERVATION.body_weight.v1",
+        "domain": "EHR",
+        "elements": {
+          "gt0005": {
+            "id": "gt0005",
+            "path": "/data[at0002]/events[at0003]/data[at0001]/items[at0004]"
+          }
+        },
+        "predicates": [
+          "max(/data/events/time)"
+        ],
+        "predicateStatements": [
+          {
+            "type": "UnaryExpression",
+            "expressionItem": {
+              "operand": {
+                "type": "Variable",
+                "expressionItem": {
+                  "path": "/data/events/time"
+                }
+              },
+              "operator": "MAX"
+            }
+          }
+        ]
+      },
+      "gt0019": {
+        "id": "gt0019",
+        "archetypeId": "openEHR-EHR-OBSERVATION.height.v1",
+        "domain": "EHR",
+        "elements": {
+          "gt0007": {
+            "id": "gt0007",
+            "path": "/data[at0001]/events[at0002]/data[at0003]/items[at0004]"
+          }
+        },
+        "predicates": [
+          "max(/data/events/time)"
+        ],
+        "predicateStatements": [
+          {
+            "type": "UnaryExpression",
+            "expressionItem": {
+              "operand": {
+                "type": "Variable",
+                "expressionItem": {
+                  "path": "/data/events/time"
+                }
+              },
+              "operator": "MAX"
+            }
+          }
+        ]
+      },
+      "gt0017": {
+        "id": "gt0017",
+        "archetypeId": "openEHR-EHR-OBSERVATION.basic_demographic.v1",
+        "domain": "EHR",
+        "elements": {
+          "gt0002": {
+            "id": "gt0002",
+            "path": "/data[at0001]/events[at0002]/data[at0003]/items[at0008]"
+          },
+          "gt0003": {
+            "id": "gt0003",
+            "path": "/data[at0001]/events[at0002]/data[at0003]/items[at0004]"
+          }
+        },
+        "predicates": [
+          "max(/data/events/time)"
+        ],
+        "predicateStatements": [
+          {
+            "type": "UnaryExpression",
+            "expressionItem": {
+              "operand": {
+                "type": "Variable",
+                "expressionItem": {
+                  "path": "/data/events/time"
+                }
+              },
+              "operator": "MAX"
+            }
+          }
+        ]
+      }
+    },
+    "preConditions": [],
+    "defaultActions": [],
+    "rules": {
+      "gt0012": {
+        "id": "gt0012",
+        "when": [
+          "$gt0002.value<=($currentDateTime.value-20,a)",
+          "$gt0003==local::at0005|Male|",
+          "$gt0005.units=='kg'",
+          "$gt0009.units=='umol/l'"
+        ],
+        "then": [
+          "$gt0011.magnitude=((1.23*(140-($currentDateTime.year-$gt0002.year)))*($gt0005.magnitude/$gt0009.magnitude))",
+          "$gt0011.precision=2",
+          "$gt0011.units='ml/min'"
+        ],
+        "priority": 2,
+        "whenStatements": [
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0002",
+                  "attribute": "value"
+                }
+              },
+              "right": {
+                "type": "BinaryExpression",
+                "expressionItem": {
+                  "left": {
+                    "type": "Variable",
+                    "expressionItem": {
+                      "code": "currentDateTime",
+                      "attribute": "value"
+                    }
+                  },
+                  "right": {
+                    "type": "QuantityConstant",
+                    "expressionItem": {
+                      "quantity": {
+                        "magnitude": 20,
+                        "precision": 0,
+                        "units": "a",
+                        "accuracy": 0,
+                        "accuracyPercent": false
+                      },
+                      "value": "20,a"
+                    }
+                  },
+                  "operator": "SUBSTRATION"
+                }
+              },
+              "operator": "LESS_THAN_OR_EQUAL"
+            }
+          },
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0003"
+                }
+              },
+              "right": {
+                "type": "CodedTextConstant",
+                "expressionItem": {
+                  "codedText": {
+                    "definingCode": {
+                      "terminologyId": {
+                        "name": "local",
+                        "value": "local"
+                      },
+                      "codeString": "at0005"
+                    },
+                    "value": "Male"
+                  },
+                  "value": "local::at0005|Male|"
+                }
+              },
+              "operator": "EQUALITY"
+            }
+          },
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0005",
+                  "attribute": "units"
+                }
+              },
+              "right": {
+                "type": "StringConstant",
+                "expressionItem": {
+                  "string": "kg",
+                  "value": "kg"
+                }
+              },
+              "operator": "EQUALITY"
+            }
+          },
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0009",
+                  "attribute": "units"
+                }
+              },
+              "right": {
+                "type": "StringConstant",
+                "expressionItem": {
+                  "string": "umol/l",
+                  "value": "umol/l"
+                }
+              },
+              "operator": "EQUALITY"
+            }
+          }
+        ],
+        "thenStatements": [
+          {
+            "variable": {
+              "code": "gt0011",
+              "attribute": "magnitude"
+            },
+            "assignment": {
+              "type": "BinaryExpression",
+              "expressionItem": {
+                "left": {
+                  "type": "BinaryExpression",
+                  "expressionItem": {
+                    "left": {
+                      "type": "ConstantExpression",
+                      "expressionItem": {
+                        "value": "1.23"
+                      }
+                    },
+                    "right": {
+                      "type": "BinaryExpression",
+                      "expressionItem": {
+                        "left": {
+                          "type": "ConstantExpression",
+                          "expressionItem": {
+                            "value": "140"
+                          }
+                        },
+                        "right": {
+                          "type": "BinaryExpression",
+                          "expressionItem": {
+                            "left": {
+                              "type": "Variable",
+                              "expressionItem": {
+                                "code": "currentDateTime",
+                                "attribute": "year"
+                              }
+                            },
+                            "right": {
+                              "type": "Variable",
+                              "expressionItem": {
+                                "code": "gt0002",
+                                "attribute": "year"
+                              }
+                            },
+                            "operator": "SUBSTRATION"
+                          }
+                        },
+                        "operator": "SUBSTRATION"
+                      }
+                    },
+                    "operator": "MULTIPLICATION"
+                  }
+                },
+                "right": {
+                  "type": "BinaryExpression",
+                  "expressionItem": {
+                    "left": {
+                      "type": "Variable",
+                      "expressionItem": {
+                        "code": "gt0005",
+                        "attribute": "magnitude"
+                      }
+                    },
+                    "right": {
+                      "type": "Variable",
+                      "expressionItem": {
+                        "code": "gt0009",
+                        "attribute": "magnitude"
+                      }
+                    },
+                    "operator": "DIVISION"
+                  }
+                },
+                "operator": "MULTIPLICATION"
+              }
+            }
+          },
+          {
+            "variable": {
+              "code": "gt0011",
+              "attribute": "precision"
+            },
+            "assignment": {
+              "type": "ConstantExpression",
+              "expressionItem": {
+                "value": "2"
+              }
+            }
+          },
+          {
+            "variable": {
+              "code": "gt0011",
+              "attribute": "units"
+            },
+            "assignment": {
+              "type": "StringConstant",
+              "expressionItem": {
+                "string": "ml/min",
+                "value": "ml/min"
+              }
+            }
+          }
+        ]
+      },
+      "gt0013": {
+        "id": "gt0013",
+        "when": [
+          "$gt0002.value<=($currentDateTime.value-20,a)",
+          "$gt0003==local::at0006|Female|",
+          "$gt0005.units=='kg'",
+          "$gt0009.units=='umol/l'"
+        ],
+        "then": [
+          "$gt0011.units='ml/min'",
+          "$gt0011.precision=2",
+          "$gt0011.magnitude=((1.04*(140-($currentDateTime.year-$gt0002.year)))*($gt0005.magnitude/$gt0009.magnitude))"
+        ],
+        "priority": 1,
+        "whenStatements": [
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0002",
+                  "attribute": "value"
+                }
+              },
+              "right": {
+                "type": "BinaryExpression",
+                "expressionItem": {
+                  "left": {
+                    "type": "Variable",
+                    "expressionItem": {
+                      "code": "currentDateTime",
+                      "attribute": "value"
+                    }
+                  },
+                  "right": {
+                    "type": "QuantityConstant",
+                    "expressionItem": {
+                      "quantity": {
+                        "magnitude": 20,
+                        "precision": 0,
+                        "units": "a",
+                        "accuracy": 0,
+                        "accuracyPercent": false
+                      },
+                      "value": "20,a"
+                    }
+                  },
+                  "operator": "SUBSTRATION"
+                }
+              },
+              "operator": "LESS_THAN_OR_EQUAL"
+            }
+          },
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0003"
+                }
+              },
+              "right": {
+                "type": "CodedTextConstant",
+                "expressionItem": {
+                  "codedText": {
+                    "definingCode": {
+                      "terminologyId": {
+                        "name": "local",
+                        "value": "local"
+                      },
+                      "codeString": "at0006"
+                    },
+                    "value": "Female"
+                  },
+                  "value": "local::at0006|Female|"
+                }
+              },
+              "operator": "EQUALITY"
+            }
+          },
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0005",
+                  "attribute": "units"
+                }
+              },
+              "right": {
+                "type": "StringConstant",
+                "expressionItem": {
+                  "string": "kg",
+                  "value": "kg"
+                }
+              },
+              "operator": "EQUALITY"
+            }
+          },
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0009",
+                  "attribute": "units"
+                }
+              },
+              "right": {
+                "type": "StringConstant",
+                "expressionItem": {
+                  "string": "umol/l",
+                  "value": "umol/l"
+                }
+              },
+              "operator": "EQUALITY"
+            }
+          }
+        ],
+        "thenStatements": [
+          {
+            "variable": {
+              "code": "gt0011",
+              "attribute": "units"
+            },
+            "assignment": {
+              "type": "StringConstant",
+              "expressionItem": {
+                "string": "ml/min",
+                "value": "ml/min"
+              }
+            }
+          },
+          {
+            "variable": {
+              "code": "gt0011",
+              "attribute": "precision"
+            },
+            "assignment": {
+              "type": "ConstantExpression",
+              "expressionItem": {
+                "value": "2"
+              }
+            }
+          },
+          {
+            "variable": {
+              "code": "gt0011",
+              "attribute": "magnitude"
+            },
+            "assignment": {
+              "type": "BinaryExpression",
+              "expressionItem": {
+                "left": {
+                  "type": "BinaryExpression",
+                  "expressionItem": {
+                    "left": {
+                      "type": "ConstantExpression",
+                      "expressionItem": {
+                        "value": "1.04"
+                      }
+                    },
+                    "right": {
+                      "type": "BinaryExpression",
+                      "expressionItem": {
+                        "left": {
+                          "type": "ConstantExpression",
+                          "expressionItem": {
+                            "value": "140"
+                          }
+                        },
+                        "right": {
+                          "type": "BinaryExpression",
+                          "expressionItem": {
+                            "left": {
+                              "type": "Variable",
+                              "expressionItem": {
+                                "code": "currentDateTime",
+                                "attribute": "year"
+                              }
+                            },
+                            "right": {
+                              "type": "Variable",
+                              "expressionItem": {
+                                "code": "gt0002",
+                                "attribute": "year"
+                              }
+                            },
+                            "operator": "SUBSTRATION"
+                          }
+                        },
+                        "operator": "SUBSTRATION"
+                      }
+                    },
+                    "operator": "MULTIPLICATION"
+                  }
+                },
+                "right": {
+                  "type": "BinaryExpression",
+                  "expressionItem": {
+                    "left": {
+                      "type": "Variable",
+                      "expressionItem": {
+                        "code": "gt0005",
+                        "attribute": "magnitude"
+                      }
+                    },
+                    "right": {
+                      "type": "Variable",
+                      "expressionItem": {
+                        "code": "gt0009",
+                        "attribute": "magnitude"
+                      }
+                    },
+                    "operator": "DIVISION"
+                  }
+                },
+                "operator": "MULTIPLICATION"
+              }
+            }
+          }
+        ]
+      },
+      "gt0014": {
+        "id": "gt0014",
+        "when": [
+          "$gt0002.value>($currentDateTime.value-20,a)",
+          "$gt0007.units=='cm'",
+          "$gt0005.units=='kg'",
+          "$gt0009.units=='umol/l'"
+        ],
+        "then": [
+          "$gt0011.magnitude=(((42.5*$gt0007.magnitude)/$gt0009.magnitude)/(($gt0005.magnitude/70)^0.7))",
+          "$gt0011.units='ml/min'",
+          "$gt0011.precision=2"
+        ],
+        "priority": 3,
+        "whenStatements": [
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0002",
+                  "attribute": "value"
+                }
+              },
+              "right": {
+                "type": "BinaryExpression",
+                "expressionItem": {
+                  "left": {
+                    "type": "Variable",
+                    "expressionItem": {
+                      "code": "currentDateTime",
+                      "attribute": "value"
+                    }
+                  },
+                  "right": {
+                    "type": "QuantityConstant",
+                    "expressionItem": {
+                      "quantity": {
+                        "magnitude": 20,
+                        "precision": 0,
+                        "units": "a",
+                        "accuracy": 0,
+                        "accuracyPercent": false
+                      },
+                      "value": "20,a"
+                    }
+                  },
+                  "operator": "SUBSTRATION"
+                }
+              },
+              "operator": "GREATER_THAN"
+            }
+          },
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0007",
+                  "attribute": "units"
+                }
+              },
+              "right": {
+                "type": "StringConstant",
+                "expressionItem": {
+                  "string": "cm",
+                  "value": "cm"
+                }
+              },
+              "operator": "EQUALITY"
+            }
+          },
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0005",
+                  "attribute": "units"
+                }
+              },
+              "right": {
+                "type": "StringConstant",
+                "expressionItem": {
+                  "string": "kg",
+                  "value": "kg"
+                }
+              },
+              "operator": "EQUALITY"
+            }
+          },
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0009",
+                  "attribute": "units"
+                }
+              },
+              "right": {
+                "type": "StringConstant",
+                "expressionItem": {
+                  "string": "umol/l",
+                  "value": "umol/l"
+                }
+              },
+              "operator": "EQUALITY"
+            }
+          }
+        ],
+        "thenStatements": [
+          {
+            "variable": {
+              "code": "gt0011",
+              "attribute": "magnitude"
+            },
+            "assignment": {
+              "type": "BinaryExpression",
+              "expressionItem": {
+                "left": {
+                  "type": "BinaryExpression",
+                  "expressionItem": {
+                    "left": {
+                      "type": "BinaryExpression",
+                      "expressionItem": {
+                        "left": {
+                          "type": "ConstantExpression",
+                          "expressionItem": {
+                            "value": "42.5"
+                          }
+                        },
+                        "right": {
+                          "type": "Variable",
+                          "expressionItem": {
+                            "code": "gt0007",
+                            "attribute": "magnitude"
+                          }
+                        },
+                        "operator": "MULTIPLICATION"
+                      }
+                    },
+                    "right": {
+                      "type": "Variable",
+                      "expressionItem": {
+                        "code": "gt0009",
+                        "attribute": "magnitude"
+                      }
+                    },
+                    "operator": "DIVISION"
+                  }
+                },
+                "right": {
+                  "type": "BinaryExpression",
+                  "expressionItem": {
+                    "left": {
+                      "type": "BinaryExpression",
+                      "expressionItem": {
+                        "left": {
+                          "type": "Variable",
+                          "expressionItem": {
+                            "code": "gt0005",
+                            "attribute": "magnitude"
+                          }
+                        },
+                        "right": {
+                          "type": "ConstantExpression",
+                          "expressionItem": {
+                            "value": "70"
+                          }
+                        },
+                        "operator": "DIVISION"
+                      }
+                    },
+                    "right": {
+                      "type": "ConstantExpression",
+                      "expressionItem": {
+                        "value": "0.7"
+                      }
+                    },
+                    "operator": "EXPONENT"
+                  }
+                },
+                "operator": "DIVISION"
+              }
+            }
+          },
+          {
+            "variable": {
+              "code": "gt0011",
+              "attribute": "units"
+            },
+            "assignment": {
+              "type": "StringConstant",
+              "expressionItem": {
+                "string": "ml/min",
+                "value": "ml/min"
+              }
+            }
+          },
+          {
+            "variable": {
+              "code": "gt0011",
+              "attribute": "precision"
+            },
+            "assignment": {
+              "type": "ConstantExpression",
+              "expressionItem": {
+                "value": "2"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "defaultActionExpressions": []
+  },
+  "ontology": {
+    "termDefinitions": {
+      "sv": {
+        "id": "sv",
+        "terms": {
+          "gt0011": {
+            "id": "gt0011",
+            "text": "GFR",
+            "description": "*"
+          },
+          "gt0012": {
+            "id": "gt0012",
+            "text": "Beräkna GFR för vuxen man",
+            "description": "*"
+          },
+          "gt0002": {
+            "id": "gt0002",
+            "text": "Ålder",
+            "description": "Ålder"
+          },
+          "gt0013": {
+            "id": "gt0013",
+            "text": "Beräkna GFR för vuxen hona",
+            "description": "*"
+          },
+          "gt0007": {
+            "id": "gt0007",
+            "text": "Höjd/Längd",
+            "description": "*"
+          },
+          "gt0009": {
+            "id": "gt0009",
+            "text": "Kreatinin",
+            "description": "*"
+          },
+          "gt0003": {
+            "id": "gt0003",
+            "text": "Kön",
+            "description": "Kön"
+          },
+          "gt0014": {
+            "id": "gt0014",
+            "text": "Beräkna GFR för barn",
+            "description": "*"
+          },
+          "gt0015": {
+            "id": "gt0015",
+            "text": "*GFR Calculation (en)",
+            "description": ""
+          },
+          "gt0005": {
+            "id": "gt0005",
+            "text": "Vikt",
+            "description": "*"
+          },
+          "gt0016": {
+            "id": "gt0016",
+            "text": "GFR beräkning",
+            "description": "*Calculation of glomerular filtration rate (GFR) to asssess renal function. (en)"
+          }
+        }
+      },
+      "pt": {
+        "id": "pt",
+        "terms": {
+          "gt0011": {
+            "id": "gt0011",
+            "text": "*Estimated GFR (en)",
+            "description": "*Value describing estimation of glomerular filtration rate adjusted by body-surface area (mL/min/1.73m?). (en)"
+          },
+          "gt0012": {
+            "id": "gt0012",
+            "text": "*Calculate GFR for Adult Male (en)",
+            "description": "*Rule for calculating estimated GFR for adult male (en)"
+          },
+          "gt0002": {
+            "id": "gt0002",
+            "text": "Idade",
+            "description": "** (en)"
+          },
+          "gt0013": {
+            "id": "gt0013",
+            "text": "*Calculate GFR for Adult Female (en)",
+            "description": "*Rule for  calculating estimated GFR for adult female (en)"
+          },
+          "gt0007": {
+            "id": "gt0007",
+            "text": "*Height (en)",
+            "description": "*The length of the body from crown of head to sole of foot. (en)"
+          },
+          "gt0009": {
+            "id": "gt0009",
+            "text": "*Creatinine (en)",
+            "description": "*Creatinine level in this specimen (en)"
+          },
+          "gt0003": {
+            "id": "gt0003",
+            "text": "Sexo",
+            "description": "** (en)"
+          },
+          "gt0014": {
+            "id": "gt0014",
+            "text": "*Calculate GFR for Children (en)",
+            "description": "*Rule for calculating estimated GFR for children (en)"
+          },
+          "gt0015": {
+            "id": "gt0015",
+            "text": "*GFR Calculation (en)"
+          },
+          "gt0005": {
+            "id": "gt0005",
+            "text": "Peso",
+            "description": "*The weight of the individual. (en)"
+          },
+          "gt0016": {
+            "id": "gt0016",
+            "text": "*GFR Calculation (en)"
+          }
+        }
+      },
+      "el": {
+        "id": "el",
+        "terms": {
+          "gt0011": {
+            "id": "gt0011",
+            "text": "Εκτιμώμενος ρυθμός σπειραματικής διήθησης",
+            "description": "*Value describing estimation of glomerular filtration rate adjusted by body-surface area (mL/min/1.73m?). (en)"
+          },
+          "gt0012": {
+            "id": "gt0012",
+            "text": "Υπολογισμός ρυθμού σπειραματικής διήθησης σε ενήλικες άνδρες",
+            "description": "*Rule for calculating estimated GFR for adult male (en)"
+          },
+          "gt0002": {
+            "id": "gt0002",
+            "text": "Ημερομηνία γέννησης",
+            "description": "** (en)"
+          },
+          "gt0013": {
+            "id": "gt0013",
+            "text": "Υπολογισμός ρυθμού σπειραματικής διήθησης σε ενήλικες γυναίκες",
+            "description": "*Rule for  calculating estimated GFR for adult female (en)"
+          },
+          "gt0007": {
+            "id": "gt0007",
+            "text": "Ύψος",
+            "description": "*The length of the body from crown of head to sole of foot. (en)"
+          },
+          "gt0009": {
+            "id": "gt0009",
+            "text": "Κρεατινίνη",
+            "description": "*Creatinine level in this specimen (en)"
+          },
+          "gt0003": {
+            "id": "gt0003",
+            "text": "Φύλο",
+            "description": "** (en)"
+          },
+          "gt0014": {
+            "id": "gt0014",
+            "text": "Υπολογισμός ρυθμού σπειραματικής διήθησης σε παιδιά",
+            "description": "*Rule for calculating estimated GFR for children (en)"
+          },
+          "gt0015": {
+            "id": "gt0015",
+            "text": "*GFR Calculation (en)"
+          },
+          "gt0005": {
+            "id": "gt0005",
+            "text": "Σωματικό βάρος",
+            "description": "*The weight of the individual. (en)"
+          },
+          "gt0016": {
+            "id": "gt0016",
+            "text": "*GFR Calculation (en)"
+          }
+        }
+      },
+      "en": {
+        "id": "en",
+        "terms": {
+          "gt0011": {
+            "id": "gt0011",
+            "text": "Estimated GFR",
+            "description": "Value describing estimation of glomerular filtration rate adjusted by body-surface area (mL/min/1.73m?)."
+          },
+          "gt0012": {
+            "id": "gt0012",
+            "text": "Calculate GFR for Adult Male",
+            "description": "Rule for calculating estimated GFR for adult male"
+          },
+          "gt0002": {
+            "id": "gt0002",
+            "text": "Birthdate",
+            "description": "*"
+          },
+          "gt0013": {
+            "id": "gt0013",
+            "text": "Calculate GFR for Adult Female",
+            "description": "Rule for  calculating estimated GFR for adult female"
+          },
+          "gt0007": {
+            "id": "gt0007",
+            "text": "Height",
+            "description": "The length of the body from crown of head to sole of foot."
+          },
+          "gt0009": {
+            "id": "gt0009",
+            "text": "Creatinine",
+            "description": "Creatinine level in this specimen"
+          },
+          "gt0003": {
+            "id": "gt0003",
+            "text": "Gender",
+            "description": "*"
+          },
+          "gt0014": {
+            "id": "gt0014",
+            "text": "Calculate GFR for Children",
+            "description": "Rule for calculating estimated GFR for children"
+          },
+          "gt0015": {
+            "id": "gt0015",
+            "text": "GFR Calculation"
+          },
+          "gt0005": {
+            "id": "gt0005",
+            "text": "Weight",
+            "description": "The weight of the individual."
+          },
+          "gt0016": {
+            "id": "gt0016",
+            "text": "GFR Calculation",
+            "description": "Calculation of glomerular filtration rate (GFR) to asssess renal function."
+          }
+        }
+      },
+      "da": {
+        "id": "da",
+        "terms": {
+          "gt0011": {
+            "id": "gt0011",
+            "text": "Anslået eGFR",
+            "description": "*Value describing estimation of glomerular filtration rate adjusted by body-surface area (mL/min/1.73m?). (en)"
+          },
+          "gt0012": {
+            "id": "gt0012",
+            "text": "Beregn GFR for voksne mænd",
+            "description": "*Rule for calculating estimated GFR for adult male (en)"
+          },
+          "gt0002": {
+            "id": "gt0002",
+            "text": "Fødselsdato",
+            "description": "** (en)"
+          },
+          "gt0013": {
+            "id": "gt0013",
+            "text": "Beregn GFR for voksen kvinde",
+            "description": "*Rule for  calculating estimated GFR for adult female (en)"
+          },
+          "gt0007": {
+            "id": "gt0007",
+            "text": "Højde",
+            "description": "*The length of the body from crown of head to sole of foot. (en)"
+          },
+          "gt0009": {
+            "id": "gt0009",
+            "text": "Creatinin",
+            "description": "*Creatinine level in this specimen (en)"
+          },
+          "gt0003": {
+            "id": "gt0003",
+            "text": "Køn",
+            "description": "** (en)"
+          },
+          "gt0014": {
+            "id": "gt0014",
+            "text": "Beregn GFR for børn",
+            "description": "*Rule for calculating estimated GFR for children (en)"
+          },
+          "gt0015": {
+            "id": "gt0015",
+            "text": "*GFR Calculation (en)"
+          },
+          "gt0005": {
+            "id": "gt0005",
+            "text": "Vægt",
+            "description": "*The weight of the individual. (en)"
+          },
+          "gt0016": {
+            "id": "gt0016",
+            "text": "GFR beregning",
+            "description": "*Calculation of glomerular filtration rate (GFR) to asssess renal function. (en)"
+          }
+        }
+      },
+      "es": {
+        "id": "es",
+        "terms": {
+          "gt0011": {
+            "id": "gt0011",
+            "text": "IFG estimado",
+            "description": "Valor del índice de filtrado glomerular basado en la superficie corporal (mL/min/1.73m?). "
+          },
+          "gt0012": {
+            "id": "gt0012",
+            "text": "Cálculo del IFG para hombre adulto",
+            "description": "Regla para calcular el IFG estimado de un hombre adulto"
+          },
+          "gt0002": {
+            "id": "gt0002",
+            "text": "Edad",
+            "description": "Edad"
+          },
+          "gt0013": {
+            "id": "gt0013",
+            "text": "Cálculo del IFG para mujer adulta",
+            "description": "Regla para calcular el IFG estimado de una mujer adulta"
+          },
+          "gt0007": {
+            "id": "gt0007",
+            "text": "Altura",
+            "description": "La longitud del individuo desde la parte superior de la cabeza hasta la planta de los pies"
+          },
+          "gt0009": {
+            "id": "gt0009",
+            "text": "Creatinina",
+            "description": "El nivel de creatinina en este espécimen"
+          },
+          "gt0003": {
+            "id": "gt0003",
+            "text": "Sexo",
+            "description": "Sexo"
+          },
+          "gt0014": {
+            "id": "gt0014",
+            "text": "Cálculo del IFG para niño/a",
+            "description": "Regla para calcular el IFG estimado de un niño"
+          },
+          "gt0015": {
+            "id": "gt0015",
+            "text": "Cálculo del IFG",
+            "description": ""
+          },
+          "gt0005": {
+            "id": "gt0005",
+            "text": "Peso",
+            "description": "El peso del individuo"
+          },
+          "gt0016": {
+            "id": "gt0016",
+            "text": "Cálculo del IFG",
+            "description": ""
+          }
+        }
+      }
+    }
+  }
+}

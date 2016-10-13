@@ -1,0 +1,32 @@
+<div>
+    <!-- Nested node template -->
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>Definitions</h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-9">
+            <div ui-tree="vm.treeOptions" data-drag-delay="300">
+                <ol ui-tree-nodes="" ng-model="vm.guide.definition.archetypeBindings">
+                    <li ng-repeat="archetypeBinding in vm.guide.definition.archetypeBindings" ui-tree-node ng-include="'components/tabs/tab-definitions/templates/nodes-renderer.html'"></li>
+                </ol>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div ui-tree="treeDefinitions" data-clone-enabled="true" data-nodrop-enabled="true">
+                <ol ui-tree-nodes="" ng-model="vm.list">
+                    <li ng-repeat="item in vm.list" ui-tree-node>
+                        <div ui-tree-handle>
+                            {{item.title}}
+                        </div>
+                    </li>
+                </ol>
+            </div>
+            <pre>{{vm.list | json}}</pre>
+        </div>
+    </div>
+    <pre>{{ vm.guide | json }}</pre>
+
+</div>

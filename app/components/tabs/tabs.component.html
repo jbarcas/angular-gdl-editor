@@ -1,0 +1,16 @@
+<div>
+  <uib-tabset>
+    <uib-tab ng-repeat="tab in $ctrl.tabs"
+      heading="{{tab.heading}}"
+      select="$ctrl.go(tab.route)"
+      active="tab.active"
+      disable="tab.disabled">
+    </uib-tab>
+  </uib-tabset>
+  <br>
+  <div ui-view></div>
+  <div>
+    <div class="text-center">
+      <button type="button" class="btn btn-success" ng-click="$ctrl.insertGuide()">Update guideline</button>
+    </div>
+</div>

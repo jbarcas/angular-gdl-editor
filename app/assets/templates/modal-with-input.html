@@ -1,0 +1,15 @@
+<div class="modal-header">
+  <h3>{{$ctrl.labels.headerText}}</h3>
+</div>
+<div class="modal-body">
+  <p>{{$ctrl.labels.bodyText}}</p>
+
+  <div>
+    <input type="text" class="form-control" id="inputName" ng-model="$ctrl.input" placeholder="Name">
+  </div>
+
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-warning" data-ng-click="$ctrl.cancel()">{{$ctrl.labels.closeButtonText}}</button>
+  <button class="btn btn-primary" data-ng-click="$ctrl.ok();">{{$ctrl.labels.actionButtonText}}</button>
+</div>

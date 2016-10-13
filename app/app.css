@@ -1,0 +1,114 @@
+/* app css stylesheet */
+
+.menu {
+  list-style: none;
+  border-bottom: 0.1em solid black;
+  margin-bottom: 2em;
+  padding: 0 0 0.5em;
+}
+
+.menu:before {
+  content: "[";
+}
+
+.menu:after {
+  content: "]";
+}
+
+.menu > li {
+  display: inline;
+}
+
+.menu > li + li:before {
+  content: "|";
+  padding-right: 0.3em;
+}
+
+/*   */ 
+
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+/* UI Bootstrap css */
+
+/*.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }*/
+
+.inline {
+    display: flex;
+}
+
+.navbar-brand {
+    padding: 0px;
+}
+
+/* So that the guideline panel shows a scroll bar when needed*/
+.gdl-overflow-x {
+    overflow-x:auto;
+}
+
+/* Page header styles */
+.page-header h1 {
+    display: inline;
+}
+
+.page-header label {
+    float: right;
+    line-height: 60px;
+    padding: 0;
+}
+
+sup {
+    color: #00B7FF;
+}
+
+/* 'Terminology' tab: to center align text in the table */
+.table tbody tr td {
+    vertical-align: middle;
+}
+
+/*
+ * Styles for Definitions tab
+ */
+
+/* Red background in Element instantiation div */
+
+.element-background {
+    background: #FDF5F5 !important;
+}
+/*.ngdialog-content{
+    width : auto !important;
+}*/
+
+.gdl-editor-transparent-background {
+    background-color: Transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+}
+
+/*
+ * Style to split the guideline list
+ */
+.gdl-columns {
+  columns: 2;
+}
+
+.gdl-center {
+  text-align: center;
+}
+
+/*
+ * Prevents remove vertical scroll bar when the modal is open
+ * Source: http://stackoverflow.com/questions/25070144/bootstrap-modal-removes-scroll-bar
+ */
+.modal-open {
+    overflow-y: scroll !important;
+}

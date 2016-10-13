@@ -1,0 +1,37 @@
+<!-- Nested node template -->
+<div ui-tree-handle class="tree-node tree-node-content">
+    <a class="btn btn-success btn-xs" ng-if="archetypeBinding.elements" data-nodrag ng-click="toggle(this)">
+        <span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span>
+    </a>
+    Instantiate archetype <sup>{{archetypeBinding.domain}}</sup> <a ng-click="vm.updateArchetypesModal($index)" data-nodrag>{{archetypeBinding.archetypeId}}</a>
+    <a class="pull-right btn btn-xs" data-nodrag ng-click="vm.removeArchetype(this)"><img ng-src="{{vm.delete}}"></a>
+    <a class="pull-right btn btn-xs" data-nodrag ng-click="vm.createElement(this.$modelValue)"><img ng-src="{{vm.add}}"></a>
+</div>
+
+<ol ng-class="{hidden: collapsed}" ui-tree-nodes="" ng-model="archetypeBinding.elements">
+    <li ng-repeat="element in archetypeBinding.elements" ui-tree-node>
+        <div ui-tree-handle class="tree-node tree-node-content element-background">
+            Instantiate element <a ng-click="vm.updateElementsModal(archetypeBinding, element, $index)" data-nodrag> {{element.name | formatElementText}}</a>
+            <a class="pull-right btn btn-xs" data-nodrag ng-click="vm.removeElement(this)"><img ng-src="{{vm.delete}}"></a>
+        </div>
+    </li>
+</ol>
+
+<!-- When the predicateStatements contains "UnariExpression" -->
+<ol ng-class="{hidden: collapsed}" ui-tree-nodes="" ng-model="archetypeBinding.predicateStatements">
+    <li ng-repeat="predicateStatement in archetypeBinding.predicateStatements" ui-tree-node ng-show="predicateStatement.expressionItem.operand.expressionItem.path">
+        <div ui-tree-handle class="tree-node tree-node-content element-background">
+            With element <a ng-click="vm.updateElementsModal(archetypeBinding, element, $index)" data-nodrag> {{ predicateStatement.expressionItem.operand.expressionItem.path }}</a>
+            <a class="pull-right btn btn-xs" data-nodrag ng-click="vm.removeElement(this)"><img ng-src="{{vm.delete}}"></a>
+        </div>
+    </li>
+</ol>
+
+<ol ng-class="{hidden: collapsed}" ui-tree-nodes="" ng-model="archetypeBinding.predicateStatements">
+    <li ng-repeat="predicateStatement in archetypeBinding.predicateStatements" ui-tree-node ng-show="predicateStatement.expressionItem.left">
+        <div ui-tree-handle class="tree-node tree-node-content element-background" >
+            With element <a ng-click="vm.updateElementsModal(archetypeBinding, element, $index)" data-nodrag> {{predicateStatement.expressionItem.left.expressionItem.path}} {{predicateStatement.expressionItem.operator}} {{predicateStatement.expressionItem.right.expressionItem.value}}</a>
+            <a class="pull-right btn btn-xs" data-nodrag ng-click="vm.removeElement(this)"><img ng-src="{{vm.delete}}"></a>
+        </div>
+    </li>
+</ol>

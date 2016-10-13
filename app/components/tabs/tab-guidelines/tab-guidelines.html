@@ -1,0 +1,20 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Guidelines ({{vm.guidelines.length}})</h3>
+    </div>
+    <div class="panel-body gdl-columns gdl-overflow-x">
+        <!--<div class="jumbotron text-center">
+            <h2>Guideline counter <span id="foo" class="label label-info" ng-bind="vm.guidelines.length"></span></h2>
+        </div> -->
+        <div class="radio" ng-repeat="guideline in vm.guidelines | orderBy">
+            <label>
+                <input type="radio" ng-model="vm.checked" ng-click="vm.getGuideline(guideline)" ng-value="guideline">{{ guideline }}
+            </label>
+        </div>
+    </div>
+    <!--<ul class="items">
+        <li>First</li>
+        <li>Second</li>
+        <li>Third</li>
+    </ul> -->
+</div>
