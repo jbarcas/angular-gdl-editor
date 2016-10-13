@@ -23,12 +23,12 @@ function DefinitionsCtrl($uibModal, $log, archetypeFactory, utilsFactory, guidel
     vm.add = "../assets/img/add.png";
 
     vm.list = [
-        {'title': 'Archetype instantiation', 'archetypeId': 'Select an archetype'},
-        {'title': 'Element instantiation'},
-        {'title': 'Predicate (DataValue)'},
-        {'title': 'Predicate (Function)'},
-        {'title': 'Predicate (Exists)'},
-        {'title': 'Predicate (Expression)'}
+        {'title': 'Archetype instantiation', 'archetypeId': 'Select an archetype', draggable: true},
+        {'title': 'Element instantiation', draggable: false},
+        {'title': 'Predicate (DataValue)', draggable: false},
+        {'title': 'Predicate (Function)', draggable: false},
+        {'title': 'Predicate (Exists)', draggable: false},
+        {'title': 'Predicate (Expression)', draggable: false}
     ]
 
     /*
