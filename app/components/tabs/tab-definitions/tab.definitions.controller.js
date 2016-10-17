@@ -17,6 +17,8 @@ function DefinitionsCtrl($log, archetypeFactory, utilsFactory, guidelineFactory,
     vm.removeElement = removeElement;
     vm.createElement = createElement;
     vm.updateElementsModal = updateElementsModal;
+    vm.updatePredicateFunctionModal = updatePredicateFunctionModal;
+    vm.updatePredicateDataValue = updatePredicateDataValue;
     vm.updateArchetypesModal = updateArchetypesModal;
 
     vm.delete = "../assets/img/del.png";
@@ -31,9 +33,13 @@ function DefinitionsCtrl($log, archetypeFactory, utilsFactory, guidelineFactory,
         {'title': 'Predicate (Expression)', draggable: false}
     ];
 
-    vm.unaryExpressionOptions = [
+    vm.predicateFunctionOptions = [
         'MAX', 'MIN'
-    ]
+    ];
+
+    vm.predicateDataValueOptions = [
+        '==', 'IS_A', '>=', '<='
+    ];
 
     /*
      * Options to manage the drag and drop nested level
@@ -335,6 +341,132 @@ function DefinitionsCtrl($log, archetypeFactory, utilsFactory, guidelineFactory,
         };
 
         function updateElementFailed(error) {
+            $log.info('Error at getting archetype in getArchetype - updateElementsModal: ' + error);
+        }
+
+    };
+
+    function updatePredicateFunctionModal(archetypeBinding, element, elementIndex) {
+
+        archetypeFactory.getArchetype(archetypeBinding.archetypeId).then(updatePredicateFunctionComplete, updatePredicateFunctionFailed);
+
+        function updatePredicateFunctionComplete(response) {
+
+            var dataForModal = {
+                headerText: 'Select an element',
+                closeButtonText: 'Close',
+                actionButtonText: 'OK'
+            }
+
+            var modalDefaults = {
+                size: 'sm',
+                component: 'modalWithTreeComponent',
+                resolve: {
+                    items: function() {
+                        var elementMaps = [];
+                        angular.forEach(response.elementMaps, function(elementMap) {
+                            elementMaps.push({ name: elementMap.elementMapId, path: elementMap.path, children: [] });
+                        });
+                        return elementMaps;
+                    },
+                    labels: function() {
+                        return dataForModal;
+                    }
+                }
+            };
+
+            modalService.showModal(modalDefaults).then(showModalComplete, showModalFailed);
+
+            function showModalComplete(dataFromTree) {
+                console.log(elementIndex);
+                if(dataFromTree.selectedItem === undefined) {
+                    return;
+                }
+
+                var archetypeBindingIndex = vm.guide.definition.archetypeBindings.indexOf(archetypeBinding);
+                var elementToUpdate =  vm.guide.definition.archetypeBindings[archetypeBindingIndex].predicateStatements[elementIndex];
+
+                elementToUpdate.expressionItem.operand.expressionItem.path = dataFromTree.selectedItem.path;
+                elementToUpdate.expressionItem.operand.expressionItem.name = dataFromTree.selectedItem.name;
+
+                // FIXME: Where can I get the thext anf description?
+                // FIXME: Fix term bindings
+                //var language = 'en';
+                //var ontology = guidelineFactory.getOntology();
+                //ontology.termDefinitions[language].terms[elementToUpdate.id].text = "updateElementsModal text";
+                //ontology.termDefinitions[language].terms[elementToUpdate.id].description = "updateElementsModal description";
+            };
+
+            function showModalFailed() {
+                $log.info('Modal dismissed at: ' + new Date() + ' in updateElementsModal');
+            }
+
+        };
+
+        function updatePredicateFunctionFailed(error) {
+            $log.info('Error at getting archetype in getArchetype - updateElementsModal: ' + error);
+        }
+
+    };
+
+    function updatePredicateDataValue(archetypeBinding, element, elementIndex) {
+
+        archetypeFactory.getArchetype(archetypeBinding.archetypeId).then(updatePrefucateFunctionComplete, updatePrefucateFunctionFailed);
+
+        function updatePrefucateFunctionComplete(response) {
+
+            var dataForModal = {
+                headerText: 'Select an element',
+                closeButtonText: 'Close',
+                actionButtonText: 'OK'
+            }
+
+            var modalDefaults = {
+                size: 'sm',
+                component: 'modalWithTreeComponent',
+                resolve: {
+                    items: function() {
+                        var elementMaps = [];
+                        angular.forEach(response.elementMaps, function(elementMap) {
+                            elementMaps.push({ name: elementMap.elementMapId, path: elementMap.path, children: [] });
+                        });
+                        return elementMaps;
+                    },
+                    labels: function() {
+                        return dataForModal;
+                    }
+                }
+            };
+
+            modalService.showModal(modalDefaults).then(showModalComplete, showModalFailed);
+
+            function showModalComplete(dataFromTree) {
+                console.log(elementIndex);
+                if(dataFromTree.selectedItem === undefined) {
+                    return;
+                }
+
+                var archetypeBindingIndex = vm.guide.definition.archetypeBindings.indexOf(archetypeBinding);
+                var elementToUpdate =  vm.guide.definition.archetypeBindings[archetypeBindingIndex].predicateStatements[elementIndex];
+
+                elementToUpdate.expressionItem.left.expressionItem.path = dataFromTree.selectedItem.path;
+                elementToUpdate.expressionItem.left.expressionItem.name = dataFromTree.selectedItem.name;
+
+                // FIXME: Where can I get the thext anf description?
+                // FIXME: Fix term bindings
+                //var language = 'en';
+                //var ontology = guidelineFactory.getOntology();
+                //ontology.termDefinitions[language].terms[elementToUpdate.id].text = "updateElementsModal text";
+                //ontology.termDefinitions[language].terms[elementToUpdate.id].description = "updateElementsModal description";
+            };
+
+            function showModalFailed() {
+                $log.info('Modal dismissed at: ' + new Date() + ' in updateElementsModal');
+            }
+
+        };
+
+        function updatePrefucateFunctionFailed(error) {
             $log.info('Error at getting archetype in getArchetype - updateElementsModal: ' + error);
         }
 
