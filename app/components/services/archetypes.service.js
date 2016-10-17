@@ -43,10 +43,10 @@ function archetypeFactory($http, API_URL, $q) {
     var deferred = $q.defer();
     $http.get(API_URL + '/archetypes/json/' + archetypeId).then(
       function (response) {
-        angular.forEach(response.elementMaps, function(item) {
+        angular.forEach(response.data.elementMaps, function(item) {
           if (item.path === path) {
             console.log(item.elementMapId);
-            return item.elementMapId;
+            deferred.resolve(item.elementMapId);
           }
         });
       },

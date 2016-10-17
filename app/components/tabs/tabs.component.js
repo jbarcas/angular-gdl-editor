@@ -5,6 +5,7 @@
   app.component('gdlTabs', {
     templateUrl: 'components/tabs/tabs.component.html',
     controller: function ($state, $log, guidelineFactory, utilsFactory, modalService) {
+
       this.tabs = [
         {heading: "Guidelines", route: "tab-guidelines", active: false, disabled: false},
         {heading: "Description", route: "tab-description", active: false, disabled: false},
@@ -43,7 +44,7 @@
                 headerText: 'Updated!',
                 bodyText: 'The guideline ' + response.config.data.id + ' has been updated.'
             };
-            modalService.showModal(modalDefaults, modalOptions);   
+            modalService.showModal(modalDefaults, modalOptions);
           },
           function (response) {
             var modalDefaults = {
@@ -55,10 +56,11 @@
                 bodyText: 'The guideline ' + response.config.data.id + ' has not been updated.'
             };
             modalService.showModal(modalDefaults, modalOptions);
-            
             $log.info('Error at inserting guide (code status ' + response.status + '): ' + response);
           }
-        )
+        );
+        this.active = 0;
+        $state.go('tab-guidelines');
       };
 
     }

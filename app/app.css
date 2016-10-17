@@ -112,3 +112,15 @@ sup {
 .modal-open {
     overflow-y: scroll !important;
 }
+
+/*
+ *
+ */
+.gdl-element-with-select {
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+}
+
+.gdl-padding {
+    padding: 5px !important;
+}

@@ -8,7 +8,7 @@
     <a class="pull-right btn btn-xs" data-nodrag ng-click="vm.createElement(this.$modelValue)"><img ng-src="{{vm.add}}"></a>
 </div>
 
-<ol ng-class="{hidden: collapsed}" ui-tree-nodes="" ng-model="archetypeBinding.elements">
+<ol ng-class="{hidden: collapsed}" ui-tree-nodes ng-model="archetypeBinding.elements">
     <li ng-repeat="element in archetypeBinding.elements" ui-tree-node>
         <div ui-tree-handle class="tree-node tree-node-content element-background">
             Instantiate element <a ng-click="vm.updateElementsModal(archetypeBinding, element, $index)" data-nodrag> {{element.name | formatElementText}}</a>
@@ -18,16 +18,24 @@
 </ol>
 
 <!-- When the predicateStatements contains "UnariExpression" -->
-<ol ng-class="{hidden: collapsed}" ui-tree-nodes="" ng-model="archetypeBinding.predicateStatements">
+<ol ng-class="{hidden: collapsed}" ui-tree-nodes ng-model="archetypeBinding.predicateStatements">
     <li ng-repeat="predicateStatement in archetypeBinding.predicateStatements" ui-tree-node ng-show="predicateStatement.expressionItem.operand.expressionItem.path">
-        <div ui-tree-handle class="tree-node tree-node-content element-background">
-            With element <a ng-click="vm.updateElementsModal(archetypeBinding, element, $index)" data-nodrag> {{ predicateStatement.expressionItem.operand.expressionItem.path }}</a>
-            <a class="pull-right btn btn-xs" data-nodrag ng-click="vm.removeElement(this)"><img ng-src="{{vm.delete}}"></a>
+        <div ui-tree-handle class="tree-node tree-node-content element-background gdl-element-with-select">
+            <form role="form"  class="form-inline" data-nodrag>
+                With element <a ng-click="vm.updateElementsModal(archetypeBinding, element, $index)" data-nodrag> {{ predicateStatement.expressionItem.operand.expressionItem.name | formatElementText }}</a>
+                <div class="form-group">
+                    <select class="form-control" ng-model="predicateStatement.expressionItem.operator">
+                        <option ng-repeat="option in vm.unaryExpressionOptions" value="{{ option }}" >{{ option }}</option>
+                    </select>
+                </div>
+                <a class="pull-right btn btn-xs gdl-padding" data-nodrag ng-click="vm.removeElement(this)"><img ng-src="{{vm.delete}}"></a>
+            </form>
+
         </div>
     </li>
 </ol>
 
-<ol ng-class="{hidden: collapsed}" ui-tree-nodes="" ng-model="archetypeBinding.predicateStatements">
+<ol ng-class="{hidden: collapsed}" ui-tree-nodes ng-model="archetypeBinding.predicateStatements">
     <li ng-repeat="predicateStatement in archetypeBinding.predicateStatements" ui-tree-node ng-show="predicateStatement.expressionItem.left">
         <div ui-tree-handle class="tree-node tree-node-content element-background" >
             With element <a ng-click="vm.updateElementsModal(archetypeBinding, element, $index)" data-nodrag> {{predicateStatement.expressionItem.left.expressionItem.path}} {{predicateStatement.expressionItem.operator}} {{predicateStatement.expressionItem.right.expressionItem.value}}</a>

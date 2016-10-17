@@ -1,5 +1,5 @@
 <div>
-  <uib-tabset>
+  <uib-tabset active="$ctrl.active">
     <uib-tab ng-repeat="tab in $ctrl.tabs"
       heading="{{tab.heading}}"
       select="$ctrl.go(tab.route)"

@@ -6,7 +6,7 @@ angular.module('app.controllers', [])
     .controller('DefinitionsCtrl', DefinitionsCtrl);
 
 
-function DefinitionsCtrl($uibModal, $log, archetypeFactory, utilsFactory, guidelineFactory, modalService) {
+function DefinitionsCtrl($log, archetypeFactory, utilsFactory, guidelineFactory, modalService) {
 
     vm = this;
 
@@ -29,6 +29,10 @@ function DefinitionsCtrl($uibModal, $log, archetypeFactory, utilsFactory, guidel
         {'title': 'Predicate (Function)', draggable: false},
         {'title': 'Predicate (Exists)', draggable: false},
         {'title': 'Predicate (Expression)', draggable: false}
+    ];
+
+    vm.unaryExpressionOptions = [
+        'MAX', 'MIN'
     ]
 
     /*
@@ -47,17 +51,18 @@ function DefinitionsCtrl($uibModal, $log, archetypeFactory, utilsFactory, guidel
 
     function convertArchetypeBindings(archetypeBindings) {
 
-        var archetypeBindingsArray = Object.keys(archetypeBindings).map(function (key) {
-            archetypeBindings[key].elements = getElements(archetypeBindings[key]);
-            return archetypeBindings[key];
-        });
+        function convertArchetypeBinding(archetypeBinding) {
+            archetypeBindings[archetypeBinding].elements = getElements(archetypeBindings[archetypeBinding]);
+            return archetypeBindings[archetypeBinding];
+        }
+
+        var archetypeBindingsArray = Object.keys(archetypeBindings).map(convertArchetypeBinding);
         vm.guide.definition.archetypeBindings = archetypeBindingsArray;
         return archetypeBindingsArray;
     }
 
     function getElements(archetypeBinding) {
         var elements = archetypeBinding.elements;
-        var predicates = archetypeBinding.predicateStatements;
         var archetypeId = archetypeBinding.archetypeId;
         if (elements == null) {
             return [];
@@ -71,11 +76,12 @@ function DefinitionsCtrl($uibModal, $log, archetypeFactory, utilsFactory, guidel
              */
             archetypeFactory.getArchetype(archetypeId).then(
                 function (data) {
-                    angular.forEach(data.elementMaps, function (elementMap) {
+                    function addElementName (elementMap) {
                         if (elementMap.path === elements[key].path) {
                             elements[key].name = elementMap.elementMapId;
                         }
-                    })
+                    }
+                    angular.forEach(data.elementMaps, addElementName);
                 },
                 function (err) {
                     console.log('Error at getting archetype: ' + err);
@@ -87,10 +93,11 @@ function DefinitionsCtrl($uibModal, $log, archetypeFactory, utilsFactory, guidel
         /*
          * Create the 'name' property in the predicates to map the element path with its name
          */
-        angular.forEach(predicates, function(predicate) {
-            if(predicate.type === "UnaryExpression") {
-                archetypeFactory.getElementName(archetypeId, predicate.expressionItem.operand.expressionItem.path).then(
+        angular.forEach(archetypeBinding.predicateStatements, function(predicateStatement) {
+            if(predicateStatement.type === "UnaryExpression") {
+                archetypeFactory.getElementName(archetypeId, predicateStatement.expressionItem.operand.expressionItem.path).then(
                     function(response) {
+                        predicateStatement.expressionItem.operand.expressionItem.name = response;
                         console.log(response);
                     },
                     function(error) {
