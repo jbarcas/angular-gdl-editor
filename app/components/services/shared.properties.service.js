@@ -11,7 +11,7 @@ angular.module('app.services')
         };
 
         return {
-            // Selected guideline
+
             getChecked: function () {
                 return sharedProperty.checked;
             },

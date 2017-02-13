@@ -10,19 +10,27 @@
         <div class="col-sm-9">
             <div ui-tree="vm.treeOptions" data-drag-delay="300">
                 <ol ui-tree-nodes="" ng-model="vm.guide.definition.archetypeBindings">
-                    <li ng-repeat="archetypeBinding in vm.guide.definition.archetypeBindings" ui-tree-node ng-include="'components/tabs/tab-definitions/templates/nodes-renderer.html'"></li>
+                    <li ng-repeat="archetypeBinding in vm.guide.definition.archetypeBindings" ui-tree-node
+                        ng-include="'components/tabs/tab-definitions/templates/nodes-renderer.html'"></li>
                 </ol>
             </div>
         </div>
         <div class="col-sm-3">
-            <div ui-tree="treeDefinitions" data-clone-enabled="true" data-nodrop-enabled="true">
-                <ol ui-tree-nodes="" ng-model="vm.list">
-                    <li ng-repeat="item in vm.list" ui-tree-node data-nodrag="{{!item.draggable}}">
-                        <div ui-tree-handle>
-                            {{item.title}}
-                        </div>
-                    </li>
-                </ol>
+            <div ui-tree="vm.treeDefinitions" class="panel panel-default" data-clone-enabled="true"
+                 data-nodrop-enabled="true">
+                <div class="panel-heading">
+                    <h2 class="panel-title">Definitions</h2>
+                </div>
+                <div class="panel-body">
+                    <ol ui-tree-nodes="" ng-model="vm.list">
+                        <li ng-repeat="item in vm.list" class="right-list" ui-tree-node
+                            data-nodrag="{{!item.draggable}}">
+                            <div ui-tree-handle>
+                                {{item.title}}
+                            </div>
+                        </li>
+                    </ol>
+                </div>
             </div>
             <!--<pre>{{vm.list | json}}</pre>-->
         </div>

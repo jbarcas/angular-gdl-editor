@@ -5,8 +5,9 @@
 angular.module('app.filters', [])
     .filter('formatElementText', formatElementText);
 
-function formatElementText () {
-    return function(input) {
+function formatElementText() {
+    return function (input) {
         return (!!input) ? input.charAt(0).toUpperCase() + input.substr(1).toLowerCase().replace(/_/g, ' ') : ' ';
     }
 }
+

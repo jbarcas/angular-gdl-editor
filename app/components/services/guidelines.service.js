@@ -1,9 +1,10 @@
 angular.module('app.services')
     .factory('guidelineFactory', guidelineFactory);
 
-function guidelineFactory($http, API_URL, $q) {
+function guidelineFactory($http, API_URL, $q, archetypeFactory) {
     
     var guideline = {};
+    var guidelineArchetypes = [];
 
     return {
         getGuideline: getGuideline,
@@ -26,16 +27,33 @@ function guidelineFactory($http, API_URL, $q) {
         insertGuideline: insertGuideline,
         updateGuideline: updateGuideline,
         deleteGuideline: deleteGuideline,
-        getSourceGuideline: getSourceGuideline
-    }
+        getSourceGuideline: getSourceGuideline,
+        //------------------------------------
+        getGuidelineArchetypes: getGuidelineArchetypes,
+        getGuidelineArchetype: getGuidelineArchetype,
+        getElementName: getElementName
+    };
 
     //gets the parts of a guideline
     function getGuideline(guideId) {
         var deferred = $q.defer();
         $http.get(API_URL + '/guidelines/json/' + guideId).then(
-
             function (response) {
                 guideline = response.data;
+
+                var archetypeBindings = [];
+                for (var ab in guideline.definition.archetypeBindings) {
+                    archetypeBindings.push(guideline.definition.archetypeBindings[ab].archetypeId);
+                }
+                // Remove duplicates: this way we avoid unnecessary calls.
+                archetypeBindings = archetypeBindings.filter(function (item, pos) {
+                    return archetypeBindings.indexOf(item) == pos;
+                });
+                angular.forEach(archetypeBindings, function (archetypeBinding) {
+                    archetypeFactory.getArchetype(archetypeBinding).then(function (data) {
+                        guidelineArchetypes.push(data);
+                    });
+                })
                 deferred.resolve(guideline);
             },
             function (response) {
@@ -43,74 +61,74 @@ function guidelineFactory($http, API_URL, $q) {
             }
         );
         return deferred.promise;
-    };
+    }
 
     function getCurrentGuide() {
         return guideline;
-    };
+    }
 
 
     // GDL Version
     function getGdlVersion() {
         return guideline.gdlVersion;
-    };
+    }
     function setGdlVersion(gdlVersion) {
         guideline.gdlVersion = gdlVersion;
-    };
+    }
 
 
     // Id
     function getId() {
         return guideline.id;
-    };
+    }
     function setId(id) {
         guideline.id = id;
-    };
+    }
 
 
     // Concept
     function getConcept() {
         return guideline.concept;
-    };
+    }
     function setConcept(concept) {
         guideline.concept = concept;
-    };
+    }
 
 
     // Language
     function getLanguage() {
         return guideline.language;
-    };
+    }
     function setLanguage(language) {
         guideline.language = language;
-    };
+    }
 
 
     // Description
     function getDescription() {
         return guideline.description;
-    };
+    }
     function setDescription(description) {
         guideline.description = description;
-    };
+    }
 
 
     // Definition
     function getDefinition() {
         return guideline.definition;
-    };
+    }
     function setDefinition(definition) {
         guideline.definition = definition;
-    };
+    }
 
 
     // Ontology
     function getOntology() {
         return guideline.ontology;
-    };
+    }
     function setOntology(ontology) {
         guideline.ontology = ontology;
-    };
+    }
 
     //------------------------------
   
@@ -164,6 +182,32 @@ function guidelineFactory($http, API_URL, $q) {
             }
         );
         return deferred.promise;
+    }
+
+    function getGuidelineArchetypes() {
+        return guidelineArchetypes;
+    }
+
+    function getGuidelineArchetype(archetypeId) {
+        for(i=0; i<guidelineArchetypes.length; i++) {
+            if (guidelineArchetypes[i].archetypeId === archetypeId) {
+                return guidelineArchetypes[i];
+            }
+        }
+        return null;
+    }
+
+    function getElementName(archetypeId, path) {
+        var archetype = getGuidelineArchetype(archetypeId);
+        for (var elementMap in archetype.elementMaps) {
+            if (archetype.elementMaps.hasOwnProperty(elementMap)) {
+                if(archetype.elementMaps[elementMap].path === path) {
+                    return elementMap;
+                }
+            }
+        }
+        return null;
+
     }
 
 }

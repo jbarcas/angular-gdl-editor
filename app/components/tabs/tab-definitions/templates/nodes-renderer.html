@@ -3,51 +3,56 @@
     <a class="btn btn-success btn-xs" ng-if="archetypeBinding.elements" data-nodrag ng-click="toggle(this)">
         <span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span>
     </a>
-    Instantiate archetype <sup>{{archetypeBinding.domain}}</sup> <a ng-click="vm.updateArchetypesModal($index)" data-nodrag>{{archetypeBinding.archetypeId}}</a>
+    Instantiate archetype <sup>{{archetypeBinding.domain}}</sup> <a ng-click="vm.updateArchetypesModal($index)" data-nodrag ng-bind="archetypeBinding.archetypeId"></a>
     <a class="pull-right btn btn-xs" data-nodrag ng-click="vm.removeArchetype(this)"><img ng-src="{{vm.delete}}"></a>
     <a class="pull-right btn btn-xs" data-nodrag ng-click="vm.createElement(this.$modelValue)"><img ng-src="{{vm.add}}"></a>
 </div>
 
+<!-- elements -->
 <ol ng-class="{hidden: collapsed}" ui-tree-nodes ng-model="archetypeBinding.elements">
-    <li ng-repeat="element in archetypeBinding.elements" ui-tree-node>
-        <div ui-tree-handle class="tree-node tree-node-content element-background">
-            Instantiate element <a ng-click="vm.updateElementsModal(archetypeBinding, element, $index)" data-nodrag> {{element.name | formatElementText}}</a>
-            <a class="pull-right btn btn-xs" data-nodrag ng-click="vm.removeElement(this)"><img ng-src="{{vm.delete}}"></a>
-        </div>
-    </li>
-</ol>
+    <li ng-repeat="element in archetypeBinding.elements track by $index" ui-tree-node>
 
-<!-- When the predicateStatements contains "UnariExpression" -->
-<ol ng-class="{hidden: collapsed}" ui-tree-nodes ng-model="archetypeBinding.predicateStatements">
-    <li ng-repeat="predicateStatement in archetypeBinding.predicateStatements" ui-tree-node ng-show="predicateStatement.expressionItem.operand.expressionItem.path">
-        <div ui-tree-handle class="tree-node tree-node-content element-background gdl-element-with-select">
-            <form role="form"  class="form-inline" data-nodrag>
-                With element <a ng-click="vm.updatePredicateFunctionModal(archetypeBinding, predicateStatement, $index)" data-nodrag> {{ predicateStatement.expressionItem.operand.expressionItem.name | formatElementText }}</a>
-                <div class="form-group">
-                    <select class="form-control" ng-model="predicateStatement.expressionItem.operator">
-                        <option ng-repeat="option in vm.predicateFunctionOptions" value="{{ option }}" >{{ option }}</option>
-                    </select>
-                </div>
-                <a class="pull-right btn btn-xs gdl-padding" data-nodrag ng-click="vm.removeElement(this)"><img ng-src="{{vm.delete}}"></a>
-            </form>
+        <div ng-switch="element.type">
 
-        </div>
-    </li>
-</ol>
+            <div ui-tree-handle class="tree-node tree-node-content element-background" ng-switch-when="element">
+                Instantiate element <a ng-click="vm.updateElementsModal(archetypeBinding, element, $index)" data-nodrag ng-bind="(element.name | formatElementText)"></a>
+                <a class="pull-right btn btn-xs" data-nodrag ng-click="vm.removeElement(this)"><img ng-src="{{vm.delete}}"></a>
+            </div>
 
-<ol ng-class="{hidden: collapsed}" ui-tree-nodes ng-model="archetypeBinding.predicateStatements">
-    <li ng-repeat="predicateStatement in archetypeBinding.predicateStatements" ui-tree-node ng-show="predicateStatement.expressionItem.left">
-        <div ui-tree-handle class="tree-node tree-node-content element-background">
-            <form role="form"  class="form-inline" data-nodrag>
-                With element <a ng-click="vm.updatePredicateDataValue(archetypeBinding, predicateStatement, $index)" data-nodrag> {{ predicateStatement.expressionItem.left.expressionItem.path }}</a>
-                <div class="form-group">
-                    <select class="form-control" ng-model="predicateStatement.expressionItem.operator">
-                        <option ng-repeat="option in vm.predicateDataValueOptions" value="{{ option }}" >{{ option }}</option>
-                    </select>
-                </div>
-                {{predicateStatement.expressionItem.right.expressionItem.value}}
-                <a class="pull-right btn btn-xs gdl-padding" data-nodrag ng-click="vm.removeElement(this)"><img ng-src="{{vm.delete}}"></a>
-            </form>
+            <div ui-tree-handle class="tree-node tree-node-content element-background gdl-element-with-select" ng-switch-when="UnaryExpression">
+                <form role="form" class="form-inline">
+                    With element <a ng-click="vm.updatePredicateFunctionModal(archetypeBinding, element, $index)" data-nodrag ng-bind="(element.expressionItem.operand.expressionItem.name | formatElementText)"></a>
+                    <div class="form-group">
+                        <select class="form-control" ng-model="element.expressionItem.operator">
+                            <option ng-repeat="option in vm.predicateFunctionOptions" value="{{ option }}" ng-bind="option"></option>
+                        </select>
+                    </div>
+                    <a class="pull-right btn btn-xs gdl-padding" data-nodrag ng-click="vm.removeElement(this)"><img ng-src="{{vm.delete}}"></a>
+                </form>
+            </div>
+
+
+            <!-- BinaryExpression -->
+            <div ui-tree-handle class="tree-node tree-node-content element-background" ng-switch-when="BinaryExpression">
+                <form role="form"  class="form-inline">
+
+                    <!-- left item -->
+                    With element <a ng-click="vm.updateLeftItem(archetypeBinding, element, $index)" data-nodrag ng-bind="(element.expressionItem.left.expressionItem.name | formatElementText)"></a>
+
+                    <!-- operator -->
+                    <div class="form-group">
+                        <select class="form-control" ng-model="element.expressionItem.operator">
+                            <option ng-repeat="option in vm.predicateDataValueOptions" value="{{ option }}" ng-bind="option"></option>
+                        </select>
+                    </div>
+
+                    <!-- right -->
+                    <a ng-click="vm.updateRightItem(archetypeBinding, element, $index)"> {{element.expressionItem.right.expressionItem.codedText.value}} </a>
+
+                    <a class="pull-right btn btn-xs gdl-padding" data-nodrag ng-click="vm.removeElement(this)"><img ng-src="{{vm.delete}}"></a>
+                </form>
+            </div>
+
         </div>
     </li>
 </ol>

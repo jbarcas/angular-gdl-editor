@@ -21,16 +21,35 @@ function utilsFactory(guidelineFactory, GT_HEADER) {
         //var originalLanguage = guide.language.originalLanguage.codeString;
         // TODO: Other languages
         var originalLanguage = "en";
+        /*
+         * First, we fecth the gt codes from the Ontology section
+         */
         var usedTerms = Object.keys(guide.ontology.termDefinitions[originalLanguage].terms);
 
+        /*
+         * It could be that gt codes exist outside Ontology section
+         */
         if (guide.definition && guide.definition.archetypeBindings) {
             angular.forEach(guide.definition.archetypeBindings, function (archetypeBinding) {
-                if(archetypeBinding.id) {
+                /*
+                 * We check if the archetype binding id was retrieved
+                 */
+                if(archetypeBinding.id && usedTerms.indexOf(archetypeBinding.id) == -1) {
                     usedTerms.push(archetypeBinding.id);                            
                 }
+                /*
+                 * The gt code may exist in the elements, so we check there to fetch them.
+                 * The element.id verification is needed because of the converted model
+                 * considering that the predicate statements don't have gt code
+                 */
+                angular.forEach(archetypeBinding.elements, function(element) {
+                    if(element.id && usedTerms.indexOf(element.id) == -1) {
+                        usedTerms.push(element.id);
+                    }
+                })
             })
         }
-        var high = usedTerms.sort().slice(-1).pop();
+        var high = usedTerms.sort().pop();
         var generatedCode = high.split(GT_HEADER)[1];
         generatedCode++;
         generatedCode = "" + generatedCode;

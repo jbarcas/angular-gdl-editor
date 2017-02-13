@@ -27,7 +27,8 @@
 /*   */ 
 
 body {
-  padding: 50px;
+  padding: 10px;
+  padding-top: 0px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -123,4 +124,18 @@ sup {
 
 .gdl-padding {
     padding: 5px !important;
+}
+
+/*
+ * css for right list in definitions
+ */
+
+.right-list {
+    padding-top: 5px !important;
+    background: none !important;
+}
+
+.modal .modal-body {
+    max-height: 420px;
+    overflow-y: auto;
 }
