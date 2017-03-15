@@ -7,16 +7,14 @@ function archetypeFactory($http, API_URL, $q) {
 
   return {
     getArchetypes: getArchetypes,
-    getArchetype: getArchetype,
-    getElementName: getElementName
+    getArchetype: getArchetype
   }
 
   function getArchetypes() {
     var deferred = $q.defer();
     $http.get(API_URL + '/archetypes').then(
       function (response) {
-        guidelines = response.data;
-        deferred.resolve(guidelines);
+        deferred.resolve(response.data);
       },
       function (response) {
         deferred.reject(response.data);
@@ -29,26 +27,7 @@ function archetypeFactory($http, API_URL, $q) {
     var deferred = $q.defer();
     $http.get(API_URL + '/archetypes/json/' + archetypeId).then(
       function (response) {
-        guideline = response.data;
-        deferred.resolve(guideline);
-      },
-      function (response) {
-        deferred.reject(response.data);
-      }
-    );
-    return deferred.promise;
-  }
-
-  function getElementName(archetypeId, path) {
-    var deferred = $q.defer();
-    $http.get(API_URL + '/archetypes/json/' + archetypeId).then(
-      function (response) {
-        angular.forEach(response.data.elementMaps, function(item) {
-          if (item.path === path) {
-            console.log(item.elementMapId);
-            deferred.resolve(item.elementMapId);
-          }
-        });
+        deferred.resolve(response.data);
       },
       function (response) {
         deferred.reject(response.data);

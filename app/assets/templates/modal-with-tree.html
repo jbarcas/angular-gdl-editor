@@ -4,7 +4,7 @@
 <div class="modal-body">
   <p>{{$ctrl.labels.bodyText}}</p>
 
-  <form role="form" ng-show="$ctrl.domains" class="form-inline gdl-center">
+  <form role="form" ng-show="$ctrl.domains" class="form-inline gdl-center gdl-padding">
     <div class="form-group">
       <label for="domain">Domain</label>
       <select class="form-control" id="domain" ng-model="$ctrl.domain" ng-init="$ctrl.domain = $ctrl.domains[0].name">
@@ -24,9 +24,8 @@
   </treecontrol>
 
   <form class="form-inline">
-    <label for="rg-from">Filter: </label>
-    <div class="form-group">
-      <input type="text" ng-model="predicate" class="form-control">
+    <div class="form-group gdl-padding">
+      <input type="text" ng-model="predicate" placeholder="Filter" class="form-control">
     </div>
   </form>
 

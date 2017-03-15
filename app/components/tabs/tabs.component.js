@@ -22,9 +22,39 @@
         $state.go(route);
       };
 
+      var item;
+      /*
+       * Check if there are elements unselected (i.e. in process of creation [marked in red])
+       */
+      function areUnselectedItems (guideline) {
+        for(var archetypeBinding in guideline.definition.archetypeBindings) {
+          for(var element in guideline.definition.archetypeBindings[archetypeBinding].elements) {
+            if(guideline.definition.archetypeBindings[archetypeBinding].elements[element].unselected) {
+              item = guideline.definition.archetypeBindings[archetypeBinding];
+              return true;
+            }
+          }
+        }
+        return false;
+      }
+
       this.insertGuide = function () {
 
+
         var guideline = guidelineFactory.getCurrentGuide();
+
+        if(areUnselectedItems(guideline)) {
+          var modalDefaults = {
+            size: 'md'
+          };
+
+          var modalOptions = {
+            headerText: 'Guideline not updated!',
+            bodyText: 'You have an item with no link to the archetype "' + item.archetypeId + '"'
+          };
+          modalService.showModal(modalDefaults, modalOptions);
+          return;
+        }
 
         if(hasBeenConverted(guideline)) {
           guideline = utilsFactory.convertToPost(guideline);

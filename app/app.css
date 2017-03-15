@@ -138,4 +138,9 @@ sup {
 .modal .modal-body {
     max-height: 420px;
     overflow-y: auto;
+    /*padding-left: 30%;*/
+}
+
+body.modal-open {
+    overflow: hidden !important;
 }

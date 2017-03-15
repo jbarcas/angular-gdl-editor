@@ -46,10 +46,15 @@ describe('GuidelinesFactory', function() {
         success: true,
         data: testGuideline
       };
-      httpBackend.expectGET(baseUrl + "/guidelines/json/" + guidelineId).respond(200, response); // Expect a GET request and send back a canned response
-      httpBackend.flush(); // Flush pending requests      
-      expect(result).toEqual(response);
-      expect(result.data).toEqual(testGuideline);
+      httpBackend.expectGET(baseUrl + "/guidelines/json/" + guidelineId).respond(200, response.data); // Expect a GET request and send back a canned response
+      httpBackend.expectGET(baseUrl + "/archetypes/json/openEHR-EHR-OBSERVATION.estimated_glomerular_filtration_rate.v1").respond(200, true); // Expect a GET request and send back a canned response
+      httpBackend.expectGET(baseUrl + "/archetypes/json/openEHR-EHR-OBSERVATION.lab_test-urea_and_electrolytes.v1").respond(200, true); // Expect a GET request and send back a canned response
+      httpBackend.expectGET(baseUrl + "/archetypes/json/openEHR-EHR-OBSERVATION.body_weight.v1").respond(200, true); // Expect a GET request and send back a canned response
+      httpBackend.expectGET(baseUrl + "/archetypes/json/openEHR-EHR-OBSERVATION.height.v1").respond(200, true); // Expect a GET request and send back a canned response
+      httpBackend.expectGET(baseUrl + "/archetypes/json/openEHR-EHR-OBSERVATION.basic_demographic.v1").respond(200, true); // Expect a GET request and send back a canned response
+      httpBackend.flush(); // Flush pending requests
+      expect(result).toEqual(response.data);
+
     });
 
     it('fails to get a particular guideline', function() {

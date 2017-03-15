@@ -62,11 +62,23 @@ function utilsFactory(guidelineFactory, GT_HEADER) {
         guideline.definition.archetypeBindings.map(function (archetypeBindingValue, archetypebindingKey) {
             if (!angular.isUndefined(archetypeBindingValue.elements)) {
                 archetypeBindingValue.elements.map(function (elementValue, elementKey) {
-                    guideline.definition.archetypeBindings[archetypebindingKey].elements[elementValue.id] = elementValue;
-                    /*
-                     * Delete the "name" property (used to map the gt code element to its name in the archetype)
-                     */
-                    delete guideline.definition.archetypeBindings[archetypebindingKey].elements[elementValue.id].name;
+
+                    if(elementValue.type === "BinaryExpression") {
+                        delete elementValue.ruleLine;
+                        delete elementValue.expressionItem.left.expressionItem.name;
+                        guideline.definition.archetypeBindings[archetypebindingKey].predicateStatements.push(elementValue);
+                    } else if(elementValue.type === "UnaryExpression") {
+                        delete elementValue.ruleLine;
+                        delete elementValue.expressionItem.operand.expressionItem.name;
+                        guideline.definition.archetypeBindings[archetypebindingKey].predicateStatements.push(elementValue);
+                    } else {
+                        guideline.definition.archetypeBindings[archetypebindingKey].elements[elementValue.id] = elementValue;
+                        /*
+                         * Delete the "name" property (used to map the gt code element to its name in the archetype)
+                         */
+                        delete guideline.definition.archetypeBindings[archetypebindingKey].elements[elementValue.id].name;
+                    }
+
                     delete guideline.definition.archetypeBindings[archetypebindingKey].elements[elementKey];
                 });
                 var element = {};

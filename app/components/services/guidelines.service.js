@@ -30,9 +30,28 @@ function guidelineFactory($http, API_URL, $q, archetypeFactory) {
         getSourceGuideline: getSourceGuideline,
         //------------------------------------
         getGuidelineArchetypes: getGuidelineArchetypes,
+        setGuidelineArchetypes: setGuidelineArchetypes,
         getGuidelineArchetype: getGuidelineArchetype,
+        setGuidelineArchetype: setGuidelineArchetype,
+        deleteGuidelineArchetype: deleteGuidelineArchetype,
         getElementName: getElementName
     };
+
+    function setGuidelineArchetypes(guideline) {
+        var archetypeBindings = [];
+        for (var ab in guideline.definition.archetypeBindings) {
+            archetypeBindings.push(guideline.definition.archetypeBindings[ab].archetypeId);
+        }
+        // Remove duplicates: this way we avoid unnecessary calls.
+        archetypeBindings = archetypeBindings.filter(function (item, pos) {
+            return archetypeBindings.indexOf(item) == pos;
+        });
+        angular.forEach(archetypeBindings, function (archetypeBinding) {
+            archetypeFactory.getArchetype(archetypeBinding).then(function (data) {
+                guidelineArchetypes.push(data);
+            });
+        })
+    }
 
     //gets the parts of a guideline
     function getGuideline(guideId) {
@@ -40,20 +59,7 @@ function guidelineFactory($http, API_URL, $q, archetypeFactory) {
         $http.get(API_URL + '/guidelines/json/' + guideId).then(
             function (response) {
                 guideline = response.data;
-
-                var archetypeBindings = [];
-                for (var ab in guideline.definition.archetypeBindings) {
-                    archetypeBindings.push(guideline.definition.archetypeBindings[ab].archetypeId);
-                }
-                // Remove duplicates: this way we avoid unnecessary calls.
-                archetypeBindings = archetypeBindings.filter(function (item, pos) {
-                    return archetypeBindings.indexOf(item) == pos;
-                });
-                angular.forEach(archetypeBindings, function (archetypeBinding) {
-                    archetypeFactory.getArchetype(archetypeBinding).then(function (data) {
-                        guidelineArchetypes.push(data);
-                    });
-                })
+                setGuidelineArchetypes(guideline);
                 deferred.resolve(guideline);
             },
             function (response) {
@@ -195,6 +201,19 @@ function guidelineFactory($http, API_URL, $q, archetypeFactory) {
             }
         }
         return null;
+    }
+
+    function setGuidelineArchetype(archetype) {
+        guidelineArchetypes.push(archetype);
+    }
+
+    function deleteGuidelineArchetype(archetypeId) {
+        for(i=0; i<guidelineArchetypes.length; i++) {
+            if (guidelineArchetypes[i].archetypeId === archetypeId) {
+                guidelineArchetypes.splice(i, 1);
+            }
+        }
+        console.log(guidelineArchetypes.toString())
     }
 
     function getElementName(archetypeId, path) {

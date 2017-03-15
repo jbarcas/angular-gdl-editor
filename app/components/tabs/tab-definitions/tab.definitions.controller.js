@@ -12,6 +12,8 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
 
     vm.guide = {};
     vm.guide.definition = guidelineFactory.getDefinition();
+    vm.guide.ontology = guidelineFactory.getOntology();
+
     vm.destNode = {};
     vm.sourceNode = {};
 
@@ -19,30 +21,53 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
     vm.removeElement = removeElement;
     vm.createElement = createElement;
     vm.updateElementsModal = updateElementsModal;
-    vm.updatePredicateFunctionModal = updatePredicateFunctionModal;
 
-    vm.updateLeftItem = updateLeftItem;
     vm.updateRightItem = updateRightItem;
     vm.updateArchetypesModal = updateArchetypesModal;
+    vm.openExpression = openExpression;
+
+    vm.getExpression = getExpression;
 
     vm.delete = "../assets/img/del.png";
     vm.add = "../assets/img/add.png";
 
+    var operators = {
+        'MULTIPLICATION': "*",
+        "ADDITION": "+",
+        "SUBSTRATION": "-",
+        "DIVISION": "/",
+        "EXPONENT": "^"
+    };
+
     vm.list = [
         {title: 'Archetype instantiation', archetypeId: 'Select an archetype', type: "ArchetypeInstantiation", draggable: true},
         {title: 'Element instantiation', type: "element", draggable: true},
-        {title: 'Predicate (DataValue)', type: "BinaryExpression", draggable: true},
-        {title: 'Predicate (Function)', type: "UnaryExpression", draggable: true},
-        {title: 'Predicate (Exists)', draggable: false},
-        {title: 'Predicate (Expression)', draggable: false}
+        {title: 'Predicate (DataValue)', type: "BinaryExpression", ruleLine: "WithElementPredicateAttribute", draggable: true},
+        {title: 'Predicate (Function)', type: "UnaryExpression", ruleLine: "WithElementPredicateFunction", draggable: true},
+        {title: 'Predicate (Exists)', type: "BinaryExpression", ruleLine: "WithElementPredicateExists", draggable: true},
+        {title: 'Predicate (Expression)', type: "BinaryExpression", ruleLine: "WithElementPredicateExpression", draggable: true}
     ];
 
     vm.predicateFunctionOptions = [
         'MAX', 'MIN'
     ];
 
+    vm.predicateExistsOptions = [
+        {label: 'exists', value: 'INEQUAL'},
+        {label: 'does not exist', value: 'EQUALITY'}
+    ];
+
+    vm.predicateExpressionOptions = [
+        {label: '==', value: 'EQUALITY'},
+        {label: '>=', value: 'GREATER_THAN_OR_EQUAL'},
+        {label: '<=', value: 'LESS_THAN_OR_EQUAL'}
+    ];
+
     vm.predicateDataValueOptions = [
-        '==', 'IS_A', '>=', '<='
+        {label: '==', value: 'EQUALITY'},
+        {label: '>=', value: 'GREATER_THAN_OR_EQUAL'},
+        {label: '<=', value: 'LESS_THAN_OR_EQUAL'},
+        {label: 'IS_A', value: 'IS_A'}
     ];
 
     /*
@@ -52,6 +77,7 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
         accept: function (sourceNodeScope, destNodesScope) {
             vm.sourceNode = sourceNodeScope;
             vm.destNode = destNodesScope;
+            //console.log(sourceNodeScope.$modelValue);
             return (sourceNodeScope.depth() === 2 && destNodesScope.depth() === 1) ||
                    (sourceNodeScope.$modelValue.type === "ArchetypeInstantiation" && destNodesScope.depth() === 0) ||
                    (sourceNodeScope.$modelValue.type === "element" && destNodesScope.depth() === 1)   ||
@@ -67,23 +93,20 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
          * @param event
          */
         beforeDrop: function (event) {
+            event.source.cloneModel.unselected = true;
             if(event.source.cloneModel.type === "element") {
-                event.source.cloneModel.name = "Select an element";
                 event.source.cloneModel.id = utilsFactory.generateGt(vm.guide);
-            } else if (event.source.cloneModel.type === "UnaryExpression") {
+                // TODO: path?
+                vm.guide.ontology.termDefinitions.en.terms[event.source.cloneModel.id] = {
+                    id: event.source.cloneModel.id,
+                    text: "Select an element"
+                }
+            } else if (event.source.cloneModel.ruleLine === "WithElementPredicateAttribute") {
                 event.source.cloneModel.expressionItem = {};
-                event.source.cloneModel.expressionItem.operand = {};
-                event.source.cloneModel.expressionItem.operand.type = "Variable";
-                event.source.cloneModel.expressionItem.operand.expressionItem = {};
-                event.source.cloneModel.expressionItem.operand.expressionItem.name = "Element";
-                event.source.cloneModel.expressionItem.operator = "MAX";
-            } else if (event.source.cloneModel.type === "BinaryExpression") {
-                event.source.cloneModel.expressionItem = {};
-
                 event.source.cloneModel.expressionItem.left = {};
                 event.source.cloneModel.expressionItem.left.type = "Variable";
                 event.source.cloneModel.expressionItem.left.expressionItem = {};
-                event.source.cloneModel.expressionItem.left.expressionItem.name = "Select element";
+                event.source.cloneModel.expressionItem.left.expressionItem.name = "Select an element";
 
                 event.source.cloneModel.expressionItem.right = {};
                 event.source.cloneModel.expressionItem.right.type = "CodedTextConstant";
@@ -93,7 +116,46 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
 
                 event.source.cloneModel.expressionItem.operator = "IS_A";
 
+            } else if (event.source.cloneModel.ruleLine === "WithElementPredicateFunction") {
+                event.source.cloneModel.expressionItem = {};
+                event.source.cloneModel.expressionItem.operand = {};
+                event.source.cloneModel.expressionItem.operand.type = "Variable";
+                event.source.cloneModel.expressionItem.operand.expressionItem = {};
+                event.source.cloneModel.expressionItem.operand.expressionItem.name = "Select an element";
+                event.source.cloneModel.expressionItem.operator = "MAX";
+
+            } else if (event.source.cloneModel.ruleLine === "WithElementPredicateExists") {
+                event.source.cloneModel.expressionItem = {};
+                event.source.cloneModel.expressionItem.left = {};
+                event.source.cloneModel.expressionItem.left.type = "Variable";
+                event.source.cloneModel.expressionItem.left.expressionItem = {};
+                event.source.cloneModel.expressionItem.left.expressionItem.name = "Select an element";
+
+                event.source.cloneModel.expressionItem.right = {};
+                event.source.cloneModel.expressionItem.right.type = "ConstantExpression";
+                event.source.cloneModel.expressionItem.right.expressionItem = {};
+                event.source.cloneModel.expressionItem.right.expressionItem.value = "null";
+
+                event.source.cloneModel.expressionItem.operator = "INEQUAL";
+
+            } else if (event.source.cloneModel.ruleLine === "WithElementPredicateExpression") {
+                event.source.cloneModel.expression = "Expression";
+                event.source.cloneModel.expressionItem = {};
+                event.source.cloneModel.expressionItem.left = {};
+                event.source.cloneModel.expressionItem.left.type = "Variable";
+                event.source.cloneModel.expressionItem.left.expressionItem = {};
+                event.source.cloneModel.expressionItem.left.expressionItem.name = "Select an element";
+
+                event.source.cloneModel.expressionItem.right = {};
+                event.source.cloneModel.expressionItem.right.type = "BinaryExpression";
+                event.source.cloneModel.expressionItem.right.expressionItem = {};
+                event.source.cloneModel.expressionItem.right.expressionItem.left = {};
+                event.source.cloneModel.expressionItem.right.expressionItem.right = {};
+
+                event.source.cloneModel.expressionItem.operator = "EQUALITY";
+
             }
+            //delete event.source.cloneModel.type;
             delete event.source.cloneModel.draggable;
             delete event.source.cloneModel.title;
         }
@@ -107,7 +169,14 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
                 path = predicateStatement.expressionItem.operand.expressionItem.path;
                 break;
             case "BinaryExpression":
-                path = predicateStatement.expressionItem.left.expressionItem.path
+                path = predicateStatement.expressionItem.left.expressionItem.path;
+
+                if (isPredicateExpression(predicateStatement)) {
+                    var res = predicateStatement.expressionItem.left.expressionItem.path.split("/value");
+                    path = res[0];
+                    predicateStatement.expressionItem.left.attribute = res[1].substring(1);
+                }
+
                 break;
             default:
                 path = null
@@ -115,12 +184,60 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
         return path;
     }
 
-    function isPredicateDataValue(predicateStatement) {
+    function isBinaryExpression(predicateStatement) {
         return predicateStatement.type === "BinaryExpression";
     }
 
-    function isPredicateFunction(predicateStatement) {
+    function isUnaryExpression(predicateStatement) {
         return predicateStatement.type === "UnaryExpression";
+    }
+
+    function isPredicateDataValue(predicateStatement) {
+        return predicateStatement.expressionItem.left.type === "Variable" &&
+            (predicateStatement.expressionItem.right.type === "CodedTextConstant" || predicateStatement.expressionItem.right.type === "CodePhraseConstant");
+    }
+
+    function isPredicateExists(predicateStatement) {
+        return predicateStatement.expressionItem.left.type === "Variable" &&
+               predicateStatement.expressionItem.right.expressionItem.value === "null";
+    }
+
+    function isPredicateExpression(predicateStatement) {
+        return predicateStatement.expressionItem.left.type === "Variable" &&
+               isExpression(predicateStatement.expressionItem.right);
+    }
+
+
+    function setRuleLine(predicateStatement) {
+
+        /* Predicate(DataValue) */
+        if(isBinaryExpression(predicateStatement)) {
+            if(isPredicateDataValue(predicateStatement)) {
+                return "WithElementPredicateAttribute";
+            }
+        }
+
+        /* Predicate(Function) */
+        if(isUnaryExpression(predicateStatement)) {
+            return "WithElementPredicateFunction";
+        }
+
+        /* Predicate(Exists) */
+        if(isBinaryExpression(predicateStatement)) {
+            if(isPredicateExists(predicateStatement)) {
+                return "WithElementPredicateExists";
+            }
+        }
+
+        /* Predicate(Expression) */
+        if(isBinaryExpression(predicateStatement)) {
+            if(isPredicateExpression(predicateStatement)) {
+                // Add the expression
+                predicateStatement.expression = getExpression(predicateStatement.expressionItem.right);
+                return "WithElementPredicateExpression";
+            }
+        }
+
     }
 
 
@@ -129,20 +246,20 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
         // converts the elements
         angular.forEach(vm.guide.definition.archetypeBindings, function (archetypeBinding) {
             if (archetypeBinding.elements) {
-                archetypeBinding.elements = elementsToArray(archetypeBinding);
+                archetypeBinding.elements = objectToArray(archetypeBinding.elements);
             }
             angular.forEach(archetypeBinding.predicateStatements, function (predicateStatement) {
                 var path = getPredicateStatementPath(predicateStatement);
                 var name = guidelineFactory.getElementName(archetypeBinding.archetypeId, path);
 
-                if (isPredicateFunction(predicateStatement)) {
+                if (isUnaryExpression(predicateStatement)) {
                     predicateStatement.expressionItem.operand.expressionItem.name = name;
                 }
-                if (isPredicateDataValue(predicateStatement)) {
+                if (isBinaryExpression(predicateStatement)) {
                     predicateStatement.expressionItem.left.expressionItem.name = name;
                 }
+                predicateStatement.ruleLine = setRuleLine(predicateStatement);
                 archetypeBinding.elements.push(predicateStatement);
-
             })
             // Clear the predicateStatements
             archetypeBinding.predicateStatements = [];
@@ -170,36 +287,22 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
         return array;
     }
 
-
-    function elementsToArray(object) {
-        var array = [];
-        angular.forEach(object.elements, function(index, element) {
-            if (object.elements.hasOwnProperty(element)) {
-                if (object.elements[element].type == 'UnaryExpression') {
-                    object.elements[element].type = 'UnaryExpression';
-                } else if (object.elements[element].type == 'BinaryExpression') {
-                    object.elements[element].type = 'BinaryExpression';
-                } else {
-                    object.elements[element].type = 'element';
-                }
-                object.elements[element].name = guidelineFactory.getElementName(object.archetypeId, object.elements[element].path);
-                array.push(object.elements[element]);
-            }
-        });
-        return array;
-    }
-
-
     function removeArchetype(scope) {
         var unused = true;
+        var archetype = scope.$modelValue;
 
-        angular.forEach(scope.$modelValue.elements, function (element) {
+        angular.forEach(archetype.elements, function (element) {
             if (existsInRules(element) || existsInPreconditions(element)) {
                 unused = false;
             }
         });
 
-        unused ? scope.remove() : showModal();
+        if (unused) {
+            guidelineFactory.deleteGuidelineArchetype(archetype.archetypeId);
+            scope.remove();
+        } else {
+            showModal();
+        }
 
         function showModal() {
             var modalDefaults = {
@@ -212,7 +315,6 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
             };
             modalService.showModal(modalDefaults, modalOptions);            
         }
-
     }
 
 
@@ -355,201 +457,106 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
         function createElementFailed(error) {
             $log.info('Error at getting archetype in getArchetype - createElement: ' + error);
         }
-        
-
     }
 
-    function updateElementsModal(archetypeBinding, element, elementIndex) {      
-        
-        archetypeFactory.getArchetype(archetypeBinding.archetypeId).then(updateElementComplete, updateElementFailed);
+    function getExpression(expression) {
 
-        function updateElementComplete(response) {
+        if (typeof str === 'undefined' || !str) {
+            str= "";
+        } else if (str.startsWith("(") && str.endsWith(")")) {
+            str = "";
+        }
 
-            var dataForModal = {
-                headerText: 'Select an element',
-                closeButtonText: 'Close',
-                actionButtonText: 'OK'
-            };
-            
-            var modalDefaults = {
-                size: 'sm',
-                component: 'modalWithTreeComponent',
-                resolve: {
-                    items: function() {
-                        var elementMaps = [];
-                        angular.forEach(response.elementMaps, function(elementMap) {
-                            elementMaps.push({ name: elementMap.elementMapId, path: elementMap.path, children: [] });
-                        });
-                        return elementMaps;
-                    },
-                    labels: function() {
-                        return dataForModal;
-                    }
+
+
+        if (!isExpression(expression)) {
+            str += expression.expressionItem.code + "." + expression.expressionItem.attribute;
+        } else {
+            str += '(';
+            getExpression(expression.expressionItem.left);
+            str += " " + operators[expression.expressionItem.operator] + " ";
+            getExpression(expression.expressionItem.right);
+            str += ')';
+        }
+        console.log(str);
+        return str;
+    }
+
+    function isExpression(object) {
+        return Object.keys(operators).indexOf(object.expressionItem.operator) !== -1;
+    }
+
+    function updateElementsModal(archetypeBinding, element, elementIndex) {
+
+        var archetype = guidelineFactory.getGuidelineArchetype(archetypeBinding.archetypeId);
+
+        var dataForModal = {
+            headerText: 'Select an element from "' + archetype.archetypeId + '"',
+            closeButtonText: 'Close',
+            actionButtonText: 'OK'
+        };
+
+        var modalDefaults = {
+            size: 'md',
+            component: 'modalWithTreeComponent',
+            resolve: {
+                items: function () {
+                    var elementMaps = [];
+                    angular.forEach(archetype.elementMaps, function (elementMap) {
+                        elementMaps.push({name: elementMap.elementMapId, path: elementMap.path, children: []});
+                    });
+                    return elementMaps;
+                },
+                labels: function () {
+                    return dataForModal;
                 }
-            };
+            }
+        };
 
-            modalService.showModal(modalDefaults).then(showModalComplete, showModalFailed);
+        modalService.showModal(modalDefaults).then(showModalComplete, showModalFailed);
 
-            function showModalComplete(dataFromTree) {
-                console.log(elementIndex);
-                if(dataFromTree.selectedItem === undefined) {
-                    return;
-                }
-                var archetypeBindingIndex = vm.guide.definition.archetypeBindings.indexOf(archetypeBinding);
-                var elementToUpdate =  vm.guide.definition.archetypeBindings[archetypeBindingIndex].elements[elementIndex];
-                elementToUpdate.path = dataFromTree.selectedItem.path;
-                elementToUpdate.name = dataFromTree.selectedItem.name;
+        function showModalComplete(dataFromTree) {
+            // if no item selected...
+            if (dataFromTree.selectedItem === undefined) {
+                return;
+            }
+            var archetypeBindingIndex = vm.guide.definition.archetypeBindings.indexOf(archetypeBinding);
+            var elementToUpdate = vm.guide.definition.archetypeBindings[archetypeBindingIndex].elements[elementIndex];
+            delete elementToUpdate.unselected;
 
-                // FIXME: Where can I get the thext anf description?
-                var ontology = guidelineFactory.getOntology();
+            var path = dataFromTree.selectedItem.path;
+            var name = dataFromTree.selectedItem.name;
+
+            /*
+             * BinaryExpression matches with PredicateAttribute, PredicateExists and PredicateExpression
+             * UnaryExpression matches with PredicateFunction
+             */
+            if(element.type === "BinaryExpression") {
+                elementToUpdate.expressionItem.left.expressionItem.path = path;
+                elementToUpdate.expressionItem.left.expressionItem.name = name;
+            } else if (element.type === "UnaryExpression") {
+                elementToUpdate.expressionItem.operand.expressionItem.path = path;
+                elementToUpdate.expressionItem.operand.expressionItem.name = name;
+            } else {
+                elementToUpdate.path = path;
+                // FIXME: Where can I get the text and description?
                 var language = 'en';
                 if (!elementToUpdate.hasOwnProperty('id')) {
                     elementToUpdate.id = utilsFactory.generateGt(vm.guide);
-                    ontology.termDefinitions[language].terms[elementToUpdate.id] = {};
+                    vm.guide.ontology.termDefinitions[language].terms[elementToUpdate.id] = {};
                 }
-
-                ontology.termDefinitions[language].terms[elementToUpdate.id] = {
-                    text: 'updateElementsModal text',
-                    description: 'updateElementsModal description'
+                vm.guide.ontology.termDefinitions[language].terms[elementToUpdate.id] = {
+                    id: elementToUpdate.id,
+                    text: $filter('formatElementText')(name),
+                    description: name // TODO: Description?
                 };
-            };
-
-            function showModalFailed() {
-                $log.info('Modal dismissed at: ' + new Date() + ' in updateElementsModal');
-            }
-            
-        }
-
-        function updateElementFailed(error) {
-            $log.info('Error at getting archetype in getArchetype - updateElementsModal: ' + error);
-        }
-
-    }
-
-    function updatePredicateFunctionModal(archetypeBinding, element, elementIndex) {
-
-        archetypeFactory.getArchetype(archetypeBinding.archetypeId).then(updatePredicateFunctionComplete, updatePredicateFunctionFailed);
-
-        function updatePredicateFunctionComplete(response) {
-
-            var dataForModal = {
-                headerText: 'Select an element',
-                closeButtonText: 'Close',
-                actionButtonText: 'OK'
-            };
-
-            var modalDefaults = {
-                size: 'sm',
-                component: 'modalWithTreeComponent',
-                resolve: {
-                    items: function() {
-                        var elementMaps = [];
-                        angular.forEach(response.elementMaps, function(elementMap) {
-                            elementMaps.push({ name: elementMap.elementMapId, path: elementMap.path, children: [] });
-                        });
-                        return elementMaps;
-                    },
-                    labels: function() {
-                        return dataForModal;
-                    }
-                }
-            };
-
-            modalService.showModal(modalDefaults).then(showModalComplete, showModalFailed);
-
-            function showModalComplete(dataFromTree) {
-                console.log(elementIndex);
-                if(dataFromTree.selectedItem === undefined) {
-                    return;
-                }
-
-                var archetypeBindingIndex = vm.guide.definition.archetypeBindings.indexOf(archetypeBinding);
-                var elementToUpdate =  vm.guide.definition.archetypeBindings[archetypeBindingIndex].elements[elementIndex];
-
-                elementToUpdate.expressionItem.operand.expressionItem.path = dataFromTree.selectedItem.path;
-                elementToUpdate.expressionItem.operand.expressionItem.name = dataFromTree.selectedItem.name;
-
-                // FIXME: Where can I get the text and description?
-                // FIXME: Fix term bindings
-                //var language = 'en';
-                //var ontology = guidelineFactory.getOntology();
-                //ontology.termDefinitions[language].terms[elementToUpdate.id].text = "updateElementsModal text";
-                //ontology.termDefinitions[language].terms[elementToUpdate.id].description = "updateElementsModal description";
             }
 
-            function showModalFailed() {
-                $log.info('Modal dismissed at: ' + new Date() + ' in updateElementsModal');
-            }
+        };
 
+        function showModalFailed() {
+            $log.info('Modal dismissed at: ' + new Date() + ' in updateElementsModal');
         }
-
-        function updatePredicateFunctionFailed(error) {
-            $log.info('Error at getting archetype in getArchetype - updateElementsModal: ' + error);
-        }
-
-    };
-
-    function updateLeftItem(archetypeBinding, element, elementIndex) {
-
-        archetypeFactory.getArchetype(archetypeBinding.archetypeId).then(updatePredicateFunctionComplete, updatePrefucateFunctionFailed);
-
-        function updatePredicateFunctionComplete(response) {
-
-            var dataForModal = {
-                headerText: 'Select an element',
-                closeButtonText: 'Close',
-                actionButtonText: 'OK'
-            };
-
-            var modalDefaults = {
-                size: 'sm',
-                component: 'modalWithTreeComponent',
-                resolve: {
-                    items: function() {
-                        var elementMaps = [];
-                        angular.forEach(response.elementMaps, function(elementMap) {
-                            elementMaps.push({ name: elementMap.elementMapId, path: elementMap.path, children: [] });
-                        });
-                        return elementMaps;
-                    },
-                    labels: function() {
-                        return dataForModal;
-                    }
-                }
-            };
-
-            modalService.showModal(modalDefaults).then(showModalComplete, showModalFailed);
-
-            function showModalComplete(dataFromTree) {
-                console.log(elementIndex);
-                if(dataFromTree.selectedItem === undefined) {
-                    return;
-                }
-
-                var archetypeBindingIndex = vm.guide.definition.archetypeBindings.indexOf(archetypeBinding);
-                var elementToUpdate =  vm.guide.definition.archetypeBindings[archetypeBindingIndex].elements[elementIndex];
-
-                elementToUpdate.expressionItem.left.expressionItem.path = dataFromTree.selectedItem.path;
-                elementToUpdate.expressionItem.left.expressionItem.name = dataFromTree.selectedItem.name;
-
-                // FIXME: Where can I get the text and description?
-                // FIXME: Fix term bindings
-                //var language = 'en';
-                //var ontology = guidelineFactory.getOntology();
-                //ontology.termDefinitions[language].terms[elementToUpdate.id].text = "updateElementsModal text";
-                //ontology.termDefinitions[language].terms[elementToUpdate.id].description = "updateElementsModal description";
-            }
-
-            function showModalFailed() {
-                $log.info('Modal dismissed at: ' + new Date() + ' in updateElementsModal');
-            }
-
-        }
-
-        function updatePrefucateFunctionFailed(error) {
-            $log.info('Error at getting archetype in getArchetype - updateElementsModal: ' + error);
-        }
-
     }
 
     function compare(a,b) {
@@ -560,7 +567,10 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
         return 0;
     }
 
-    function updateRightItem(archetypeBinding, element, elementIndex) {
+    function updateRightItem(node) {
+
+            var archetypeBinding = node.$nodeScope.$parentNodeScope.$modelValue;
+            var elementIndex = node.$nodeScope.$index;
 
             var dataForModal = {
                 headerText: 'Select a local term',
@@ -609,12 +619,13 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
                     // TODO: terminology id set as local::local. Allow other terminologies
                     elementToUpdate.expressionItem.right.expressionItem.codedText.definingCode.terminologyId.name = "local";
                     elementToUpdate.expressionItem.right.expressionItem.codedText.definingCode.terminologyId.value = "local";
-                    elementToUpdate.expressionItem.right.expressionItem.name = dataFromTree.selectedItem.name;
+                    //elementToUpdate.expressionItem.right.expressionItem.name = dataFromTree.selectedItem.name;
                     elementToUpdate.expressionItem.right.expressionItem.value =
                         elementToUpdate.expressionItem.right.expressionItem.codedText.definingCode.terminologyId.value
                     + "::" + elementToUpdate.expressionItem.right.expressionItem.codedText.definingCode.codeString + "|"
-                    + elementToUpdate.expressionItem.right.expressionItem.codedText.value;
-
+                    + elementToUpdate.expressionItem.right.expressionItem.codedText.value + "|";
+                } else if (elementToUpdate.expressionItem.right.type === "CodePhraseConstant") {
+                    $log.info("CodePhraseText");
                 }
 
 
@@ -690,7 +701,9 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
                 archetypeFactory.getArchetype(dataFromTree.selectedItem.name).then(updateArchetypeComplete, updateArchetypeFailed);
 
 
-                function updateArchetypeComplete(response) {                      
+                function updateArchetypeComplete(response) {
+
+                    guidelineFactory.setGuidelineArchetype(response);
                     
                     vm.guide.definition.archetypeBindings[archetypeBindingIndex] = {
                         archetypeId: response.archetypeId,
@@ -726,7 +739,42 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
         function updateArchetypesFailed(error) {
             $log.info('Error at getting the list of archetypes in getArchetypes - updateArchetypesModal: ' + error);
         }
+    }
 
+    function openExpression(node) {
+
+        var archetypeBinding = node.$nodeScope.$parentNodeScope.$modelValue;
+        var archetypeBindingIndex = node.$nodeScope.$parentNodeScope.$parent.$index;
+        var elementIndex = node.$nodeScope.$index;
+
+        var expression = node.$nodeScope.$modelValue.expression;
+        var dataForModal = {
+            headerText: 'Enter expression',
+            closeButtonText: 'Close',
+            actionButtonText: 'OK'
+        };
+
+        var defaults = {
+            component: 'modalWithTextareaComponent',
+            templateUrl: '',
+            resolve: {
+                labels: function() {
+                    return dataForModal;
+                },
+                expression: function() {
+                    return expression;
+                }
+            }
+        }
+
+        modalService.showModal(defaults).then(showModalComplete, showModalFailed);
+        function showModalComplete(response) {
+            vm.guide.definition.archetypeBindings[archetypeBindingIndex].elements[elementIndex].expression = response;
+        }
+
+        function showModalFailed() {
+            $log.info('Modal dismissed at: ' + new Date() + ' in updateElementsModal');
+        }
     }
 
 }
