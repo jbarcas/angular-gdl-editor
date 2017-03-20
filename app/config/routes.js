@@ -31,14 +31,22 @@ angular.module('app')
           controller: "DefinitionsCtrl",
           controllerAs: "vm"
         })
+        .state("tab-rulelist", {
+          url: "/tab-rulelist",
+          templateUrl: "components/tabs/tab-rulelist/tab-rulelist.html",
+          controller: "RulelistCtrl",
+          controllerAs: "vm"
+        })
+        .state("rule-editor", {
+          url: "/rule-editor/:ruleId",
+          templateUrl: "components/tabs/tab-rulelist/rule-editor.html",
+          controller: "RuleEditorCtrl",
+          controllerAs: "vm"
+        })
         .state("tab-gdl", {
           url: "/tab-gdl",
-          templateUrl: "views/tabs/tab-gdl.html",
-          controller: "GdlCtrl"
-        })
-        .state("tab-multiselect", {
-          url: "/tab-multiselect",
-          templateUrl: "views/tabs/tab-multiselect.html",
-          controller: "FormCtrl"
+          templateUrl: "components/tabs/tab-gdl/tab-gdl.html",
+          controller: "GdlCtrl",
+          controllerAs: "vm"
         });
   });

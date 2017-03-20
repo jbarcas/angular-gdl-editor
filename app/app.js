@@ -17,5 +17,6 @@ angular.module('app', [
     'ui.bootstrap',
     'ui.router',
     'ui.tree',
+    'ui.codemirror',
     'treeControl'
 ]);

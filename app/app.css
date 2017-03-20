@@ -144,3 +144,8 @@ sup {
 body.modal-open {
     overflow: hidden !important;
 }
+
+.CodeMirror {
+    border: 1px solid #eee;
+    height: auto !important;
+}

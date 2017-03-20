@@ -10,11 +10,11 @@
         {heading: "Guidelines", route: "tab-guidelines", active: false, disabled: false},
         {heading: "Description", route: "tab-description", active: false, disabled: false},
         {heading: "Definitions", route: "tab-definitions", active: false, disabled: false},
-        {heading: "Rule list", route: "tab-rule-list", active: true, disabled: true},
+        {heading: "Rule list", route: "tab-rulelist", active: false, disabled: false},
         {heading: "Preconditions", route: "tab-preconditions", active: true, disabled: true},
         {heading: "Terminology", route: "tab-terminology", active: false, disabled: false},
         {heading: "Binding", route: "tab-binding", active: false, disabled: true},
-        {heading: "GDL", route:"tabs.tab-gdl", active: false, disabled: true},
+        {heading: "GDL", route:"tab-gdl", active: false, disabled: false},
         {heading: "HTML", route:"tabs.tab-html", active: false, disabled: true}
       ];
 
@@ -39,15 +39,12 @@
       }
 
       this.insertGuide = function () {
-
-
         var guideline = guidelineFactory.getCurrentGuide();
 
         if(areUnselectedItems(guideline)) {
           var modalDefaults = {
             size: 'md'
           };
-
           var modalOptions = {
             headerText: 'Guideline not updated!',
             bodyText: 'You have an item with no link to the archetype "' + item.archetypeId + '"'
@@ -56,13 +53,7 @@
           return;
         }
 
-        if(hasBeenConverted(guideline)) {
-          guideline = utilsFactory.convertToPost(guideline);
-        }
-
-        function hasBeenConverted (guideline) {
-          return guideline.definition.archetypeBindings instanceof Array; 
-        }
+        guideline = utilsFactory.convertToPost(guideline);
 
         guidelineFactory.insertGuideline(guideline).then(
           function (response) {

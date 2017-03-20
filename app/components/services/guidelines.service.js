@@ -34,7 +34,14 @@ function guidelineFactory($http, API_URL, $q, archetypeFactory) {
         getGuidelineArchetype: getGuidelineArchetype,
         setGuidelineArchetype: setGuidelineArchetype,
         deleteGuidelineArchetype: deleteGuidelineArchetype,
-        getElementName: getElementName
+        getElementName: getElementName,
+        //-------------------------------------
+        getRulelist: getRulelist,
+        setRulelist: setRulelist,
+        getRule: getRule,
+        setRule: setRule,
+        getArchetypeBindings: getArchetypeBindings,
+        setArchetypeBindings: setArchetypeBindings
     };
 
     function setGuidelineArchetypes(guideline) {
@@ -226,6 +233,37 @@ function guidelineFactory($http, API_URL, $q, archetypeFactory) {
             }
         }
         return null;
+    }
+
+    // Rulelist
+    function getRulelist() {
+        return guideline.definition.rules;
+    }
+    function setRulelist(rulelist) {
+        guideline.definition.rules = rulelist;
+    }
+
+    // ArchetypeBindings
+    function getArchetypeBindings() {
+        if(guideline.definition) {
+            return guideline.definition.archetypeBindings;
+        };
+        return {};
+    }
+    function setArchetypeBindings(archetypeBindings) {
+        guideline.definition.archetypeBindings = archetypeBindings;
+    }
+
+    // Rules
+    function getRule(ruleId) {
+        for (var rule in guideline.definition.rules) {
+            if(guideline.definition.rules[rule].id == ruleId) {
+                return guideline.definition.rules[rule];
+            }
+        }
+        return null;
+    }
+    function setRule(rule) {
 
     }
 

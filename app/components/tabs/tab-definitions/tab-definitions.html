@@ -1,40 +1,128 @@
-<div>
-    <!-- Nested node template -->
-    <div class="row">
-        <div class="col-sm-12">
-            <h3>Definitions</h3>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-sm-9">
-            <div ui-tree="vm.treeOptions" data-drag-delay="300">
-                <ol ui-tree-nodes="" ng-model="vm.guide.definition.archetypeBindings">
-                    <li ng-repeat="archetypeBinding in vm.guide.definition.archetypeBindings" ui-tree-node
-                        ng-include="'components/tabs/tab-definitions/templates/nodes-renderer.html'"></li>
-                </ol>
-            </div>
-        </div>
-        <div class="col-sm-3">
-            <div ui-tree="vm.treeDefinitions" class="panel panel-default" data-clone-enabled="true"
-                 data-nodrop-enabled="true">
-                <div class="panel-heading">
-                    <h2 class="panel-title">Definitions</h2>
-                </div>
-                <div class="panel-body">
-                    <ol ui-tree-nodes="" ng-model="vm.list">
-                        <li ng-repeat="item in vm.list" class="right-list" ui-tree-node
-                            data-nodrag="{{!item.draggable}}">
-                            <div ui-tree-handle>
-                                {{item.title}}
-                            </div>
-                        </li>
-                    </ol>
-                </div>
-            </div>
-            <!--<pre>{{vm.list | json}}</pre>-->
-        </div>
-    </div>
-    <!--<pre>{{ vm.guide | json }}</pre>-->
-
+<div class="row">
+  <h3>Definitions</h3>
 </div>
+
+<div class="row">
+  <div class="col-sm-9">
+     <div ui-tree="vm.treeOptions" data-drag-delay="300">
+        <ol ui-tree-nodes ng-model="vm.guide.definition.archetypeBindings">
+           <li ng-repeat="archetypeBinding in vm.guide.definition.archetypeBindings" ui-tree-node>
+
+              <div ui-tree-handle class="tree-node tree-node-content">
+                 <a class="btn btn-success btn-xs" ng-if="archetypeBinding.elements" data-nodrag ng-click="toggle(this)">
+                    <span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span>
+                 </a>
+                 Instantiate archetype <sup>{{archetypeBinding.domain}}</sup> <a ng-style="archetypeBinding.archetypeId === 'Select an archetype' && {color:'red'}" ng-click="vm.updateArchetypesModal($index)" data-nodrag ng-bind="archetypeBinding.archetypeId"></a>
+                 <a class="pull-right btn btn-xs" data-nodrag ng-click="vm.removeArchetype(this)"><img ng-src="{{vm.delete}}"></a>
+                 <a class="pull-right btn btn-xs" data-nodrag ng-click="vm.createElement(this.$modelValue)"><img ng-src="{{vm.add}}"></a>
+              </div>
+
+              <!-- elements -->
+              <ol ng-class="{hidden: collapsed}" ui-tree-nodes ng-model="archetypeBinding.elements">
+                 <li ng-repeat="element in archetypeBinding.elements" ui-tree-node>
+                    <div ng-switch="element.ruleLine">
+
+                       <!-- Predicate(DataValue)  -->
+                       <div ui-tree-handle class="tree-node tree-node-content element-background" ng-switch-when="PredicateDatavalue">
+                          <form role="form"  class="form-inline">
+
+                             <!-- left item -->
+                             PredicateDataValue - With element <a ng-style="element.expressionItem.left.expressionItem.name === 'Select an element' && {color:'red'}" ng-click="vm.updateElementsModal(archetypeBinding, element, $index)" data-nodrag ng-bind="(element.expressionItem.left.expressionItem.name | formatElementText)"></a>
+
+                             <!-- operator -->
+                             <div class="form-group">
+                                <select class="form-control" ng-model="element.expressionItem.operator" data-nodrag>
+                                   <option ng-repeat="option in vm.predicateDataValueOptions" value="{{ option.value }}" ng-bind="option.label"></option>
+                                </select>
+                             </div>
+
+                             <!-- right -->
+                             <a ng-style="element.expressionItem.right.expressionItem.codedText.value === 'Select DataValue' && {color:'red'}"  ng-click="vm.updateRightItem(this)"> {{element.expressionItem.right.expressionItem.codedText.value}} </a>
+                             <!--<a ng-show="element.expressionItem.right.type='CodePhraseConstant'" ng-style="element.expressionItem.right.expressionItem.codePhrase.terminologyId.name === 'Select DataValue' && {color:'red'}"  ng-click="vm.updateRightItem(archetypeBinding, element, $index)"> {{vm.guide.ontology.termDefinitions.en.terms[element.expressionItem.right.expressionItem.codePhrase.codeString].text | capitalize}} </a>-->
+
+                             <a class="pull-right btn btn-xs gdl-padding" data-nodrag ng-click="vm.removeElement(this)"><img ng-src="{{vm.delete}}"></a>
+                          </form>
+                       </div>
+
+                       <!-- Predicate(Function) -->
+                       <div ui-tree-handle class="tree-node tree-node-content element-background gdl-element-with-select" ng-switch-when="PredicateFunction">
+                          <form role="form" class="form-inline">
+                             PredicateFunction - With element <a ng-style="element.expressionItem.operand.expressionItem.name === 'Select an element' && {color:'red'}" ng-click="vm.updateElementsModal(archetypeBinding, element, $index)" data-nodrag ng-bind="(element.expressionItem.operand.expressionItem.name | formatElementText)"></a>
+                             <div class="form-group">
+                                <select class="form-control" ng-model="element.expressionItem.operator" data-nodrag>
+                                   <option ng-repeat="option in vm.predicateFunctionOptions" value="{{ option }}" ng-bind="option"></option>
+                                </select>
+                             </div>
+                             <a class="pull-right btn btn-xs gdl-padding" data-nodrag ng-click="vm.removeElement(this)"><img ng-src="{{vm.delete}}"></a>
+                          </form>
+                       </div>
+
+                       <!-- Predicate(Exists)  -->
+                       <div ui-tree-handle class="tree-node tree-node-content element-background" ng-switch-when="PredicateExists">
+                          <form role="form"  class="form-inline">
+
+                             <!-- left item -->
+                             PredicateExists - With element <a ng-style="element.expressionItem.left.expressionItem.name === 'Select an element' && {color:'red'}" ng-click="vm.updateElementsModal(archetypeBinding, element, $index)" data-nodrag ng-bind="(element.expressionItem.left.expressionItem.name | formatElementText)"></a>
+
+                             <!-- operator -->
+                             <div class="form-group">
+                                <select class="form-control" ng-model="element.expressionItem.operator" data-nodrag>
+                                   <option ng-repeat="option in vm.predicateExistsOptions" value="{{ option.value }}" ng-bind="option.label"></option>
+                                </select>
+                             </div>
+
+                             <!-- right -->
+                             <a ng-click="vm.updateRightItem(this)"> {{element.expressionItem.right.expressionItem.codedText.value}} </a>
+
+                             <a class="pull-right btn btn-xs gdl-padding" data-nodrag ng-click="vm.removeElement(this)"><img ng-src="{{vm.delete}}"></a>
+                          </form>
+                       </div>
+
+                       <!-- Predicate(Expression)  -->
+                       <div ui-tree-handle class="tree-node tree-node-content element-background" ng-switch-when="PredicateExpression">
+                          <form role="form"  class="form-inline">
+
+                             <!-- left item -->
+                             PredicateExpression - With element <a ng-style="element.expressionItem.left.expressionItem.name === 'Select an element' && {color:'red'}" ng-click="vm.updateElementsModal(archetypeBinding, element, $index)" data-nodrag> {{element.expressionItem.left.expressionItem.name | formatElementText}}<sub>{{element.expressionItem.left.attribute}}</sub></a>
+
+                             <!-- operator -->
+                             <div class="form-group">
+                                <select class="form-control" ng-model="element.expressionItem.operator" data-nodrag>
+                                   <option ng-repeat="option in vm.predicateExpressionOptions" value="{{ option.value }}" ng-bind="option.label"></option>
+                                </select>
+                             </div>
+
+                             <!-- right -->
+                             <a ng-style="element.expression === 'Expression' && {color:'red'}" ng-click="vm.openExpression(this)"> {{ element.expression }} </a>
+
+                             <a class="pull-right btn btn-xs gdl-padding" data-nodrag ng-click="vm.removeElement(this)"><img ng-src="{{vm.delete}}"></a>
+                          </form>
+                       </div>
+
+                       <div ui-tree-handle class="tree-node tree-node-content element-background" ng-switch-default>
+                           Instantiate element <a ng-style="vm.guide.ontology.termDefinitions.en.terms[element.id].text === 'Select an element' && {color:'red'}" ng-click="vm.updateElementsModal(archetypeBinding, element, $index)" data-nodrag>{{vm.guide.ontology.termDefinitions.en.terms[element.id].text | capitalize}}</a>
+                           <a class="pull-right btn btn-xs" data-nodrag ng-click="vm.removeElement(this)"><img ng-src="{{vm.delete}}"></a>
+                       </div>
+                    </div>
+                 </li>
+              </ol>
+           </li>
+        </ol>
+     </div>
+  </div>
+  <div class="col-sm-3">
+     <div ui-tree="vm.treeDefinitions" class="panel panel-default" data-clone-enabled="true" data-nodrop-enabled="true">
+        <div class="panel-heading">
+          <h2 class="panel-title">Definitions</h2>
+        </div>
+        <div class="panel-body">
+           <ol ui-tree-nodes ng-model="vm.definitions">
+              <li ng-repeat="item in vm.definitions" class="right-list" ui-tree-node data-nodrag="{{!item.draggable}}">
+                 <div ui-tree-handle>{{item.title}}</div>
+              </li>
+           </ol>
+        </div>
+     </div>
+  </div>
+</div>
+<!--<pre>{{ vm.guide | json }}</pre>-->

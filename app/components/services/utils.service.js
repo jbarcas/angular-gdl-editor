@@ -59,41 +59,42 @@ function utilsFactory(guidelineFactory, GT_HEADER) {
     };
 
     function convertToPost(guideline) {
-        guideline.definition.archetypeBindings.map(function (archetypeBindingValue, archetypebindingKey) {
-            if (!angular.isUndefined(archetypeBindingValue.elements)) {
-                archetypeBindingValue.elements.map(function (elementValue, elementKey) {
 
-                    if(elementValue.type === "BinaryExpression") {
-                        delete elementValue.ruleLine;
-                        delete elementValue.expressionItem.left.expressionItem.name;
-                        guideline.definition.archetypeBindings[archetypebindingKey].predicateStatements.push(elementValue);
-                    } else if(elementValue.type === "UnaryExpression") {
-                        delete elementValue.ruleLine;
-                        delete elementValue.expressionItem.operand.expressionItem.name;
-                        guideline.definition.archetypeBindings[archetypebindingKey].predicateStatements.push(elementValue);
+        for(var archetypeBinding in guideline.definition.archetypeBindings) {
+            if (guideline.definition.archetypeBindings.hasOwnProperty(archetypeBinding)) {
+                /**
+                 *  Copy all the items into an array
+                 */
+                var elements = guideline.definition.archetypeBindings[archetypeBinding].elements;
+                /**
+                 * The "elements" property must be an object
+                 */
+                guideline.definition.archetypeBindings[archetypeBinding].elements = {};
+                for (var i= 0,len=elements.length; i<len; i++) {
+                    if(isElement(elements[i])) {
+                        var element = elements[i];
+                        guideline.definition.archetypeBindings[archetypeBinding].elements[element.id] = element;
                     } else {
-                        guideline.definition.archetypeBindings[archetypebindingKey].elements[elementValue.id] = elementValue;
-                        /*
-                         * Delete the "name" property (used to map the gt code element to its name in the archetype)
-                         */
-                        delete guideline.definition.archetypeBindings[archetypebindingKey].elements[elementValue.id].name;
+                        var predicateStatement = elements[i];
+                        deleteTemporalProperties(predicateStatement);
+                        guideline.definition.archetypeBindings[archetypeBinding].predicateStatements.push(predicateStatement);
                     }
-
-                    delete guideline.definition.archetypeBindings[archetypebindingKey].elements[elementKey];
-                });
-                var element = {};
-                angular.extend(element, guideline.definition.archetypeBindings[archetypebindingKey].elements);
-                guideline.definition.archetypeBindings[archetypebindingKey].elements = element;
-                guideline.definition.archetypeBindings[archetypeBindingValue.id] = archetypeBindingValue;
-                delete guideline.definition.archetypeBindings[archetypebindingKey];
+                }
             }
-        })
-        var newObj = {};
-        angular.extend(newObj, guideline.definition.archetypeBindings);
-        guideline.definition.archetypeBindings = newObj;
+        }
         return guideline;
     }
 
+    function isElement(item) {
+        return item.hasOwnProperty("id");
+    }
 
-
+    function deleteTemporalProperties(predicateStatement) {
+        delete predicateStatement.ruleLine;
+        if(predicateStatement.type === "BinaryExpression") {
+            delete predicateStatement.expressionItem.left.expressionItem.name;
+        } else if (predicateStatement.type === "BinaryExpression") {
+            delete predicateStatement.expressionItem.operand.expressionItem.name;
+        }
+    }
 }
