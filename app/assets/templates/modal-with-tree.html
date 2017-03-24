@@ -2,7 +2,6 @@
   <h3>{{$ctrl.labels.headerText}}</h3>
 </div>
 <div class="modal-body">
-  <p>{{$ctrl.labels.bodyText}}</p>
 
   <form role="form" ng-show="$ctrl.domains" class="form-inline gdl-center gdl-padding">
     <div class="form-group">
@@ -19,8 +18,8 @@
     on-selection="showSelected(node)"
     filter-expression="predicate"
     filter-comparator="comparator"
-    order-by="node.name">
-    {{node.name}}
+    order-by="node.viewText">
+    {{node.viewText | removeUnderscore}}
   </treecontrol>
 
   <form class="form-inline">

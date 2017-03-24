@@ -1,0 +1,18 @@
+<div class="modal-header">
+    <h3>{{$ctrl.labels.headerText | capitalize}}</h3>
+</div>
+<div class="modal-body">
+    <!--<p>{{$ctrl.labels.bodyText}}</p>-->
+
+    <div class="form-group">
+        <select class="form-control"
+                ng-options="option.viewText for option in $ctrl.options track by option.code"
+                ng-model="$ctrl.selectedItem">
+        </select>
+    </div>
+
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-warning" data-ng-click="$ctrl.cancel()">{{$ctrl.labels.closeButtonText}}</button>
+    <button class="btn btn-primary" data-ng-click="$ctrl.ok();">{{$ctrl.labels.actionButtonText}}</button>
+</div>

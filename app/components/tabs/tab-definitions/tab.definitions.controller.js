@@ -6,7 +6,7 @@ angular.module('app.controllers', [])
     .controller('DefinitionsCtrl', DefinitionsCtrl);
 
 
-function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelineFactory, definitionsFactory, modalService) {
+function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelineFactory, definitionsFactory, modalService, DV) {
 
     vm = this;
 
@@ -18,7 +18,7 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
     vm.removeArchetype = removeArchetype;
     vm.removeElement = removeElement;
     vm.createElement = createElement;
-    vm.updateElementsModal = updateElementsModal;
+    vm.updateLeftItem = updateLeftItem;
 
     vm.updateRightItem = updateRightItem;
     vm.updateArchetypesModal = updateArchetypesModal;
@@ -227,7 +227,11 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
         }
     }
 
-    function updateElementsModal(archetypeBinding, element, elementIndex) {
+    function updateLeftItem(node) {
+
+        var archetypeBinding = node.$nodeScope.$parentNodeScope.$modelValue;
+        var elementIndex = node.$nodeScope.$index;
+        var element = node.$nodeScope.$modelValue;
 
         var archetype = guidelineFactory.getGuidelineArchetype(archetypeBinding.archetypeId);
 
@@ -237,14 +241,15 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
             actionButtonText: 'OK'
         };
 
-        var modalDefaults = {
+        var modalOptions = {
             size: 'md',
             component: 'modalWithTreeComponent',
             resolve: {
                 items: function () {
                     var elementMaps = [];
                     angular.forEach(archetype.elementMaps, function (elementMap) {
-                        elementMaps.push({name: elementMap.elementMapId, path: elementMap.path, children: []});
+                        elementMap.viewText = elementMap.elementMapId;
+                        elementMaps.push(elementMap);
                     });
                     return elementMaps;
                 },
@@ -254,7 +259,7 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
             }
         };
 
-        modalService.showModal(modalDefaults).then(showModalComplete, showModalFailed);
+        modalService.showModal(modalOptions).then(showModalComplete, showModalFailed);
 
         function showModalComplete(dataFromTree) {
             // if no item selected...
@@ -266,7 +271,7 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
             delete elementToUpdate.unselected;
 
             var path = dataFromTree.selectedItem.path;
-            var name = dataFromTree.selectedItem.name;
+            var name = dataFromTree.selectedItem.elementMapId;
 
             /*
              * BinaryExpression matches with PredicateAttribute, PredicateExists and PredicateExpression
@@ -288,7 +293,7 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
                 }
                 vm.guide.ontology.termDefinitions[language].terms[elementToUpdate.id] = {
                     id: elementToUpdate.id,
-                    text: $filter('formatElementText')(name),
+                    text: $filter('removeUnderscore')(name),
                     description: name // TODO: Description?
                 };
             }
@@ -296,64 +301,36 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
         };
 
         function showModalFailed() {
-            $log.info('Modal dismissed at: ' + new Date() + ' in updateElementsModal');
+            $log.info('Modal dismissed at: ' + new Date() + ' in updateLeftItem');
         }
-    }
-
-    function compare(a,b) {
-        if (a.name < b.name)
-            return -1;
-        if (a.name > b.name)
-            return 1;
-        return 0;
     }
 
     function updateRightItem(node) {
 
         var archetypeBinding = node.$nodeScope.$parentNodeScope.$modelValue;
         var elementIndex = node.$nodeScope.$index;
+        var predicate = node.$nodeScope.$modelValue;
+        var archetype = guidelineFactory.getGuidelineArchetype(archetypeBinding.archetypeId);
+        if (definitionsFactory.getPredicateStatementType(predicate) === "PredicateDatavalue") {
+            var data = definitionsFactory.getDataForModal(archetype, predicate);
+            var options = definitionsFactory.getOptionsForModal(archetype, predicate);
+        }
 
-        var dataForModal = {
-            headerText: 'Select a local term',
-            closeButtonText: 'Close',
-            actionButtonText: 'OK'
-        };
+        modalService.showModal(options, data).then(showModalComplete, showModalFailed);
 
-        var modalDefaults = {
-            size: 'md',
-            component: 'modalWithTreeComponent',
-            resolve: {
-                items: function () {
-                    var terms = guidelineFactory.getOntology().termDefinitions.en.terms;
-                    var modalItems = [];
-                    angular.forEach(terms, function (term) {
-                        modalItems.push({name: term.id + " - " + term.text, code: term.id, children: []});
-                    });
-                    modalItems = modalItems.sort(compare);
-                    return modalItems;
-                },
-                labels: function () {
-                    return dataForModal;
-                }
-            }
-        };
-
-        modalService.showModal(modalDefaults).then(showModalComplete, showModalFailed);
-
-        function showModalComplete(dataFromTree) {
-            if (dataFromTree.selectedItem === undefined) {
+        function showModalComplete(modalResponse) {
+            if (modalResponse.data === undefined) {
                 return;
             }
 
-            dataFromTree.selectedItem.name = dataFromTree.selectedItem.name.replace(dataFromTree.selectedItem.code + " - ", "");
-
             var archetypeBindingIndex = vm.guide.definition.archetypeBindings.indexOf(archetypeBinding);
-            var elementToUpdate = vm.guide.definition.archetypeBindings[archetypeBindingIndex].elements[elementIndex];
+            var constantExpression = vm.guide.definition.archetypeBindings[archetypeBindingIndex].elements[elementIndex].expressionItem.right;
 
-            if (elementToUpdate.expressionItem.right.type === "CodedTextConstant") {
-                definitionsFactory.generateCodedTextConstant(elementToUpdate.expressionItem.right, dataFromTree);
-                console.log("foo");
-            } else if (elementToUpdate.expressionItem.right.type === "CodePhraseConstant") {
+            if (modalResponse.data.type === DV.CODEDTEXT) {
+                definitionsFactory.setCodedTextConstant(constantExpression, modalResponse);
+            } else if(modalResponse.data.type === DV.TEXT) {
+                definitionsFactory.setStringConstant(constantExpression, modalResponse);
+            } else if (constantExpression.type === "CodePhraseConstant") {
                 $log.info("CodePhraseText");
             }
 
@@ -362,12 +339,12 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
             // FIXME: Fix term bindings
             //var language = 'en';
             //var ontology = guidelineFactory.getOntology();
-            //ontology.termDefinitions[language].terms[elementToUpdate.id].text = "updateElementsModal text";
-            //ontology.termDefinitions[language].terms[elementToUpdate.id].description = "updateElementsModal description";
+            //ontology.termDefinitions[language].terms[elementToUpdate.id].text = "updateRightItem text";
+            //ontology.termDefinitions[language].terms[elementToUpdate.id].description = "updateRightItem description";
         }
 
         function showModalFailed() {
-            $log.info('Modal dismissed at: ' + new Date() + ' in updateElementsModal');
+            $log.info('Modal dismissed at: ' + new Date() + ' in updateRightItem');
         }
 
     }
@@ -501,7 +478,7 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
         }
 
         function showModalFailed() {
-            $log.info('Modal dismissed at: ' + new Date() + ' in updateElementsModal');
+            $log.info('Modal dismissed at: ' + new Date() + ' in openExpression()');
         }
     }
 

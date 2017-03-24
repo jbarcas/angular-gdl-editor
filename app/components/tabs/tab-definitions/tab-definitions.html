@@ -27,7 +27,7 @@
                           <form role="form"  class="form-inline">
 
                              <!-- left item -->
-                             PredicateDataValue - With element <a ng-style="element.expressionItem.left.expressionItem.name === 'Select an element' && {color:'red'}" ng-click="vm.updateElementsModal(archetypeBinding, element, $index)" data-nodrag ng-bind="(element.expressionItem.left.expressionItem.name | formatElementText)"></a>
+                             PredicateDataValue - With element <a ng-style="element.expressionItem.left.expressionItem.name === 'Select an element' && {color:'red'}" ng-click="vm.updateLeftItem(this)" data-nodrag ng-bind="(element.expressionItem.left.expressionItem.name | removeUnderscore)"></a>
 
                              <!-- operator -->
                              <div class="form-group">
@@ -37,7 +37,7 @@
                              </div>
 
                              <!-- right -->
-                             <a ng-style="element.expressionItem.right.expressionItem.codedText.value === 'Select DataValue' && {color:'red'}"  ng-click="vm.updateRightItem(this)"> {{element.expressionItem.right.expressionItem.codedText.value}} </a>
+                             <a ng-style="element.expressionItem.right.expressionItem.codedText.value === 'Select DataValue' && {color:'red'}"  ng-click="vm.updateRightItem(this)"> {{element.expressionItem.right.expressionItem.value | parseLocal}} </a>
                              <!--<a ng-show="element.expressionItem.right.type='CodePhraseConstant'" ng-style="element.expressionItem.right.expressionItem.codePhrase.terminologyId.name === 'Select DataValue' && {color:'red'}"  ng-click="vm.updateRightItem(archetypeBinding, element, $index)"> {{vm.guide.ontology.termDefinitions.en.terms[element.expressionItem.right.expressionItem.codePhrase.codeString].text | capitalize}} </a>-->
 
                              <a class="pull-right btn btn-xs gdl-padding" data-nodrag ng-click="vm.removeElement(this)"><img ng-src="{{vm.delete}}"></a>
@@ -47,7 +47,7 @@
                        <!-- Predicate(Function) -->
                        <div ui-tree-handle class="tree-node tree-node-content element-background gdl-element-with-select" ng-switch-when="PredicateFunction">
                           <form role="form" class="form-inline">
-                             PredicateFunction - With element <a ng-style="element.expressionItem.operand.expressionItem.name === 'Select an element' && {color:'red'}" ng-click="vm.updateElementsModal(archetypeBinding, element, $index)" data-nodrag ng-bind="(element.expressionItem.operand.expressionItem.name | formatElementText)"></a>
+                             PredicateFunction - With element <a ng-style="element.expressionItem.operand.expressionItem.name === 'Select an element' && {color:'red'}" ng-click="vm.updateLeftItem(this)" data-nodrag ng-bind="(element.expressionItem.operand.expressionItem.name | removeUnderscore)"></a>
                              <div class="form-group">
                                 <select class="form-control" ng-model="element.expressionItem.operator" data-nodrag>
                                    <option ng-repeat="option in vm.predicateFunctionOptions" value="{{ option }}" ng-bind="option"></option>
@@ -62,7 +62,7 @@
                           <form role="form"  class="form-inline">
 
                              <!-- left item -->
-                             PredicateExists - With element <a ng-style="element.expressionItem.left.expressionItem.name === 'Select an element' && {color:'red'}" ng-click="vm.updateElementsModal(archetypeBinding, element, $index)" data-nodrag ng-bind="(element.expressionItem.left.expressionItem.name | formatElementText)"></a>
+                             PredicateExists - With element <a ng-style="element.expressionItem.left.expressionItem.name === 'Select an element' && {color:'red'}" ng-click="vm.updateLeftItem(this)" data-nodrag ng-bind="(element.expressionItem.left.expressionItem.name | removeUnderscore)"></a>
 
                              <!-- operator -->
                              <div class="form-group">
@@ -83,7 +83,7 @@
                           <form role="form"  class="form-inline">
 
                              <!-- left item -->
-                             PredicateExpression - With element <a ng-style="element.expressionItem.left.expressionItem.name === 'Select an element' && {color:'red'}" ng-click="vm.updateElementsModal(archetypeBinding, element, $index)" data-nodrag> {{element.expressionItem.left.expressionItem.name | formatElementText}}<sub>{{element.expressionItem.left.attribute}}</sub></a>
+                             PredicateExpression - With element <a ng-style="element.expressionItem.left.expressionItem.name === 'Select an element' && {color:'red'}" ng-click="vm.updateLeftItem(this)" data-nodrag> {{element.expressionItem.left.expressionItem.name | removeUnderscore}}<sub>{{element.expressionItem.left.attribute}}</sub></a>
 
                              <!-- operator -->
                              <div class="form-group">
@@ -100,7 +100,7 @@
                        </div>
 
                        <div ui-tree-handle class="tree-node tree-node-content element-background" ng-switch-default>
-                           Instantiate element <a ng-style="vm.guide.ontology.termDefinitions.en.terms[element.id].text === 'Select an element' && {color:'red'}" ng-click="vm.updateElementsModal(archetypeBinding, element, $index)" data-nodrag>{{vm.guide.ontology.termDefinitions.en.terms[element.id].text | capitalize}}</a>
+                           Instantiate element <a ng-style="vm.guide.ontology.termDefinitions.en.terms[element.id].text === 'Select an element' && {color:'red'}" ng-click="vm.updateLeftItem(this)" data-nodrag>{{vm.guide.ontology.termDefinitions.en.terms[element.id].text | capitalize}}</a>
                            <a class="pull-right btn btn-xs" data-nodrag ng-click="vm.removeElement(this)"><img ng-src="{{vm.delete}}"></a>
                        </div>
                     </div>
@@ -125,4 +125,4 @@
      </div>
   </div>
 </div>
-<!--<pre>{{ vm.guide | json }}</pre>-->
+<pre>{{ vm.guide | json }}</pre>

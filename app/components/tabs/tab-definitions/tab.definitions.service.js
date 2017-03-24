@@ -5,7 +5,7 @@
 angular.module('app.services')
     .factory('definitionsFactory', definitionsFactory);
 
-function definitionsFactory(guidelineFactory) {
+function definitionsFactory(DV, guidelineFactory) {
 
     var operators = {
         'MULTIPLICATION': "*",
@@ -24,9 +24,13 @@ function definitionsFactory(guidelineFactory) {
         isDroppable: isDroppable,
         existsInRules: existsInRules,
         existsInPreconditions: existsInPreconditions,
-        generateCodedTextConstant: generateCodedTextConstant,
+        setCodedTextConstant: setCodedTextConstant,
+        setStringConstant: setStringConstant,
         convertModel: convertModel,
-        getExpression: getExpression
+        getExpression: getExpression,
+        getPredicateStatementType: getPredicateStatementType,
+        getDataForModal: getDataForModal,
+        getOptionsForModal: getOptionsForModal
     }
 
     function createElementInstantiation (model) {
@@ -158,21 +162,27 @@ function definitionsFactory(guidelineFactory) {
     };
 
 
-    function generateCodedTextConstant (element, dataFromTree) {
-        element.expressionItem.codedText.value = dataFromTree.selectedItem.name;
-        if(!element.expressionItem.codedText.definingCode) {
-            element.expressionItem.codedText.definingCode = {};
-            element.expressionItem.codedText.definingCode.terminologyId = {};
+    function setCodedTextConstant (codedTextConstant, dataFromTree) {
+        codedTextConstant.expressionItem.codedText.value = dataFromTree.data.text;
+        if(!codedTextConstant.expressionItem.codedText.definingCode) {
+            codedTextConstant.expressionItem.codedText.definingCode = {};
+            codedTextConstant.expressionItem.codedText.definingCode.terminologyId = {};
         }
-        element.expressionItem.codedText.definingCode.codeString = dataFromTree.selectedItem.code;
+        codedTextConstant.expressionItem.codedText.definingCode.codeString = dataFromTree.data.code;
         // TODO: terminology id set as local::local. Allow other terminologies
-        element.expressionItem.codedText.definingCode.terminologyId.name = "local";
-        element.expressionItem.codedText.definingCode.terminologyId.value = "local";
+        codedTextConstant.expressionItem.codedText.definingCode.terminologyId.name = "local";
+        codedTextConstant.expressionItem.codedText.definingCode.terminologyId.value = "local";
         //element.expressionItem.name = dataFromTree.selectedItem.name;
-        element.expressionItem.value =
-            element.expressionItem.codedText.definingCode.terminologyId.value
-            + "::" + element.expressionItem.codedText.definingCode.codeString + "|"
-            + element.expressionItem.codedText.value + "|";
+        codedTextConstant.expressionItem.value =
+            codedTextConstant.expressionItem.codedText.definingCode.terminologyId.value
+            + "::" + codedTextConstant.expressionItem.codedText.definingCode.codeString + "|"
+            + codedTextConstant.expressionItem.codedText.value + "|";
+    }
+
+    function setStringConstant (stringConstant, dataFromInput) {
+        // TODO: properties string y value ?
+        stringConstant.expressionItem.string = dataFromInput.data.value;
+        stringConstant.expressionItem.value = dataFromInput.data.value;
     }
 
     function convertModel(archertypeBindings){
@@ -191,7 +201,13 @@ function definitionsFactory(guidelineFactory) {
                 if (isBinaryExpression(predicateStatement)) {
                     predicateStatement.expressionItem.left.expressionItem.name = name;
                 }
-                predicateStatement.ruleLine = setRuleLine(predicateStatement);
+                predicateStatement.ruleLine = getPredicateStatementType(predicateStatement);
+                /*
+                 * It might not contain elements
+                 */
+                if(!archetypeBinding.elements) {
+                    archetypeBinding.elements = [];
+                }
                 archetypeBinding.elements.push(predicateStatement);
             })
             // Clear the predicateStatements
@@ -221,25 +237,31 @@ function definitionsFactory(guidelineFactory) {
     }
 
     function getPredicateStatementPath(predicateStatement) {
-        var path;
-        switch (predicateStatement.type) {
-            case "UnaryExpression":
-                path = predicateStatement.expressionItem.operand.expressionItem.path;
-                break;
-            case "BinaryExpression":
-                path = predicateStatement.expressionItem.left.expressionItem.path;
 
-                if (isPredicateExpression(predicateStatement)) {
-                    var res = predicateStatement.expressionItem.left.expressionItem.path.split("/value");
-                    path = res[0];
-                    predicateStatement.expressionItem.left.attribute = res[1].substring(1);
-                }
+        var side = predicateStatement.type === "UnaryExpression" ? "operand" : "left";
 
-                break;
-            default:
-                path = null
+        if (getPredicateStatementType(predicateStatement) === "PredicateExpression") {
+            var res = predicateStatement.expressionItem.left.expressionItem.path.split("/value");
+            path = res[0];
+            predicateStatement.expressionItem.left.attribute = res[1].substring(1);
         }
-        return path;
+        return predicateStatement.expressionItem[side].expressionItem.path;
+    }
+
+    function getPredicateStatementType(predicateStatement) {
+        var type;
+        if(predicateStatement.type === "UnaryExpression") {
+            type = "PredicateFunction";
+        } else if(predicateStatement.expressionItem.right.expressionItem.value === "null") {
+            type = "PredicateExists";
+//      } else if(predicateStatement.expressionItem.left.attribute) {  // FIXME: this should be the right way to check if it is a PredicateExpression
+        } else if(isExpression(predicateStatement.expressionItem.right)) {
+            predicateStatement.expression = getExpression(predicateStatement.expressionItem.right);
+            type = "PredicateExpression";
+        } else {
+            type = "PredicateDatavalue";
+        }
+        return type;
     }
 
     function isBinaryExpression(predicateStatement) {
@@ -249,51 +271,6 @@ function definitionsFactory(guidelineFactory) {
     function isUnaryExpression(predicateStatement) {
         return predicateStatement.type === "UnaryExpression";
     }
-
-    function isPredicateDataValue(predicateStatement) {
-        return predicateStatement.expressionItem.right.type === "CodedTextConstant" || predicateStatement.expressionItem.right.type === "CodePhraseConstant";
-    }
-
-    function isPredicateExists(predicateStatement) {
-        return predicateStatement.expressionItem.right.expressionItem.value === "null";
-    }
-
-    function isPredicateExpression(predicateStatement) {
-        return isExpression(predicateStatement.expressionItem.right);
-    }
-
-    function setRuleLine(predicateStatement) {
-
-        /* Predicate(DataValue) */
-        if(isBinaryExpression(predicateStatement)) {
-            if(isPredicateDataValue(predicateStatement)) {
-                return "PredicateDatavalue";
-            }
-        }
-
-        /* Predicate(Function) */
-        if(isUnaryExpression(predicateStatement)) {
-            return "PredicateFunction";
-        }
-
-        /* Predicate(Exists) */
-        if(isBinaryExpression(predicateStatement)) {
-            if(isPredicateExists(predicateStatement)) {
-                return "PredicateExists";
-            }
-        }
-
-        /* Predicate(Expression) */
-        if(isBinaryExpression(predicateStatement)) {
-            if(isPredicateExpression(predicateStatement)) {
-                // Add the expression
-                predicateStatement.expression = getExpression(predicateStatement.expressionItem.right);
-                return "PredicateExpression";
-            }
-        }
-
-    }
-
 
     function isExpression(object) {
         return Object.keys(operators).indexOf(object.expressionItem.operator) !== -1;
@@ -318,6 +295,77 @@ function definitionsFactory(guidelineFactory) {
         }
         console.log(str);
         return str;
+    }
+
+    function getDataForModal(archetype, predicate) {
+        var elementName = predicate.expressionItem.left.expressionItem.name;
+        var elementType = archetype.elementMaps[elementName].dataType;
+
+        var modalData = {};
+        if(elementType === DV.CODEDTEXT || elementType === DV.TEXT) {
+            modalData.headerText = elementName;
+        } else {
+            modalData.headerText = "Select a local term";
+        }
+        return modalData;
+    }
+
+    function getOptionsForModal(archetype, predicate) {
+        var elementName = predicate.expressionItem.left.expressionItem.name;
+        var elementType = archetype.elementMaps[elementName].dataType;
+
+        var modalOptions = {};
+        modalOptions.resolve = {};
+        var modalItems = [];
+        if(elementType === DV.CODEDTEXT) {
+            var defaultOption = {};
+            modalOptions.component = "modalWithDropdownComponent";
+            modalOptions.resolve.items = function() {
+                var attributes = archetype.elementMaps[elementName].attributeMaps;
+                for(attribute in attributes) {
+                    if(attributes[attribute].code == predicate.expressionItem.right.expressionItem.codedText.definingCode.codeString) {
+                        defaultOption = attributes[attribute];
+                    }
+                    attributes[attribute].viewText = attributes[attribute].text;
+                    attributes[attribute].type = elementType;
+                    modalItems.push(attributes[attribute]);
+                }
+                return modalItems;
+            };
+            modalOptions.resolve.default = function() {
+                return defaultOption;
+            }
+        } else if(elementType === DV.TEXT) {
+            modalOptions.component = "modalWithInputComponent";
+            modalOptions.resolve.input = {};
+            modalOptions.resolve.input.type = elementType;
+            // TODO: What are string and value for? What is the difference between them?
+            modalOptions.resolve.input.string = predicate.expressionItem.right.expressionItem.string;
+            modalOptions.resolve.input.value = predicate.expressionItem.right.expressionItem.value;
+            // TODO: get description to show in the modal
+        } else {
+            modalOptions.component = "modalWithTreeComponent";
+            modalOptions.resolve.items = function() {
+                var terms = guidelineFactory.getOntology().termDefinitions.en.terms;
+                var modalItems = [];
+                angular.forEach(terms, function (term) {
+                    term.viewText = term.id + " - " + term.text;
+                    term.type = elementType;
+                    modalItems.push(term);
+                });
+                modalItems = modalItems.sort(compare);
+                return modalItems;
+            }
+        }
+        return modalOptions;
+    }
+
+    function compare(a,b) {
+        if (a.name < b.name)
+            return -1;
+        if (a.name > b.name)
+            return 1;
+        return 0;
     }
 
 

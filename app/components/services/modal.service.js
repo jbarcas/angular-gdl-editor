@@ -4,47 +4,45 @@ angular.module('app.services')
 function modalService ($uibModal) {
 
   var modalDefaults = {
+    size: 'md',
     backdrop: true,
     keyboard: true,
-    modalFade: true,
-    templateUrl: 'assets/templates/modal.html'
+    modalFade: true
   };
 
-  var modalOptions = {
+  var modalLabels = {
     closeButtonText: 'Close',
     actionButtonText: 'OK',
-    headerText: 'Proceed?',
-    bodyText: 'Perform this action?'
+    headerText: 'Proceed?'
   };
 
-  this.showModal = function (customModalDefaults, customModalOptions) {
-    if (!customModalDefaults) customModalDefaults = {};
+  this.showModal = function (customModalDefaults, customModalLabels) {
+    if (!customModalDefaults) {
+      customModalDefaults = {};
+    }
     customModalDefaults.backdrop = 'static';
-    return this.show(customModalDefaults, customModalOptions);
+    return this.show(customModalDefaults, customModalLabels);
   };
 
-  this.show = function (customModalDefaults, customModalOptions) {
+  this.show = function (customModalDefaults, customModalLabels) {
     //Create temp objects to work with since we're in a singleton service
     var tempModalDefaults = {};
-    var tempModalOptions = {};
+    var tempModalLabels = {};
 
     //Map angular-ui modal custom defaults to modal defaults defined in service
     angular.extend(tempModalDefaults, modalDefaults, customModalDefaults);
 
     //Map modal.html $scope custom properties to defaults defined in service
-    angular.extend(tempModalOptions, modalOptions, customModalOptions);
+    angular.extend(tempModalLabels, modalLabels, customModalLabels);
 
-    if (!tempModalDefaults.controller) {
-      tempModalDefaults.controller = function ($scope, $uibModalInstance) {
-        $scope.modalOptions = tempModalOptions;
-        $scope.modalOptions.ok = function (result) {
-          $uibModalInstance.close(result);
-        };
-        $scope.modalOptions.close = function (result) {
-          $uibModalInstance.dismiss('cancel');
-        };
-      }
+    var labels = function() {
+      return tempModalLabels;
     }
+
+    if(!tempModalDefaults.resolve) {
+      tempModalDefaults.resolve = {};
+    }
+    tempModalDefaults.resolve.labels = labels;
 
     return $uibModal.open(tempModalDefaults).result;
   };
