@@ -5,9 +5,10 @@ function modalService ($uibModal) {
 
   var modalDefaults = {
     size: 'md',
-    backdrop: true,
+    backdrop: 'static',
     keyboard: true,
-    modalFade: true
+    modalFade: true,
+    templateUrl: '../../assets/templates/modal.html'
   };
 
   var modalLabels = {
@@ -20,7 +21,6 @@ function modalService ($uibModal) {
     if (!customModalDefaults) {
       customModalDefaults = {};
     }
-    customModalDefaults.backdrop = 'static';
     return this.show(customModalDefaults, customModalLabels);
   };
 
@@ -37,7 +37,7 @@ function modalService ($uibModal) {
 
     var labels = function() {
       return tempModalLabels;
-    }
+    };
 
     if(!tempModalDefaults.resolve) {
       tempModalDefaults.resolve = {};

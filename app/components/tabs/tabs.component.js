@@ -42,9 +42,7 @@
         var guideline = guidelineFactory.getCurrentGuide();
 
         if(areUnselectedItems(guideline)) {
-          var modalDefaults = {
-            size: 'md'
-          };
+          var modalDefaults = {component: 'dialogComponent'};
           var modalOptions = {
             headerText: 'Guideline not updated!',
             bodyText: 'You have an item with no link to the archetype "' + item.archetypeId + '"'
@@ -55,31 +53,25 @@
 
         guideline = utilsFactory.convertToPost(guideline);
 
-        guidelineFactory.insertGuideline(guideline).then(
-          function (response) {
-            var modalDefaults = {
-                size: 'sm'
-            };
+        guidelineFactory.insertGuideline(guideline).then(insertGuidelineComplete, insertGuidelineFailed);
 
-            var modalOptions = {
-                headerText: 'Updated!',
-                bodyText: 'The guideline ' + response.config.data.id + ' has been updated.'
-            };
-            modalService.showModal(modalDefaults, modalOptions);
-          },
-          function (response) {
-            var modalDefaults = {
-                size: 'sm'
-            };
+        function insertGuidelineComplete(response) {
+          var modalOptions = {size: 'sm', component: 'dialogComponent'};
+          var modalData = {headerText: 'Updated!', bodyText: 'The guideline' + response.config.data.id + ' has been updated.'};
+          modalService.showModal(modalOptions, modalData);
+        };
 
-            var modalOptions = {
-                headerText: 'Error!',
-                bodyText: 'The guideline ' + response.config.data.id + ' has not been updated.'
-            };
-            modalService.showModal(modalDefaults, modalOptions);
-            $log.info('Error at inserting guide (code status ' + response.status + '): ' + response);
-          }
-        );
+        function insertGuidelineFailed(response) {
+          var modalDefaults = {size: 'sm'};
+
+          var modalOptions = {
+            headerText: 'Error!',
+            bodyText: 'The guideline ' + response.config.data.id + ' has not been updated.'
+          };
+          modalService.showModal(modalDefaults, modalOptions);
+          $log.info('Error at inserting guide (code status ' + response.status + '): ' + response);
+        };
+
         this.active = 0;
         $state.go('tab-guidelines');
       };

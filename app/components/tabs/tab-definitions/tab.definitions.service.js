@@ -5,7 +5,7 @@
 angular.module('app.services')
     .factory('definitionsFactory', definitionsFactory);
 
-function definitionsFactory(DV, guidelineFactory) {
+function definitionsFactory(DV, guidelineFactory, utilsFactory) {
 
     var operators = {
         'MULTIPLICATION': "*",
@@ -21,11 +21,15 @@ function definitionsFactory(DV, guidelineFactory) {
         createPredicateFunction: createPredicateFunction,
         createPredicateExists: createPredicateExists,
         createPredicateExpression: createPredicateExpression,
+        createArchetypeInstantiation: createArchetypeInstantiation,
         isDroppable: isDroppable,
         existsInRules: existsInRules,
         existsInPreconditions: existsInPreconditions,
         setCodedTextConstant: setCodedTextConstant,
         setStringConstant: setStringConstant,
+        setQuantityConstant: setQuantityConstant,
+        setDateTimeConstant: setDateTimeConstant,
+        setOrdinalConstant: setOrdinalConstant,
         convertModel: convertModel,
         getExpression: getExpression,
         getPredicateStatementType: getPredicateStatementType,
@@ -33,8 +37,16 @@ function definitionsFactory(DV, guidelineFactory) {
         getOptionsForModal: getOptionsForModal
     }
 
-    function createElementInstantiation (model) {
+    function createArchetypeInstantiation(model) {
 
+    }
+
+    function createElementInstantiation (model) {
+        model.id = utilsFactory.generateGt(vm.guide);
+        vm.guide.ontology.termDefinitions.en.terms[model.id] = {
+            id: model.id,
+            text: "Select an element"
+        }
     }
 
     /**
@@ -60,10 +72,8 @@ function definitionsFactory(DV, guidelineFactory) {
     function createPredicateDatavalue(model) {
         createLeftOperand(model);
         model.expressionItem.right = {};
-        model.expressionItem.right.type = "CodedTextConstant";
         model.expressionItem.right.expressionItem = {};
-        model.expressionItem.right.expressionItem.codedText = {};
-        model.expressionItem.right.expressionItem.codedText.value = "Select DataValue";
+        model.expressionItem.right.expressionItem.value = "Select DataValue";
         model.expressionItem.operator = "IS_A";
         return model;
     };
@@ -163,26 +173,86 @@ function definitionsFactory(DV, guidelineFactory) {
 
 
     function setCodedTextConstant (codedTextConstant, dataFromTree) {
-        codedTextConstant.expressionItem.codedText.value = dataFromTree.data.text;
-        if(!codedTextConstant.expressionItem.codedText.definingCode) {
-            codedTextConstant.expressionItem.codedText.definingCode = {};
-            codedTextConstant.expressionItem.codedText.definingCode.terminologyId = {};
-        }
-        codedTextConstant.expressionItem.codedText.definingCode.codeString = dataFromTree.data.code;
-        // TODO: terminology id set as local::local. Allow other terminologies
-        codedTextConstant.expressionItem.codedText.definingCode.terminologyId.name = "local";
-        codedTextConstant.expressionItem.codedText.definingCode.terminologyId.value = "local";
-        //element.expressionItem.name = dataFromTree.selectedItem.name;
-        codedTextConstant.expressionItem.value =
-            codedTextConstant.expressionItem.codedText.definingCode.terminologyId.value
-            + "::" + codedTextConstant.expressionItem.codedText.definingCode.codeString + "|"
-            + codedTextConstant.expressionItem.codedText.value + "|";
+        var value = dataFromTree.data.selectedItem.text;
+        var codeString = dataFromTree.data.selectedItem.code || dataFromTree.data.selectedItem.id;
+        // TODO: terminologies?
+
+        codedTextConstant.type = "CodedTextConstant";
+        codedTextConstant.expressionItem = {
+            codedText: {
+                definingCode: {
+                    terminologyId: {
+                        name: "local",
+                        value: "local"
+                    },
+                    codeString: codeString
+                },
+                value: value
+            }
+        };
+        codedTextConstant.expressionItem.value = codedTextConstant.expressionItem.codedText.definingCode.terminologyId.value + "::" + codeString + "|" + value + "|"
+
     }
 
     function setStringConstant (stringConstant, dataFromInput) {
-        // TODO: properties string y value ?
-        stringConstant.expressionItem.string = dataFromInput.data.value;
-        stringConstant.expressionItem.value = dataFromInput.data.value;
+        // TODO: properties string y value differences?
+        var value = dataFromInput.data.input.value;
+        stringConstant.type = "StringConstant";
+        stringConstant.expressionItem = {
+            string: value,
+            value: value
+        }
+    }
+
+    function setQuantityConstant (quantityConstant, dataFromModal) {
+        // TODO: what to do with remaining properties (i.e. precision, accuracy and accuracyPercent)
+        var magnitude = dataFromModal.data.input.value;
+        var units = dataFromModal.data.selectedItem.viewText;
+
+        quantityConstant.type = "QuantityConstant";
+        quantityConstant.expressionItem = {
+            quantity: {
+                magnitude: magnitude,
+                precision: 0,
+                units: units,
+                accuracy: 0,
+                accuracyPercent: false
+            },
+            value: magnitude + "," + units
+        };
+    }
+
+    function setDateTimeConstant(dateTimeConstant, dataFromPicker) {
+        dateTimeConstant.type = "DateTimeConstant";
+        dateTimeConstant.expressionItem = {
+            value: dataFromPicker.data.date
+        }
+    }
+
+    function setOrdinalConstant(ordinalConstant, dataFromDropdown) {
+        var value = parseInt(dataFromDropdown.data.option.value);
+        var code = dataFromDropdown.data.option.code;
+        var text = dataFromDropdown.data.option.text;
+
+        ordinalConstant.type = "OrdinalConstant";
+        ordinalConstant.expressionItem = {
+            ordinal: {
+                value: value,
+                symbol: {
+                    definingCode: {
+                        terminologyId: {
+                            name: "local",
+                            value: "local"
+                        },
+                        codeString: code
+                    },
+                    value: text
+                },
+                limitsIndex: -1
+            }
+        }
+        ordinalConstant.ordinal.value = value + "|" + ordinalConstant.expressionItem.ordinal.symbol.definingCode.terminologyId.value + "::" + code + "|" + text + "|"
+
     }
 
     function convertModel(archertypeBindings){
@@ -223,7 +293,6 @@ function definitionsFactory(DV, guidelineFactory) {
     /**
      * Converts the model to the one necessary for the tree component
      * @param object the object to convert
-     * @param isElement Indicates whether the object is an element or not
      * @returns {Array} the converted array
      */
     function objectToArray(object) {
@@ -299,35 +368,60 @@ function definitionsFactory(DV, guidelineFactory) {
 
     function getDataForModal(archetype, predicate) {
         var elementName = predicate.expressionItem.left.expressionItem.name;
-        var elementType = archetype.elementMaps[elementName].dataType;
-
+        var path = archetype.elementMaps[elementName].path;
+        var atCode = path.substring(path.lastIndexOf("[") + 1, path.lastIndexOf("]"));
         var modalData = {};
-        if(elementType === DV.CODEDTEXT || elementType === DV.TEXT) {
-            modalData.headerText = elementName;
-        } else {
+        var bodyText;
+        // TODO: bodyText in event time?
+        if(guidelineFactory.getTerms()[archetype.archetypeId][atCode]) {
+            //bodyText = guidelineFactory.getTerms()[archetype.archetypeId][atCode].description;
+            bodyText = guidelineFactory.getTermDescription(archetype.archetypeId, atCode)
+        }
+
+        if(predicate.expressionItem.operator === "IS_A") {
             modalData.headerText = "Select a local term";
+        } else {
+            modalData.headerText = elementName;
+            modalData.bodyText = bodyText;
         }
         return modalData;
     }
 
     function getOptionsForModal(archetype, predicate) {
-        var elementName = predicate.expressionItem.left.expressionItem.name;
-        var elementType = archetype.elementMaps[elementName].dataType;
+        var leftElementName = predicate.expressionItem.left.expressionItem.name;
+        var leftElementType = archetype.elementMaps[leftElementName].dataType;
+
+        var rightElementType = predicate.expressionItem.right.type;
 
         var modalOptions = {};
         modalOptions.resolve = {};
         var modalItems = [];
-        if(elementType === DV.CODEDTEXT) {
-            var defaultOption = {};
-            modalOptions.component = "modalWithDropdownComponent";
+        if(predicate.expressionItem.operator === "IS_A") {
+            modalOptions.component = "modalWithTreeComponent";
             modalOptions.resolve.items = function() {
-                var attributes = archetype.elementMaps[elementName].attributeMaps;
-                for(attribute in attributes) {
-                    if(attributes[attribute].code == predicate.expressionItem.right.expressionItem.codedText.definingCode.codeString) {
-                        defaultOption = attributes[attribute];
+                var terms = guidelineFactory.getOntology().termDefinitions.en.terms;
+                var modalItems = [];
+                angular.forEach(terms, function (term) {
+                    term.viewText = term.id + " - " + term.text;
+                    term.type = leftElementType;
+                    modalItems.push(term);
+                });
+                modalItems = modalItems.sort(compare);
+                return modalItems;
+            }
+        } else if(leftElementType === DV.CODEDTEXT) {
+            var defaultOption = {};
+            modalOptions.component = "modalWithInputAndDropdownComponent";
+            modalOptions.resolve.items = function() {
+                var attributes = archetype.elementMaps[leftElementName].attributeMaps;
+                for(var attribute in attributes) {
+                    if(rightElementType === "CodedTextConstant" && predicate.expressionItem.right.expressionItem.codedText &&
+                       predicate.expressionItem.right.expressionItem.codedText.definingCode &&
+                       attributes[attribute].code == predicate.expressionItem.right.expressionItem.codedText.definingCode.codeString) {
+                         defaultOption = attributes[attribute];
                     }
                     attributes[attribute].viewText = attributes[attribute].text;
-                    attributes[attribute].type = elementType;
+                    attributes[attribute].type = leftElementType;
                     modalItems.push(attributes[attribute]);
                 }
                 return modalItems;
@@ -335,27 +429,80 @@ function definitionsFactory(DV, guidelineFactory) {
             modalOptions.resolve.default = function() {
                 return defaultOption;
             }
-        } else if(elementType === DV.TEXT) {
-            modalOptions.component = "modalWithInputComponent";
+        } else if(leftElementType === DV.TEXT) {
+            modalOptions.component = "modalWithInputAndDropdownComponent";
             modalOptions.resolve.input = {};
-            modalOptions.resolve.input.type = elementType;
+            modalOptions.resolve.input.type = leftElementType;
             // TODO: What are string and value for? What is the difference between them?
-            modalOptions.resolve.input.string = predicate.expressionItem.right.expressionItem.string;
-            modalOptions.resolve.input.value = predicate.expressionItem.right.expressionItem.value;
-            // TODO: get description to show in the modal
-        } else {
-            modalOptions.component = "modalWithTreeComponent";
-            modalOptions.resolve.items = function() {
-                var terms = guidelineFactory.getOntology().termDefinitions.en.terms;
-                var modalItems = [];
-                angular.forEach(terms, function (term) {
-                    term.viewText = term.id + " - " + term.text;
-                    term.type = elementType;
-                    modalItems.push(term);
-                });
-                modalItems = modalItems.sort(compare);
-                return modalItems;
+            if(rightElementType === "StringConstant") {
+                modalOptions.resolve.input.string = predicate.expressionItem.right.expressionItem.string;
+                modalOptions.resolve.input.value = predicate.expressionItem.right.expressionItem.value;
             }
+        } else if(leftElementType === DV.QUANTITY) {
+            modalOptions.component = "modalWithInputAndDropdownComponent";
+            var quantity = predicate.expressionItem.right.expressionItem.quantity || {};
+            var magnitude = quantity.magnitude;
+            modalOptions.resolve.input = function() {
+                var input = {
+                    type: leftElementType,
+                    value: magnitude
+                }
+                return input;
+            };
+            modalOptions.resolve.items = function() {
+                // FIXME: Get the options in a right way
+                var options = ["cm", "in"];
+                var modalItems = [];
+                for(var i in options) {
+                    modalItems.push({viewText: options[i], type: leftElementType});
+                }
+                return modalItems;
+            };
+            modalOptions.resolve.default = function() {
+                var units = quantity.units || {};
+                var defaultOption = {
+                  type: leftElementType,
+                  viewText: units
+                }
+                return defaultOption;
+            };
+        } else if(leftElementType === DV.DATETIME) {
+            modalOptions.component = "modalWithDatepickerComponent";
+
+            var dateTime;
+            if(rightElementType === "DateTimeConstant") {
+                dateTime = predicate.expressionItem.right.expressionItem.value;
+            } else {
+                dateTime = new Date().toISOString().split(".")[0];
+            }
+
+            modalOptions.resolve.date = function() {
+                var date = {
+                    type: leftElementType,
+                    value: dateTime
+                }
+                return date;
+            };
+        } else if(leftElementType === DV.ORDINAL) {
+            var defaultOption = {};
+            modalOptions.component = "modalWithInputAndDropdownComponent";
+            modalOptions.resolve.items = function() {
+                var attributes = archetype.elementMaps[leftElementName].attributeMaps;
+                for(attribute in attributes) {
+                    if(attributes[attribute].code == predicate.expressionItem.right.expressionItem.ordinal.symbol.definingCode.codeString) {
+                        defaultOption = attributes[attribute];
+                    }
+                    attributes[attribute].viewText = attributes[attribute].text;
+                    attributes[attribute].type = leftElementType;
+                    modalItems.push(attributes[attribute]);
+                }
+                return modalItems;
+            };
+            modalOptions.resolve.default = function() {
+                return defaultOption;
+            }
+        } else if(leftElementType === DV.COUNT) {
+            // TODO: DV.COUNT
         }
         return modalOptions;
     }

@@ -12,7 +12,7 @@
                  <a class="btn btn-success btn-xs" ng-if="archetypeBinding.elements" data-nodrag ng-click="toggle(this)">
                     <span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span>
                  </a>
-                 Instantiate archetype <sup>{{archetypeBinding.domain}}</sup> <a ng-style="archetypeBinding.archetypeId === 'Select an archetype' && {color:'red'}" ng-click="vm.updateArchetypesModal($index)" data-nodrag ng-bind="archetypeBinding.archetypeId"></a>
+                 Instantiate archetype <sup>{{archetypeBinding.domain}}</sup> <a ng-style="archetypeBinding.archetypeId === 'Select an archetype' && {color:'red'}" ng-click="vm.updateArchetype(this)" data-nodrag ng-bind="archetypeBinding.archetypeId"></a>
                  <a class="pull-right btn btn-xs" data-nodrag ng-click="vm.removeArchetype(this)"><img ng-src="{{vm.delete}}"></a>
                  <a class="pull-right btn btn-xs" data-nodrag ng-click="vm.createElement(this.$modelValue)"><img ng-src="{{vm.add}}"></a>
               </div>
@@ -37,7 +37,7 @@
                              </div>
 
                              <!-- right -->
-                             <a ng-style="element.expressionItem.right.expressionItem.codedText.value === 'Select DataValue' && {color:'red'}"  ng-click="vm.updateRightItem(this)"> {{element.expressionItem.right.expressionItem.value | parseLocal}} </a>
+                             <a ng-style="element.expressionItem.right.expressionItem.value === 'Select DataValue' && {color:'red'}"  ng-click="vm.updateRightItem(this)"> {{element.expressionItem.right.expressionItem.value | parseLocal}} </a>
                              <!--<a ng-show="element.expressionItem.right.type='CodePhraseConstant'" ng-style="element.expressionItem.right.expressionItem.codePhrase.terminologyId.name === 'Select DataValue' && {color:'red'}"  ng-click="vm.updateRightItem(archetypeBinding, element, $index)"> {{vm.guide.ontology.termDefinitions.en.terms[element.expressionItem.right.expressionItem.codePhrase.codeString].text | capitalize}} </a>-->
 
                              <a class="pull-right btn btn-xs gdl-padding" data-nodrag ng-click="vm.removeElement(this)"><img ng-src="{{vm.delete}}"></a>

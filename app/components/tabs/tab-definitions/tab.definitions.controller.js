@@ -6,7 +6,7 @@ angular.module('app.controllers', [])
     .controller('DefinitionsCtrl', DefinitionsCtrl);
 
 
-function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelineFactory, definitionsFactory, modalService, DV) {
+function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelineFactory, definitionsFactory, terminologyFactory, modalService, DV) {
 
     vm = this;
 
@@ -21,7 +21,7 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
     vm.updateLeftItem = updateLeftItem;
 
     vm.updateRightItem = updateRightItem;
-    vm.updateArchetypesModal = updateArchetypesModal;
+    vm.updateArchetype = updateArchetype;
     vm.openExpression = openExpression;
 
     vm.getExpression = definitionsFactory.getExpression;
@@ -74,15 +74,13 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
          * Transforms the model before dragging
          * @param event
          */
-        beforeDrop: function (event) {
+        beforeDrop: function(event) {
             var cloneModel = event.source.cloneModel;
             cloneModel.unselected = true;
-            if(cloneModel.title === "Element instantiation") {
-                cloneModel.id = utilsFactory.generateGt(vm.guide);
-                vm.guide.ontology.termDefinitions.en.terms[cloneModel.id] = {
-                    id: cloneModel.id,
-                    text: "Select an element"
-                }
+            if(cloneModel.title === "Archetype instantiation") {
+                definitionsFactory.createArchetypeInstantiation(cloneModel);
+            }else if(cloneModel.title === "Element instantiation") {
+                definitionsFactory.createElementInstantiation(cloneModel);
             } else if (cloneModel.ruleLine === "PredicateDatavalue") {
                 definitionsFactory.createPredicateDatavalue(cloneModel);
             } else if (cloneModel.ruleLine === "PredicateFunction") {
@@ -95,7 +93,6 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
             //delete cloneModel.type;
             delete cloneModel.draggable;
             delete cloneModel.title;
-
         }
     };
 
@@ -110,16 +107,21 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
         });
 
         if (unused) {
+            /**
+             * Remove the archetype from the service
+             */
             guidelineFactory.deleteGuidelineArchetype(archetype.archetypeId);
+            /**
+             * Remove the terms from the service
+             */
+            guidelineFactory.removeTerm(archetype.archetypeId);
             scope.remove();
         } else {
             showModal();
         }
 
         function showModal() {
-            var modalDefaults = {
-                size: 'sm'
-            };
+            var modalDefaults = {size: 'sm'};
 
             var modalOptions = {
                 headerText: 'Warning!',
@@ -144,9 +146,7 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
         }
         
         function showModal() {
-            var modalDefaults = {
-                size: 'sm'
-            };
+            var modalDefaults = {size: 'sm'};
 
             var modalOptions = {
                 headerText: 'Warning!',
@@ -168,11 +168,7 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
 
         function createElementComplete(response) {
             
-            var dataForModal = {
-                headerText: 'Select an element',
-                closeButtonText: 'Close',
-                actionButtonText: 'OK'
-            };
+            var dataForModal = {headerText: 'Select an element'};
 
             var modalDefaults = {
                 size: 'sm',
@@ -213,7 +209,7 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
                 }
                 var language = 'en';
                 var ontology = guidelineFactory.getOntology();
-                ontology.termDefinitions[language].terms[gtCode] = term;    
+                ontology.termDefinitions[language].terms[gtCode] = term;
             }
 
             function showModalFailed() {
@@ -235,14 +231,9 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
 
         var archetype = guidelineFactory.getGuidelineArchetype(archetypeBinding.archetypeId);
 
-        var dataForModal = {
-            headerText: 'Select an element from "' + archetype.archetypeId + '"',
-            closeButtonText: 'Close',
-            actionButtonText: 'OK'
-        };
+        var modalData = {headerText: 'Select an element from "' + archetype.archetypeId + '"'};
 
         var modalOptions = {
-            size: 'md',
             component: 'modalWithTreeComponent',
             resolve: {
                 items: function () {
@@ -254,24 +245,25 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
                     return elementMaps;
                 },
                 labels: function () {
-                    return dataForModal;
+                    return modalData;
                 }
             }
         };
 
-        modalService.showModal(modalOptions).then(showModalComplete, showModalFailed);
+        modalService.showModal(modalOptions, modalData).then(showModalComplete, showModalFailed);
 
         function showModalComplete(dataFromTree) {
             // if no item selected...
-            if (dataFromTree.selectedItem === undefined) {
+            if (dataFromTree.data.selectedItem === undefined) {
                 return;
             }
             var archetypeBindingIndex = vm.guide.definition.archetypeBindings.indexOf(archetypeBinding);
             var elementToUpdate = vm.guide.definition.archetypeBindings[archetypeBindingIndex].elements[elementIndex];
             delete elementToUpdate.unselected;
 
-            var path = dataFromTree.selectedItem.path;
-            var name = dataFromTree.selectedItem.elementMapId;
+            var path = dataFromTree.data.selectedItem.path;
+            var name = dataFromTree.data.selectedItem.elementMapId;
+            var atCode = path.substring(path.lastIndexOf("[") + 1, path.lastIndexOf("]"));
 
             /*
              * BinaryExpression matches with PredicateAttribute, PredicateExists and PredicateExpression
@@ -294,7 +286,7 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
                 vm.guide.ontology.termDefinitions[language].terms[elementToUpdate.id] = {
                     id: elementToUpdate.id,
                     text: $filter('removeUnderscore')(name),
-                    description: name // TODO: Description?
+                    description: guidelineFactory.getTermDescription(archetype.archetypeId, atCode)
                 };
             }
 
@@ -311,6 +303,19 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
         var elementIndex = node.$nodeScope.$index;
         var predicate = node.$nodeScope.$modelValue;
         var archetype = guidelineFactory.getGuidelineArchetype(archetypeBinding.archetypeId);
+        var isHierarchy = predicate.expressionItem.operator === "IS_A";
+
+        /**
+         * If the left item have not been selected yet
+         */
+        if(!predicate.expressionItem.left.expressionItem.path) {
+            var modalData = {headerText: 'Select an element', bodyText: 'You have to select an element before choosing a data value'};
+            var modalOptions = {component: 'dialogComponent'};
+            modalService.showModal(modalOptions, modalData);
+            return;
+        }
+
+
         if (definitionsFactory.getPredicateStatementType(predicate) === "PredicateDatavalue") {
             var data = definitionsFactory.getDataForModal(archetype, predicate);
             var options = definitionsFactory.getOptionsForModal(archetype, predicate);
@@ -326,10 +331,16 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
             var archetypeBindingIndex = vm.guide.definition.archetypeBindings.indexOf(archetypeBinding);
             var constantExpression = vm.guide.definition.archetypeBindings[archetypeBindingIndex].elements[elementIndex].expressionItem.right;
 
-            if (modalResponse.data.type === DV.CODEDTEXT) {
+            if (modalResponse.data.type === DV.CODEDTEXT || isHierarchy) {
                 definitionsFactory.setCodedTextConstant(constantExpression, modalResponse);
             } else if(modalResponse.data.type === DV.TEXT) {
                 definitionsFactory.setStringConstant(constantExpression, modalResponse);
+            } else if(modalResponse.data.type === DV.QUANTITY) {
+                definitionsFactory.setQuantityConstant(constantExpression, modalResponse);
+            } else if(modalResponse.data.type === DV.DATETIME) {
+                definitionsFactory.setDateTimeConstant(constantExpression, modalResponse);
+            } else if(modalResponse.data.type === DV.ORDINAL) {
+                definitionsFactory.setOrdinalConstant(constantExpression, modalResponse);
             } else if (constantExpression.type === "CodePhraseConstant") {
                 $log.info("CodePhraseText");
             }
@@ -353,7 +364,11 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
      * Used to modify an archetype instantiation
      * @param archetypeBindingIndex
      */
-    function updateArchetypesModal(archetypeBindingIndex) {
+    function updateArchetype(archetype) {
+
+        var archetypeBindingIndex = archetype.$nodeScope.$index;
+        var archetypeBinding = archetype.$nodeScope.$modelValue;
+        var archetypeId = archetypeBinding.archetypeId;
 
         archetypeFactory.getArchetypes().then(updateArchetypesComplete, updateArchetypesFailed);
 
@@ -366,29 +381,18 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
             ];
 
             var dataForModal = {
-                headerText: 'Select an archetype',
-                closeButtonText: 'Close',
-                actionButtonText: 'OK'
+                headerText: 'Select an archetype'
             };
             
             var modalDefaults = {
-                size: 'md',
                 component: 'modalWithTreeComponent',
                 resolve: {
                     items: function() {
                         var archetypes = [];
-                        angular.forEach(response, function(archetype, key) {
-                            item = {
-                                id: key,
-                                name: archetype,
-                                children: []
-                            };
-                            archetypes.push(item);
+                        angular.forEach(response, function(archetypeId) {
+                            archetypes.push({viewText: archetypeId});
                         });
                         return archetypes;
-                    },
-                    labels: function() {
-                        return dataForModal;
                     },
                     domains: function() {
                         return domains;
@@ -396,37 +400,64 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
                 }
             };
 
-            modalService.showModal(modalDefaults).then(showModalComplete, showModalFailed);
+            modalService.showModal(modalDefaults, dataForModal).then(showModalComplete, showModalFailed);
 
             function showModalComplete(dataFromTree) {
 
-                if(dataFromTree.selectedItem === undefined) {
+                if(dataFromTree.data.selectedItem === undefined) {
                     return;
                 }
 
-                archetypeFactory.getArchetype(dataFromTree.selectedItem.name).then(updateArchetypeComplete, updateArchetypeFailed);
+                archetypeFactory.getArchetype(dataFromTree.data.selectedItem.viewText).then(updateArchetypeComplete, updateArchetypeFailed);
 
                 function updateArchetypeComplete(response) {
 
+                    /**
+                     * Remove the archetype from the service
+                     */
+                    guidelineFactory.deleteGuidelineArchetype(archetypeId);
+
+                    /**
+                     * Save the archetype in the service so that we have not to request it constantly
+                     */
                     guidelineFactory.setGuidelineArchetype(response);
-                    
+
+                    /**
+                     * Remove the terms from the service
+                     */
+                    guidelineFactory.removeTerm(archetypeId);
+
+                    /**
+                     * Add the terms to the service
+                     */
+                    terminologyFactory.getTerms(response.archetypeId).then(function(data) {
+                        guidelineFactory.addTerm(response.archetypeId, data);
+                    })
+
+
+                    /**
+                     * Replace the archetype binding
+                     * @type {{archetypeId: (string|*), elements: Array, predicates: Array, domain: *, id: *}}
+                     */
                     vm.guide.definition.archetypeBindings[archetypeBindingIndex] = {
+                        id: vm.guide.definition.archetypeBindings[archetypeBindingIndex].id || utilsFactory.generateGt(vm.guide),
                         archetypeId: response.archetypeId,
+                        domain: dataFromTree.data.domain,
                         elements: [],
                         predicates: [],
-                        domain: dataFromTree.domain,
-                        id: vm.guide.definition.archetypeBindings[archetypeBindingIndex].id || utilsFactory.generateGt(vm.guide)                        
+                        predicateStatements: []
                     };
-                    
-                    // FIXME: Where can I get the text and description?
-                    var language = 'en';
+
+                    console.log( vm.guide.definition.archetypeBindings);
+                    //guidelineFactory.setArchetypeBindings(vm.guide.definition.archetypeBindings);
+
+
+                    // TODO: Ontology: text and description?
+                    /*var language = 'en';
                     var ontology = guidelineFactory.getOntology();
-                    ontology.termDefinitions[language].terms[vm.guide.definition.archetypeBindings[archetypeBindingIndex].id] = ontology.termDefinitions[language].terms[vm.guide.definition.archetypeBindings[archetypeBindingIndex].id] || {};
-                    ontology.termDefinitions[language].terms[vm.guide.definition.archetypeBindings[archetypeBindingIndex].id] = {
-                        id: vm.guide.definition.archetypeBindings[archetypeBindingIndex].id,
-                        text: "updateArchetypesModal text",
-                        description: "updateArchetypesModal description"
-                    }
+                    var termId = vm.guide.definition.archetypeBindings[archetypeBindingIndex].id;
+                    vm.guide.ontology.termDefinitions[language].terms[termId] = ontology.termDefinitions[language].terms[termId] || {};
+                    vm.guide.ontology.termDefinitions[language].terms[termId] = {id: termId}*/
                 }
 
                 function updateArchetypeFailed(error) {
@@ -449,19 +480,14 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
     function openExpression(node) {
 
         var archetypeBinding = node.$nodeScope.$parentNodeScope.$modelValue;
-        var archetypeBindingIndex = node.$nodeScope.$parentNodeScope.$parent.$index;
+        var archetypeBindingIndex = node.$nodeScope.$parentNodeScope.$index;
         var elementIndex = node.$nodeScope.$index;
 
         var expression = node.$nodeScope.$modelValue.expression;
-        var dataForModal = {
-            headerText: 'Enter expression',
-            closeButtonText: 'Close',
-            actionButtonText: 'OK'
-        };
+        var dataForModal = {headerText: 'Enter expression'};
 
         var defaults = {
             component: 'modalWithTextareaComponent',
-            templateUrl: '',
             resolve: {
                 labels: function() {
                     return dataForModal;

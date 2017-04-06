@@ -62,22 +62,21 @@ function utilsFactory(guidelineFactory, GT_HEADER) {
 
         for(var archetypeBinding in guideline.definition.archetypeBindings) {
             if (guideline.definition.archetypeBindings.hasOwnProperty(archetypeBinding)) {
-                /**
-                 *  Copy all the items into an array
-                 */
                 var elements = guideline.definition.archetypeBindings[archetypeBinding].elements;
                 /**
-                 * The "elements" property must be an object
+                 *  If "elements" is an array, then the model has been modified, so we need to re-convert the model
                  */
-                guideline.definition.archetypeBindings[archetypeBinding].elements = {};
-                for (var i= 0,len=elements.length; i<len; i++) {
-                    if(isElement(elements[i])) {
-                        var element = elements[i];
-                        guideline.definition.archetypeBindings[archetypeBinding].elements[element.id] = element;
-                    } else {
-                        var predicateStatement = elements[i];
-                        deleteTemporalProperties(predicateStatement);
-                        guideline.definition.archetypeBindings[archetypeBinding].predicateStatements.push(predicateStatement);
+                if(angular.isArray(elements)) {
+                    guideline.definition.archetypeBindings[archetypeBinding].elements = {};
+                    for (var i= 0,len=elements.length; i<len; i++) {
+                        if(isElement(elements[i])) {
+                            var element = elements[i];
+                            guideline.definition.archetypeBindings[archetypeBinding].elements[element.id] = element;
+                        } else {
+                            var predicateStatement = elements[i];
+                            deleteTemporalProperties(predicateStatement);
+                            guideline.definition.archetypeBindings[archetypeBinding].predicateStatements.push(predicateStatement);
+                        }
                     }
                 }
             }

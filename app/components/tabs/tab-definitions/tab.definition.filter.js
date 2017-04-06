@@ -22,7 +22,9 @@ function removeUnderscore() {
 
 function parseLocal() {
     return function (input) {
-        if(input.indexOf("::") !== -1) {
+        if (!input) {
+            return "Select DataValue";
+        } else if(input.indexOf("::") !== -1) {
             return (!!input) ? input.split("|").splice(-2)[0] : ' ';
         } else {
             return input;

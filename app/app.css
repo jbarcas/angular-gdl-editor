@@ -141,11 +141,11 @@ sup {
     /*padding-left: 30%;*/
 }
 
-body.modal-open {
-    overflow: hidden !important;
-}
-
 .CodeMirror {
     border: 1px solid #eee;
     height: auto !important;
+}
+
+.gdl-inline {
+    display: inline-block;
 }

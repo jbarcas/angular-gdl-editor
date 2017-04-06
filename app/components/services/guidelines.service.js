@@ -1,14 +1,16 @@
 angular.module('app.services')
     .factory('guidelineFactory', guidelineFactory);
 
-function guidelineFactory($http, API_URL, $q, archetypeFactory) {
+function guidelineFactory($http, API_URL, $q, archetypeFactory, terminologyFactory) {
     
     var guideline = {};
     var guidelineArchetypes = [];
+    var terms = {};
 
     return {
         getGuideline: getGuideline,
         getCurrentGuide: getCurrentGuide,
+        setCurrentGuideline: setCurrentGuideline,
         getGdlVersion: getGdlVersion,
         setGdlVersion: setGdlVersion,
         getId: getId,
@@ -41,21 +43,49 @@ function guidelineFactory($http, API_URL, $q, archetypeFactory) {
         getRule: getRule,
         setRule: setRule,
         getArchetypeBindings: getArchetypeBindings,
-        setArchetypeBindings: setArchetypeBindings
+        setArchetypeBindings: setArchetypeBindings,
+        //-------------------------------------
+        getTerms: getTerms,
+        addTerm: addTerm,
+        removeTerm: removeTerm,
+        getTermDescription: getTermDescription
     };
 
+    function getTermDescription(archetypeId, atCode) {
+        if(atCode === 'undefined' || atCode === "") {
+            return "";
+        }
+        return terms[archetypeId][atCode].description;
+    }
+
+    function getTerms() {
+        return terms;
+    }
+
+    function addTerm(archetypeId, data) {
+        terms[archetypeId] = data;
+    }
+
+    function removeTerm(archetypeId) {
+        delete terms[archetypeId];
+        console.log(terms);
+    }
+
     function setGuidelineArchetypes(guideline) {
-        var archetypeBindings = [];
+        var archetypeIds = [];
         for (var ab in guideline.definition.archetypeBindings) {
-            archetypeBindings.push(guideline.definition.archetypeBindings[ab].archetypeId);
+            archetypeIds.push(guideline.definition.archetypeBindings[ab].archetypeId);
         }
         // Remove duplicates: this way we avoid unnecessary calls.
-        archetypeBindings = archetypeBindings.filter(function (item, pos) {
-            return archetypeBindings.indexOf(item) == pos;
+        archetypeIds = archetypeIds.filter(function (item, pos) {
+            return archetypeIds.indexOf(item) == pos;
         });
-        angular.forEach(archetypeBindings, function (archetypeBinding) {
-            archetypeFactory.getArchetype(archetypeBinding).then(function (data) {
+        angular.forEach(archetypeIds, function (archetypeId) {
+            archetypeFactory.getArchetype(archetypeId).then(function (data) {
                 guidelineArchetypes.push(data);
+                terminologyFactory.getTerms(archetypeId).then(function(response) {
+                    terms[data.archetypeId] = response;
+                })
             });
         })
     }
@@ -78,6 +108,10 @@ function guidelineFactory($http, API_URL, $q, archetypeFactory) {
 
     function getCurrentGuide() {
         return guideline;
+    }
+
+    function setCurrentGuideline(guide) {
+        guideline = guide;
     }
 
 
@@ -202,7 +236,7 @@ function guidelineFactory($http, API_URL, $q, archetypeFactory) {
     }
 
     function getGuidelineArchetype(archetypeId) {
-        for(i=0; i<guidelineArchetypes.length; i++) {
+        for(var i=0; i<guidelineArchetypes.length; i++) {
             if (guidelineArchetypes[i].archetypeId === archetypeId) {
                 return guidelineArchetypes[i];
             }
@@ -215,7 +249,7 @@ function guidelineFactory($http, API_URL, $q, archetypeFactory) {
     }
 
     function deleteGuidelineArchetype(archetypeId) {
-        for(i=0; i<guidelineArchetypes.length; i++) {
+        for(var i=0; i<guidelineArchetypes.length; i++) {
             if (guidelineArchetypes[i].archetypeId === archetypeId) {
                 guidelineArchetypes.splice(i, 1);
             }

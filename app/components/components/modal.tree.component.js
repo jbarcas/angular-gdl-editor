@@ -27,13 +27,12 @@ angular.module('app.components')
       };*/
 
       $ctrl.ok = function () {
-        $ctrl.close(
-          {
-            $value: {
-              selectedItem: $ctrl.selected.item,
-              domain: $ctrl.domain
-            }
-          });
+        var response = {
+          selectedItem: $ctrl.selected.item,
+          domain: $ctrl.domain,
+          type: $ctrl.selected.item.type
+        }
+        $ctrl.close({$value: {data: response }});
       };
 
       $ctrl.cancel = function () {
