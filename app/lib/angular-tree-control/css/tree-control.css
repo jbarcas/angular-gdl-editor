@@ -144,7 +144,7 @@ treecontrol.tree-boot i.tree-leaf-head {
     margin: 5px;
 }
 
-treecontrol.tree-boot li.tree-expanded i.tree-branch-head {
+/*treecontrol.tree-boot li.tree-expanded i.tree-branch-head {
     padding: 1px 10px;
     background: url("../images/folder.png") no-repeat;
 }
@@ -157,7 +157,7 @@ treecontrol.tree-boot li.tree-collapsed i.tree-branch-head {
 treecontrol.tree-boot li.tree-leaf i.tree-leaf-head {
     padding: 1px 10px;
     background: url("../images/file.png") no-repeat;
-}
+} */
 
 treecontrol.tree-boot .tree-label.tree-selected,
 treecontrol.tree-boot .tree-label.tree-selected:hover {

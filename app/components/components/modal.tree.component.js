@@ -20,13 +20,13 @@ angular.module('app.components')
 
       $ctrl.domains = $ctrl.resolve.domains;
 
-      /*$ctrl.$onInit = function () {
-        $ctrl.selected = {
-          item: $ctrl.items[0]
-        };
-      };*/
-
       $ctrl.ok = function () {
+        /**
+         * If no selection, do nothing
+         */
+        if(!$ctrl.selected.item) {
+          $ctrl.cancel();
+        }
         var response = {
           selectedItem: $ctrl.selected.item,
           domain: $ctrl.domain,

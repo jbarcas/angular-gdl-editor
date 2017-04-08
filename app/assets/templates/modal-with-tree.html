@@ -12,14 +12,30 @@
     </div>
   </form>
 
-  <treecontrol class="tree-classic"
+  <treecontrol class="tree-boot"
     tree-model="$ctrl.items"
     options="treeOptions"
     on-selection="showSelected(node)"
     filter-expression="predicate"
     filter-comparator="comparator"
     order-by="node.viewText">
-    {{node.viewText | removeUnderscore}}
+
+        <span ng-switch on="node.dataType">
+          <!-- Data values -->
+          <span ng-switch-when="DV_CODED_TEXT"  class="glyphicon-coded-text" aria-hidden="true"></span>
+          <span ng-switch-when="DV_TEXT"        class="glyphicon-text" aria-hidden="true"></span>
+          <span ng-switch-when="DV_QUANTITY"    class="glyphicon-quantity" aria-hidden="true"></span>
+          <span ng-switch-when="DV_DATE_TIME"   class="glyphicon-datetime" aria-hidden="true"></span>
+          <span ng-switch-when="DV_DURATION"    class="glyphicon-duration" aria-hidden="true"></span>
+          <span ng-switch-when="DV_BOOLEAN"     class="glyphicon-boolean" aria-hidden="true"></span>
+          <span ng-switch-when="DV_ORDINAL"     class="glyphicon-ordinal" aria-hidden="true"></span>
+          <span ng-switch-when="DV_COUNT"       class="glyphicon-count" aria-hidden="true"></span>
+          <!-- Archetypes -->
+          <span ng-switch-when="ACTION"         class="glyphicon-action" aria-hidden="true"></span>
+          <span ng-switch-when="OBSERVATION"    class="glyphicon-observation" aria-hidden="true"></span>
+          <span ng-switch-when="EVALUATION"     class="glyphicon-evaluation" aria-hidden="true"></span>
+          <span ng-switch-when="INSTRUCTION"    class="glyphicon-instruction" aria-hidden="true"></span>
+         </span> {{node.viewText | removeUnderscore}}
   </treecontrol>
 
   <form class="form-inline">

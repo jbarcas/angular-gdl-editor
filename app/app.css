@@ -149,3 +149,67 @@ sup {
 .gdl-inline {
     display: inline-block;
 }
+
+/* Datavalue glyphicons */
+
+.glyphicon-text {
+    padding: 1px 10px;
+    background: url("assets/img/text.png") no-repeat;
+}
+
+.glyphicon-coded-text {
+    padding: 1px 10px;
+    background: url("assets/img/codedtext.png") no-repeat;
+}
+
+.glyphicon-quantity {
+    padding: 1px 10px;
+    background: url("assets/img/quantity.png") no-repeat;
+}
+
+.glyphicon-datetime {
+    padding: 1px 10px;
+    background: url("assets/img/datetime.png") no-repeat;
+}
+
+.glyphicon-duration {
+    padding: 1px 10px;
+    background: url("assets/img/duration.png") no-repeat;
+}
+
+.glyphicon-boolean {
+    padding: 1px 10px;
+    background: url("assets/img/boolean.png") no-repeat;
+}
+
+.glyphicon-ordinal {
+    padding: 1px 10px;
+    background: url("assets/img/ordinal.png") no-repeat;
+}
+
+.glyphicon-count {
+    padding: 1px 10px;
+    background: url("assets/img/count.png") no-repeat;
+}
+
+/* Archetype glyphicons */
+
+.glyphicon-action {
+    padding: 1px 10px;
+    background: url("assets/img/entry_action.png") no-repeat;
+}
+
+.glyphicon-observation {
+    padding: 1px 10px;
+    background: url("assets/img/entry_observation.png") no-repeat;
+}
+
+.glyphicon-evaluation {
+    padding: 1px 10px;
+    background: url("assets/img/entry_evaluation.png") no-repeat;
+}
+
+.glyphicon-instruction {
+    padding: 1px 10px;
+    background: url("assets/img/entry_instruction.png") no-repeat;
+}

@@ -175,21 +175,20 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
             return;
         }
         
-        archetypeFactory.getArchetype(archetypeBinding.archetypeId).then(createElementComplete, createElementFailed);
+        //archetypeFactory.getArchetype(archetypeBinding.archetypeId).then(createElementComplete, createElementFailed);
 
-
-        function createElementComplete(response) {
+        var archetype = guidelineFactory.getGuidelineArchetype(archetypeBinding.archetypeId);
             
-            var dataForModal = {headerText: 'Select an element'};
+            var modalData = {headerText: 'Select an element'};
 
-            var modalDefaults = {
-                size: 'sm',
+            var modalOptions = {
                 component: 'modalWithTreeComponent',
                 resolve: {
                     items: function() {
                         var elementMaps = [];
-                        angular.forEach(response.elementMaps, function(elementMap) {
-                            elementMaps.push({ name: elementMap.elementMapId, children: [] });
+                        angular.forEach(archetype.elementMaps, function(elementMap) {
+                            elementMap.viewText = elementMap.elementMapId;
+                            elementMaps.push(elementMap);
                         });
                         return elementMaps;
                     },
@@ -199,25 +198,28 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
                 }
             };
 
-            modalService.showModal(modalDefaults).then(showModalComplete, showModalFailed);
+            modalService.showModal(modalOptions, modalData).then(showModalComplete, showModalFailed);
 
             function showModalComplete(dataFromTree) {
-                if(dataFromTree.selectedItem === undefined) {
+                if(dataFromTree.data.selectedItem === undefined) {
                     return;
                 }                        
                 var gtCode = utilsFactory.generateGt(vm.guide);
+                var path = dataFromTree.data.selectedItem.path;
+                var name = dataFromTree.data.selectedItem.elementMapId;
+                var atCode = path.substring(path.lastIndexOf("[") + 1, path.lastIndexOf("]"));
+
                 var element = {
                     id: gtCode,
-                    path: response.elementMaps[dataFromTree.selectedItem.name].path,
-                    name: dataFromTree.selectedItem.name
+                    path: path
                 };
                 var archetypeBindingIndex = vm.guide.definition.archetypeBindings.indexOf(archetypeBinding);
                 vm.guide.definition.archetypeBindings[archetypeBindingIndex].elements.push(element);
                 // FIXME: Where can I get the thext anf description?
                 var term = {
                     id: gtCode,
-                    text: "createElement text",
-                    description: 'createElement description'
+                    text: $filter('removeUnderscore')(name),
+                    description:  guidelineFactory.getTermDescription(archetype.archetypeId, atCode)
                 }
                 var language = 'en';
                 var ontology = guidelineFactory.getOntology();
@@ -227,12 +229,7 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
             function showModalFailed() {
                 $log.info('Modal dismissed at: ' + new Date() + ' in createElement');
             }
-            
-        }
 
-        function createElementFailed(error) {
-            $log.info('Error at getting archetype in getArchetype - createElement: ' + error);
-        }
     }
 
     function updateLeftItem(node) {
@@ -407,6 +404,11 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
 
     }
 
+    function getArchetypeType(archetypeId) {
+        var parts = archetypeId.split('-');
+        return parts[2].split('.')[0];
+    }
+
     /**
      * Modifies an archetype instantiation
      * @param archetypeBindingIndex
@@ -437,7 +439,7 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
                     items: function() {
                         var archetypes = [];
                         angular.forEach(response, function(archetypeId) {
-                            archetypes.push({viewText: archetypeId});
+                            archetypes.push({viewText: archetypeId, dataType: getArchetypeType(archetypeId)});
                         });
                         return archetypes;
                     },
