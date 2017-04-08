@@ -57,7 +57,10 @@ angular.module('app.components')
 
       $scope.comparator = false;
 
-      $scope.showSelected = function(node) {
+      $scope.showSelected = function(node, parent) {
+        if(parent) {
+          node.parent = parent;
+        }
         $ctrl.selected.item = node;
       }
 

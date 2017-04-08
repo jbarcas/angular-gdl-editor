@@ -6,7 +6,7 @@ angular.module('app.controllers', [])
     .controller('DefinitionsCtrl', DefinitionsCtrl);
 
 
-function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelineFactory, definitionsFactory, terminologyFactory, modalService, DV) {
+function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelineFactory, definitionsFactory, terminologyFactory, modalService, DV, ATTRIBUTES) {
 
     vm = this;
 
@@ -238,26 +238,34 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
         var elementIndex = node.$nodeScope.$index;
         var element = node.$nodeScope.$modelValue;
 
+        var type = definitionsFactory.getPredicateStatementType(element);
+
         var archetype = guidelineFactory.getGuidelineArchetype(archetypeBinding.archetypeId);
 
         var modalData = {headerText: 'Select an element from "' + archetype.archetypeId + '"'};
 
+
         var modalOptions = {
-            component: 'modalWithTreeComponent',
-            resolve: {
-                items: function () {
-                    var elementMaps = [];
-                    angular.forEach(archetype.elementMaps, function (elementMap) {
-                        elementMap.viewText = elementMap.elementMapId;
-                        elementMaps.push(elementMap);
-                    });
-                    return elementMaps;
-                },
-                labels: function () {
-                    return modalData;
+                component: 'modalWithTreeComponent',
+                resolve: {
+                    items: function () {
+                        var elementMaps = [];
+                        angular.forEach(archetype.elementMaps, function (elementMap) {
+                            var treeObject = angular.copy(elementMap);
+                            treeObject.viewText = elementMap.elementMapId;
+                            // TODO: add css to leaf nodes
+                            if(type === "PredicateExpression") {
+                                treeObject.children = ATTRIBUTES[treeObject.dataType];
+                            }
+                            elementMaps.push(treeObject);
+                        });
+                        return elementMaps;
+                    },
+                    labels: function () {
+                        return modalData;
+                    }
                 }
-            }
-        };
+            };
 
         modalService.showModal(modalOptions, modalData).then(showModalComplete, showModalFailed);
 
@@ -266,12 +274,23 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
             if (dataFromTree.data.selectedItem === undefined) {
                 return;
             }
+
             var archetypeBindingIndex = vm.guide.definition.archetypeBindings.indexOf(archetypeBinding);
+
             var elementToUpdate = vm.guide.definition.archetypeBindings[archetypeBindingIndex].elements[elementIndex];
             delete elementToUpdate.unselected;
 
-            var path = dataFromTree.data.selectedItem.path;
-            var name = dataFromTree.data.selectedItem.elementMapId;
+            var selectedItem;
+            var path;
+            if(type === "PredicateExpression") {
+                selectedItem = dataFromTree.data.selectedItem.parent;
+                path = selectedItem.path + "/value/" + dataFromTree.data.selectedItem.viewText;
+            } else {
+                selectedItem = dataFromTree.data.selectedItem;
+                path = selectedItem.path;
+            }
+
+            var name = selectedItem.elementMapId;
             var atCode = path.substring(path.lastIndexOf("[") + 1, path.lastIndexOf("]"));
 
             /*
@@ -305,7 +324,6 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
     }
 
     function openExpression(node) {
-        var archetypeBinding = node.$nodeScope.$parentNodeScope.$modelValue;
         var archetypeBindingIndex = node.$nodeScope.$parentNodeScope.$index;
         var elementIndex = node.$nodeScope.$index;
 
@@ -351,14 +369,6 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
             modalService.showModal(modalOptions, modalData);
             return;
         }
-
-
-        /*if (definitionsFactory.getPredicateStatementType(predicate) === "PredicateDatavalue") {
-            var data = definitionsFactory.getDataForModal(archetype, predicate);
-            var options = definitionsFactory.getOptionsForModal(archetype, predicate);
-        } else if(definitionsFactory.getPredicateStatementType(predicate) === "PredicateExpression") {
-            openExpression(node);
-        } */
 
         var data = definitionsFactory.getDataForModal(archetype, predicate);
         var options = definitionsFactory.getOptionsForModal(archetype, predicate);
@@ -562,8 +572,11 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
             return;
         }
         var path = node.expressionItem.left.expressionItem.path;
-        var attribute = path.split("/value");
-        return attribute[1].substring(1);
+        //var attribute = path.split("/value");
+        var attribute = path.split(/\/value(.+)/)[1];
+
+
+        return attribute.substring(1);
     }
 
 

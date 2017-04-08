@@ -74,6 +74,7 @@ function utilsFactory(guidelineFactory, GT_HEADER) {
                             guideline.definition.archetypeBindings[archetypeBinding].elements[element.id] = element;
                         } else {
                             var predicateStatement = elements[i];
+                            delete predicateStatement.expression;
                             guideline.definition.archetypeBindings[archetypeBinding].predicateStatements.push(predicateStatement);
                         }
                     }

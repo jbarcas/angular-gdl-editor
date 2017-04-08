@@ -141,7 +141,7 @@ treecontrol.tree-boot i.tree-branch-head,
 treecontrol.tree-boot i.tree-leaf-head {
     float: left;
     height: 16px;
-    margin: 5px;
+    margin-top: 5px;
 }
 
 /*treecontrol.tree-boot li.tree-expanded i.tree-branch-head {

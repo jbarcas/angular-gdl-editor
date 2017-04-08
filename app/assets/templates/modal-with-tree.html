@@ -3,23 +3,33 @@
 </div>
 <div class="modal-body">
 
-  <form role="form" ng-show="$ctrl.domains" class="form-inline gdl-center gdl-padding">
-    <div class="form-group">
-      <label for="domain">Domain</label>
-      <select class="form-control" id="domain" ng-model="$ctrl.domain" ng-init="$ctrl.domain = $ctrl.domains[0].name">
-        <option ng-repeat="item in $ctrl.domains" value="{{ item.value }}" >{{ item.name }}</option>
-      </select>
+  <div class="row">
+    <div class="col-sm-6">
+      <form class="form-inline">
+        <div class="form-group gdl-padding">
+          <input type="text" ng-model="predicate" placeholder="Filter" class="form-control">
+        </div>
+      </form>
     </div>
-  </form>
+    <div class="col-sm-6">
+      <form role="form" ng-show="$ctrl.domains" class="form-inline gdl-center gdl-padding">
+        <div class="form-group">
+          <label for="domain">Domain</label>
+          <select class="form-control" id="domain" ng-model="$ctrl.domain" ng-init="$ctrl.domain = $ctrl.domains[0].name">
+            <option ng-repeat="item in $ctrl.domains" value="{{ item.value }}" >{{ item.name }}</option>
+          </select>
+        </div>
+      </form>
+    </div>
+  </div>
 
   <treecontrol class="tree-boot"
     tree-model="$ctrl.items"
     options="treeOptions"
-    on-selection="showSelected(node)"
+    on-selection="showSelected(node, $parentNode)"
     filter-expression="predicate"
     filter-comparator="comparator"
     order-by="node.viewText">
-
         <span ng-switch on="node.dataType">
           <!-- Data values -->
           <span ng-switch-when="DV_CODED_TEXT"  class="glyphicon-coded-text" aria-hidden="true"></span>
@@ -35,17 +45,11 @@
           <span ng-switch-when="OBSERVATION"    class="glyphicon-observation" aria-hidden="true"></span>
           <span ng-switch-when="EVALUATION"     class="glyphicon-evaluation" aria-hidden="true"></span>
           <span ng-switch-when="INSTRUCTION"    class="glyphicon-instruction" aria-hidden="true"></span>
-         </span> {{node.viewText | removeUnderscore}}
+        </span> {{node.viewText | removeUnderscore}}
   </treecontrol>
-
-  <form class="form-inline">
-    <div class="form-group gdl-padding">
-      <input type="text" ng-model="predicate" placeholder="Filter" class="form-control">
-    </div>
-  </form>
 
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-warning" data-ng-click="$ctrl.cancel()">{{$ctrl.labels.closeButtonText}}</button>
-  <button class="btn btn-primary" data-ng-click="$ctrl.ok();">{{$ctrl.labels.actionButtonText}}</button>
+  <button class="btn btn-default" data-ng-click="$ctrl.cancel()">{{$ctrl.labels.closeButtonText}}</button>
+  <button class="btn btn-primary" data-ng-click="$ctrl.ok()">{{$ctrl.labels.actionButtonText}}</button>
 </div>

@@ -213,3 +213,22 @@ sup {
     padding: 1px 10px;
     background: url("assets/img/entry_instruction.png") no-repeat;
 }
+
+treecontrol.tree-boot li.tree-expanded i.tree-branch-head {
+    padding: 1px 10px;
+    background: url("assets/img/node-opened-2.png") no-repeat !important;
+}
+
+treecontrol.tree-boot li.tree-collapsed i.tree-branch-head {
+    padding: 1px 10px;
+    background: url("assets/img/node-closed-2.png") no-repeat !important;
+}
+
+/* treecontrol.tree-boot li.tree-leaf i.tree-leaf-head {
+    padding: 1px 10px;
+    background: url("assets/img/element.png") no-repeat !important;
+} */
+
+.a1 {
+    padding-left: 10px;
+}
