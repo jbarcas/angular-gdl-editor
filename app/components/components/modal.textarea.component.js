@@ -15,7 +15,7 @@ angular.module('app.components')
             $ctrl.labels = $ctrl.resolve.labels;
 
             $ctrl.ok = function () {
-                $ctrl.close({$value: $ctrl.input});
+                $ctrl.close({$value: {data: $ctrl.input}});
             };
 
             $ctrl.cancel = function () {

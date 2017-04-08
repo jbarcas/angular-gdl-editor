@@ -34,7 +34,11 @@ function definitionsFactory(DV, guidelineFactory, utilsFactory) {
         getExpression: getExpression,
         getPredicateStatementType: getPredicateStatementType,
         getDataForModal: getDataForModal,
-        getOptionsForModal: getOptionsForModal
+        getOptionsForModal: getOptionsForModal,
+        getName: getName,
+        isElement: isElement,
+        isUnaryExpression: isUnaryExpression,
+        isBinaryExpression: isBinaryExpression
     }
 
     function createArchetypeInstantiation(model) {
@@ -43,9 +47,10 @@ function definitionsFactory(DV, guidelineFactory, utilsFactory) {
 
     function createElementInstantiation (model) {
         model.id = utilsFactory.generateGt(vm.guide);
+        model.path = "";
         vm.guide.ontology.termDefinitions.en.terms[model.id] = {
-            id: model.id,
-            text: "Select an element"
+            id: model.id
+            //text: "Select an element"
         }
     }
 
@@ -61,7 +66,6 @@ function definitionsFactory(DV, guidelineFactory, utilsFactory) {
         model.expressionItem[item] = {};
         model.expressionItem[item].type = "Variable";
         model.expressionItem[item].expressionItem = {};
-        model.expressionItem[item].expressionItem.name = "Select an element";
         return model;
     }
 
@@ -134,6 +138,8 @@ function definitionsFactory(DV, guidelineFactory, utilsFactory) {
 
     /**
      * Checks if the element is being used in the rules
+     * @param element The element to check
+     * @returns {boolean}
      */
     function existsInRules(element) {
         var rules = guidelineFactory.getRulelist();
@@ -158,8 +164,10 @@ function definitionsFactory(DV, guidelineFactory, utilsFactory) {
         return false;
     };
 
-    /*
+    /**
      * Checks if the element is being used in the preconditions
+     * @param element The element to check
+     * @returns {boolean}
      */
     function existsInPreconditions (element) {
         var result = false;
@@ -172,6 +180,11 @@ function definitionsFactory(DV, guidelineFactory, utilsFactory) {
     };
 
 
+    /**
+     * Fills the codedTextConstant with the new values from the user input
+     * @param codedTextConstant
+     * @param dataFromTree
+     */
     function setCodedTextConstant (codedTextConstant, dataFromTree) {
         var value = dataFromTree.data.selectedItem.text;
         var codeString = dataFromTree.data.selectedItem.code || dataFromTree.data.selectedItem.id;
@@ -194,6 +207,11 @@ function definitionsFactory(DV, guidelineFactory, utilsFactory) {
 
     }
 
+    /**
+     * Fills the stringConstant with the new values from the user input
+     * @param stringConstant
+     * @param dataFromInput
+     */
     function setStringConstant (stringConstant, dataFromInput) {
         // TODO: properties string y value differences?
         var value = dataFromInput.data.input.value;
@@ -204,6 +222,12 @@ function definitionsFactory(DV, guidelineFactory, utilsFactory) {
         }
     }
 
+
+    /**
+     * Fills the quantityConstant with the new values from the user input
+     * @param quantityConstant
+     * @param dataFromModal
+     */
     function setQuantityConstant (quantityConstant, dataFromModal) {
         // TODO: what to do with remaining properties (i.e. precision, accuracy and accuracyPercent)
         var magnitude = dataFromModal.data.input.value;
@@ -222,6 +246,11 @@ function definitionsFactory(DV, guidelineFactory, utilsFactory) {
         };
     }
 
+    /**
+     * Fills the dateTimeConstant with the new values from the user input
+     * @param dateTimeConstant
+     * @param dataFromPicker
+     */
     function setDateTimeConstant(dateTimeConstant, dataFromPicker) {
         dateTimeConstant.type = "DateTimeConstant";
         dateTimeConstant.expressionItem = {
@@ -229,10 +258,15 @@ function definitionsFactory(DV, guidelineFactory, utilsFactory) {
         }
     }
 
+    /**
+     * Fills the ordinallConstant  with the new values from the user input
+     * @param ordinalConstant
+     * @param dataFromDropdown
+     */
     function setOrdinalConstant(ordinalConstant, dataFromDropdown) {
-        var value = parseInt(dataFromDropdown.data.option.value);
-        var code = dataFromDropdown.data.option.code;
-        var text = dataFromDropdown.data.option.text;
+        var value = parseInt(dataFromDropdown.data.selectedItem.value);
+        var code = dataFromDropdown.data.selectedItem.code;
+        var text = dataFromDropdown.data.selectedItem.text;
 
         ordinalConstant.type = "OrdinalConstant";
         ordinalConstant.expressionItem = {
@@ -251,10 +285,15 @@ function definitionsFactory(DV, guidelineFactory, utilsFactory) {
                 limitsIndex: -1
             }
         }
-        ordinalConstant.ordinal.value = value + "|" + ordinalConstant.expressionItem.ordinal.symbol.definingCode.terminologyId.value + "::" + code + "|" + text + "|"
+        ordinalConstant.expressionItem.value = value + "|" + ordinalConstant.expressionItem.ordinal.symbol.definingCode.terminologyId.value + "::" + code + "|" + text + "|"
 
     }
 
+    /**
+     * Converts the model to fit the angular UI tree component
+     * @param archertypeBindings
+     * @returns {Array|*}
+     */
     function convertModel(archertypeBindings){
         // converts the elements
         angular.forEach(archertypeBindings, function (archetypeBinding) {
@@ -262,16 +301,6 @@ function definitionsFactory(DV, guidelineFactory, utilsFactory) {
                 archetypeBinding.elements = objectToArray(archetypeBinding.elements);
             }
             angular.forEach(archetypeBinding.predicateStatements, function (predicateStatement) {
-                var path = getPredicateStatementPath(predicateStatement);
-                var name = guidelineFactory.getElementName(archetypeBinding.archetypeId, path);
-
-                if (isUnaryExpression(predicateStatement)) {
-                    predicateStatement.expressionItem.operand.expressionItem.name = name;
-                }
-                if (isBinaryExpression(predicateStatement)) {
-                    predicateStatement.expressionItem.left.expressionItem.name = name;
-                }
-                predicateStatement.ruleLine = getPredicateStatementType(predicateStatement);
                 /*
                  * It might not contain elements
                  */
@@ -284,14 +313,13 @@ function definitionsFactory(DV, guidelineFactory, utilsFactory) {
             archetypeBinding.predicateStatements = [];
 
         });
-
         // converts the archetypeBindings
         archertypeBindings = objectToArray(vm.guide.definition.archetypeBindings);
         return archertypeBindings;
     }
 
     /**
-     * Converts the model to the one necessary for the tree component
+     * Converts an objet into an array to fit the angular UI tree requirements
      * @param object the object to convert
      * @returns {Array} the converted array
      */
@@ -305,19 +333,16 @@ function definitionsFactory(DV, guidelineFactory, utilsFactory) {
         return array;
     }
 
-    function getPredicateStatementPath(predicateStatement) {
-
-        var side = predicateStatement.type === "UnaryExpression" ? "operand" : "left";
-
-        if (getPredicateStatementType(predicateStatement) === "PredicateExpression") {
-            var res = predicateStatement.expressionItem.left.expressionItem.path.split("/value");
-            path = res[0];
-            predicateStatement.expressionItem.left.attribute = res[1].substring(1);
-        }
-        return predicateStatement.expressionItem[side].expressionItem.path;
-    }
-
+    /**
+     * Gets the predicate statement type
+     * @param predicateStatement
+     * @returns
+     */
     function getPredicateStatementType(predicateStatement) {
+
+        if(isElement(predicateStatement)) {
+            return;
+        }
         var type;
         if(predicateStatement.type === "UnaryExpression") {
             type = "PredicateFunction";
@@ -333,18 +358,53 @@ function definitionsFactory(DV, guidelineFactory, utilsFactory) {
         return type;
     }
 
-    function isBinaryExpression(predicateStatement) {
-        return predicateStatement.type === "BinaryExpression";
+    /**
+     * Checks whether an item is an element
+     * @param item
+     * @returns {boolean|*}
+     */
+    function isElement(item) {
+        return item.hasOwnProperty("id") && item.hasOwnProperty("path");
     }
 
-    function isUnaryExpression(predicateStatement) {
-        return predicateStatement.type === "UnaryExpression";
-    }
-
+    /**
+     * Checks whether an object is an expression
+     * @param object
+     * @returns {boolean}
+     */
     function isExpression(object) {
         return Object.keys(operators).indexOf(object.expressionItem.operator) !== -1;
     }
 
+    /**
+     * Checks if the provided expression is a UnaryExpression
+     * @param expressionItem
+     * @returns {boolean}
+     */
+    function isUnaryExpression(expressionItem) {
+        if (expressionItem && expressionItem.type === "UnaryExpression") {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Checks if the provided expression is a BinaryExpression
+     * @param expressionItem
+     * @returns {boolean}
+     */
+    function isBinaryExpression(expressionItem) {
+        if (expressionItem && expressionItem.type === "BinaryExpression") {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Gets the expression from an object
+     * @param expression
+     * @returns {str}
+     */
     function getExpression(expression) {
 
         if (typeof str === 'undefined' || !str) {
@@ -366,18 +426,22 @@ function definitionsFactory(DV, guidelineFactory, utilsFactory) {
         return str;
     }
 
+    /**
+     * Gets the data for the modal
+     * @param archetype
+     * @param predicate
+     * @returns {{}}
+     */
     function getDataForModal(archetype, predicate) {
-        var elementName = predicate.expressionItem.left.expressionItem.name;
+        var elementName = getName(archetype.archetypeId, predicate.expressionItem);
         var path = archetype.elementMaps[elementName].path;
         var atCode = path.substring(path.lastIndexOf("[") + 1, path.lastIndexOf("]"));
         var modalData = {};
         var bodyText;
         // TODO: bodyText in event time?
         if(guidelineFactory.getTerms()[archetype.archetypeId][atCode]) {
-            //bodyText = guidelineFactory.getTerms()[archetype.archetypeId][atCode].description;
             bodyText = guidelineFactory.getTermDescription(archetype.archetypeId, atCode)
         }
-
         if(predicate.expressionItem.operator === "IS_A") {
             modalData.headerText = "Select a local term";
         } else {
@@ -387,16 +451,26 @@ function definitionsFactory(DV, guidelineFactory, utilsFactory) {
         return modalData;
     }
 
+    /**
+     * Gets the options for the modal
+     * @param archetype
+     * @param predicate
+     * @returns {{}}
+     */
     function getOptionsForModal(archetype, predicate) {
-        var leftElementName = predicate.expressionItem.left.expressionItem.name;
+        var leftElementName = getName(archetype.archetypeId, predicate.expressionItem);
         var leftElementType = archetype.elementMaps[leftElementName].dataType;
-
         var rightElementType = predicate.expressionItem.right.type;
-
         var modalOptions = {};
         modalOptions.resolve = {};
         var modalItems = [];
-        if(predicate.expressionItem.operator === "IS_A") {
+
+        if(getPredicateStatementType(predicate) === "PredicateExpression") {
+            modalOptions.component = "modalWithTextareaComponent";
+            modalOptions.resolve.expression = function() {
+                return predicate.expression;
+            }
+        } else if(predicate.expressionItem.operator === "IS_A") {
             modalOptions.component = "modalWithTreeComponent";
             modalOptions.resolve.items = function() {
                 var terms = guidelineFactory.getOntology().termDefinitions.en.terms;
@@ -489,7 +563,7 @@ function definitionsFactory(DV, guidelineFactory, utilsFactory) {
             modalOptions.resolve.items = function() {
                 var attributes = archetype.elementMaps[leftElementName].attributeMaps;
                 for(attribute in attributes) {
-                    if(attributes[attribute].code == predicate.expressionItem.right.expressionItem.ordinal.symbol.definingCode.codeString) {
+                    if(predicate.expressionItem.right.expressionItem.ordinal && attributes[attribute].code == predicate.expressionItem.right.expressionItem.ordinal.symbol.definingCode.codeString) {
                         defaultOption = attributes[attribute];
                     }
                     attributes[attribute].viewText = attributes[attribute].text;
@@ -507,6 +581,12 @@ function definitionsFactory(DV, guidelineFactory, utilsFactory) {
         return modalOptions;
     }
 
+    /**
+     * Used to sort by name the gt codes displayed in the popup when an IS_A choice is selected
+     * @param a
+     * @param b
+     * @returns {number}
+     */
     function compare(a,b) {
         if (a.name < b.name)
             return -1;
@@ -515,5 +595,19 @@ function definitionsFactory(DV, guidelineFactory, utilsFactory) {
         return 0;
     }
 
+    /**
+     * Gets the name of an expressionItem
+     * @param archetypeId
+     * @param expressionItem
+     * @returns {*}
+     */
+    function getName(archetypeId, expressionItem) {
+        var side = expressionItem.left ? "left" : "operand";
+        var path = expressionItem[side].expressionItem.path;
+        if(path == null) {
+            return "Select one"
+        }
+        return guidelineFactory.getElementName(archetypeId, path);
+    }
 
 }

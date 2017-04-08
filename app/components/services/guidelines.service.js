@@ -261,7 +261,7 @@ function guidelineFactory($http, API_URL, $q, archetypeFactory, terminologyFacto
         var archetype = getGuidelineArchetype(archetypeId);
         for (var elementMap in archetype.elementMaps) {
             if (archetype.elementMaps.hasOwnProperty(elementMap)) {
-                if(archetype.elementMaps[elementMap].path === path) {
+                if(path.startsWith(archetype.elementMaps[elementMap].path)) {
                     return elementMap;
                 }
             }

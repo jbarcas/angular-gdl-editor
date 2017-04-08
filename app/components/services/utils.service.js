@@ -74,7 +74,6 @@ function utilsFactory(guidelineFactory, GT_HEADER) {
                             guideline.definition.archetypeBindings[archetypeBinding].elements[element.id] = element;
                         } else {
                             var predicateStatement = elements[i];
-                            deleteTemporalProperties(predicateStatement);
                             guideline.definition.archetypeBindings[archetypeBinding].predicateStatements.push(predicateStatement);
                         }
                     }
@@ -86,14 +85,5 @@ function utilsFactory(guidelineFactory, GT_HEADER) {
 
     function isElement(item) {
         return item.hasOwnProperty("id");
-    }
-
-    function deleteTemporalProperties(predicateStatement) {
-        delete predicateStatement.ruleLine;
-        if(predicateStatement.type === "BinaryExpression") {
-            delete predicateStatement.expressionItem.left.expressionItem.name;
-        } else if (predicateStatement.type === "BinaryExpression") {
-            delete predicateStatement.expressionItem.operand.expressionItem.name;
-        }
     }
 }

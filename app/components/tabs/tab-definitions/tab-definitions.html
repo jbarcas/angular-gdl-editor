@@ -20,89 +20,20 @@
               <!-- elements -->
               <ol ng-class="{hidden: collapsed}" ui-tree-nodes ng-model="archetypeBinding.elements">
                  <li ng-repeat="element in archetypeBinding.elements" ui-tree-node>
-                    <div ng-switch="element.ruleLine">
-
-                       <!-- Predicate(DataValue)  -->
-                       <div ui-tree-handle class="tree-node tree-node-content element-background" ng-switch-when="PredicateDatavalue">
-                          <form role="form"  class="form-inline">
-
-                             <!-- left item -->
-                             PredicateDataValue - With element <a ng-style="element.expressionItem.left.expressionItem.name === 'Select an element' && {color:'red'}" ng-click="vm.updateLeftItem(this)" data-nodrag ng-bind="(element.expressionItem.left.expressionItem.name | removeUnderscore)"></a>
-
-                             <!-- operator -->
-                             <div class="form-group">
-                                <select class="form-control" ng-model="element.expressionItem.operator" data-nodrag>
-                                   <option ng-repeat="option in vm.predicateDataValueOptions" value="{{ option.value }}" ng-bind="option.label"></option>
-                                </select>
-                             </div>
-
-                             <!-- right -->
-                             <a ng-style="element.expressionItem.right.expressionItem.value === 'Select DataValue' && {color:'red'}"  ng-click="vm.updateRightItem(this)"> {{element.expressionItem.right.expressionItem.value | parseLocal}} </a>
-                             <!--<a ng-show="element.expressionItem.right.type='CodePhraseConstant'" ng-style="element.expressionItem.right.expressionItem.codePhrase.terminologyId.name === 'Select DataValue' && {color:'red'}"  ng-click="vm.updateRightItem(archetypeBinding, element, $index)"> {{vm.guide.ontology.termDefinitions.en.terms[element.expressionItem.right.expressionItem.codePhrase.codeString].text | capitalize}} </a>-->
-
-                             <a class="pull-right btn btn-xs gdl-padding" data-nodrag ng-click="vm.removeElement(this)"><img ng-src="{{vm.delete}}"></a>
-                          </form>
-                       </div>
-
-                       <!-- Predicate(Function) -->
-                       <div ui-tree-handle class="tree-node tree-node-content element-background gdl-element-with-select" ng-switch-when="PredicateFunction">
-                          <form role="form" class="form-inline">
-                             PredicateFunction - With element <a ng-style="element.expressionItem.operand.expressionItem.name === 'Select an element' && {color:'red'}" ng-click="vm.updateLeftItem(this)" data-nodrag ng-bind="(element.expressionItem.operand.expressionItem.name | removeUnderscore)"></a>
-                             <div class="form-group">
-                                <select class="form-control" ng-model="element.expressionItem.operator" data-nodrag>
-                                   <option ng-repeat="option in vm.predicateFunctionOptions" value="{{ option }}" ng-bind="option"></option>
-                                </select>
-                             </div>
-                             <a class="pull-right btn btn-xs gdl-padding" data-nodrag ng-click="vm.removeElement(this)"><img ng-src="{{vm.delete}}"></a>
-                          </form>
-                       </div>
-
-                       <!-- Predicate(Exists)  -->
-                       <div ui-tree-handle class="tree-node tree-node-content element-background" ng-switch-when="PredicateExists">
-                          <form role="form"  class="form-inline">
-
-                             <!-- left item -->
-                             PredicateExists - With element <a ng-style="element.expressionItem.left.expressionItem.name === 'Select an element' && {color:'red'}" ng-click="vm.updateLeftItem(this)" data-nodrag ng-bind="(element.expressionItem.left.expressionItem.name | removeUnderscore)"></a>
-
-                             <!-- operator -->
-                             <div class="form-group">
-                                <select class="form-control" ng-model="element.expressionItem.operator" data-nodrag>
-                                   <option ng-repeat="option in vm.predicateExistsOptions" value="{{ option.value }}" ng-bind="option.label"></option>
-                                </select>
-                             </div>
-
-                             <!-- right -->
-                             <a ng-click="vm.updateRightItem(this)"> {{element.expressionItem.right.expressionItem.codedText.value}} </a>
-
-                             <a class="pull-right btn btn-xs gdl-padding" data-nodrag ng-click="vm.removeElement(this)"><img ng-src="{{vm.delete}}"></a>
-                          </form>
-                       </div>
-
-                       <!-- Predicate(Expression)  -->
-                       <div ui-tree-handle class="tree-node tree-node-content element-background" ng-switch-when="PredicateExpression">
-                          <form role="form"  class="form-inline">
-
-                             <!-- left item -->
-                             PredicateExpression - With element <a ng-style="element.expressionItem.left.expressionItem.name === 'Select an element' && {color:'red'}" ng-click="vm.updateLeftItem(this)" data-nodrag> {{element.expressionItem.left.expressionItem.name | removeUnderscore}}<sub>{{element.expressionItem.left.attribute}}</sub></a>
-
-                             <!-- operator -->
-                             <div class="form-group">
-                                <select class="form-control" ng-model="element.expressionItem.operator" data-nodrag>
-                                   <option ng-repeat="option in vm.predicateExpressionOptions" value="{{ option.value }}" ng-bind="option.label"></option>
-                                </select>
-                             </div>
-
-                             <!-- right -->
-                             <a ng-style="element.expression === 'Expression' && {color:'red'}" ng-click="vm.openExpression(this)"> {{ element.expression }} </a>
-
-                             <a class="pull-right btn btn-xs gdl-padding" data-nodrag ng-click="vm.removeElement(this)"><img ng-src="{{vm.delete}}"></a>
-                          </form>
-                       </div>
-
-                       <div ui-tree-handle class="tree-node tree-node-content element-background" ng-switch-default>
-                           Instantiate element <a ng-style="vm.guide.ontology.termDefinitions.en.terms[element.id].text === 'Select an element' && {color:'red'}" ng-click="vm.updateLeftItem(this)" data-nodrag>{{vm.guide.ontology.termDefinitions.en.terms[element.id].text | capitalize}}</a>
-                           <a class="pull-right btn btn-xs" data-nodrag ng-click="vm.removeElement(this)"><img ng-src="{{vm.delete}}"></a>
-                       </div>
+                    <div ui-tree-handle class="tree-node tree-node-content element-background" >
+                       <form role="form"  class="form-inline">
+                          <!-- left item -->
+                          {{vm.getTextDebug(this)}} - {{vm.getText(this)}} <a ng-style="element.unselected && {color:'red'}" ng-click="vm.updateLeftItem(this)" data-nodrag> {{vm.showLeftName(this) | removeUnderscore}}<sub>{{vm.getAttribute(this.$modelValue)}}</sub></a>
+                          <!-- operator -->
+                          <div class="form-group" ng-show="vm.showOptions(this)">
+                             <select class="form-control" ng-model="element.expressionItem.operator" data-nodrag>
+                                <option ng-repeat="option in vm.getPredicateOptions(this.$modelValue)" value="{{ option.value }}" ng-bind="option.label"></option>
+                             </select>
+                          </div>
+                          <!-- right -->
+                          <a ng-show="vm.showRightName(this)" ng-style="element.expressionItem.right.expressionItem.value === 'Select DataValue' && {color:'red'}"  ng-click="vm.updateRightItem(this)"> {{vm.showRightName(this) | parseLocal}} </a>
+                          <a class="pull-right btn btn-xs gdl-padding" data-nodrag ng-click="vm.removeElement(this)"><img ng-src="{{vm.delete}}"></a>
+                       </form>
                     </div>
                  </li>
               </ol>

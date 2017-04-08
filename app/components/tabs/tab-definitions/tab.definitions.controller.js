@@ -24,6 +24,15 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
     vm.updateArchetype = updateArchetype;
     vm.openExpression = openExpression;
 
+    vm.showLeftName = showLeftName;
+    vm.showRightName = showRightName;
+    vm.getAttribute = getAttribute;
+    vm.getPredicateOptions = getPredicateOptions;
+    vm.getText = getText;
+    vm.getTextDebug = getTextDebug;
+
+    vm.showOptions = showOptions;
+
     vm.getExpression = definitionsFactory.getExpression;
 
     vm.delete = "../assets/img/del.png";
@@ -40,20 +49,23 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
         {title: 'Predicate (Expression)',  type: "BinaryExpression", ruleLine: "PredicateExpression", draggable: true}
     ];
 
-    vm.predicateFunctionOptions = ['MAX', 'MIN'];
+    var predicateFunctionOptions = [
+        {label: 'MAX', value: 'MAX'},
+        {label: 'MIN', value: 'MIN'}
+    ];
 
-    vm.predicateExistsOptions = [
+    var predicateExistsOptions = [
         {label: 'exists', value: 'INEQUAL'},
         {label: 'does not exist', value: 'EQUALITY'}
     ];
 
-    vm.predicateExpressionOptions = [
+    var predicateExpressionOptions = [
         {label: '==', value: 'EQUALITY'},
         {label: '>=', value: 'GREATER_THAN_OR_EQUAL'},
         {label: '<=', value: 'LESS_THAN_OR_EQUAL'}
     ];
 
-    vm.predicateDataValueOptions = [
+    var predicateDataValueOptions = [
         {label: '==', value: 'EQUALITY'},
         {label: '>=', value: 'GREATER_THAN_OR_EQUAL'},
         {label: '<=', value: 'LESS_THAN_OR_EQUAL'},
@@ -79,7 +91,7 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
             cloneModel.unselected = true;
             if(cloneModel.title === "Archetype instantiation") {
                 definitionsFactory.createArchetypeInstantiation(cloneModel);
-            }else if(cloneModel.title === "Element instantiation") {
+            } else if(cloneModel.title === "Element instantiation") {
                 definitionsFactory.createElementInstantiation(cloneModel);
             } else if (cloneModel.ruleLine === "PredicateDatavalue") {
                 definitionsFactory.createPredicateDatavalue(cloneModel);
@@ -90,7 +102,7 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
             } else if (cloneModel.ruleLine === "PredicateExpression") {
                 definitionsFactory.createPredicateExpression(cloneModel);
             }
-            //delete cloneModel.type;
+            delete cloneModel.ruleLine;
             delete cloneModel.draggable;
             delete cloneModel.title;
         }
@@ -132,7 +144,7 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
     }
 
 
-    /*
+    /**
      * Removes an archetype element (if it is possible due to element usage)
      */
     function removeElement(scope) {
@@ -271,10 +283,8 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
              */
             if(element.type === "BinaryExpression") {
                 elementToUpdate.expressionItem.left.expressionItem.path = path;
-                elementToUpdate.expressionItem.left.expressionItem.name = name;
             } else if (element.type === "UnaryExpression") {
                 elementToUpdate.expressionItem.operand.expressionItem.path = path;
-                elementToUpdate.expressionItem.operand.expressionItem.name = name;
             } else {
                 elementToUpdate.path = path;
                 // FIXME: Where can I get the text and description?
@@ -297,6 +307,36 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
         }
     }
 
+    function openExpression(node) {
+        var archetypeBinding = node.$nodeScope.$parentNodeScope.$modelValue;
+        var archetypeBindingIndex = node.$nodeScope.$parentNodeScope.$index;
+        var elementIndex = node.$nodeScope.$index;
+
+        var expression = node.$nodeScope.$modelValue.expression;
+        var dataForModal = {headerText: 'Enter expression'};
+
+        var defaults = {
+            component: 'modalWithTextareaComponent',
+            resolve: {
+                labels: function() {
+                    return dataForModal;
+                },
+                expression: function() {
+                    return expression;
+                }
+            }
+        }
+
+        modalService.showModal(defaults).then(showModalComplete, showModalFailed);
+        function showModalComplete(response) {
+            vm.guide.definition.archetypeBindings[archetypeBindingIndex].elements[elementIndex].expression = response;
+        }
+
+        function showModalFailed() {
+            $log.info('Modal dismissed at: ' + new Date() + ' in openExpression()');
+        }
+    }
+
     function updateRightItem(node) {
 
         var archetypeBinding = node.$nodeScope.$parentNodeScope.$modelValue;
@@ -316,10 +356,15 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
         }
 
 
-        if (definitionsFactory.getPredicateStatementType(predicate) === "PredicateDatavalue") {
+        /*if (definitionsFactory.getPredicateStatementType(predicate) === "PredicateDatavalue") {
             var data = definitionsFactory.getDataForModal(archetype, predicate);
             var options = definitionsFactory.getOptionsForModal(archetype, predicate);
-        }
+        } else if(definitionsFactory.getPredicateStatementType(predicate) === "PredicateExpression") {
+            openExpression(node);
+        } */
+
+        var data = definitionsFactory.getDataForModal(archetype, predicate);
+        var options = definitionsFactory.getOptionsForModal(archetype, predicate);
 
         modalService.showModal(options, data).then(showModalComplete, showModalFailed);
 
@@ -343,6 +388,8 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
                 definitionsFactory.setOrdinalConstant(constantExpression, modalResponse);
             } else if (constantExpression.type === "CodePhraseConstant") {
                 $log.info("CodePhraseText");
+            } else if(definitionsFactory.getPredicateStatementType(predicate) === "PredicateExpression") {
+                vm.guide.definition.archetypeBindings[archetypeBindingIndex].elements[elementIndex].expression = modalResponse.data;
             }
 
 
@@ -361,7 +408,7 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
     }
 
     /**
-     * Used to modify an archetype instantiation
+     * Modifies an archetype instantiation
      * @param archetypeBindingIndex
      */
     function updateArchetype(archetype) {
@@ -477,35 +524,126 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
         }
     }
 
-    function openExpression(node) {
+    /**
+     * On the flight, gets the name of the left part of a predicate statement
+     * @param node
+     * @returns {*}
+     */
+    function showLeftName(node) {
+        /**
+         * item may be an element or a predicate statement
+         */
+        var item = node.$modelValue;
+        var archetypeId = node.$nodeScope.$parentNodeScope.$modelValue.archetypeId;
+        var name;
 
-        var archetypeBinding = node.$nodeScope.$parentNodeScope.$modelValue;
-        var archetypeBindingIndex = node.$nodeScope.$parentNodeScope.$index;
-        var elementIndex = node.$nodeScope.$index;
+        if(isPredicate(item)) {
+            var expressionItem = node.$modelValue.expressionItem;
+            name = definitionsFactory.getName(archetypeId, expressionItem);
+        } else {
+            /**
+             * If the element has a path (it is not a new element) => Get its name from the ontology
+             * If the element does not have a path (it is a new element) => Prompt the user for input a name
+             */
+            name = item.path ? vm.guide.ontology.termDefinitions.en.terms[item.id].text : "Select one";
+        }
+        return name;
 
-        var expression = node.$nodeScope.$modelValue.expression;
-        var dataForModal = {headerText: 'Enter expression'};
+    }
 
-        var defaults = {
-            component: 'modalWithTextareaComponent',
-            resolve: {
-                labels: function() {
-                    return dataForModal;
-                },
-                expression: function() {
-                    return expression;
-                }
-            }
+    function isPredicate(item) {
+        return item.expressionItem;
+    }
+
+    function getAttribute(node) {
+        if(definitionsFactory.getPredicateStatementType(node) !== "PredicateExpression") {
+            return;
+        }
+        var path = node.expressionItem.left.expressionItem.path;
+        var attribute = path.split("/value");
+        return attribute[1].substring(1);
+    }
+
+
+    /**
+     * Gets the predicate options to show in the combo box. It depends on the type of predicate statement
+     * @param node
+     * @returns {*}
+     */
+    function getPredicateOptions(node) {
+
+        /**
+         * If the node is an element, show no options
+         */
+        if(definitionsFactory.isElement(node)) {
+            return;
         }
 
-        modalService.showModal(defaults).then(showModalComplete, showModalFailed);
-        function showModalComplete(response) {
-            vm.guide.definition.archetypeBindings[archetypeBindingIndex].elements[elementIndex].expression = response;
+        var predicateStatementType = definitionsFactory.getPredicateStatementType(node);
+        var options;
+        if(predicateStatementType === "PredicateFunction") {
+            options = predicateFunctionOptions;
+        } else if(predicateStatementType === "PredicateExists") {
+            options = predicateExistsOptions;
+        } else if(predicateStatementType === "PredicateExpression") {
+            options = predicateExpressionOptions;
+        } else {
+            options = predicateDataValueOptions;
         }
+        return options;
+    }
 
-        function showModalFailed() {
-            $log.info('Modal dismissed at: ' + new Date() + ' in openExpression()');
+    /**
+     * On the flight, gets the name of the right part of a predicate statement
+     * @param node
+     * @returns {*}
+     */
+    function showRightName(node) {
+        var predicateStatement = node.$modelValue;
+        var predicateStatementType = definitionsFactory.getPredicateStatementType(predicateStatement);
+        var value;
+
+        /**
+         * If the node is an element, a predicate function or a predicate exists, then it has no right part.
+         */
+        if(definitionsFactory.isElement(predicateStatement) || predicateStatementType === "PredicateFunction" || predicateStatementType === "PredicateExists") {
+            return;
+        } else if(predicateStatementType === "PredicateExpression") {
+            value = predicateStatement.expression;
+        } else {
+            value = predicateStatement.expressionItem.right.expressionItem.value
         }
+        return value;
+    }
+
+    /**
+     * whether to show the combobox or not
+     * @param node
+     * @returns {boolean}
+     */
+    function showOptions(node) {
+        var modelValue = node.$modelValue;
+        return !definitionsFactory.isElement(modelValue);
+    }
+
+    function getText(node) {
+        var modelValue = node.$modelValue
+        if(definitionsFactory.isElement(modelValue)) {
+            text = "Instantiate element "
+        } else {
+            text = "With element "
+        }
+        return text;
+    }
+
+    function getTextDebug(node) {
+        var modelValue = node.$modelValue
+        if(definitionsFactory.isElement(modelValue)) {
+            text = "Instantiate element "
+        } else {
+            text = definitionsFactory.getPredicateStatementType(modelValue)
+        }
+        return text;
     }
 
 }
