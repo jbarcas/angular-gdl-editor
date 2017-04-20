@@ -6,7 +6,7 @@ angular.module('app.components')
   .component('modalWithInputAndDropdownComponent', {
     templateUrl: 'assets/templates/modal-with-input-and-dropdown.html',
     bindings: {
-      resolve: '=',
+      resolve: '<',
       close: '&',
       dismiss: '&'
     },

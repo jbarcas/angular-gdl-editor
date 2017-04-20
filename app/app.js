@@ -18,5 +18,6 @@ angular.module('app', [
     'ui.router',
     'ui.tree',
     'ui.codemirror',
-    'treeControl'
+    'treeControl',
+    'queryBuilder'
 ]);

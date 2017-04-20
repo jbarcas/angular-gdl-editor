@@ -5,15 +5,7 @@
 angular.module('app.services')
     .factory('definitionsFactory', definitionsFactory);
 
-function definitionsFactory(DV, guidelineFactory, utilsFactory) {
-
-    var operators = {
-        'MULTIPLICATION': "*",
-        "ADDITION": "+",
-        "SUBSTRATION": "-",
-        "DIVISION": "/",
-        "EXPONENT": "^"
-    };
+function definitionsFactory(DV, OPERATORS, guidelineFactory, utilsFactory) {
 
     return {
         createElementInstantiation: createElementInstantiation,
@@ -36,9 +28,7 @@ function definitionsFactory(DV, guidelineFactory, utilsFactory) {
         getDataForModal: getDataForModal,
         getOptionsForModal: getOptionsForModal,
         getName: getName,
-        isElement: isElement,
-        isUnaryExpression: isUnaryExpression,
-        isBinaryExpression: isBinaryExpression
+        isElement: isElement
     }
 
     function createArchetypeInstantiation(model) {
@@ -61,7 +51,7 @@ function definitionsFactory(DV, guidelineFactory, utilsFactory) {
      */
     function createLeftOperand(model) {
         model.unselected = true;
-        var item = model.type === "UnaryExpression" ? "operand" : "left";
+        var item = utilsFactory.isUnaryExpression(model) ? "operand" : "left";
         model.expressionItem = {};
         model.expressionItem[item] = {};
         model.expressionItem[item].type = "Variable";
@@ -344,12 +334,12 @@ function definitionsFactory(DV, guidelineFactory, utilsFactory) {
             return;
         }
         var type;
-        if(predicateStatement.type === "UnaryExpression") {
+        if(utilsFactory.isUnaryExpression(predicateStatement)) {
             type = "PredicateFunction";
         } else if(predicateStatement.expressionItem.right.expressionItem.value === "null") {
             type = "PredicateExists";
 //      } else if(predicateStatement.expressionItem.left.attribute) {  // FIXME: this should be the right way to check if it is a PredicateExpression
-        } else if(isExpression(predicateStatement.expressionItem.right)) {
+        } else if(utilsFactory.isBinaryExpression(predicateStatement.expressionItem.right)) {
             predicateStatement.expression = getExpression(predicateStatement.expressionItem.right);
             type = "PredicateExpression";
         } else {
@@ -368,39 +358,6 @@ function definitionsFactory(DV, guidelineFactory, utilsFactory) {
     }
 
     /**
-     * Checks whether an object is an expression
-     * @param object
-     * @returns {boolean}
-     */
-    function isExpression(object) {
-        return Object.keys(operators).indexOf(object.expressionItem.operator) !== -1;
-    }
-
-    /**
-     * Checks if the provided expression is a UnaryExpression
-     * @param expressionItem
-     * @returns {boolean}
-     */
-    function isUnaryExpression(expressionItem) {
-        if (expressionItem && expressionItem.type === "UnaryExpression") {
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Checks if the provided expression is a BinaryExpression
-     * @param expressionItem
-     * @returns {boolean}
-     */
-    function isBinaryExpression(expressionItem) {
-        if (expressionItem && expressionItem.type === "BinaryExpression") {
-            return true;
-        }
-        return false;
-    }
-
-    /**
      * Gets the expression from an object
      * @param expression
      * @returns {str}
@@ -413,16 +370,16 @@ function definitionsFactory(DV, guidelineFactory, utilsFactory) {
             str = "";
         }
 
-        if (!isExpression(expression)) {
+        if (!utilsFactory.isBinaryExpression(expression)) {
             str += expression.expressionItem.code + "." + expression.expressionItem.attribute;
         } else {
             str += '(';
             getExpression(expression.expressionItem.left);
-            str += " " + operators[expression.expressionItem.operator] + " ";
+            str += " " + OPERATORS[expression.expressionItem.operator] + " ";
             getExpression(expression.expressionItem.right);
             str += ')';
         }
-        console.log(str);
+        //console.log(str);
         return str;
     }
 
@@ -607,7 +564,7 @@ function definitionsFactory(DV, guidelineFactory, utilsFactory) {
         if(path == null) {
             return "Select one"
         }
-        return guidelineFactory.getElementName(archetypeId, path);
+        return guidelineFactory.getElementByArchetypIdAndPath(archetypeId, path).elementMapId;
     }
 
 }

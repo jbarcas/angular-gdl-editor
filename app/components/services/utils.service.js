@@ -5,11 +5,14 @@
 angular.module('app.services')
     .factory('utilsFactory', utilsFactory);
 
-function utilsFactory(guidelineFactory, GT_HEADER) {
+function utilsFactory(guidelineFactory, OPERATORS, GT_HEADER) {
 
     return {
         generateGt: generateGt,
-        convertToPost: convertToPost
+        convertToPost: convertToPost,
+        isBinaryExpression: isBinaryExpression,
+        isUnaryExpression: isUnaryExpression,
+        getArchetypeType: getArchetypeType
     }
 
     function generateGt(guide) {
@@ -86,5 +89,39 @@ function utilsFactory(guidelineFactory, GT_HEADER) {
 
     function isElement(item) {
         return item.hasOwnProperty("id");
+    }
+
+    /**
+     * Checks if the provided expression is a UnaryExpression
+     * @param expressionItem
+     * @returns {boolean}
+     */
+    function isUnaryExpression(expressionItem) {
+        if (expressionItem && expressionItem.type === "UnaryExpression") {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Checks if the provided expression is a BinaryExpression
+     * @param expressionItem
+     * @returns {boolean}
+     */
+    function isBinaryExpression(expressionItem) {
+        if (expressionItem && expressionItem.type === "BinaryExpression") {
+            return true;
+        }
+        return false;
+    };
+
+
+    /**
+     * Gets the archetype type
+     * @param archetypeId
+     */
+    function getArchetypeType(archetypeId) {
+        var parts = archetypeId.split('-');
+        return parts[2].split('.')[0];
     }
 }

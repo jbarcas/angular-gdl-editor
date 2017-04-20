@@ -36,7 +36,8 @@ function guidelineFactory($http, API_URL, $q, archetypeFactory, terminologyFacto
         getGuidelineArchetype: getGuidelineArchetype,
         setGuidelineArchetype: setGuidelineArchetype,
         deleteGuidelineArchetype: deleteGuidelineArchetype,
-        getElementName: getElementName,
+        getElementByArchetypIdAndPath: getElementByArchetypIdAndPath,
+        getElementByGtCode: getElementByGtCode,
         //-------------------------------------
         getRulelist: getRulelist,
         setRulelist: setRulelist,
@@ -48,7 +49,9 @@ function guidelineFactory($http, API_URL, $q, archetypeFactory, terminologyFacto
         getTerms: getTerms,
         addTerm: addTerm,
         removeTerm: removeTerm,
-        getTermDescription: getTermDescription
+        getTermDescription: getTermDescription,
+        //-------------------------------------
+        addElementToDefinitions: addElementToDefinitions
     };
 
     function getTermDescription(archetypeId, atCode) {
@@ -257,16 +260,51 @@ function guidelineFactory($http, API_URL, $q, archetypeFactory, terminologyFacto
         console.log(guidelineArchetypes.toString())
     }
 
-    function getElementName(archetypeId, path) {
+    function getElementByArchetypIdAndPath(archetypeId, path) {
         var archetype = getGuidelineArchetype(archetypeId);
         for (var elementMap in archetype.elementMaps) {
             if (archetype.elementMaps.hasOwnProperty(elementMap)) {
                 if(path.startsWith(archetype.elementMaps[elementMap].path)) {
-                    return elementMap;
+                    return archetype.elementMaps[elementMap];
                 }
             }
         }
         return null;
+    }
+
+    function getElementByGtCode (gtCode) {
+        /**
+         * First: get the archetypeId and the path of the gtCode
+         * Second: iterate over the archetype and return the element that matches with the previous path
+         */
+        var archetypeId;
+        var path;
+        var element;
+        angular.forEach(getArchetypeBindings(), function(archetypeBinding) {
+            if (archetypeBinding.elements instanceof Array) {
+                angular.forEach(archetypeBinding.elements, function(element) {
+                    if(gtCode === element.id) {
+                        archetypeId = archetypeBinding.archetypeId;
+                        path = element.path
+                    }
+                })
+            } else {
+                if(gtCode in archetypeBinding.elements) {
+                    archetypeId = archetypeBinding.archetypeId;
+                    path = archetypeBinding.elements[gtCode].path
+                }
+            }
+        })
+        angular.forEach(guidelineArchetypes, function(archetype) {
+            if(archetype.archetypeId === archetypeId) {
+                angular.forEach(archetype.elementMaps, function(elementMap) {
+                    if(elementMap.path === path) {
+                        element = elementMap;
+                    }
+                })
+            }
+        })
+        return element;
     }
 
     // Rulelist
@@ -299,6 +337,23 @@ function guidelineFactory($http, API_URL, $q, archetypeFactory, terminologyFacto
     }
     function setRule(rule) {
 
+    }
+
+    function addElementToDefinitions(element, archetypeId) {
+        angular.forEach(getDefinition().archetypeBindings, function(archetypeBinding) {
+            if(archetypeBinding.archetypeId === archetypeId) {
+                var newElement = {
+                    id: element.id,
+                    path: element.path
+                };
+                // FIXME: Do not modify the model in definitions
+                if(archetypeBinding.elements instanceof Array) {
+                    archetypeBinding.elements.push(newElement);
+                } else {
+                    archetypeBinding.elements[newElement.id] = newElement;
+                }
+            }
+        });
     }
 
 }

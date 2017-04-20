@@ -1,6 +1,5 @@
-<div class="modal-header gdl-center">
-  <h3 class="gdl-center">{{$ctrl.labels.headerText | removeUnderscore}}</h3>
-</div>
+<modal-header resolve="$ctrl"></modal-header>
+
 <div class="modal-body">
 
   <div class="row">
@@ -8,6 +7,8 @@
       <form class="form-inline">
         <div class="form-group gdl-padding">
           <input type="text" ng-model="predicate" placeholder="Filter" class="form-control">
+          <img ng-src="{{$ctrl.image.expand.url}}" uib-tooltip="{{$ctrl.image.expand.text}}" ng-click="$ctrl.expand()">
+          <img ng-src="{{$ctrl.image.contract.url}}" uib-tooltip="{{$ctrl.image.contract.text}}" ng-click="$ctrl.contract()">
         </div>
       </form>
     </div>
@@ -26,6 +27,7 @@
   <treecontrol class="tree-boot"
     tree-model="$ctrl.items"
     options="treeOptions"
+    expanded-nodes="expandedNodes"
     on-selection="showSelected(node, $parentNode)"
     filter-expression="predicate"
     filter-comparator="comparator"
@@ -45,10 +47,17 @@
           <span ng-switch-when="OBSERVATION"    class="glyphicon-observation" aria-hidden="true"></span>
           <span ng-switch-when="EVALUATION"     class="glyphicon-evaluation" aria-hidden="true"></span>
           <span ng-switch-when="INSTRUCTION"    class="glyphicon-instruction" aria-hidden="true"></span>
+          <!-- Folder -->
+          <span ng-switch-when="FOLDER"         class="glyphicon-folder" aria-hidden="true"></span>
+          <!-- Leaf node -->
+          <span ng-switch-when="undefined"      class="glyphicon-leaf" aria-hidden="true"></span>
         </span> {{node.viewText | removeUnderscore}}
   </treecontrol>
 
 </div>
+
+<!--<modal-tree resolve="$ctrl"></modal-tree>-->
+
 <div class="modal-footer">
   <button class="btn btn-default" data-ng-click="$ctrl.cancel()">{{$ctrl.labels.closeButtonText}}</button>
   <button class="btn btn-primary" data-ng-click="$ctrl.ok()">{{$ctrl.labels.actionButtonText}}</button>

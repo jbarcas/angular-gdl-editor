@@ -22,4 +22,11 @@ angular.module('app.constants', [])
         DV_DATE_TIME: [{viewText: 'year'}, {viewText: 'month'}, {viewText: 'day'}, {viewText: 'minute'}, {viewText: 'second'},
             {viewText: 'fractionalSecond'}, {viewText: 'timeZone'}, {viewText: 'value'}],
         DV_ORDINAL: [{viewText: 'magnitude'}, {viewText: 'precision'}, {viewText: 'units'}]
+    })
+    .constant('OPERATORS', {
+        'MULTIPLICATION': "*",
+        "ADDITION": "+",
+        "SUBSTRATION": "-",
+        "DIVISION": "/",
+        "EXPONENT": "^"
     });

@@ -10,10 +10,21 @@ angular.module('app.components')
     controller: function ($scope) {
       var $ctrl = this;
 
+      $ctrl.image = {
+        expand: {
+          url: '../assets/img/expand.png',
+          text: 'Expands the search tree'
+        },
+        contract: {
+          url: '../assets/img/contract.png',
+          text: 'Contracts the search tree'
+        }
+      };
+
       $ctrl.selected = {};
 
       $ctrl.domain = {};
-        
+
       $ctrl.items = $ctrl.resolve.items;
 
       $ctrl.labels = $ctrl.resolve.labels;
@@ -41,6 +52,7 @@ angular.module('app.components')
 
       $scope.treeOptions = {
         allowDeselect: false,
+        dirSelectable: false,
         injectClasses: {
           ul: "a1",
           li: "a2",
@@ -51,6 +63,15 @@ angular.module('app.components')
           label: "a6",
           labelSelected: "a8"
         }
+      };
+
+
+      $ctrl.expand = function() {
+        $scope.expandedNodes = getAllSubitems($ctrl.items);
+      };
+
+      $ctrl.contract = function() {
+        $scope.expandedNodes = [];
       }
 
       $scope.predicate = "";
@@ -62,6 +83,19 @@ angular.module('app.components')
           node.parent = parent;
         }
         $ctrl.selected.item = node;
+      }
+
+      function getAllSubitems(items) {
+        if (typeof response === 'undefined' || !response) {
+          response = [];
+        }
+        angular.forEach(items, function(item) {
+          if(item.children) {
+            getAllSubitems(item.children)
+          }
+          response.push(item);
+        })
+        return response;
       }
 
     }
