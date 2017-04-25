@@ -1,6 +1,6 @@
-angular.module('app.components', [])
+angular.module('app.components')
   .component('dialogComponent', {
-    templateUrl: 'assets/templates/modal.html',
+    templateUrl: 'components/modals/modal.html',
     bindings: {
       resolve: '=',
       close: '&',

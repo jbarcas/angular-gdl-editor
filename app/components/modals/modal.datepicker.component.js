@@ -5,7 +5,7 @@
 angular.module('app.components')
 
     .component('modalWithDatepickerComponent', {
-        templateUrl: 'assets/templates/modal-with-datepicker.html',
+        templateUrl: 'components/modals/modal.datepicker.html',
         bindings: {
             resolve: '=',
             close: '&',

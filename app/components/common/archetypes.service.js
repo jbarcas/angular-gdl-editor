@@ -3,12 +3,10 @@ angular.module('app.services', [])
 
 function archetypeFactory($http, API_URL, $q) {
 
-  var archetypes = [];
-
   return {
     getArchetypes: getArchetypes,
     getArchetype: getArchetype
-  }
+  };
 
   function getArchetypes() {
     var deferred = $q.defer();
@@ -21,7 +19,7 @@ function archetypeFactory($http, API_URL, $q) {
       }
     );
     return deferred.promise;
-  };
+  }
 
   function getArchetype(archetypeId) {
     var deferred = $q.defer();
@@ -36,4 +34,4 @@ function archetypeFactory($http, API_URL, $q) {
     return deferred.promise;
   }
 
-};
+}

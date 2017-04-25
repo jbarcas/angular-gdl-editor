@@ -29,4 +29,10 @@ angular.module('app.constants', [])
         "SUBSTRATION": "-",
         "DIVISION": "/",
         "EXPONENT": "^"
+    })
+    .constant('NULLVALUE', {
+        NO_INFORMATION: { viewText: 'No information', value: 271 },
+        UNKNOWN: { viewText: 'Unknown', value: 253 },
+        MASKED: { viewText: 'Masked', value: 272 },
+        NOT_APPLICABLE: { viewText: 'Not applicable', value: 273 }
     });

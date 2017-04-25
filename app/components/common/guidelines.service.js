@@ -294,7 +294,7 @@ function guidelineFactory($http, API_URL, $q, archetypeFactory, terminologyFacto
                     path = archetypeBinding.elements[gtCode].path
                 }
             }
-        })
+        });
         angular.forEach(guidelineArchetypes, function(archetype) {
             if(archetype.archetypeId === archetypeId) {
                 angular.forEach(archetype.elementMaps, function(elementMap) {
@@ -303,7 +303,7 @@ function guidelineFactory($http, API_URL, $q, archetypeFactory, terminologyFacto
                     }
                 })
             }
-        })
+        });
         return element;
     }
 
@@ -319,7 +319,7 @@ function guidelineFactory($http, API_URL, $q, archetypeFactory, terminologyFacto
     function getArchetypeBindings() {
         if(guideline.definition) {
             return guideline.definition.archetypeBindings;
-        };
+        }
         return {};
     }
     function setArchetypeBindings(archetypeBindings) {

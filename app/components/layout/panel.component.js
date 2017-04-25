@@ -8,7 +8,7 @@
       title: '<'
     },
 
-    templateUrl: 'components/panel/panel.html',
+    templateUrl: 'components/layout/panel.html',
 
     controller: function ($scope, SharedProperties) {
 

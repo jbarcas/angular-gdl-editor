@@ -13,6 +13,7 @@ function RuleEditorCtrl($stateParams, $log, guidelineFactory, utilsFactory, moda
     vm.showRightName = showRightName;
     vm.getAttribute = getAttribute;
     vm.updateLeftItem = updateLeftItem;
+    vm.updateRightItem = updateRightItem;
     vm.terms = guidelineFactory.getOntology().termDefinitions.en.terms;
 
     /*
@@ -117,8 +118,10 @@ function RuleEditorCtrl($stateParams, $log, guidelineFactory, utilsFactory, moda
          */
         if (conditionType === "ElementExists") {
             return;
-        } else if (conditionType === "CompareAttribute") {
-            value = "calculate expression";
+        } else if (conditionType === "CompareAttribute" && condition.expressionItem.left.expressionItem.attribute === 'units') {
+            value = condition.expressionItem.right.expressionItem.value;
+        } else if (conditionType === "CompareAttribute" && condition.expressionItem.left.expressionItem.attribute === 'magnitude') {
+            value = "Expression";
         } else if (conditionType === "CompareElement") {
             value = vm.terms[condition.expressionItem.right.expressionItem.code].text;
         } else if (conditionType === "CompareNullValue" || conditionType === "CompareDataValue") {
@@ -143,11 +146,9 @@ function RuleEditorCtrl($stateParams, $log, guidelineFactory, utilsFactory, moda
         var condition = node.$modelValue;
         var index = node.$index;
         var type = ruleFactory.getConditionType(condition);
-        var archetypes = guidelineFactory.getGuidelineArchetypes();
 
         var modalData = {headerText: 'Select element instance'};
-
-        var modalOptions = ruleFactory.getOptionsForModal(archetypes, condition);
+        var modalOptions = ruleFactory.getOptionsForLeftModal(condition);
 
         modalService.showModal(modalOptions, modalData).then(showModalComplete, showModalFailed);
 
@@ -155,7 +156,6 @@ function RuleEditorCtrl($stateParams, $log, guidelineFactory, utilsFactory, moda
             if (modalResponse.data === undefined) {
                 return;
             }
-            ;
 
             var selected = modalResponse.data.selectedItem;
 
@@ -220,7 +220,7 @@ function RuleEditorCtrl($stateParams, $log, guidelineFactory, utilsFactory, moda
                 }
             }
 
-        };
+        }
 
         function showModalFailed() {
             $log.info('Modal dismissed at: ' + new Date() + ' in rule.editor.controller.updateLeftItem()');
@@ -229,4 +229,69 @@ function RuleEditorCtrl($stateParams, $log, guidelineFactory, utilsFactory, moda
     }
 
 
-};
+    function updateRightItem(node) {
+
+        var condition = node.$modelValue;
+        var index = node.$index;
+        var type = ruleFactory.getConditionType(condition);
+
+        /**
+         * If the condition has a 'magnitude' left side attribute, the expression editor is opened
+         */
+        if (type === "CompareAttribute" && condition.expressionItem.left.expressionItem.attribute === 'magnitude') {
+            openEditor(condition);
+            return;
+        }
+
+        var data = ruleFactory.getDataForModal(condition);
+        var options = ruleFactory.getOptionsForRightModal(condition);
+
+        modalService.showModal(options, data).then(showModalComplete, showModalFailed);
+
+        function showModalComplete(modalResponse) {
+            if (modalResponse.data === undefined) {
+                return;
+            }
+
+            var selected = modalResponse.data.selectedItem;
+
+            var rightPart = vm.rule.whenStatements[index].expressionItem.right;
+
+            if (type === "CompareAttribute") {
+                ruleFactory.setCompareAttributeUnits(rightPart, selected);
+            } else if (type === "CompareNullValue") {
+                ruleFactory.setCompareNullValue(rightPart, selected);
+                // TODO: Does the 'attribute' property have always the same value (null_flavour) ??
+            } else if (type === "CompareDataValue") {
+                ruleFactory.setCompareDataValue(rightPart, modalResponse);
+            } else if (type === "CompareElement") {
+                ruleFactory.setCompareElement (rightPart, selected);
+            }
+
+        }
+
+        function showModalFailed() {
+            $log.info('Modal dismissed at: ' + new Date() + ' in rule.editor.controller.updateLeftItem()');
+        }
+
+    }
+
+    function openEditor(condition) {
+        var modalData = {headerText: 'Expression editor'};
+        var modalOptions = ruleFactory.getOptionsForLeftModal(condition);
+        modalOptions.component = 'expressionEditorComponent';
+        modalOptions.size = 'lg';
+
+        modalService.showModal(modalOptions, modalData).then(showModalComplete, showModalFailed);
+
+        function showModalComplete() {
+            $log.info('Modal completed at: ' + new Date() + ' in openEditor()');
+        }
+
+        function showModalFailed() {
+            $log.info('Modal dismissed at: ' + new Date() + ' in openEditor()');
+        }
+    }
+
+
+}

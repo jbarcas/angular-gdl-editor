@@ -290,21 +290,9 @@ function definitionsFactory(DV, OPERATORS, guidelineFactory, utilsFactory) {
             if (archetypeBinding.elements) {
                 archetypeBinding.elements = objectToArray(archetypeBinding.elements);
             }
-            angular.forEach(archetypeBinding.predicateStatements, function (predicateStatement) {
-                /*
-                 * It might not contain elements
-                 */
-                if(!archetypeBinding.elements) {
-                    archetypeBinding.elements = [];
-                }
-                archetypeBinding.elements.push(predicateStatement);
-            })
-            // Clear the predicateStatements
-            archetypeBinding.predicateStatements = [];
-
         });
         // converts the archetypeBindings
-        archertypeBindings = objectToArray(vm.guide.definition.archetypeBindings);
+        archertypeBindings = objectToArray(archertypeBindings);
         return archertypeBindings;
     }
 
@@ -354,7 +342,7 @@ function definitionsFactory(DV, OPERATORS, guidelineFactory, utilsFactory) {
      * @returns {boolean|*}
      */
     function isElement(item) {
-        return item.hasOwnProperty("id") && item.hasOwnProperty("path");
+        return item && item.hasOwnProperty("id") && item.hasOwnProperty("path");
     }
 
     /**

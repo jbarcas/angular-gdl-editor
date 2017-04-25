@@ -1,0 +1,15 @@
+<div ui-tree-handle class="tree-node tree-node-content element-background" >
+  <form role="form"  class="form-inline">
+    <!-- left item -->
+    {{vm.getTextDebug(this)}} - {{vm.getText(this)}} <a ng-style="item.unselected && {color:'red'}" ng-click="vm.updateLeftItem(this)" data-nodrag> {{vm.showLeftName(this) | removeUnderscore}}<sub>{{vm.getAttribute(this.$modelValue)}}</sub></a>
+    <!-- operator -->
+    <div class="form-group" ng-show="vm.showOptions(this)">
+      <select class="form-control" ng-model="item.expressionItem.operator" data-nodrag>
+        <option ng-repeat="option in vm.getPredicateOptions(this.$modelValue)" value="{{ option.value }}" ng-bind="option.label"></option>
+      </select>
+    </div>
+    <!-- right -->
+    <a ng-show="vm.showRightName(this)" ng-style="item.expressionItem.right.expressionItem.value === 'Select DataValue' && {color:'red'}"  ng-click="vm.updateRightItem(this)"> {{vm.showRightName(this) | parseLocal}} </a>
+    <a class="pull-right btn btn-xs gdl-padding" data-nodrag ng-click="vm.removeItem(this)"><img ng-src="{{vm.delete}}"></a>
+  </form>
+</div>

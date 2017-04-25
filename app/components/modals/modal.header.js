@@ -3,7 +3,7 @@
  */
 angular.module('app.components')
   .component('modalHeader', {
-    templateUrl: 'assets/templates/modal-header.html',
+    templateUrl: 'components/modals/modal.header.html',
     bindings: {
       resolve: '<'
     },

@@ -5,37 +5,23 @@
 <div class="row">
   <div class="col-sm-9">
      <div ui-tree="vm.treeOptions" data-drag-delay="300">
-        <ol ui-tree-nodes ng-model="vm.guide.definition.archetypeBindings">
-           <li ng-repeat="archetypeBinding in vm.guide.definition.archetypeBindings" ui-tree-node>
-
+        <ol ui-tree-nodes ng-model="vm.archetypeBindings">
+           <li ng-repeat="archetypeBinding in vm.archetypeBindings" ui-tree-node>
               <div ui-tree-handle class="tree-node tree-node-content">
                  <a class="btn btn-success btn-xs" ng-if="archetypeBinding.elements" data-nodrag ng-click="toggle(this)">
                     <span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span>
                  </a>
                  Instantiate archetype <sup>{{archetypeBinding.domain}}</sup> <a ng-style="archetypeBinding.archetypeId === 'Select an archetype' && {color:'red'}" ng-click="vm.updateArchetype(this)" data-nodrag ng-bind="archetypeBinding.archetypeId"></a>
                  <a class="pull-right btn btn-xs" data-nodrag ng-click="vm.removeArchetype(this)"><img ng-src="{{vm.delete}}"></a>
-                 <a class="pull-right btn btn-xs" data-nodrag ng-click="vm.updateLeftItem(this)"><img ng-src="{{vm.add}}"></a>
+                 <a class="pull-right btn btn-xs" data-nodrag ng-click="vm.createElement(this)"><img ng-src="{{vm.add}}"></a>
               </div>
-
               <!-- elements -->
               <ol ng-class="{hidden: collapsed}" ui-tree-nodes ng-model="archetypeBinding.elements">
-                 <li ng-repeat="element in archetypeBinding.elements" ui-tree-node>
-                    <div ui-tree-handle class="tree-node tree-node-content element-background" >
-                       <form role="form"  class="form-inline">
-                          <!-- left item -->
-                          {{vm.getTextDebug(this)}} - {{vm.getText(this)}} <a ng-style="element.unselected && {color:'red'}" ng-click="vm.updateLeftItem(this)" data-nodrag> {{vm.showLeftName(this) | removeUnderscore}}<sub>{{vm.getAttribute(this.$modelValue)}}</sub></a>
-                          <!-- operator -->
-                          <div class="form-group" ng-show="vm.showOptions(this)">
-                             <select class="form-control" ng-model="element.expressionItem.operator" data-nodrag>
-                                <option ng-repeat="option in vm.getPredicateOptions(this.$modelValue)" value="{{ option.value }}" ng-bind="option.label"></option>
-                             </select>
-                          </div>
-                          <!-- right -->
-                          <a ng-show="vm.showRightName(this)" ng-style="element.expressionItem.right.expressionItem.value === 'Select DataValue' && {color:'red'}"  ng-click="vm.updateRightItem(this)"> {{vm.showRightName(this) | parseLocal}} </a>
-                          <a class="pull-right btn btn-xs gdl-padding" data-nodrag ng-click="vm.removeElement(this)"><img ng-src="{{vm.delete}}"></a>
-                       </form>
-                    </div>
-                 </li>
+                 <li ng-repeat="item in archetypeBinding.elements" ui-tree-node ng-include="'components/tabs/tab-definitions/tab-definitions-item.html'"></li>
+              </ol>
+              <!-- Predicate Statements -->
+              <ol ng-class="{hidden: collapsed}" ui-tree-nodes ng-model="archetypeBinding.predicateStatements">
+                 <li ng-repeat="item in archetypeBinding.predicateStatements" ui-tree-node ng-include="'components/tabs/tab-definitions/tab-definitions-item.html'"></li>
               </ol>
            </li>
         </ol>
@@ -56,4 +42,4 @@
      </div>
   </div>
 </div>
-<pre>{{ vm.guide | json }}</pre>
+<pre>{{ vm.archetypeBindings | json }}</pre>

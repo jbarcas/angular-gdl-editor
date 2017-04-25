@@ -1,7 +1,7 @@
 angular.module('app.components')
 
     .component('modalWithTextareaComponent', {
-        templateUrl: 'assets/templates/modal-with-textarea.html',
+        templateUrl: 'components/modals/modal.textarea.html',
         bindings: {
             resolve: '=',
             close: '&',

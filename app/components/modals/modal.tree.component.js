@@ -1,7 +1,7 @@
 angular.module('app.components')
 
   .component('modalWithTreeComponent', {
-    templateUrl: 'assets/templates/modal-with-tree.html',
+    templateUrl: 'components/modals/modal.tree.html',
     bindings: {
       resolve: '<',
       close: '&',

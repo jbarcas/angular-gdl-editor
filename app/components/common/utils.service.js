@@ -5,7 +5,7 @@
 angular.module('app.services')
     .factory('utilsFactory', utilsFactory);
 
-function utilsFactory(guidelineFactory, OPERATORS, GT_HEADER) {
+function utilsFactory(guidelineFactory, GT_HEADER) {
 
     return {
         generateGt: generateGt,
@@ -13,7 +13,7 @@ function utilsFactory(guidelineFactory, OPERATORS, GT_HEADER) {
         isBinaryExpression: isBinaryExpression,
         isUnaryExpression: isUnaryExpression,
         getArchetypeType: getArchetypeType
-    }
+    };
 
     function generateGt(guide) {
 
@@ -59,36 +59,31 @@ function utilsFactory(guidelineFactory, OPERATORS, GT_HEADER) {
         var pad = "0000";
         var gtCode = GT_HEADER + pad.substring(0, pad.length - generatedCode.length) + generatedCode;
         return gtCode;
-    };
+    }
 
+    /**
+     * Converts the guideline when it necessary due to the model conversion for the angular ui tree component
+     *
+     * @param guideline The guideline as the tree component needs
+     * @returns {*} The guideline as gdl backend understands
+     */
     function convertToPost(guideline) {
-
-        for(var archetypeBinding in guideline.definition.archetypeBindings) {
+        for (var archetypeBinding in guideline.definition.archetypeBindings) {
             if (guideline.definition.archetypeBindings.hasOwnProperty(archetypeBinding)) {
                 var elements = guideline.definition.archetypeBindings[archetypeBinding].elements;
                 /**
                  *  If "elements" is an array, then the model has been modified, so we need to re-convert the model
                  */
-                if(angular.isArray(elements)) {
+                if (angular.isArray(elements)) {
                     guideline.definition.archetypeBindings[archetypeBinding].elements = {};
-                    for (var i= 0,len=elements.length; i<len; i++) {
-                        if(isElement(elements[i])) {
-                            var element = elements[i];
-                            guideline.definition.archetypeBindings[archetypeBinding].elements[element.id] = element;
-                        } else {
-                            var predicateStatement = elements[i];
-                            delete predicateStatement.expression;
-                            guideline.definition.archetypeBindings[archetypeBinding].predicateStatements.push(predicateStatement);
-                        }
+                    for (var i = 0, len = elements.length; i < len; i++) {
+                        var element = elements[i];
+                        guideline.definition.archetypeBindings[archetypeBinding].elements[element.id] = element;
                     }
                 }
             }
         }
         return guideline;
-    }
-
-    function isElement(item) {
-        return item.hasOwnProperty("id");
     }
 
     /**
@@ -97,10 +92,7 @@ function utilsFactory(guidelineFactory, OPERATORS, GT_HEADER) {
      * @returns {boolean}
      */
     function isUnaryExpression(expressionItem) {
-        if (expressionItem && expressionItem.type === "UnaryExpression") {
-            return true;
-        }
-        return false;
+        return expressionItem && expressionItem.type === "UnaryExpression";
     }
 
     /**
@@ -109,12 +101,8 @@ function utilsFactory(guidelineFactory, OPERATORS, GT_HEADER) {
      * @returns {boolean}
      */
     function isBinaryExpression(expressionItem) {
-        if (expressionItem && expressionItem.type === "BinaryExpression") {
-            return true;
-        }
-        return false;
-    };
-
+        return expressionItem && expressionItem.type === "BinaryExpression";
+    }
 
     /**
      * Gets the archetype type

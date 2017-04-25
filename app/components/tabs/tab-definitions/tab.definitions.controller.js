@@ -11,18 +11,17 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
     vm = this;
 
     vm.guide = {};
-    vm.guide.definition = {};
-    vm.guide.definition.archetypeBindings = guidelineFactory.getArchetypeBindings();
+    //vm.guide.definition = {};
     vm.guide.ontology = guidelineFactory.getOntology();
 
     vm.removeArchetype = removeArchetype;
-    vm.removeElement = removeElement;
+    vm.removeItem= removeItem;
     vm.createElement = createElement;
     vm.updateLeftItem = updateLeftItem;
 
     vm.updateRightItem = updateRightItem;
     vm.updateArchetype = updateArchetype;
-    vm.openExpression = openExpression;
+    //vm.openExpression = openExpression;
 
     vm.showLeftName = showLeftName;
     vm.showRightName = showRightName;
@@ -40,7 +39,7 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
     vm.delete = "../assets/img/del.png";
     vm.add = "../assets/img/add.png";
 
-    vm.guide.definition.archetypeBindings = definitionsFactory.convertModel(vm.guide.definition.archetypeBindings);
+    vm.archetypeBindings = definitionsFactory.convertModel(guidelineFactory.getArchetypeBindings());
 
     vm.definitions = [
         {title: 'Archetype instantiation', type: "ArchetypeInstantiation", archetypeId: 'Select an archetype',   draggable: true},
@@ -135,13 +134,9 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
         }
 
         function showModal() {
-            var modalDefaults = {size: 'sm'};
-
-            var modalOptions = {
-                headerText: 'Warning!',
-                bodyText: 'The archetype you are trying to delete is being used. These references must be deleted before proceeding.'
-            };
-            modalService.showModal(modalDefaults, modalOptions);            
+            var modalData = {headerText: 'Warning!', bodyText: 'The archetype you are trying to delete is being used. These references must be deleted before proceeding.'};
+            var modalOptions = {component: 'dialogComponent'};
+            modalService.showModal(modalOptions, modalData);
         }
     }
 
@@ -149,31 +144,32 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
     /**
      * Removes an archetype element (if it is possible due to element usage)
      */
-    function removeElement(scope) {
+    function removeItem(scope) {
 
-        var element = scope.$modelValue;
+        var item = scope.$modelValue;
 
-        if (definitionsFactory.existsInRules(element) || definitionsFactory.existsInPreconditions(element)) {
+        if (definitionsFactory.existsInRules(item) || definitionsFactory.existsInPreconditions(item)) {
             showModal();
         } else {
             scope.remove();
         }
         
         function showModal() {
-            var modalDefaults = {size: 'sm'};
-
-            var modalOptions = {
-                headerText: 'Warning!',
-                bodyText: 'The element you are trying to delete is being used. These references must be deleted before proceeding.'
-            };
-            modalService.showModal(modalDefaults, modalOptions);            
+            var modalData = {headerText: 'Warning!', bodyText: 'The element you are trying to delete is being used. These references must be deleted before proceeding.'};
+            var modalOptions = {component: 'dialogComponent'};
+            modalService.showModal(modalOptions, modalData);
         }
     }
 
-    function createElement(archetypeBinding) {
+    function createElement(node) {
+
+        var archetypeBinding = node.$nodeScope.$modelValue;
+        var archetypeBindingIndex = node.$nodeScope.$index;
 
         if(archetypeBinding.archetypeId === "Select an archetype") {
-            // TODO: trigger a modal with information
+            var modalData = {headerText: 'Information', bodyText: 'Please, select an archetype first'};
+            var modalOptions = {component: 'dialogComponent'};
+            modalService.showModal(modalOptions, modalData);
             return;
         }
         
@@ -215,8 +211,10 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
                     id: gtCode,
                     path: path
                 };
-                var archetypeBindingIndex = vm.guide.definition.archetypeBindings.indexOf(archetypeBinding);
-                vm.guide.definition.archetypeBindings[archetypeBindingIndex].elements.push(element);
+                if(!vm.archetypeBindings[archetypeBindingIndex].elements) {
+                    vm.archetypeBindings[archetypeBindingIndex].elements = [];
+                }
+                vm.archetypeBindings[archetypeBindingIndex].elements.push(element);
                 // FIXME: Where can I get the thext anf description?
                 var term = {
                     id: gtCode,
@@ -236,38 +234,38 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
 
     function updateLeftItem(node) {
 
-        var archetypeBinding = node.$nodeScope.$parentNodeScope.$modelValue;
-        var elementIndex = node.$nodeScope.$index;
-        var element = node.$nodeScope.$modelValue;
+        var archetypeBinding = node.$parentNodeScope.$modelValue;
+        var archetypeBindingIndex = node.$parentNodeScope.$index;
+        var itemIndex = node.$nodeScope.$index;
+        var item = node.$nodeScope.$modelValue;
 
-        var type = definitionsFactory.getPredicateStatementType(element);
+        var type = definitionsFactory.getPredicateStatementType(item);
 
         var archetype = guidelineFactory.getGuidelineArchetype(archetypeBinding.archetypeId);
 
         var modalData = {headerText: 'Select an element from "' + archetype.archetypeId + '"'};
 
-
         var modalOptions = {
-                component: 'modalWithTreeComponent',
-                resolve: {
-                    items: function () {
-                        var elementMaps = [];
-                        angular.forEach(archetype.elementMaps, function (elementMap) {
-                            var treeObject = angular.copy(elementMap);
-                            treeObject.viewText = elementMap.elementMapId;
-                            // TODO: add css to leaf nodes
-                            if(type === "PredicateExpression") {
-                                treeObject.children = ATTRIBUTES[treeObject.dataType];
-                            }
-                            elementMaps.push(treeObject);
-                        });
-                        return elementMaps;
-                    },
-                    labels: function () {
-                        return modalData;
-                    }
+            component: 'modalWithTreeComponent',
+            resolve: {
+                items: function () {
+                    var elementMaps = [];
+                    angular.forEach(archetype.elementMaps, function (elementMap) {
+                        var treeObject = angular.copy(elementMap);
+                        treeObject.viewText = elementMap.elementMapId;
+                        // TODO: add css to leaf nodes
+                        if (type === "PredicateExpression") {
+                            treeObject.children = ATTRIBUTES[treeObject.dataType];
+                        }
+                        elementMaps.push(treeObject);
+                    });
+                    return elementMaps;
+                },
+                labels: function () {
+                    return modalData;
                 }
-            };
+            }
+        };
 
         modalService.showModal(modalOptions, modalData).then(showModalComplete, showModalFailed);
 
@@ -277,9 +275,12 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
                 return;
             }
 
-            var archetypeBindingIndex = vm.guide.definition.archetypeBindings.indexOf(archetypeBinding);
-
-            var elementToUpdate = vm.guide.definition.archetypeBindings[archetypeBindingIndex].elements[elementIndex];
+            var elementToUpdate;
+            if (definitionsFactory.isElement(item)) {
+                elementToUpdate = vm.archetypeBindings[archetypeBindingIndex].elements[itemIndex];
+            } else {
+                elementToUpdate = vm.archetypeBindings[archetypeBindingIndex].predicateStatements[itemIndex];
+            }
             delete elementToUpdate.unselected;
 
             var selectedItem;
@@ -299,13 +300,12 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
              * BinaryExpression matches with PredicateAttribute, PredicateExists and PredicateExpression
              * UnaryExpression matches with PredicateFunction
              */
-            if(element.type === "BinaryExpression") {
+            if(item.type === "BinaryExpression") {
                 elementToUpdate.expressionItem.left.expressionItem.path = path;
-            } else if (element.type === "UnaryExpression") {
+            } else if (item.type === "UnaryExpression") {
                 elementToUpdate.expressionItem.operand.expressionItem.path = path;
-            } else {
+            } else { // Elements
                 elementToUpdate.path = path;
-                // FIXME: Where can I get the text and description?
                 var language = 'en';
                 if (!elementToUpdate.hasOwnProperty('id')) {
                     elementToUpdate.id = utilsFactory.generateGt(vm.guide);
@@ -325,7 +325,7 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
         }
     }
 
-    function openExpression(node) {
+/*    function openExpression(node) {
         var archetypeBindingIndex = node.$nodeScope.$parentNodeScope.$index;
         var elementIndex = node.$nodeScope.$index;
 
@@ -346,26 +346,27 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
 
         modalService.showModal(defaults).then(showModalComplete, showModalFailed);
         function showModalComplete(response) {
-            vm.guide.definition.archetypeBindings[archetypeBindingIndex].elements[elementIndex].expression = response;
+            vm.archetypeBindings[archetypeBindingIndex].elements[elementIndex].expression = response;
         }
 
         function showModalFailed() {
             $log.info('Modal dismissed at: ' + new Date() + ' in openExpression()');
         }
-    }
+    } */
 
     function updateRightItem(node) {
 
-        var archetypeBinding = node.$nodeScope.$parentNodeScope.$modelValue;
-        var elementIndex = node.$nodeScope.$index;
-        var predicate = node.$nodeScope.$modelValue;
+        var archetypeBinding = node.$parentNodeScope.$modelValue;
+        var archetypeBindingIndex = node.$parentNodeScope.$index;
+        var itemIndex = node.$nodeScope.$index;
+        var item = node.$nodeScope.$modelValue;
         var archetype = guidelineFactory.getGuidelineArchetype(archetypeBinding.archetypeId);
-        var isHierarchy = predicate.expressionItem.operator === "IS_A";
+        var isHierarchy = item.expressionItem.operator === "IS_A";
 
         /**
          * If the left item has not been selected yet
          */
-        if(!predicate.expressionItem.left.expressionItem.path) {
+        if(!item.expressionItem.left.expressionItem.path) {
             var modalData = {headerText: 'Select an element', bodyText: 'You have to select an element before choosing a data value'};
             var modalOptions = {component: 'dialogComponent'};
             modalService.showModal(modalOptions, modalData);
@@ -375,14 +376,14 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
         /**
          * If the Predicate Statement is a Predicate Expression, the expression editor is opened
          */
-        var type = definitionsFactory.getPredicateStatementType(predicate);
+        var type = definitionsFactory.getPredicateStatementType(item);
         if (type === "PredicateExpression") {
             openEditor(node);
             return;
         }
 
-        var data = definitionsFactory.getDataForModal(archetype, predicate);
-        var options = definitionsFactory.getOptionsForModal(archetype, predicate);
+        var data = definitionsFactory.getDataForModal(archetype, item);
+        var options = definitionsFactory.getOptionsForModal(archetype, item);
 
         modalService.showModal(options, data).then(showModalComplete, showModalFailed);
 
@@ -391,8 +392,7 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
                 return;
             }
 
-            var archetypeBindingIndex = vm.guide.definition.archetypeBindings.indexOf(archetypeBinding);
-            var constantExpression = vm.guide.definition.archetypeBindings[archetypeBindingIndex].elements[elementIndex].expressionItem.right;
+            var constantExpression = vm.archetypeBindings[archetypeBindingIndex].predicateStatements[itemIndex].expressionItem.right;
 
             if (modalResponse.data.type === DV.CODEDTEXT || isHierarchy) {
                 definitionsFactory.setCodedTextConstant(constantExpression, modalResponse);
@@ -406,9 +406,11 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
                 definitionsFactory.setOrdinalConstant(constantExpression, modalResponse);
             } else if (constantExpression.type === "CodePhraseConstant") {
                 $log.info("CodePhraseText");
-            } else if(definitionsFactory.getPredicateStatementType(predicate) === "PredicateExpression") {
-                vm.guide.definition.archetypeBindings[archetypeBindingIndex].elements[elementIndex].expression = modalResponse.data;
             }
+
+            /*else if(definitionsFactory.getPredicateStatementType(item) === "PredicateExpression") {
+                vm.archetypeBindings[archetypeBindingIndex].elements[itemIndex].expression = modalResponse.data;
+            }*/
 
 
             // FIXME: Where can I get the text and description?
@@ -504,8 +506,8 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
                      * Replace the archetype binding
                      * @type {{archetypeId: (string|*), elements: Array, predicates: Array, domain: *, id: *}}
                      */
-                    vm.guide.definition.archetypeBindings[archetypeBindingIndex] = {
-                        id: vm.guide.definition.archetypeBindings[archetypeBindingIndex].id || utilsFactory.generateGt(vm.guide),
+                    vm.archetypeBindings[archetypeBindingIndex] = {
+                        id: vm.archetypeBindings[archetypeBindingIndex].id || utilsFactory.generateGt(vm.guide),
                         archetypeId: response.archetypeId,
                         domain: dataFromTree.data.domain,
                         elements: [],
@@ -513,8 +515,8 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
                         predicateStatements: []
                     };
 
-                    console.log( vm.guide.definition.archetypeBindings);
-                    //guidelineFactory.setArchetypeBindings(vm.guide.definition.archetypeBindings);
+                    //console.log( vm.archetypeBindings);
+                    //guidelineFactory.setArchetypeBindings(vm.archetypeBindings);
 
 
                     // TODO: Ontology: text and description?
@@ -552,7 +554,7 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
          * item may be an element or a predicate statement
          */
         var item = node.$modelValue;
-        var archetypeId = node.$nodeScope.$parentNodeScope.$modelValue.archetypeId;
+        var archetypeId = node.$parentNodeScope.archetypeBinding.archetypeId
         var name;
 
         if(isPredicate(item)) {

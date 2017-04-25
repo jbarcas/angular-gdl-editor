@@ -1,6 +1,6 @@
-angular.module('app.components')
+angular.module('app.components', [])
   .component('expressionEditorComponent', {
-    templateUrl: 'assets/templates/expression-editor.html',
+    templateUrl: 'components/expression-editor/expression.editor.html',
     bindings: {
       resolve: '=',
       close: '&',
@@ -42,11 +42,11 @@ angular.module('app.components')
           iLeaf: "a5",
           label: "a6",
           labelSelected: "a8"
-        },
-        equality: function(node1, node2) {
+        }//,
+        /*equality: function(node1, node2) {
           console.log(node2);
           return node1 === node2;
-        }
+        }*/
       }
 
       $scope.predicate = "";
