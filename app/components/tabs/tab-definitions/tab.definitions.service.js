@@ -28,7 +28,9 @@ function definitionsFactory(DV, OPERATORS, guidelineFactory, utilsFactory) {
         getDataForModal: getDataForModal,
         getOptionsForModal: getOptionsForModal,
         getName: getName,
-        isElement: isElement
+        isElement: isElement,
+        isPredicate: isPredicate,
+        sort: sort
     }
 
     function createArchetypeInstantiation(model) {
@@ -553,6 +555,33 @@ function definitionsFactory(DV, OPERATORS, guidelineFactory, utilsFactory) {
             return "Select one"
         }
         return guidelineFactory.getElementByArchetypIdAndPath(archetypeId, path).elementMapId;
+    }
+
+    function isPredicate(item) {
+        return item.expressionItem;
+    }
+
+    function sort (archertypeBindings) {
+        angular.forEach(archertypeBindings, function(archetypeBinding) {
+            angular.forEach(archetypeBinding.elements, function (element) {
+                if(isPredicate(element)) {
+                    if(!archetypeBinding.predicateStatements) {
+                        archetypeBinding.predicateStatements = [];
+                    }
+                    archetypeBinding.predicateStatements.push(element);
+                    archetypeBinding.elements.splice(archetypeBinding.elements.indexOf(element));
+                }
+            });
+            angular.forEach(archetypeBinding.predicateStatements, function (predicateStatement) {
+                if(isElement(predicateStatement)) {
+                    if(!archetypeBinding.elements) {
+                        archetypeBinding.elements = [];
+                    }
+                    archetypeBinding.elements.push(predicateStatement);
+                    archetypeBinding.predicateStatements.splice(archetypeBinding.predicateStatements.indexOf(predicateStatement));
+                }
+            })
+        })
     }
 
 }

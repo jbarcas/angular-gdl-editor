@@ -6,7 +6,7 @@ angular.module('app.controllers', [])
     .controller('DefinitionsCtrl', DefinitionsCtrl);
 
 
-function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelineFactory, definitionsFactory, terminologyFactory, modalService, DV, ATTRIBUTES) {
+function DefinitionsCtrl($log, $scope, $filter, archetypeFactory, utilsFactory, guidelineFactory, definitionsFactory, terminologyFactory, modalService, DV, ATTRIBUTES) {
 
     vm = this;
 
@@ -108,6 +108,18 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
             delete cloneModel.title;
         }
     };
+
+    /**
+     * Observes the archetype bindings so that the elements and predicate statements
+     * fit the right place. Note: the tree component only allows onw array per level
+     */
+    $scope.$watch("vm.archetypeBindings",function(newValue, oldValue) {
+        if (newValue === oldValue) {
+            return;
+        }
+        var archetypeBindings = newValue;
+        definitionsFactory.sort(archetypeBindings);
+    }, true);
 
     function removeArchetype(scope) {
         var unused = true;
@@ -557,7 +569,7 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
         var archetypeId = node.$parentNodeScope.archetypeBinding.archetypeId
         var name;
 
-        if(isPredicate(item)) {
+        if(definitionsFactory.isPredicate(item)) {
             var expressionItem = node.$modelValue.expressionItem;
             name = definitionsFactory.getName(archetypeId, expressionItem);
         } else {
@@ -569,10 +581,6 @@ function DefinitionsCtrl($log, $filter, archetypeFactory, utilsFactory, guidelin
         }
         return name;
 
-    }
-
-    function isPredicate(item) {
-        return item.expressionItem;
     }
 
     function getAttribute(node) {
