@@ -38,6 +38,8 @@ function guidelineFactory($http, API_URL, $q, archetypeFactory, terminologyFacto
         deleteGuidelineArchetype: deleteGuidelineArchetype,
         getElementByArchetypIdAndPath: getElementByArchetypIdAndPath,
         getElementByGtCode: getElementByGtCode,
+        getPreConditions: getPreConditions,
+        setPreConditions: setPreConditions,
         //-------------------------------------
         getRulelist: getRulelist,
         setRulelist: setRulelist,
@@ -307,6 +309,15 @@ function guidelineFactory($http, API_URL, $q, archetypeFactory, terminologyFacto
         return element;
     }
 
+    // Preconditions
+    function getPreConditions() {
+        return guideline.definition.preConditions;
+    }
+
+    function setPreConditions (preConditions) {
+        guideline.definition.preConditions = preConditions;
+    }
+
     // Rulelist
     function getRulelist() {
         return guideline.definition.rules;
@@ -336,7 +347,7 @@ function guidelineFactory($http, API_URL, $q, archetypeFactory, terminologyFacto
         return null;
     }
     function setRule(rule) {
-
+        guideline.definition.rules[rule.id] = rule;
     }
 
     function addElementToDefinitions(element, archetypeId) {

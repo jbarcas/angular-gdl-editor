@@ -1,13 +1,16 @@
 <div class="row">
-  <div class="col-sm-12">
-    <h3>Rule list</h3>
+  <div class="col-sm-12 gdl-center">
+    <a href="#" class="btn btn-info" ng-click="vm.addRule()">
+      <span class="glyphicon glyphicon-plus"></span> Add rule
+    </a>
   </div>
 </div>
 
 <div class="row">
   <div ui-tree>
-    <ol ui-tree-nodes="" ng-model="vm.data">
-      <li ng-repeat="rule in vm.data | orderBy:'priority':true" ui-tree-node>
+    <ol ui-tree-nodes="" ng-model="vm.rules">
+      <!--<li ng-repeat="rule in vm.rules | orderBy:'priority':true" ui-tree-node> -->
+      <li ng-repeat="rule in vm.rules" ui-tree-node>
         <div ui-tree-handle class="tree-node tree-node-content">
           <a class="btn btn-success btn-xs"><span class="glyphicon glyphicon-list"></span></a>
           <a ng-click="vm.openRuleEditor(this)" data-nodrag ng-bind="vm.guide.ontology.termDefinitions.en.terms[rule.id].text"></a>
@@ -19,4 +22,4 @@
     </ol>
   </div>
 </div>
-<pre>{{ vm.data | json }}</pre>
+<pre>{{ vm.rules | json }}</pre>

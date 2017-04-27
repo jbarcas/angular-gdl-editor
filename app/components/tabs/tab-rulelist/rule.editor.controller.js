@@ -14,22 +14,49 @@ function RuleEditorCtrl($stateParams, $log, guidelineFactory, utilsFactory, moda
     vm.getAttribute = getAttribute;
     vm.updateLeftItem = updateLeftItem;
     vm.updateRightItem = updateRightItem;
+    vm.removeCondition = removeCondition;
     vm.terms = guidelineFactory.getOntology().termDefinitions.en.terms;
-
-    /*
-     * Options to manage the drag and drop nested level
-     */
-    vm.treeOptions = {
-        accept: function (sourceNodeScope, destNodeScope) {
-            return true
-        }
-    };
 
     vm.delete = "../assets/img/del.png";
     vm.add = "../assets/img/add.png";
 
     vm.back = function () {
         window.history.back();
+    };
+
+    vm.conditions = [
+        {title: 'Compare (DataValue)', category: "CompareDataValue", draggable: true},
+        {title: 'Compare (NullValue)', category: "CompareNullValue", draggable: true},
+        {title: 'Compare (Element)',   category: "CompareElement",   draggable: true},
+        {title: 'Compare (Attribute)', category: "CompareAttribute", draggable: true},
+        {title: 'Element exists',      category: "ElementExists",    draggable: true},
+        {title: 'Or operator',         category: "Or",               draggable: true}
+    ];
+
+    vm.treeDefinitions = {
+        /**
+         * Transforms the model before dragging
+         * @param event
+         */
+        beforeDrop: function(event) {
+            var cloneModel = event.source.cloneModel;
+            if(cloneModel.category === "CompareDataValue") {
+                ruleFactory.createCompareDataValue(cloneModel);
+            } else if(cloneModel.category === "CompareNullValue") {
+                ruleFactory.createCompareNullValue(cloneModel);
+            } else if (cloneModel.category === "CompareElement") {
+                ruleFactory.createCompareElement(cloneModel);
+            } else if (cloneModel.category === "CompareAttribute") {
+                ruleFactory.createCompareAttribute(cloneModel);
+            } else if (cloneModel.category === "ElementExists") {
+                ruleFactory.createElementExists(cloneModel);
+            } else if (cloneModel.category === "Or") {
+                ruleFactory.createOr(cloneModel);
+            }
+            delete cloneModel.category;
+            delete cloneModel.draggable;
+            delete cloneModel.title;
+        }
     };
 
     var elementExistsOptions = [
@@ -77,6 +104,11 @@ function RuleEditorCtrl($stateParams, $log, guidelineFactory, utilsFactory, moda
         {label: 'OR', value: 'OR'}
     ];
 
+    function removeCondition (condition) {
+        // TODO: Check if the conditions is used somewhere
+        condition.remove();
+    }
+
     /**
      * Gets the options to show in the combo box. It depends on the type of condition statement
      * @param node
@@ -113,7 +145,7 @@ function RuleEditorCtrl($stateParams, $log, guidelineFactory, utilsFactory, moda
         var conditionType = ruleFactory.getConditionType(condition);
         var value;
 
-        /**
+        /*
          * If the node is an element, a predicate function or a predicate exists, then it has no right part.
          */
         if (conditionType === "ElementExists") {
@@ -123,7 +155,7 @@ function RuleEditorCtrl($stateParams, $log, guidelineFactory, utilsFactory, moda
         } else if (conditionType === "CompareAttribute" && condition.expressionItem.left.expressionItem.attribute === 'magnitude') {
             value = "Expression";
         } else if (conditionType === "CompareElement") {
-            value = vm.terms[condition.expressionItem.right.expressionItem.code].text;
+            value = condition.expressionItem.right.expressionItem.code ? vm.terms[condition.expressionItem.right.expressionItem.code].text : "";
         } else if (conditionType === "CompareNullValue" || conditionType === "CompareDataValue") {
             value = condition.expressionItem.right.expressionItem.value
         }
@@ -156,70 +188,13 @@ function RuleEditorCtrl($stateParams, $log, guidelineFactory, utilsFactory, moda
             if (modalResponse.data === undefined) {
                 return;
             }
-
             var selected = modalResponse.data.selectedItem;
-
-            if (type === "CompareAttribute") {
-                /**
-                 * If the selected item has an id, then it is an element present in archetype definitions, so
-                 * we only have to change its gtCode.
-                 *
-                 * If the element does not exist in archetype definitions, we first have to add it, and
-                 * then we have to create the corresponding entry in the ontology section
-                 */
-                if (selected.parent.id) {
-                    vm.rule.whenStatements[index].expressionItem.left.expressionItem.code = selected.parent.id;
-                    vm.rule.whenStatements[index].expressionItem.left.expressionItem.attribute = selected.viewText;
-                } else {
-                    selected.id = utilsFactory.generateGt(guidelineFactory.getCurrentGuide());
-                    vm.rule.whenStatements[index].expressionItem.left.expressionItem.code = selected.id;
-                    vm.rule.whenStatements[index].expressionItem.left.expressionItem.attribute = selected.viewText;
-                    ruleFactory.addToElements(selected);
-                    var path = selected.path;
-                    var atCode = path.substring(path.lastIndexOf("[") + 1, path.lastIndexOf("]"));
-                    guidelineFactory.getOntology().termDefinitions.en.terms[selected.id] = {
-                        id: selected.id,
-                        text: guidelineFactory.getTerms()[selected.parent.viewText][atCode].text,
-                        description: guidelineFactory.getTerms()[selected.parent.viewText][atCode].description
-                    };
-                }
-            } else {
-                /**
-                 * If the selected item has an id, then it is an element present in archetype definitions, so
-                 * we only have to change its gtCode.
-                 *
-                 * If the element does not exist in archetype definitions, we first have to add it, and
-                 * then we have to create the corresponding entry in the ontology section
-                 */
-                if (selected.id) {
-                    vm.rule.whenStatements[index].expressionItem.left.expressionItem.code = selected.id;
-                    /**
-                     * If it is a Compare Null Value condition we should change the name property
-                     */
-                    if (type === "CompareNullValue") {
-                        vm.rule.whenStatements[index].expressionItem.left.expressionItem.name = selected.viewText;
-                        // TODO: Does the 'attribute' property have always the same value (null_flavour) ??
-                    }
-                } else {
-                    selected.id = utilsFactory.generateGt(guidelineFactory.getCurrentGuide());
-                    vm.rule.whenStatements[index].expressionItem.left.expressionItem.code = selected.id;
-                    /**
-                     * If it is a Compare Null Value condition we should change the name property
-                     */
-                    if (type === "CompareNullValue") {
-                        vm.rule.whenStatements[index].expressionItem.left.expressionItem.name = selected.viewText;
-                    }
-                    ruleFactory.addToElements(selected);
-                    var path = selected.path;
-                    var atCode = path.substring(path.lastIndexOf("[") + 1, path.lastIndexOf("]"));
-                    guidelineFactory.getOntology().termDefinitions.en.terms[selected.id] = {
-                        id: selected.id,
-                        text: guidelineFactory.getTerms()[selected.parent.viewText][atCode].text,
-                        description: guidelineFactory.getTerms()[selected.parent.viewText][atCode].description
-                    };
-                }
-            }
-
+            var leftPart = vm.rule.whenStatements[index].expressionItem.left;
+            /*
+             * Delete the unselected property used to highlight the text in the view
+             */
+            delete leftPart.unselected;
+            type === "CompareAttribute" ? ruleFactory.setLeftCompareAttribute(leftPart, selected) : ruleFactory.setLeftRemaining(leftPart, selected, type);
         }
 
         function showModalFailed() {
@@ -230,16 +205,23 @@ function RuleEditorCtrl($stateParams, $log, guidelineFactory, utilsFactory, moda
 
 
     function updateRightItem(node) {
-
         var condition = node.$modelValue;
         var index = node.$index;
         var type = ruleFactory.getConditionType(condition);
-
-        /**
+        /*
          * If the condition has a 'magnitude' left side attribute, the expression editor is opened
          */
         if (type === "CompareAttribute" && condition.expressionItem.left.expressionItem.attribute === 'magnitude') {
             openEditor(condition);
+            return;
+        }
+        /*
+         * If the condition at hand is a CompareDatavalue and the left item has not been selected yet
+         */
+        if(!condition.expressionItem.left.expressionItem.code && (type === "CompareDataValue" || type === "CompareAttribute")) {
+            var modalData = {headerText: 'Select an element', bodyText: 'You have to select an element before choosing a data value'};
+            var modalOptions = {component: 'dialogComponent'};
+            modalService.showModal(modalOptions, modalData);
             return;
         }
 
@@ -255,9 +237,14 @@ function RuleEditorCtrl($stateParams, $log, guidelineFactory, utilsFactory, moda
 
             var selected = modalResponse.data.selectedItem;
 
+            /*
+             * Delete the unselected property used to highlight the text in the view
+             */
+            delete vm.rule.whenStatements[index].expressionItem.right.unselected;
+
             var rightPart = vm.rule.whenStatements[index].expressionItem.right;
 
-            if (type === "CompareAttribute") {
+            if (type === "CompareAttribute" && condition.expressionItem.left.expressionItem.attribute === 'units') {
                 ruleFactory.setCompareAttributeUnits(rightPart, selected);
             } else if (type === "CompareNullValue") {
                 ruleFactory.setCompareNullValue(rightPart, selected);

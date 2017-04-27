@@ -14,23 +14,40 @@ function ruleFactory(guidelineFactory, utilsFactory, ATTRIBUTES, NULLVALUE) {
         getOptionsForRightModal: getOptionsForRightModal,
         addToElements: addToElements,
         // ---------------------------------
+        setLeftCompareAttribute: setLeftCompareAttribute,
+        setLeftRemaining: setLeftRemaining,
+        // ---------------------------------
         setCompareAttributeUnits: setCompareAttributeUnits,
         setCompareNullValue: setCompareNullValue,
         setCompareDataValue: setCompareDataValue,
-        setCompareElement: setCompareElement
-    }
+        setCompareElement: setCompareElement,
+        // ---------------------------------
+        createCompareDataValue: createCompareDataValue,
+        createCompareNullValue: createCompareNullValue,
+        createCompareElement: createCompareElement,
+        createCompareAttribute: createCompareAttribute,
+        createElementExists: createElementExists,
+        createOr: createOr
+    };
 
     function getConditionType(condition) {
+        /**
+         * When dragged/dropped from rigt panel
+         */
+        if (condition.category) {
+            return condition.category;
+        }
         var type;
         if (condition.expressionItem.operator === "OR") {
             type = "Or";
         } else if (condition.expressionItem.right.expressionItem.value === "null") {
             type = "ElementExists";
-        } else if (condition.expressionItem.left.expressionItem.name) {
+        } else if (condition.expressionItem.left.expressionItem.attribute === "null_flavor") {
             type = "CompareNullValue";
-        } else if (condition.expressionItem.left.expressionItem.attribute) {
+        } else if (condition.expressionItem.left.expressionItem.hasOwnProperty("attribute")) {
             type = "CompareAttribute";
-        } else if (condition.expressionItem.right.expressionItem.code) {
+        //} else if (condition.expressionItem.right.expressionItem.code) {
+        } else if (condition.expressionItem.right.expressionItem.hasOwnProperty("code")) {
             type = "CompareElement";
         } else {
             type = "CompareDataValue";
@@ -59,7 +76,6 @@ function ruleFactory(guidelineFactory, utilsFactory, ATTRIBUTES, NULLVALUE) {
 
     /**
      * Gets the options for the left side modal
-     * @param archetypes
      * @param condition
      * @returns {{}}
      */
@@ -81,13 +97,14 @@ function ruleFactory(guidelineFactory, utilsFactory, ATTRIBUTES, NULLVALUE) {
         });
 
         modalOptions.resolve.items = function () {
-            /**
+
+            /*
              * Add the already instantiated elements
              */
             angular.forEach(elements, function (element) {
                 var viewElement = angular.copy(element);
                 viewElement.viewText = termDefinitions[element.id].text;
-                /**
+                /*
                  * If it is a compare attribute, we should add its attributes
                  */
                 if (conditionType === "CompareAttribute") {
@@ -97,7 +114,8 @@ function ruleFactory(guidelineFactory, utilsFactory, ATTRIBUTES, NULLVALUE) {
                 }
                 modalItems.push(viewElement);
             });
-            /**
+
+            /*
              * Add the archetypes and its elements
              */
             // root element
@@ -128,6 +146,8 @@ function ruleFactory(guidelineFactory, utilsFactory, ATTRIBUTES, NULLVALUE) {
 
     /**
      * Gets the options for the right side modal
+     * @param condition
+     * @returns {{}}
      */
     function getOptionsForRightModal(condition) {
         var conditionType = getConditionType(condition);
@@ -147,8 +167,8 @@ function ruleFactory(guidelineFactory, utilsFactory, ATTRIBUTES, NULLVALUE) {
             };
             modalOptions.resolve.default = function() {
                 var defaultOption = {
-                    viewText: condition.expressionItem.right.expressionItem.codedText.value,
-                    value: condition.expressionItem.right.expressionItem.codedText.definingCode.codeString
+                    viewText: condition.expressionItem.right.expressionItem.codedText ? condition.expressionItem.right.expressionItem.codedText.value : {},
+                    value: condition.expressionItem.right.expressionItem.codedText ? condition.expressionItem.right.expressionItem.codedText.definingCode.codeString : {}
                 };
                 return defaultOption;
             };
@@ -159,7 +179,7 @@ function ruleFactory(guidelineFactory, utilsFactory, ATTRIBUTES, NULLVALUE) {
             modalOptions.resolve.input = function() {
                 var input = {
                     value: magnitude
-                }
+                };
                 return input;
             };
             modalOptions.resolve.items = function() {
@@ -175,7 +195,7 @@ function ruleFactory(guidelineFactory, utilsFactory, ATTRIBUTES, NULLVALUE) {
                 var units = quantity.units || {};
                 var defaultOption = {
                     viewText: units
-                }
+                };
                 return defaultOption;
             };
         } else if (conditionType === 'CompareAttribute') {
@@ -193,7 +213,7 @@ function ruleFactory(guidelineFactory, utilsFactory, ATTRIBUTES, NULLVALUE) {
                 var def = condition.expressionItem.right.expressionItem.value;
                 var defaultOption = {
                     viewText: def
-                }
+                };
                 return defaultOption;
             };
         }
@@ -208,34 +228,154 @@ function ruleFactory(guidelineFactory, utilsFactory, ATTRIBUTES, NULLVALUE) {
     function addToElements(element) {
         var archetypeId = element.parent.viewText;
         guidelineFactory.addElementToDefinitions(element, archetypeId);
-        console.log(element);
     }
 
 
+    /**
+     * Fill the "Compare Attribute" left part of a condition
+     * @param left Left part of the condition
+     * @param data Input from the user
+     */
+    function setLeftCompareAttribute (left, data) {
+        /*
+         * If the selected item has an id, then it is an element present in archetype definitions, so
+         * we only have to change its gtCode.
+         *
+         * If the element does not exist in archetype definitions, we first have to add it, and
+         * then we have to create the corresponding entry in the ontology section
+         */
+        if (data.parent.id) {
+            left.expressionItem.code = data.parent.id;
+            left.expressionItem.attribute = data.viewText;
+        } else {
+            data.id = utilsFactory.generateGt(guidelineFactory.getCurrentGuide());
+            left.expressionItem.code = data.id;
+            left.expressionItem.attribute = data.viewText;
+            addToElements(data);
+            var path = data.path;
+            var atCode = path.substring(path.lastIndexOf("[") + 1, path.lastIndexOf("]"));
+            guidelineFactory.getOntology().termDefinitions.en.terms[data.id] = {
+                id: data.id,
+                text: atCode !== "" ? guidelineFactory.getTerms()[data.parent.viewText][atCode].text : "",
+                description: atCode !== "" ? guidelineFactory.getTerms()[data.parent.viewText][atCode].description : ""
+            };
+        }
+    }
+
+    /**
+     * Fill the remaining left part of a condition
+     * @param left Left part of the condition
+     * @param data Input from the user
+     */
+    function setLeftRemaining (left, data, type) {
+        /*
+         * If the selected item has an id, then it is an element present in archetype definitions, so
+         * we only have to change its gtCode.
+         *
+         * If the element does not exist in archetype definitions, we first have to add it, and
+         * then we have to create the corresponding entry in the ontology section
+         */
+        if (data.id) {
+            left.expressionItem.code = data.id;
+            /**
+             * If it is a Compare Null Value condition we should change the name property
+             */
+            if (type === "CompareNullValue") {
+                left.expressionItem.name = data.viewText;
+                // TODO: Does the 'attribute' property have always the same value (null_flavour) ??
+            }
+        } else {
+            data.id = utilsFactory.generateGt(guidelineFactory.getCurrentGuide());
+            left.expressionItem.code = data.id;
+            /*
+             * If it is a Compare Null Value condition we should change the name property
+             */
+            if (type === "CompareNullValue") {
+                left.expressionItem.name = data.viewText;
+            }
+            addToElements(data);
+            var path = data.path;
+            var atCode = path.substring(path.lastIndexOf("[") + 1, path.lastIndexOf("]"));
+            guidelineFactory.getOntology().termDefinitions.en.terms[data.id] = {
+                id: data.id,
+                text: guidelineFactory.getTerms()[data.parent.viewText][atCode].text,
+                description: guidelineFactory.getTerms()[data.parent.viewText][atCode].description
+            };
+        }
+    }
+
+
+    /**
+     * Fills the "Compare Attribute" condition with the new values from the user input
+     * @param right the right part of the condition
+     * @param data information from the user input
+     */
     function setCompareAttributeUnits (right, data) {
-        right.expressionItem.string = data.viewText;
-        right.expressionItem.value = data.viewText;
+        //FIXME: What's the differnence between them?
+        var string = data.viewText;
+        var value = data.viewText;
+
+        right.expressionItem = {
+            string: string,
+            value: value
+        };
     }
 
-    function setCompareNullValue (right, data) {
-        right.expressionItem.codedText.definingCode.codeString = data.value;
-        right.expressionItem.codedText.value = data.viewText;
-        right.expressionItem.value =
-            right.expressionItem.codedText.definingCode.terminologyId.value + '::' +
-            right.expressionItem.codedText.definingCode.codeString + '|' +
-            right.expressionItem.codedText.value + '|';
+
+    /**
+     * Fills the "Compare Null" condition with the new values from the user input
+     * @param right the right part of the condition
+     * @param data information from the user input
+     */
+    function setCompareNullValue(right, data) {
+        var codeString = data.value;
+        var value = data.viewText;
+        right.expressionItem = {
+            codedText: {
+                definingCode: {
+                    terminologyId: {
+                        name: 'openehr',
+                        value: 'openehr'
+                    },
+                    codeString: codeString
+                },
+                value: value
+            }
+        };
+        right.expressionItem.value = right.expressionItem.codedText.definingCode.terminologyId.value + '::' +
+        right.expressionItem.codedText.definingCode.codeString + '|' +
+        right.expressionItem.codedText.value + '|';
     }
 
+    /**
+     * Fills the "Compare DataValue" condition with the new values from the user input
+     * @param right the right part of the condition
+     * @param response information from the user input
+     */
     function setCompareDataValue (right, response) {
-        right.expressionItem.quantity.magnitude = response.data.input.value;
-        right.expressionItem.quantity.units = response.data.selectedItem.viewText;
-        right.expressionItem.value =
-            right.expressionItem.quantity.magnitude + ',' +
-            right.expressionItem.quantity.units;
+
+        var magnitude = response.data.input.value;
+        var units = response.data.selectedItem.viewText;
+
+        right.expressionItem = {
+            quantity: {
+                magnitude: magnitude,
+                precision: 0,
+                units: units,
+                accuracy: 0.0,
+                accuracyPercent: false
+            },
+            value: magnitude + "," + units
+        };
     }
 
+    /**
+     * Fills the "Compare Element" condition with the new values from the user input
+     * @param right the right part of the condition
+     * @param selected information from the user input
+     */
     function setCompareElement(right, selected) {
-        /**
+        /*
          * If the selected item has an id, then it is an element present in archetype definitions, so
          * we only have to change its gtCode.
          *
@@ -248,7 +388,7 @@ function ruleFactory(guidelineFactory, utilsFactory, ATTRIBUTES, NULLVALUE) {
             selected.id = utilsFactory.generateGt(guidelineFactory.getCurrentGuide());
             right.expressionItem.code = selected.id;
 
-            ruleFactory.addToElements(selected);
+            addToElements(selected);
             var path = selected.path;
             var atCode = path.substring(path.lastIndexOf("[") + 1, path.lastIndexOf("]"));
             guidelineFactory.getOntology().termDefinitions.en.terms[selected.id] = {
@@ -259,4 +399,82 @@ function ruleFactory(guidelineFactory, utilsFactory, ATTRIBUTES, NULLVALUE) {
         }
     }
 
+    /**
+     * Common properties for all conditions
+     * @param model
+     */
+    function createCompare (model) {
+        model.type = "BinaryExpression";
+        model.expressionItem = {};
+
+        model.expressionItem.left = {};
+        model.expressionItem.left.unselected = true;
+        model.expressionItem.left.type = "Variable";
+        model.expressionItem.left.expressionItem = {};
+
+        model.expressionItem.right = {};
+        model.expressionItem.right.unselected = true;
+        model.expressionItem.right.expressionItem = {};
+    }
+
+    /**
+     * Create a new condition: Compare (DataValue)
+     * @param model The model upon which a "Compare (DataValue)" is created
+     */
+    function createCompareDataValue (model) {
+        createCompare(model);
+        model.expressionItem.right.type = "QuantityConstant";
+        model.expressionItem.operator = "EQUALITY";
+    }
+
+    /**
+     * Create a new condition: Compare (NullValue)
+     * @param model The model upon which a "Compare (NullValue)" is created
+     */
+    function createCompareNullValue (model) {
+        createCompare(model);
+        model.expressionItem.left.expressionItem.attribute = "null_flavor";
+        model.expressionItem.right.type = "CodedTextConstant";
+        model.expressionItem.right.expressionItem.code = "";
+        model.expressionItem.operator = "EQUALITY";
+    }
+
+    /**
+     * Create a new condition: Compare (Element)
+     * @param model The model upon which a "Compare (Element)" is created
+     */
+    function createCompareElement (model) {
+        createCompare(model);
+        model.expressionItem.right.type = "Variable";
+        model.expressionItem.right.expressionItem.code = "";
+        model.expressionItem.operator = "EQUALITY";
+    }
+
+    /**
+     * Create a new condition: Compare (Attribute)
+     * @param model The model upon which a "Compare (Attribute)" is created
+     */
+    function createCompareAttribute (model) {
+        createCompare(model);
+        model.expressionItem.left.expressionItem.attribute = "";
+        model.expressionItem.right.expressionItem.left = {};
+        model.expressionItem.right.expressionItem.right = {};
+        model.expressionItem.operator = "EQUALITY";
+    }
+
+    /**
+     * Create a new condition: Element exists
+     * @param model The model upon which a "Element exists" is created
+     */
+    function createElementExists (model) {
+        createCompare(model);
+        delete model.expressionItem.right.unselected;
+        model.expressionItem.right.type = "ConstantExpression";
+        model.expressionItem.right.expressionItem.value = "null";
+        model.expressionItem.operator = "UNEQUALITY";
+    }
+
+    function createOr (model) {
+        console.log("createOr" + model);
+    }
 }

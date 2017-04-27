@@ -3,16 +3,33 @@
  */
 
 angular.module('app.services')
-    .factory('rulelistFactory', rulelistFactory);
+  .factory('rulelistFactory', rulelistFactory);
 
-function rulelistFactory() {
+function rulelistFactory(utilsFactory, guidelineFactory) {
 
-    return {
-        foo: foo
-    }
+  return {
+    createRule: createRule
+  }
 
-    function foo(bar) {
-        return bar;
+  function createRule(ruleName) {
+
+    var rule;
+
+    rule = {
+      id: utilsFactory.generateGt(guidelineFactory.getCurrentGuide()),
+      when: [],
+      then: [],
+      priority: 2,
+      whenStatements: [],
+      thenStatements: []
     };
+
+    guidelineFactory.getOntology().termDefinitions.en.terms[rule.id] = {
+      id: rule.id,
+      description: "*",
+      text: ruleName
+    }
+    return rule;
+  }
 
 }

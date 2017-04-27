@@ -163,7 +163,7 @@ function definitionsFactory(DV, OPERATORS, guidelineFactory, utilsFactory) {
      */
     function existsInPreconditions (element) {
         var result = false;
-        angular.forEach(vm.guide.definition.preConditions, function (item) {
+        angular.forEach(guidelineFactory.getPreConditions(), function (item) {
             if (item.indexOf(element.id) > -1) {
                 result = true;
             }

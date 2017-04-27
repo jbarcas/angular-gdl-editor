@@ -1,142 +1,157 @@
-<div>
-    <br>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-xs-4">
-                <!-- Guideline name -->
-                <div class="form-group">
-                    <label for="guideName">Name:</label>
-                    <input type="text" class="form-control" id="guideName" ng-model="vm.guide.ontology.termDefinitions['en'].terms[vm.guide.concept].text" placeholder="Guideline name">
-                </div>
-                <!-- Author details -->
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Author details</h3>
-                    </div>
-                    <div class="panel-body">
-                        <form class="form-horizontal">
-                            <div class="form-group">
-                                <label for="inputAuthorName" class="col-sm-2 control-label">Name</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="inputAuthorName" ng-model="vm.guide.description.originalAuthor.name;" placeholder="Name">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputAuthorEmail" class="col-sm-2 control-label">Email</label>
-                                <div class="col-sm-10">
-                                    <input type="email" class="form-control" id="inputAuthorEmail" ng-model="vm.guide.description.originalAuthor.email" placeholder="Email">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputOrganisation" class="col-sm-2 control-label">Organisation</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="inputOrganisation" ng-model="vm.guide.description.originalAuthor.organisation" placeholder="Organisation">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputDate" class="col-sm-2 control-label">Date</label>
-                                <div class="col-sm-10">
-                                    <input transform-date type="date" class="form-control" id="inputDate" ng-model="vm.guide.description.originalAuthor.date" >
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <!-- Authorship lifecycle -->
-                <form role="form">
+<div class="row">
+    <div class="col-xs-4">
+        <!-- Guideline name -->
+        <div class="form-group">
+            <label for="guideName">Name:</label>
+            <input type="text" class="form-control" id="guideName"
+                   ng-model="vm.guide.ontology.termDefinitions['en'].terms[vm.guide.concept].text"
+                   placeholder="Guideline name">
+        </div>
+        <!-- Author details -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Author details</h3>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal">
                     <div class="form-group">
-                        <label for="lifecycle">Lifecycle state:</label>
-                        <select class="form-control" id="lifecycle" ng-model="vm.guide.description.lifecycleState" >
-                            <option ng-repeat="lifecycleState in vm.lifecycleStates" value="{{ lifecycleState.value }}" >{{ lifecycleState.name }}</option>
-                        </select>
+                        <label for="inputAuthorName" class="col-sm-2 control-label">Name</label>
 
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputAuthorName"
+                                   ng-model="vm.guide.description.originalAuthor.name;" placeholder="Name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputAuthorEmail" class="col-sm-2 control-label">Email</label>
+
+                        <div class="col-sm-10">
+                            <input type="email" class="form-control" id="inputAuthorEmail"
+                                   ng-model="vm.guide.description.originalAuthor.email" placeholder="Email">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputOrganisation" class="col-sm-2 control-label">Organisation</label>
+
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputOrganisation"
+                                   ng-model="vm.guide.description.originalAuthor.organisation"
+                                   placeholder="Organisation">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputDate" class="col-sm-2 control-label">Date</label>
+
+                        <div class="col-sm-10">
+                            <input transform-date type="date" class="form-control" id="inputDate"
+                                   ng-model="vm.guide.description.originalAuthor.date">
+                        </div>
                     </div>
                 </form>
-                <!-- Copyright -->
-                <div class="form-group">
-                    <label for="copyright">Copyright:</label>
-                    <input type="text" class="form-control" id="copyright" ng-model="vm.guide.description.details['en'].copyright" placeholder="Copyright">
-                </div>
-                <!-- Keywords -->
-                <div class="inline">
-                    <label>Keywords:&nbsp;</label>
-                    <!--<button class="gdl-editor-transparent-background" ng-click="vm.addKeyword($event)"> -->
-                    <button class="gdl-editor-transparent-background" ng-click="vm.addKeyword()">
-                        <img ng-src="{{vm.addImg}}">
-                    </button>
-                </div>
-                <ul class="list-group">
-                    <li class="list-group-item" ng-repeat="keyword in vm.guide.description.details['en'].keywords">
-                        <button class="gdl-editor-transparent-background" ng-click="vm.guide.description.details['en'].keywords.splice($index,1)">
-                            <img ng-src="{{vm.delImg}}">
-                        </button>
-                        {{keyword}}
-                    </li>
-                </ul>
-                <!-- Other contributors -->
-                <div class="inline">
-                    <label>Other contributors:&nbsp;</label>
-                    <button class="gdl-editor-transparent-background" ng-click="vm.addOtherContributor()">
-                        <img ng-src="{{vm.addImg}}">
-                    </button>
-                </div>
-                <ul class="list-group">
-                    <li class="list-group-item" ng-repeat="otherContributor in vm.guide.description.otherContributors">
-                        <button class="gdl-editor-transparent-background" ng-click="vm.guide.description.otherContributors.splice($index,1)">
-                            <img ng-src="{{vm.delImg}}">
-                        </button>
-                        {{otherContributor}}
-                    </li>
-                </ul>
             </div>
-            <div class="col-xs-8">
-                <!-- Description -->
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h2 class="panel-title">Description</h2>
-                    </div>
-                    <div class="panel-body">
-                        <textarea class="form-control" rows="2" ng-model="vm.guide.ontology.termDefinitions['en'].terms[vm.guide.concept].description"></textarea>
-                    </div>
-                </div>
-                <!-- Purpose -->
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h2 class="panel-title">Purpose</h2>
-                    </div>
-                    <div class="panel-body">
-                        <textarea class="form-control" rows="2" ng-model="vm.guide.description.details['en'].purpose"></textarea>
-                    </div>
-                </div>
-                <!-- Use -->
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h2 class="panel-title">Use</h2>
-                    </div>
-                    <div class="panel-body">
-                        <textarea class="form-control" rows="2" ng-model="vm.guide.description.details['en'].use"></textarea>
-                    </div>
-                </div>
-                <!-- Misuse -->
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h2 class="panel-title">Misuse</h2>
-                    </div>
-                    <div class="panel-body">
-                        <textarea class="form-control" rows="2" ng-model="vm.guide.description.details['en'].misuse"></textarea>
-                    </div>
-                </div>
-                <!-- References -->
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h2 class="panel-title">References</h2>
-                    </div>
-                    <div class="panel-body">
-                        <textarea class="form-control" rows="2" ng-model="vm.guide.description.otherDetails.references"></textarea>
-                    </div>
-                </div>
+        </div>
+        <!-- Authorship lifecycle -->
+        <form role="form">
+            <div class="form-group">
+                <label for="lifecycle">Lifecycle state:</label>
+                <select class="form-control" id="lifecycle" ng-model="vm.guide.description.lifecycleState">
+                    <option ng-repeat="lifecycleState in vm.lifecycleStates" value="{{ lifecycleState.value }}">{{
+                        lifecycleState.name }}
+                    </option>
+                </select>
+
+            </div>
+        </form>
+        <!-- Copyright -->
+        <div class="form-group">
+            <label for="copyright">Copyright:</label>
+            <input type="text" class="form-control" id="copyright"
+                   ng-model="vm.guide.description.details['en'].copyright" placeholder="Copyright">
+        </div>
+        <!-- Keywords -->
+        <div class="inline">
+            <label>Keywords:&nbsp;</label>
+            <!--<button class="gdl-editor-transparent-background" ng-click="vm.addKeyword($event)"> -->
+            <button class="gdl-editor-transparent-background" ng-click="vm.addKeyword()">
+                <img ng-src="{{vm.addImg}}">
+            </button>
+        </div>
+        <ul class="list-group">
+            <li class="list-group-item" ng-repeat="keyword in vm.guide.description.details['en'].keywords">
+                <button class="gdl-editor-transparent-background"
+                        ng-click="vm.guide.description.details['en'].keywords.splice($index,1)">
+                    <img ng-src="{{vm.delImg}}">
+                </button>
+                {{keyword}}
+            </li>
+        </ul>
+        <!-- Other contributors -->
+        <div class="inline">
+            <label>Other contributors:&nbsp;</label>
+            <button class="gdl-editor-transparent-background" ng-click="vm.addOtherContributor()">
+                <img ng-src="{{vm.addImg}}">
+            </button>
+        </div>
+        <ul class="list-group">
+            <li class="list-group-item" ng-repeat="otherContributor in vm.guide.description.otherContributors">
+                <button class="gdl-editor-transparent-background"
+                        ng-click="vm.guide.description.otherContributors.splice($index,1)">
+                    <img ng-src="{{vm.delImg}}">
+                </button>
+                {{otherContributor}}
+            </li>
+        </ul>
+    </div>
+    <div class="col-xs-8">
+        <!-- Description -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2 class="panel-title">Description</h2>
+            </div>
+            <div class="panel-body">
+                    <textarea class="form-control" rows="2"
+                              ng-model="vm.guide.ontology.termDefinitions['en'].terms[vm.guide.concept].description"></textarea>
+            </div>
+        </div>
+        <!-- Purpose -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2 class="panel-title">Purpose</h2>
+            </div>
+            <div class="panel-body">
+                    <textarea class="form-control" rows="2"
+                              ng-model="vm.guide.description.details['en'].purpose"></textarea>
+            </div>
+        </div>
+        <!-- Use -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2 class="panel-title">Use</h2>
+            </div>
+            <div class="panel-body">
+                    <textarea class="form-control" rows="2"
+                              ng-model="vm.guide.description.details['en'].use"></textarea>
+            </div>
+        </div>
+        <!-- Misuse -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2 class="panel-title">Misuse</h2>
+            </div>
+            <div class="panel-body">
+                    <textarea class="form-control" rows="2"
+                              ng-model="vm.guide.description.details['en'].misuse"></textarea>
+            </div>
+        </div>
+        <!-- References -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2 class="panel-title">References</h2>
+            </div>
+            <div class="panel-body">
+                    <textarea class="form-control" rows="2"
+                              ng-model="vm.guide.description.otherDetails.references"></textarea>
             </div>
         </div>
     </div>
-
 </div>

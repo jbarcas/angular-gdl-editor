@@ -6,10 +6,13 @@
       active="tab.active"
       disable="tab.disabled">
     </uib-tab>
+    <a href="#" class="btn btn-success pull-right" ng-click="$ctrl.insertGuide()">
+      <span class="glyphicon glyphicon-upload"></span> Update guideline
+    </a>
   </uib-tabset>
+
   <br>
   <div class="text-center">
-    <button type="button" class="btn btn-success" ng-click="$ctrl.insertGuide()">Update guideline</button>
   </div>
   <div ui-view></div>
 </div>
