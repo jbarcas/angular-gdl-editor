@@ -7,19 +7,18 @@
 </div>
 
 <div class="row">
-  <div ui-tree>
+  <div ui-tree="vm.treeRulelist">
     <ol ui-tree-nodes="" ng-model="vm.rules">
-      <!--<li ng-repeat="rule in vm.rules | orderBy:'priority':true" ui-tree-node> -->
-      <li ng-repeat="rule in vm.rules" ui-tree-node>
+      <li ng-repeat="rule in vm.rules | orderBy:'priority':true" ui-tree-node>
         <div ui-tree-handle class="tree-node tree-node-content">
-          <a class="btn btn-success btn-xs"><span class="glyphicon glyphicon-list"></span></a>
-          <a ng-click="vm.openRuleEditor(this)" data-nodrag ng-bind="vm.guide.ontology.termDefinitions.en.terms[rule.id].text"></a>
+          <a class="btn btn-success btn-xs"><span class="glyphicon glyphicon-resize-vertical"></span></a>
+          <a ng-click="vm.openRuleEditor(this)" data-nodrag>{{ vm.guide.ontology.termDefinitions.en.terms[rule.id].text }}</a>
           <a class="pull-right btn btn-xs" data-nodrag ng-click="vm.remove(this)"> <img ng-src="{{vm.delete}}"></a>
           <a class="pull-right btn btn-xs" data-nodrag ng-click=""><img ng-src="{{vm.accept}}"></a>
-          <a class="pull-right btn btn-xs" data-nodrag ng-click=""><img ng-src="{{vm.pencil}}"></a>
+          <a class="pull-right btn btn-xs" data-nodrag ng-click="vm.editName(this)"><img ng-src="{{vm.pencil}}"></a>
         </div>
       </li>
     </ol>
   </div>
 </div>
-<pre>{{ vm.rules | json }}</pre>
+<pre>{{ vm.rules | json}}</pre>

@@ -290,27 +290,12 @@ function definitionsFactory(DV, OPERATORS, guidelineFactory, utilsFactory) {
         // converts the elements
         angular.forEach(archertypeBindings, function (archetypeBinding) {
             if (archetypeBinding.elements) {
-                archetypeBinding.elements = objectToArray(archetypeBinding.elements);
+                archetypeBinding.elements = utilsFactory.objectToArray(archetypeBinding.elements);
             }
         });
         // converts the archetypeBindings
-        archertypeBindings = objectToArray(archertypeBindings);
+        archertypeBindings = utilsFactory.objectToArray(archertypeBindings);
         return archertypeBindings;
-    }
-
-    /**
-     * Converts an objet into an array to fit the angular UI tree requirements
-     * @param object the object to convert
-     * @returns {Array} the converted array
-     */
-    function objectToArray(object) {
-        var array = [];
-        for (var property in object) {
-            if (object.hasOwnProperty(property)) {
-                array.push(object[property]);
-            }
-        }
-        return array;
     }
 
     /**

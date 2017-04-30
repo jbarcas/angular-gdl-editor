@@ -12,7 +12,8 @@ function utilsFactory(guidelineFactory, GT_HEADER) {
         convertToPost: convertToPost,
         isBinaryExpression: isBinaryExpression,
         isUnaryExpression: isUnaryExpression,
-        getArchetypeType: getArchetypeType
+        getArchetypeType: getArchetypeType,
+        objectToArray: objectToArray
     };
 
     function generateGt(guide) {
@@ -111,5 +112,20 @@ function utilsFactory(guidelineFactory, GT_HEADER) {
     function getArchetypeType(archetypeId) {
         var parts = archetypeId.split('-');
         return parts[2].split('.')[0];
+    }
+
+    /**
+     * Converts an object into an array to fit the angular UI tree requirements
+     * @param object the object to convert
+     * @returns {Array} the converted array
+     */
+    function objectToArray(object) {
+        var array = [];
+        for (var property in object) {
+            if (object.hasOwnProperty(property)) {
+                array.push(object[property]);
+            }
+        }
+        return array;
     }
 }

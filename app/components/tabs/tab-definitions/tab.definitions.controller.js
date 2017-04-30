@@ -267,7 +267,12 @@ function DefinitionsCtrl($log, $scope, $filter, archetypeFactory, utilsFactory, 
                         treeObject.viewText = elementMap.elementMapId;
                         // TODO: add css to leaf nodes
                         if (type === "PredicateExpression") {
-                            treeObject.children = ATTRIBUTES[treeObject.dataType];
+                            var children = [];
+                            angular.forEach(ATTRIBUTES[treeObject.dataType], function(item){
+                                children.push({viewText: item});
+                            })
+
+                            treeObject.children = children;
                         }
                         elementMaps.push(treeObject);
                     });
@@ -708,7 +713,12 @@ function DefinitionsCtrl($log, $scope, $filter, archetypeFactory, utilsFactory, 
                         console.log(archetypeBinding);
                         // TODO: add css to leaf nodes
                         if(type === "PredicateExpression") {
-                            treeObject.children = ATTRIBUTES[treeObject.dataType];
+                            var children = [];
+                            angular.forEach(ATTRIBUTES[treeObject.dataType], function(item){
+                                children.push({viewText: item});
+                            });
+
+                            treeObject.children = children;
                         }
                         elementMaps.push(treeObject);
                     });

@@ -11,10 +11,11 @@ function RuleEditorCtrl($stateParams, $log, guidelineFactory, utilsFactory, moda
     vm.rule = guidelineFactory.getRule($stateParams.ruleId);
     vm.getOptions = getOptions;
     vm.showRightName = showRightName;
-    vm.getAttribute = getAttribute;
-    vm.updateLeftItem = updateLeftItem;
-    vm.updateRightItem = updateRightItem;
+    vm.updateConditionLeft = updateConditionLeft;
+    vm.updateConditionRight = updateConditionRight;
     vm.removeCondition = removeCondition;
+    vm.updateActionLeft = updateActionLeft;
+    vm.updateActionRight = updateActionRight;
     vm.terms = guidelineFactory.getOntology().termDefinitions.en.terms;
 
     vm.delete = "../assets/img/del.png";
@@ -60,7 +61,7 @@ function RuleEditorCtrl($stateParams, $log, guidelineFactory, utilsFactory, moda
     };
 
     var elementExistsOptions = [
-        {label: 'exists', value: 'UNEQUALITY'},
+        {label: 'exists', value: 'INEQUAL'},
         {label: 'does not exist', value: 'EQUALITY'}
     ];
 
@@ -162,19 +163,7 @@ function RuleEditorCtrl($stateParams, $log, guidelineFactory, utilsFactory, moda
         return value;
     }
 
-    /**
-     * On the flight, gets the attribute of the left-side part of a condition
-     * @param node
-     * @returns {*}
-     */
-    function getAttribute(node) {
-        if (ruleFactory.getConditionType(node) !== "CompareAttribute") {
-            return;
-        }
-        return node.expressionItem.left.expressionItem.attribute;
-    }
-
-    function updateLeftItem(node) {
+    function updateConditionLeft(node) {
         var condition = node.$modelValue;
         var index = node.$index;
         var type = ruleFactory.getConditionType(condition);
@@ -204,7 +193,7 @@ function RuleEditorCtrl($stateParams, $log, guidelineFactory, utilsFactory, moda
     }
 
 
-    function updateRightItem(node) {
+    function updateConditionRight(node) {
         var condition = node.$modelValue;
         var index = node.$index;
         var type = ruleFactory.getConditionType(condition);
@@ -225,8 +214,8 @@ function RuleEditorCtrl($stateParams, $log, guidelineFactory, utilsFactory, moda
             return;
         }
 
-        var data = ruleFactory.getDataForModal(condition);
-        var options = ruleFactory.getOptionsForRightModal(condition);
+        var data = ruleFactory.getConditionDataForModal(condition);
+        var options = ruleFactory.getConditionOptionsForRightModal(condition);
 
         modalService.showModal(options, data).then(showModalComplete, showModalFailed);
 
@@ -244,10 +233,10 @@ function RuleEditorCtrl($stateParams, $log, guidelineFactory, utilsFactory, moda
 
             var rightPart = vm.rule.whenStatements[index].expressionItem.right;
 
-            if (type === "CompareAttribute" && condition.expressionItem.left.expressionItem.attribute === 'units') {
-                ruleFactory.setCompareAttributeUnits(rightPart, selected);
+            if (type === "CompareAttribute") {
+                ruleFactory.setConditionAttribute(condition, selected);
             } else if (type === "CompareNullValue") {
-                ruleFactory.setCompareNullValue(rightPart, selected);
+                ruleFactory.setNullValue(rightPart, selected);
                 // TODO: Does the 'attribute' property have always the same value (null_flavour) ??
             } else if (type === "CompareDataValue") {
                 ruleFactory.setCompareDataValue(rightPart, modalResponse);
@@ -278,6 +267,91 @@ function RuleEditorCtrl($stateParams, $log, guidelineFactory, utilsFactory, moda
         function showModalFailed() {
             $log.info('Modal dismissed at: ' + new Date() + ' in openEditor()');
         }
+    }
+
+    function updateActionLeft(node) {
+        var action = node.$modelValue;
+        var index = node.$index;
+
+        var modalData = {headerText: 'Select element instance'};
+        var modalOptions = ruleFactory.getOptionsForLeftModal(action);
+
+        modalService.showModal(modalOptions, modalData).then(showModalComplete, showModalFailed);
+
+        function showModalComplete(modalResponse) {
+            if (modalResponse.data === undefined) {
+                return;
+            }
+            var selected = modalResponse.data.selectedItem;
+            //var leftPart = vm.rule.thenStatements[index].variable;
+            /*
+             * Delete the unselected property used to highlight the text in the view
+             */
+            //delete leftPart.unselected;
+            ruleFactory.setActionLeft(action, selected);
+        }
+
+        function showModalFailed() {
+            $log.info('Modal dismissed at: ' + new Date() + ' in rule.editor.controller.updateLeftItem()');
+        }
+    }
+
+
+    function updateActionRight(node) {
+        var action = node.$modelValue;
+        var index = node.$index;
+        var type = ruleFactory.getActionType(action);
+        /*
+         * If the action has a 'magnitude' left side attribute, the expression editor is opened
+         */
+        if (action.variable.attribute === 'magnitude') {
+            openEditor(action);
+            return;
+        }
+        /*
+         * If the action at hand is a CompareDatavalue and the left item has not been selected yet
+         */
+        /*if(!action.expressionItem.left.expressionItem.code && (type === "CompareDataValue" || type === "CompareAttribute")) {
+            var modalData = {headerText: 'Select an element', bodyText: 'You have to select an element before choosing a data value'};
+            var modalOptions = {component: 'dialogComponent'};
+            modalService.showModal(modalOptions, modalData);
+            return;
+        } */
+
+        var data = ruleFactory.getActionDataForModal(action);
+        var options = ruleFactory.getActionOptionsForRightModal(action);
+
+        modalService.showModal(options, data).then(showModalComplete, showModalFailed);
+
+        function showModalComplete(modalResponse) {
+            if (modalResponse.data === undefined) {
+                return;
+            }
+            var selected = modalResponse.data.selectedItem;
+            /*
+             * Delete the unselected property used to highlight the text in the view
+             */
+            delete vm.rule.thenStatements[index].assignment.unselected;
+
+            var rightPart = vm.rule.thenStatements[index].assignment;
+
+            if (type === "SetAttribute") {
+                ruleFactory.setActionAttribute(action, modalResponse);
+            } else if (type === "SetNullValue") {
+                ruleFactory.setNullValue(rightPart, selected);
+                // TODO: Does the 'attribute' property have always the same value (null_flavour) ??
+            } else if (type === "SetDataValue") {
+                ruleFactory.setCompareDataValue(rightPart, modalResponse);
+            } else if (type === "SetElement") {
+                ruleFactory.setCompareElement (rightPart, selected);
+            }
+
+        }
+
+        function showModalFailed() {
+            $log.info('Modal dismissed at: ' + new Date() + ' in rule.editor.controller.updateLeftItem()');
+        }
+
     }
 
 

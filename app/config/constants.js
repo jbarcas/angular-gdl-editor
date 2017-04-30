@@ -16,12 +16,11 @@ angular.module('app.constants', [])
         COUNT: 'DV_COUNT'
     })
     .constant('ATTRIBUTES', {
-        DV_QUANTITY: [{viewText: 'magnitude'}, {viewText: 'precision'}, {viewText: 'units'}],
-        DV_TEXT: [{viewText: 'value'}],
-        DV_CODED_TEXT: [{viewText: 'value'}, {viewText: 'terminologyId'}, {viewText: 'code'}],
-        DV_DATE_TIME: [{viewText: 'year'}, {viewText: 'month'}, {viewText: 'day'}, {viewText: 'minute'}, {viewText: 'second'},
-            {viewText: 'fractionalSecond'}, {viewText: 'timeZone'}, {viewText: 'value'}],
-        DV_ORDINAL: [{viewText: 'magnitude'}, {viewText: 'precision'}, {viewText: 'units'}]
+        DV_QUANTITY: ['magnitude', 'precision', 'units'],
+        DV_TEXT: ['value'],
+        DV_CODED_TEXT: ['value', 'terminologyId', 'code'],
+        DV_DATE_TIME: ['year', 'month', 'day', 'minute', 'second', 'fractionalSecond', 'timeZone', 'value'],
+        DV_ORDINAL: ['magnitude', 'precision', 'units']
     })
     .constant('OPERATORS', {
         'MULTIPLICATION': "*",

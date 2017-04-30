@@ -45,6 +45,7 @@ function guidelineFactory($http, API_URL, $q, archetypeFactory, terminologyFacto
         setRulelist: setRulelist,
         getRule: getRule,
         setRule: setRule,
+        removeRule: removeRule,
         getArchetypeBindings: getArchetypeBindings,
         setArchetypeBindings: setArchetypeBindings,
         //-------------------------------------
@@ -346,9 +347,20 @@ function guidelineFactory($http, API_URL, $q, archetypeFactory, terminologyFacto
         }
         return null;
     }
+
     function setRule(rule) {
         guideline.definition.rules[rule.id] = rule;
     }
+
+    function removeRule(rule) {
+        var id = rule.id;
+        delete guideline.definition.rules[id];
+        /*
+         * Remove the corresponding entry in the termDefinitions (Ontology)
+         */
+        delete getOntology().termDefinitions.en.terms[id];
+    }
+
 
     function addElementToDefinitions(element, archetypeId) {
         angular.forEach(getDefinition().archetypeBindings, function(archetypeBinding) {

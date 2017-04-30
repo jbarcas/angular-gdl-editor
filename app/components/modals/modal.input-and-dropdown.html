@@ -6,7 +6,7 @@
 
   <div class="container-fluid gdl-center">
     <div class="gdl-inline" ng-show="$ctrl.input">
-      <input type="text" class="form-control" ng-model="$ctrl.input.value" placeholder="Enter input">
+      <input type="text" class="form-control" ng-model="$ctrl.input.value" placeholder="{{$ctrl.labels.placeholder || 'Enter input'}} ">
     </div>
     <div class="form-group gdl-inline" ng-show="$ctrl.options">
       <select class="form-control"

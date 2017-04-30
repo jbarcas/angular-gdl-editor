@@ -5,12 +5,16 @@
     <span class="glyphicon glyphicon-chevron-left"></span> Back to guide
   </a>
 </div>
+
+
+<!-- Conditions -->
 <div class="panel panel-success">
   <div class="panel-heading">
     <h3 class="panel-title">Conditions</h3>
   </div>
   <div class="panel-body">
     <div class="row">
+      <!-- Left panel -->
       <div class="col-sm-9">
         <div ui-tree data-drag-delay="300">
           <ol ui-tree-nodes ng-model="vm.rule.whenStatements">
@@ -18,19 +22,19 @@
               <div ui-tree-handle class="tree-node tree-node-content">
                 <form role="form"  class="form-inline">
                   <a class="btn btn-success btn-xs"><span class="glyphicon glyphicon-list"></span></a>
-                  Element <sup>EHR</sup> <a ng-style="whenStatement.expressionItem.left.unselected && {color:'red'}" ng-click="vm.updateLeftItem(this)" data-nodrag>{{vm.terms[whenStatement.expressionItem.left.expressionItem.code].text | parseLocal}}<sub>{{vm.getAttribute(this.$modelValue)}}</sub></a>
+                  Element <sup>EHR</sup> <a ng-style="whenStatement.expressionItem.left.unselected && {color:'red'}" ng-click="vm.updateConditionLeft(this)" data-nodrag>{{vm.terms[whenStatement.expressionItem.left.expressionItem.code].text | parseLocal}}<sub ng-show="whenStatement.expressionItem.left.expressionItem.attribute">{{whenStatement.expressionItem.left.expressionItem.attribute}}</sub></a>
                   <select class="form-control" ng-model="whenStatement.expressionItem.operator" data-nodrag>
                     <option ng-repeat="option in vm.getOptions(this.$modelValue)" value="{{ option.value }}" ng-bind="option.label"></option>
                   </select>
-                  <a ng-show="whenStatement.expressionItem.right.expressionItem.value !== 'null'" ng-style="whenStatement.expressionItem.right.unselected && {color:'red'}" ng-click="vm.updateRightItem(this)"> {{vm.showRightName(this) | parseLocal}} </a>
+                  <a ng-show="whenStatement.expressionItem.right.expressionItem.value !== 'null'" ng-style="whenStatement.expressionItem.right.unselected && {color:'red'}" ng-click="vm.updateConditionRight(this)"> {{vm.showRightName(this) | parseLocal}} </a>
                   <a class="pull-right btn btn-xs" data-nodrag ng-click="vm.removeCondition(this)"><img ng-src="{{vm.delete}}"></a>
-                  <!--<a class="pull-right btn btn-xs" data-nodrag ng-click="vm.addCondition(this)"><img ng-src="{{vm.add}}"></a>-->
                 </form>
               </div>
             </li>
           </ol>
         </div>
       </div>
+      <!-- Right panel -->
       <div class="col-sm-3">
         <div ui-tree="vm.treeDefinitions" class="panel panel-default" data-clone-enabled="true" data-nodrop-enabled="true">
           <div class="panel-heading">
@@ -48,14 +52,52 @@
     </div>
   </div>
 </div>
+
+<!-- Actions -->
 <div class="panel panel-info">
   <div class="panel-heading">
     <h3 class="panel-title">Actions</h3>
   </div>
   <div class="panel-body">
-    Actions here
+    <div class="row">
+      <!-- Left panel -->
+      <div class="col-sm-9">
+        <div ui-tree data-drag-delay="300">
+          <ol ui-tree-nodes ng-model="vm.rule.thenStatements">
+            <li ng-repeat="thenStatement in vm.rule.thenStatements" ui-tree-node>
+              <div ui-tree-handle class="tree-node tree-node-content">
+                <form role="form"  class="form-inline">
+                  <a class="btn btn-success btn-xs"><span class="glyphicon glyphicon-list"></span></a>
+                  Set element <sup>EHR</sup> <a ng-click="vm.updateActionLeft(this)" data-nodrag>{{vm.terms[thenStatement.variable.code].text | parseLocal}}<sub ng-show="thenStatement.variable.attribute && thenStatement.variable.attribute !== 'null_flavor'">{{thenStatement.variable.attribute}}</sub></a>
+                  to
+                  <a ng-click="vm.updateActionRight(this)"> {{thenStatement.assignment.expressionItem.value || vm.terms[thenStatement.assignment.expressionItem.code].text | parseLocal}} </a>
+                  <a class="pull-right btn btn-xs" data-nodrag ng-click="vm.removeCondition(this)"><img ng-src="{{vm.delete}}"></a>
+                </form>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </div>
+      <!-- Right panel -->
+      <!--<div class="col-sm-3">
+        <div ui-tree="vm.treeDefinitions" class="panel panel-default" data-clone-enabled="true" data-nodrop-enabled="true">
+          <div class="panel-heading">
+            <h2 class="panel-title">Conditions</h2>
+          </div>
+          <div class="panel-body">
+            <ol ui-tree-nodes ng-model="vm.conditions">
+              <li ng-repeat="item in vm.conditions" class="right-list" ui-tree-node data-nodrag="{{!item.draggable}}">
+                <div ui-tree-handle>{{item.title}}</div>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div> -->
+    </div>
   </div>
 </div>
+
+
 
 </div>
 <pre>{{vm.rule | json}}</pre>

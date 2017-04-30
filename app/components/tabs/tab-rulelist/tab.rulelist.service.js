@@ -5,13 +5,15 @@
 angular.module('app.services')
   .factory('rulelistFactory', rulelistFactory);
 
-function rulelistFactory(utilsFactory, guidelineFactory) {
+function rulelistFactory($filter, utilsFactory, guidelineFactory) {
 
   return {
-    createRule: createRule
+    createRule: createRule,
+    convertModel: convertModel,
+    reorderPriority: reorderPriority
   }
 
-  function createRule(ruleName) {
+  function createRule(ruleName, priority) {
 
     var rule;
 
@@ -19,7 +21,7 @@ function rulelistFactory(utilsFactory, guidelineFactory) {
       id: utilsFactory.generateGt(guidelineFactory.getCurrentGuide()),
       when: [],
       then: [],
-      priority: 2,
+      priority: priority,
       whenStatements: [],
       thenStatements: []
     };
@@ -30,6 +32,18 @@ function rulelistFactory(utilsFactory, guidelineFactory) {
       text: ruleName
     }
     return rule;
+  }
+
+  function convertModel(rulelist) {
+    return utilsFactory.objectToArray(rulelist);
+  }
+
+  function reorderPriority(event) {
+    var destArray = $filter('orderBy')(event.dest.nodesScope.$modelValue, 'priority', true);
+    var dest = destArray[event.dest.index];
+    var temp = dest.priority;
+    dest.priority = event.source.nodeScope.rule.priority;
+    event.source.nodeScope.rule.priority = temp;
   }
 
 }

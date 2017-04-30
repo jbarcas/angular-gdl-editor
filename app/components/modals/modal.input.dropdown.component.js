@@ -27,7 +27,7 @@ angular.module('app.components')
           input: $ctrl.input,
           selectedItem: $ctrl.selectedItem,
           type: $ctrl.input ? $ctrl.input.type : $ctrl.selectedItem.type
-        }
+        };
         $ctrl.close({$value: {data: response}});
       };
 
