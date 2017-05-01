@@ -5,7 +5,7 @@
 angular.module('app.controllers')
     .controller('RuleEditorCtrl', RuleEditorCtrl);
 
-function RuleEditorCtrl($stateParams, $log, guidelineFactory, utilsFactory, modalService, ruleFactory) {
+function RuleEditorCtrl($stateParams, $log, guidelineFactory, conditionFactory, actionFactory, modalService, ruleFactory, CONDITION_OPERATORS) {
 
     vm = this;
     vm.rule = guidelineFactory.getRule($stateParams.ruleId);
@@ -26,15 +26,23 @@ function RuleEditorCtrl($stateParams, $log, guidelineFactory, utilsFactory, moda
     };
 
     vm.conditions = [
-        {title: 'Compare (DataValue)', category: "CompareDataValue", draggable: true},
-        {title: 'Compare (NullValue)', category: "CompareNullValue", draggable: true},
-        {title: 'Compare (Element)',   category: "CompareElement",   draggable: true},
-        {title: 'Compare (Attribute)', category: "CompareAttribute", draggable: true},
-        {title: 'Element exists',      category: "ElementExists",    draggable: true},
-        {title: 'Or operator',         category: "Or",               draggable: true}
+        {title: 'Compare (DataValue)', category: 'CompareDataValue', draggable: true},
+        {title: 'Compare (NullValue)', category: 'CompareNullValue', draggable: true},
+        {title: 'Compare (Element)',   category: 'CompareElement',   draggable: true},
+        {title: 'Compare (Attribute)', category: 'CompareAttribute', draggable: true},
+        {title: 'Element exists',      category: 'ElementExists',    draggable: true},
+        {title: 'Or operator',         category: 'Or',               draggable: true}
     ];
 
-    vm.treeDefinitions = {
+    vm.actions = [
+        {title: 'Create (Entry)',   category: 'CreateEntry',  draggable: true},
+        {title: 'Set (DataValue)',  category: 'SetDataValue', draggable: true},
+        {title: 'Set (NullValue)',  category: 'SetNullValue', draggable: true},
+        {title: 'Set (Element)',    category: 'SetElement',   draggable: true},
+        {title: 'Set (Attribute)',  category: 'SetAttribute', draggable: true}
+    ];
+
+    vm.treeConditions = {
         /**
          * Transforms the model before dragging
          * @param event
@@ -42,17 +50,17 @@ function RuleEditorCtrl($stateParams, $log, guidelineFactory, utilsFactory, moda
         beforeDrop: function(event) {
             var cloneModel = event.source.cloneModel;
             if(cloneModel.category === "CompareDataValue") {
-                ruleFactory.createCompareDataValue(cloneModel);
+                conditionFactory.createCompareDataValue(cloneModel);
             } else if(cloneModel.category === "CompareNullValue") {
-                ruleFactory.createCompareNullValue(cloneModel);
+                conditionFactory.createCompareNullValue(cloneModel);
             } else if (cloneModel.category === "CompareElement") {
-                ruleFactory.createCompareElement(cloneModel);
+                conditionFactory.createCompareElement(cloneModel);
             } else if (cloneModel.category === "CompareAttribute") {
-                ruleFactory.createCompareAttribute(cloneModel);
+                conditionFactory.createCompareAttribute(cloneModel);
             } else if (cloneModel.category === "ElementExists") {
-                ruleFactory.createElementExists(cloneModel);
+                conditionFactory.createElementExists(cloneModel);
             } else if (cloneModel.category === "Or") {
-                ruleFactory.createOr(cloneModel);
+                conditionFactory.createOr(cloneModel);
             }
             delete cloneModel.category;
             delete cloneModel.draggable;
@@ -60,50 +68,29 @@ function RuleEditorCtrl($stateParams, $log, guidelineFactory, utilsFactory, moda
         }
     };
 
-    var elementExistsOptions = [
-        {label: 'exists', value: 'INEQUAL'},
-        {label: 'does not exist', value: 'EQUALITY'}
-    ];
-
-    var compareAttributeOptions = [
-        {label: '==', value: 'EQUALITY'},
-        {label: '!=', value: 'INEQUAL'},
-        {label: '<', value: 'LESS_THAN'},
-        {label: '<=', value: 'LESS_THAN_OR_EQUAL'},
-        {label: '>', value: 'GREATER_THAN'},
-        {label: '>=', value: 'GREATER_THAN_OR_EQUAL'}
-    ];
-
-    var compareElementOptions = [
-        {label: '==', value: 'EQUALITY'},
-        {label: '!=', value: 'INEQUAL'},
-        {label: '<', value: 'LESS_THAN'},
-        {label: '<=', value: 'LESS_THAN_OR_EQUAL'},
-        {label: '>', value: 'GREATER_THAN'},
-        {label: '>=', value: 'GREATER_THAN_OR_EQUAL'},
-        {label: 'IS_A', value: 'IS_A'},
-        {label: '!IS_A', value: 'IS_NOT_A'}
-    ];
-
-    var compareNullValueOptions = [
-        {label: '==', value: 'EQUALITY'},
-        {label: '!=', value: 'INEQUAL'}
-    ];
-
-    var compareDataValueOptions = [
-        {label: '==', value: 'EQUALITY'},
-        {label: '!=', value: 'INEQUAL'},
-        {label: '<', value: 'LESS_THAN'},
-        {label: '<=', value: 'LESS_THAN_OR_EQUAL'},
-        {label: '>', value: 'GREATER_THAN'},
-        {label: '>=', value: 'GREATER_THAN_OR_EQUAL'},
-        {label: 'IS_A', value: 'IS_A'},
-        {label: '!IS_A', value: 'IS_NOT_A'}
-    ];
-
-    var orOptions = [
-        {label: 'OR', value: 'OR'}
-    ];
+    vm.treeActions = {
+        /**
+         * Transforms the model before dragging
+         * @param event
+         */
+        beforeDrop: function(event) {
+            var cloneModel = event.source.cloneModel;
+            if(cloneModel.category === "CreateEntry") {
+                actionFactory.createEntry(cloneModel);
+            } else if(cloneModel.category === "SetDataValue") {
+                actionFactory.createSetDataValue(cloneModel);
+            } else if (cloneModel.category === "SetNullValue") {
+                actionFactory.createSetNullValue(cloneModel);
+            } else if (cloneModel.category === "SetElement") {
+                actionFactory.createSetElement(cloneModel);
+            } else if (cloneModel.category === "SetAttribute") {
+                actionFactory.createSetAttribute(cloneModel);
+            }
+            delete cloneModel.category;
+            delete cloneModel.draggable;
+            delete cloneModel.title;
+        }
+    };
 
     function removeCondition (condition) {
         // TODO: Check if the conditions is used somewhere
@@ -116,20 +103,20 @@ function RuleEditorCtrl($stateParams, $log, guidelineFactory, utilsFactory, moda
      * @returns {*}
      */
     function getOptions(node) {
-        var conditionType = ruleFactory.getConditionType(node);
+        var conditionType = conditionFactory.getType(node);
         var options;
-        if (conditionType === "ElementExists") {
-            options = elementExistsOptions;
-        } else if (conditionType === "CompareAttribute") {
-            options = compareAttributeOptions;
-        } else if (conditionType === "CompareElement") {
-            options = compareElementOptions;
-        } else if (conditionType === "CompareNullValue") {
-            options = compareNullValueOptions;
-        } else if (conditionType === "CompareDataValue") {
-            options = compareDataValueOptions;
+        if (conditionType === "Exists") {
+            options = CONDITION_OPERATORS.EXISTS;
+        } else if (conditionType === "Attribute") {
+            options = CONDITION_OPERATORS.ATTRIBUTE;
+        } else if (conditionType === "Element") {
+            options = CONDITION_OPERATORS.ELEMENT;
+        } else if (conditionType === "NullValue") {
+            options = CONDITION_OPERATORS.NULLVALUE;
+        } else if (conditionType === "DataValue") {
+            options = CONDITION_OPERATORS.DATAVALUE;
         } else if (conditionType === "Or") {
-            options = orOptions;
+            options = CONDITION_OPERATORS.OR;
         } else {
             throw "GDL Editor - Error at getting options: condition type not recognized."
         }
@@ -143,7 +130,7 @@ function RuleEditorCtrl($stateParams, $log, guidelineFactory, utilsFactory, moda
      */
     function showRightName(node) {
         var condition = node.$modelValue;
-        var conditionType = ruleFactory.getConditionType(condition);
+        var conditionType = conditionFactory.getType(condition);
         var value;
 
         /*
@@ -151,13 +138,13 @@ function RuleEditorCtrl($stateParams, $log, guidelineFactory, utilsFactory, moda
          */
         if (conditionType === "ElementExists") {
             return;
-        } else if (conditionType === "CompareAttribute" && condition.expressionItem.left.expressionItem.attribute === 'units') {
-            value = condition.expressionItem.right.expressionItem.value;
-        } else if (conditionType === "CompareAttribute" && condition.expressionItem.left.expressionItem.attribute === 'magnitude') {
+        } else if (conditionType === "Attribute" && condition.expressionItem.left.expressionItem.attribute === 'magnitude') {
             value = "Expression";
-        } else if (conditionType === "CompareElement") {
+        } else if (conditionType === "Attribute") {
+            value = condition.expressionItem.right.expressionItem.value;
+        } else if (conditionType === "Element") {
             value = condition.expressionItem.right.expressionItem.code ? vm.terms[condition.expressionItem.right.expressionItem.code].text : "";
-        } else if (conditionType === "CompareNullValue" || conditionType === "CompareDataValue") {
+        } else if (conditionType === "NullValue" || conditionType === "DataValue") {
             value = condition.expressionItem.right.expressionItem.value
         }
         return value;
@@ -165,11 +152,10 @@ function RuleEditorCtrl($stateParams, $log, guidelineFactory, utilsFactory, moda
 
     function updateConditionLeft(node) {
         var condition = node.$modelValue;
-        var index = node.$index;
-        var type = ruleFactory.getConditionType(condition);
+        var type = conditionFactory.getType(condition);
 
         var modalData = {headerText: 'Select element instance'};
-        var modalOptions = ruleFactory.getOptionsForLeftModal(condition);
+        var modalOptions = ruleFactory.getOptionsForTreeModal(condition);
 
         modalService.showModal(modalOptions, modalData).then(showModalComplete, showModalFailed);
 
@@ -178,12 +164,12 @@ function RuleEditorCtrl($stateParams, $log, guidelineFactory, utilsFactory, moda
                 return;
             }
             var selected = modalResponse.data.selectedItem;
-            var leftPart = vm.rule.whenStatements[index].expressionItem.left;
+            var left = condition.expressionItem.left;
             /*
              * Delete the unselected property used to highlight the text in the view
              */
-            delete leftPart.unselected;
-            type === "CompareAttribute" ? ruleFactory.setLeftCompareAttribute(leftPart, selected) : ruleFactory.setLeftRemaining(leftPart, selected, type);
+            delete left.unselected;
+            type === "Attribute" ? ruleFactory.setLeftAttribute(left, selected) : ruleFactory.setLeftRemaining(condition, selected, type);
         }
 
         function showModalFailed() {
@@ -195,27 +181,26 @@ function RuleEditorCtrl($stateParams, $log, guidelineFactory, utilsFactory, moda
 
     function updateConditionRight(node) {
         var condition = node.$modelValue;
-        var index = node.$index;
-        var type = ruleFactory.getConditionType(condition);
+        var type = conditionFactory.getType(condition);
         /*
          * If the condition has a 'magnitude' left side attribute, the expression editor is opened
          */
-        if (type === "CompareAttribute" && condition.expressionItem.left.expressionItem.attribute === 'magnitude') {
+        if (type === "Attribute" && condition.expressionItem.left.expressionItem.attribute === 'magnitude') {
             openEditor(condition);
             return;
         }
         /*
          * If the condition at hand is a CompareDatavalue and the left item has not been selected yet
          */
-        if(!condition.expressionItem.left.expressionItem.code && (type === "CompareDataValue" || type === "CompareAttribute")) {
+        if(!condition.expressionItem.left.expressionItem.code && (type === "DataValue" || type === "Attribute")) {
             var modalData = {headerText: 'Select an element', bodyText: 'You have to select an element before choosing a data value'};
             var modalOptions = {component: 'dialogComponent'};
             modalService.showModal(modalOptions, modalData);
             return;
         }
 
-        var data = ruleFactory.getConditionDataForModal(condition);
-        var options = ruleFactory.getConditionOptionsForRightModal(condition);
+        var data = ruleFactory.getDataModal(condition);
+        var options = ruleFactory.getOptionsModal(condition);
 
         modalService.showModal(options, data).then(showModalComplete, showModalFailed);
 
@@ -226,22 +211,22 @@ function RuleEditorCtrl($stateParams, $log, guidelineFactory, utilsFactory, moda
 
             var selected = modalResponse.data.selectedItem;
 
+            var left = condition.expressionItem.left
+            var right = condition.expressionItem.right;
             /*
              * Delete the unselected property used to highlight the text in the view
              */
-            delete vm.rule.whenStatements[index].expressionItem.right.unselected;
+            delete right.unselected;
 
-            var rightPart = vm.rule.whenStatements[index].expressionItem.right;
-
-            if (type === "CompareAttribute") {
-                ruleFactory.setConditionAttribute(condition, selected);
-            } else if (type === "CompareNullValue") {
-                ruleFactory.setNullValue(rightPart, selected);
+            if (type === "Attribute") {
+                ruleFactory.setAttribute(left.expressionItem, right, modalResponse);
+            } else if (type === "NullValue") {
+                ruleFactory.setNullValue(right, selected);
                 // TODO: Does the 'attribute' property have always the same value (null_flavour) ??
-            } else if (type === "CompareDataValue") {
-                ruleFactory.setCompareDataValue(rightPart, modalResponse);
-            } else if (type === "CompareElement") {
-                ruleFactory.setCompareElement (rightPart, selected);
+            } else if (type === "DataValue") {
+                ruleFactory.setCompareDataValue(right, modalResponse);
+            } else if (type === "Element") {
+                ruleFactory.setCompareElement (right, selected);
             }
 
         }
@@ -254,7 +239,7 @@ function RuleEditorCtrl($stateParams, $log, guidelineFactory, utilsFactory, moda
 
     function openEditor(condition) {
         var modalData = {headerText: 'Expression editor'};
-        var modalOptions = ruleFactory.getOptionsForLeftModal(condition);
+        var modalOptions = ruleFactory.getOptionsForTreeModal(condition);
         modalOptions.component = 'expressionEditorComponent';
         modalOptions.size = 'lg';
 
@@ -271,10 +256,10 @@ function RuleEditorCtrl($stateParams, $log, guidelineFactory, utilsFactory, moda
 
     function updateActionLeft(node) {
         var action = node.$modelValue;
-        var index = node.$index;
+        var type = actionFactory.getType(action);
 
         var modalData = {headerText: 'Select element instance'};
-        var modalOptions = ruleFactory.getOptionsForLeftModal(action);
+        var modalOptions = ruleFactory.getOptionsForTreeModal(action);
 
         modalService.showModal(modalOptions, modalData).then(showModalComplete, showModalFailed);
 
@@ -283,12 +268,12 @@ function RuleEditorCtrl($stateParams, $log, guidelineFactory, utilsFactory, moda
                 return;
             }
             var selected = modalResponse.data.selectedItem;
-            //var leftPart = vm.rule.thenStatements[index].variable;
             /*
              * Delete the unselected property used to highlight the text in the view
              */
-            //delete leftPart.unselected;
-            ruleFactory.setActionLeft(action, selected);
+            delete action.variable.unselected;
+
+            type === "Attribute" ? ruleFactory.setLeftAttribute(action, selected) : ruleFactory.setLeftRemaining(action, selected, type);
         }
 
         function showModalFailed() {
@@ -299,8 +284,7 @@ function RuleEditorCtrl($stateParams, $log, guidelineFactory, utilsFactory, moda
 
     function updateActionRight(node) {
         var action = node.$modelValue;
-        var index = node.$index;
-        var type = ruleFactory.getActionType(action);
+        var type = actionFactory.getType(action);
         /*
          * If the action has a 'magnitude' left side attribute, the expression editor is opened
          */
@@ -311,15 +295,15 @@ function RuleEditorCtrl($stateParams, $log, guidelineFactory, utilsFactory, moda
         /*
          * If the action at hand is a CompareDatavalue and the left item has not been selected yet
          */
-        /*if(!action.expressionItem.left.expressionItem.code && (type === "CompareDataValue" || type === "CompareAttribute")) {
+        if(!action.variable.code && (type === "DataValue" || type === "Attribute")) {
             var modalData = {headerText: 'Select an element', bodyText: 'You have to select an element before choosing a data value'};
             var modalOptions = {component: 'dialogComponent'};
             modalService.showModal(modalOptions, modalData);
             return;
-        } */
+        }
 
-        var data = ruleFactory.getActionDataForModal(action);
-        var options = ruleFactory.getActionOptionsForRightModal(action);
+        var data = ruleFactory.getDataModal(action);
+        var options = ruleFactory.getOptionsModal(action);
 
         modalService.showModal(options, data).then(showModalComplete, showModalFailed);
 
@@ -328,24 +312,24 @@ function RuleEditorCtrl($stateParams, $log, guidelineFactory, utilsFactory, moda
                 return;
             }
             var selected = modalResponse.data.selectedItem;
+            var variable = action.variable;
+            var assignment = action.assignment;
             /*
              * Delete the unselected property used to highlight the text in the view
              */
-            delete vm.rule.thenStatements[index].assignment.unselected;
 
-            var rightPart = vm.rule.thenStatements[index].assignment;
+            delete assignment.unselected;
+            var type = modalResponse.data.type;
 
-            if (type === "SetAttribute") {
-                ruleFactory.setActionAttribute(action, modalResponse);
-            } else if (type === "SetNullValue") {
-                ruleFactory.setNullValue(rightPart, selected);
-                // TODO: Does the 'attribute' property have always the same value (null_flavour) ??
-            } else if (type === "SetDataValue") {
-                ruleFactory.setCompareDataValue(rightPart, modalResponse);
-            } else if (type === "SetElement") {
-                ruleFactory.setCompareElement (rightPart, selected);
+            if(type === "NullValue") {
+                ruleFactory.setNullValue(assignment, selected);
+            } else if(type === "ElementValue") {
+                ruleFactory.setCompareElement (assignment, selected);
+            } else if(type === "AttributeValue") {
+                ruleFactory.setAttribute(variable, assignment, modalResponse);
+            } else {
+                ruleFactory.setCompareDataValue(assignment, modalResponse);
             }
-
         }
 
         function showModalFailed() {

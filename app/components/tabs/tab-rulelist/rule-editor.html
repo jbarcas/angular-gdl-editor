@@ -22,7 +22,7 @@
               <div ui-tree-handle class="tree-node tree-node-content">
                 <form role="form"  class="form-inline">
                   <a class="btn btn-success btn-xs"><span class="glyphicon glyphicon-list"></span></a>
-                  Element <sup>EHR</sup> <a ng-style="whenStatement.expressionItem.left.unselected && {color:'red'}" ng-click="vm.updateConditionLeft(this)" data-nodrag>{{vm.terms[whenStatement.expressionItem.left.expressionItem.code].text | parseLocal}}<sub ng-show="whenStatement.expressionItem.left.expressionItem.attribute">{{whenStatement.expressionItem.left.expressionItem.attribute}}</sub></a>
+                  Element <sup>EHR</sup> <a ng-style="whenStatement.expressionItem.left.unselected && {color:'red'}" ng-click="vm.updateConditionLeft(this)" data-nodrag>{{vm.terms[whenStatement.expressionItem.left.expressionItem.code].text | parseLocal}}<sub ng-show="whenStatement.expressionItem.left.expressionItem.attribute && whenStatement.expressionItem.left.expressionItem.attribute !== 'null_flavor'">{{whenStatement.expressionItem.left.expressionItem.attribute}}</sub></a>
                   <select class="form-control" ng-model="whenStatement.expressionItem.operator" data-nodrag>
                     <option ng-repeat="option in vm.getOptions(this.$modelValue)" value="{{ option.value }}" ng-bind="option.label"></option>
                   </select>
@@ -36,7 +36,7 @@
       </div>
       <!-- Right panel -->
       <div class="col-sm-3">
-        <div ui-tree="vm.treeDefinitions" class="panel panel-default" data-clone-enabled="true" data-nodrop-enabled="true">
+        <div ui-tree="vm.treeConditions" class="panel panel-default" data-clone-enabled="true" data-nodrop-enabled="true">
           <div class="panel-heading">
             <h2 class="panel-title">Conditions</h2>
           </div>
@@ -68,9 +68,9 @@
               <div ui-tree-handle class="tree-node tree-node-content">
                 <form role="form"  class="form-inline">
                   <a class="btn btn-success btn-xs"><span class="glyphicon glyphicon-list"></span></a>
-                  Set element <sup>EHR</sup> <a ng-click="vm.updateActionLeft(this)" data-nodrag>{{vm.terms[thenStatement.variable.code].text | parseLocal}}<sub ng-show="thenStatement.variable.attribute && thenStatement.variable.attribute !== 'null_flavor'">{{thenStatement.variable.attribute}}</sub></a>
+                  Set element <sup>EHR</sup> <a ng-style="thenStatement.variable.unselected && {color:'red'}" ng-click="vm.updateActionLeft(this)" data-nodrag>{{vm.terms[thenStatement.variable.code].text | parseLocal}}<sub ng-show="thenStatement.variable.attribute && thenStatement.variable.attribute !== 'null_flavor'">{{thenStatement.variable.attribute}}</sub></a>
                   to
-                  <a ng-click="vm.updateActionRight(this)"> {{thenStatement.assignment.expressionItem.value || vm.terms[thenStatement.assignment.expressionItem.code].text | parseLocal}} </a>
+                  <a ng-style="thenStatement.assignment.unselected && {color:'red'}" ng-click="vm.updateActionRight(this)"> {{thenStatement.assignment.expressionItem.value || vm.terms[thenStatement.assignment.expressionItem.code].text | parseLocal}} </a>
                   <a class="pull-right btn btn-xs" data-nodrag ng-click="vm.removeCondition(this)"><img ng-src="{{vm.delete}}"></a>
                 </form>
               </div>
@@ -79,20 +79,20 @@
         </div>
       </div>
       <!-- Right panel -->
-      <!--<div class="col-sm-3">
-        <div ui-tree="vm.treeDefinitions" class="panel panel-default" data-clone-enabled="true" data-nodrop-enabled="true">
+      <div class="col-sm-3">
+        <div ui-tree="vm.treeActions" class="panel panel-default" data-clone-enabled="true" data-nodrop-enabled="true">
           <div class="panel-heading">
-            <h2 class="panel-title">Conditions</h2>
+            <h2 class="panel-title">Actions</h2>
           </div>
           <div class="panel-body">
-            <ol ui-tree-nodes ng-model="vm.conditions">
-              <li ng-repeat="item in vm.conditions" class="right-list" ui-tree-node data-nodrag="{{!item.draggable}}">
+            <ol ui-tree-nodes ng-model="vm.actions">
+              <li ng-repeat="item in vm.actions" class="right-list" ui-tree-node data-nodrag="{{!item.draggable}}">
                 <div ui-tree-handle>{{item.title}}</div>
               </li>
             </ol>
           </div>
         </div>
-      </div> -->
+      </div>
     </div>
   </div>
 </div>
@@ -100,4 +100,6 @@
 
 
 </div>
-<pre>{{vm.rule | json}}</pre>
+<!--<pre>{{vm.rule | json}}</pre>-->
+<pre>{{vm.rule.whenStatements | json}}</pre>
+<!--<pre>{{vm.rule.thenStatements | json}}</pre>-->

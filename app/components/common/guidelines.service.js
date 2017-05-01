@@ -38,6 +38,7 @@ function guidelineFactory($http, API_URL, $q, archetypeFactory, terminologyFacto
         deleteGuidelineArchetype: deleteGuidelineArchetype,
         getElementByArchetypIdAndPath: getElementByArchetypIdAndPath,
         getElementByGtCode: getElementByGtCode,
+        getElementType: getElementType,
         getPreConditions: getPreConditions,
         setPreConditions: setPreConditions,
         //-------------------------------------
@@ -261,6 +262,20 @@ function guidelineFactory($http, API_URL, $q, archetypeFactory, terminologyFacto
             }
         }
         console.log(guidelineArchetypes.toString())
+    }
+
+    function getElementType(code) {
+        var archetypeId;
+        var element;
+        angular.forEach(getArchetypeBindings(), function(archetypeBinding) {
+            angular.forEach(archetypeBinding.elements, function(e) {
+                if(code === e.id) {
+                    element = e;
+                    archetypeId = archetypeBinding.archetypeId;
+                }
+            })
+        });
+        return getElementByArchetypIdAndPath(archetypeId, element.path).dataType;
     }
 
     function getElementByArchetypIdAndPath(archetypeId, path) {

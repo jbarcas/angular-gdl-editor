@@ -4,8 +4,8 @@
 
 angular.module('app.constants', [])
     //FIXME: This URL should be enviroment dependent and specified at building time
-    .constant('API_URL','http://localhost:8080/km/admin')
-    .constant('API_MISC_URL','http://localhost:8080/km/misc')
+    .constant('API_URL', 'http://localhost:8080/km/admin')
+    .constant('API_MISC_URL', 'http://localhost:8080/km/misc')
     .constant('GT_HEADER', 'gt')
     .constant('DV', {
         QUANTITY: 'DV_QUANTITY',
@@ -30,8 +30,51 @@ angular.module('app.constants', [])
         "EXPONENT": "^"
     })
     .constant('NULLVALUE', {
-        NO_INFORMATION: { viewText: 'No information', value: 271 },
-        UNKNOWN: { viewText: 'Unknown', value: 253 },
-        MASKED: { viewText: 'Masked', value: 272 },
-        NOT_APPLICABLE: { viewText: 'Not applicable', value: 273 }
-    });
+        NO_INFORMATION: {viewText: 'No information', value: 271},
+        UNKNOWN: {viewText: 'Unknown', value: 253},
+        MASKED: {viewText: 'Masked', value: 272},
+        NOT_APPLICABLE: {viewText: 'Not applicable', value: 273}
+    })
+    .constant('CONDITION_OPERATORS', {
+        EXISTS: [
+            {label: 'exists', value: 'INEQUAL'},
+            {label: 'does not exist', value: 'EQUALITY'}
+        ],
+        ATTRIBUTE: [
+            {label: '==', value: 'EQUALITY'},
+            {label: '!=', value: 'INEQUAL'},
+            {label: '<', value: 'LESS_THAN'},
+            {label: '<=', value: 'LESS_THAN_OR_EQUAL'},
+            {label: '>', value: 'GREATER_THAN'},
+            {label: '>=', value: 'GREATER_THAN_OR_EQUAL'}
+        ],
+        ELEMENT: [
+            {label: '==', value: 'EQUALITY'},
+            {label: '!=', value: 'INEQUAL'},
+            {label: '<', value: 'LESS_THAN'},
+            {label: '<=', value: 'LESS_THAN_OR_EQUAL'},
+            {label: '>', value: 'GREATER_THAN'},
+            {label: '>=', value: 'GREATER_THAN_OR_EQUAL'},
+            {label: 'IS_A', value: 'IS_A'},
+            {label: '!IS_A', value: 'IS_NOT_A'}
+        ],
+        NULLVALUE: [
+            {label: '==', value: 'EQUALITY'},
+            {label: '!=', value: 'INEQUAL'}
+        ],
+        DATAVALUE: [
+            {label: '==', value: 'EQUALITY'},
+            {label: '!=', value: 'INEQUAL'},
+            {label: '<', value: 'LESS_THAN'},
+            {label: '<=', value: 'LESS_THAN_OR_EQUAL'},
+            {label: '>', value: 'GREATER_THAN'},
+            {label: '>=', value: 'GREATER_THAN_OR_EQUAL'},
+            {label: 'IS_A', value: 'IS_A'},
+            {label: '!IS_A', value: 'IS_NOT_A'}
+        ],
+        OR: [
+            {label: 'OR', value: 'OR'}
+        ]    })
+
+
+;

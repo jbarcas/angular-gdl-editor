@@ -5,112 +5,49 @@
 angular.module('app.services')
     .factory('ruleFactory', ruleFactory);
 
-function ruleFactory(guidelineFactory, definitionsFactory, utilsFactory, ATTRIBUTES, NULLVALUE) {
+function ruleFactory(guidelineFactory, expressionItemFactory, conditionFactory, actionFactory, utilsFactory, ATTRIBUTES, NULLVALUE, DV) {
 
     return {
-        getConditionType: getConditionType,
-        getActionType: getActionType,
-        getConditionDataForModal: getConditionDataForModal,
-        getActionDataForModal: getActionDataForModal,
-        getOptionsForLeftModal: getOptionsForLeftModal,
-        getConditionOptionsForRightModal: getConditionOptionsForRightModal,
-        getActionOptionsForRightModal: getActionOptionsForRightModal,
+        getDataModal: getDataModal,
+        getOptionsForTreeModal: getOptionsForTreeModal,
+        getOptionsModal: getOptionsModal,
         addToElements: addToElements,
         // ---------------------------------
-        setLeftCompareAttribute: setLeftCompareAttribute,
+        setLeftAttribute: setLeftAttribute,
         setLeftRemaining: setLeftRemaining,
-        // ---------------------------------
-        setConditionAttribute: setConditionAttribute,
         setNullValue: setNullValue,
         setCompareDataValue: setCompareDataValue,
         setCompareElement: setCompareElement,
         // ---------------------------------
-        createCompareDataValue: createCompareDataValue,
-        createCompareNullValue: createCompareNullValue,
-        createCompareElement: createCompareElement,
-        createCompareAttribute: createCompareAttribute,
-        createElementExists: createElementExists,
-        createOr: createOr,
-        // ---------------------------------
-        setActionAttribute: setActionAttribute,
-        setActionLeft: setActionLeft
-
+        setAttribute: setAttribute
+        // -----------------------------------
     };
 
-    function getConditionType(condition) {
-        var type;
-        if (condition.expressionItem.operator === "OR") {
-            type = "Or";
-        } else if (condition.expressionItem.right.expressionItem.value === "null") {
-            type = "ElementExists";
-        } else if (condition.expressionItem.left.expressionItem.attribute === "null_flavor") {
-            type = "CompareNullValue";
-        } else if (condition.expressionItem.left.expressionItem.hasOwnProperty("attribute")) {
-            type = "CompareAttribute";
-        } else if (condition.expressionItem.right.expressionItem.hasOwnProperty("code")) {
-            type = "CompareElement";
-        } else {
-            type = "CompareDataValue";
-        }
-        return type;
-    }
-
-    function getActionType(action) {
-        var type;
-        if (action.variable.attribute === "null_flavor") {
-            type = "SetNullValue";
-        } else if (ATTRIBUTES.DV_QUANTITY.indexOf(action.variable.attribute) > -1) {
-            type = "SetAttribute";
-        } else if (action.assignment.type === "Variable") {
-            type = "SetElement";
-        } else {
-            type = "SetDataValue";
-        }
-        return type;
-    }
-
-    function getConditionDataForModal(condition) {
-        var conditionType = getConditionType(condition);
+    /**
+     * Fill the modal with the corresponding data: header text, body text, placeholders, etc.
+     * @param expression
+     * @returns {{}}
+     */
+    function getDataModal(expression) {
+        var expressionType = isAction(expression) ? actionFactory.getType(expression) : conditionFactory.getType(expression);
         var modalData = {};
-        if (conditionType === 'CompareElement') {
+        if (expressionType === 'Element') {
             modalData.headerText = 'Select element instance'
-        } else if (conditionType === 'CompareNullValue') {
+        } else if (expressionType === 'NullValue') {
             modalData.headerText = 'NullValue';
             modalData.bodyText = 'A Null flavor may be recorded where it has not been possible to provide information, particularly for mandatory data elements. The possible values are No information, Unknown, Masked and Not applicable.';
-        } else if (conditionType === 'CompareDataValue') {
-            var gtCode = condition.expressionItem.left.expressionItem.code;
+        } else if (expressionType === 'DataValue') {
+            var gtCode = isAction(expression) ? expression.variable.code: expression.expressionItem.left.expressionItem.code;
             var term = guidelineFactory.getOntology().termDefinitions.en.terms[gtCode];
             modalData.headerText = term.text;
             modalData.bodyText = term.description;
-
-            var dataValueType = condition.expressionItem.right.type;
+            var dataValueType = isAction(expression) ? expression.assignment.type : expression.expressionItem.right.type;
             if(dataValueType === 'QuantityConstant') {
                 modalData.placeholder = 'Enter magnitude'
             }
-
-        } else if (conditionType === 'CompareAttribute') {
-            var attribute = condition.expressionItem.left.expressionItem.attribute;
+        } else if (expressionType === 'Attribute') {
+            var attribute = isAction(expression) ? expression.variable.attribute :expression.expressionItem.left.expressionItem.attribute;
             modalData.placeholder = 'Enter ' + attribute;
-            modalData.headerText = attribute;
-        }
-        return modalData;
-    }
-
-    function getActionDataForModal(action) {
-        var actionType = getActionType(action);
-        var modalData = {};
-        if (actionType === 'SetElement') {
-            modalData.headerText = 'Select element instance'
-        } else if (actionType === 'SetNullValue') {
-            modalData.headerText = 'NullValue';
-            modalData.bodyText = 'A Null flavor may be recorded where it has not been possible to provide information, particularly for mandatory data elements. The possible values are No information, Unknown, Masked and Not applicable.';
-        } else if (actionType === 'SetDataValue') {
-            var gtCode = action.variable.code;
-            var term = guidelineFactory.getOntology().termDefinitions.en.terms[gtCode];
-            modalData.headerText = term.text;
-            modalData.bodyText = term.description;
-        } else if (actionType === 'SetAttribute') {
-            var attribute = action.variable.attribute;
             modalData.headerText = attribute;
             if(attribute === 'precision') {
                 modalData.placeholder = 'Enter precision';
@@ -122,28 +59,23 @@ function ruleFactory(guidelineFactory, definitionsFactory, utilsFactory, ATTRIBU
 
     /**
      * Gets the options for the left side modal
-     * @param condition
+     * @param expression
      * @returns {{}}
      */
-    function getOptionsForLeftModal(condition) {
-        var conditionType;
-
-        if(condition.variable) {
-            conditionType = getActionType(condition);
-        } else {
-            conditionType = getConditionType(condition);
-        }
-
-        var modalOptions = {};
-        modalOptions.component = "modalWithTreeComponent";
-        modalOptions.resolve = {};
-        var modalItems = [];
+    function getOptionsForTreeModal(expression) {
+        var expressionType = isAction(expression) ? actionFactory.getType(expression) :  conditionFactory.getType(expression);
+        var modalOptions = {resolve: {}, component: "modalWithTreeComponent"}, modalItems = [];
         var archetypeBindings = angular.copy(guidelineFactory.getArchetypeBindings());
         var termDefinitions = angular.copy(guidelineFactory.getOntology().termDefinitions.en.terms);
+        /*
+         * Store the instantiated elements in "elements"
+         */
         var elements = [];
         angular.forEach(archetypeBindings, function (archetypeBinding) {
             angular.forEach(archetypeBinding.elements, function (element) {
                 if (element.path) {
+                    var e = guidelineFactory.getElementByArchetypIdAndPath(archetypeBinding.archetypeId, element.path);
+                    element.dataType = e.dataType;
                     elements.push(element);
                 }
             })
@@ -155,30 +87,21 @@ function ruleFactory(guidelineFactory, definitionsFactory, utilsFactory, ATTRIBU
             angular.forEach(elements, function (element) {
                 var viewElement = angular.copy(element);
                 viewElement.viewText = termDefinitions[element.id].text;
+                viewElement.type = 'ElementValue';
                 /*
                  * If it is a compare attribute, we should add its attributes
                  */
-                if (conditionType === "CompareAttribute" || conditionType === "SetAttribute") {
-                    var archetypeElement = guidelineFactory.getElementByGtCode(element.id);
-                    var children = [];
-                    angular.forEach(ATTRIBUTES[archetypeElement.dataType], function(item){
-                        children.push({viewText: item});
-                    });
-                    viewElement.children = children;
-                    viewElement.dataType = archetypeElement.dataType;
+                if (expressionType === "Attribute") {
+                    addAttributesWithElement(viewElement, guidelineFactory.getElementByGtCode(element.id));
                 }
                 modalItems.push(viewElement);
             });
 
             /*
-             * Add the archetypes and its elements
+             * Add the archetypes and its elements (and its attributes)
              */
             // root element
-            var item = {
-                viewText: "Archetypes",
-                dataType: "FOLDER",
-                children: []
-            };
+            var item = { viewText: "Archetypes", dataType: "FOLDER", children: [] };
             // subitems
             angular.forEach(guidelineFactory.getGuidelineArchetypes(), function (archetype) {
                 var archetypeView = angular.copy(archetype);
@@ -188,6 +111,12 @@ function ruleFactory(guidelineFactory, definitionsFactory, utilsFactory, ATTRIBU
                 for (var element in archetype.elementMaps) {
                     var viewElement = angular.copy(archetype.elementMaps[element]);
                     viewElement.viewText = element;
+                    /*
+                     * If it is a compare attribute, we should add its attributes
+                     */
+                    if (expressionType === "Attribute") {
+                        addAttributesWithArchetype(viewElement, archetype);
+                    }
                     archetypeView.children.push(viewElement);
                 }
                 item.children.push(archetypeView);
@@ -198,19 +127,44 @@ function ruleFactory(guidelineFactory, definitionsFactory, utilsFactory, ATTRIBU
         return modalOptions;
     }
 
+    /**
+     * Add the attributes to show in the modal. Needed when the condition/action is a SetAttribute or CompareAttribute
+     * @param element
+     */
+    function addAttributesWithArchetype(viewElement, archetype) {
+        var element = archetype.elementMaps[viewElement.viewText];
+        var children = [];
+        angular.forEach(ATTRIBUTES[element.dataType], function(item){
+            children.push({viewText: item});
+        });
+        viewElement.children = children;
+        viewElement.dataType = element.dataType;
+        viewElement.parentArchetypeId = archetype.archetypeId;
+    }
+
+    function addAttributesWithElement(viewElement, element) {
+        var children = [];
+        angular.forEach(ATTRIBUTES[element.dataType], function(item){
+            children.push({viewText: item});
+        });
+        viewElement.children = children;
+        viewElement.dataType = element.dataType;
+    }
+
     function getOptionsForNullValue (expression) {
         var modalOptions = {resolve: {}, component: "modalWithInputAndDropdownComponent"}, modalItems = [];
         var expressionItem = expression.variable ? expression.assignment.expressionItem : expression.expressionItem.right.expressionItem;
         modalOptions.resolve.items = function() {
             for(var i in NULLVALUE) {
-                modalItems.push({viewText: NULLVALUE[i].viewText, value: NULLVALUE[i].value});
+                modalItems.push({viewText: NULLVALUE[i].viewText, value: NULLVALUE[i].value, type: "NullValue"});
             }
             return modalItems;
         };
         modalOptions.resolve.default = function() {
             var defaultOption = {
                 viewText: expressionItem.codedText ? expressionItem.codedText.value : {},
-                value: expressionItem.codedText ? expressionItem.codedText.definingCode.codeString : {}
+                value: expressionItem.codedText ? expressionItem.codedText.definingCode.codeString : {},
+                type: "NullValue"
             };
             return defaultOption;
         };
@@ -221,102 +175,45 @@ function ruleFactory(guidelineFactory, definitionsFactory, utilsFactory, ATTRIBU
         return expression.hasOwnProperty('variable');
     }
 
-    /**
-     * Gets the options for the right side modal
-     * @param condition
-     * @returns {{}}
-     */
-    function getConditionOptionsForRightModal(condition) {
-        var conditionType = getConditionType(condition);
-        var modalOptions = {
-            resolve: {}
-        };
-
-        if(conditionType === 'CompareElement') {
-            return getOptionsForLeftModal(condition);
-        } else if (conditionType === 'CompareNullValue') {
-            return getOptionsForNullValue(condition);
-        } else if (conditionType === 'CompareDataValue') {
-            if(condition.expressionItem.right.type === "QuantityConstant") {
-                modalOptions.component = "modalWithInputAndDropdownComponent";
-                var quantity = condition.expressionItem.right.expressionItem.quantity || {};
-                var magnitude = quantity.magnitude;
-                modalOptions.resolve.input = function() {
-                    var input = {
-                        value: magnitude
-                    };
-                    return input;
-                };
-                modalOptions.resolve.items = function() {
-                    // FIXME: Get the options in a right way
-                    var options = ['kg/m2', 'cm', 'in'];
-                    var modalItems = [];
-                    for(var i in options) {
-                        modalItems.push({viewText: options[i]});
-                    }
-                    return modalItems;
-                };
-                modalOptions.resolve.default = function() {
-                    var units = quantity.units || {};
-                    var defaultOption = {
-                        viewText: units
-                    };
-                    return defaultOption;
-                };
-            } else if(condition.expressionItem.right.type === "OrdinalConstant") {
-                return getOptionsForSetDataValueOrdinal(condition);
-            }
-
-        } else if (conditionType === 'CompareAttribute') {
-            modalOptions.component = "modalWithInputAndDropdownComponent";
-            modalOptions.resolve.items = function() {
-                // FIXME: Get the options in a right way
-                var temporalMockOptions = ['kg/m2', 'cm', 'in'];
-                var modalItems = [];
-                for(var i in temporalMockOptions) {
-                    modalItems.push({viewText: temporalMockOptions[i]});
-                }
-                return modalItems;
-            };
-            modalOptions.resolve.default = function() {
-                var def = condition.expressionItem.right.expressionItem.value;
-                var defaultOption = {
-                    viewText: def
-                };
-                return defaultOption;
-            };
-        }
-        return modalOptions;
-    }
-
-    function getDataValueType(action) {
-        var assignmentType = action.assignment.type;
-        if(assignmentType === 'CodedTextConstant') {
+    function getDataValueType(expression) {
+        var code = isAction(expression) ? expression.variable.code : expression.expressionItem.left.expressionItem.code;
+        var elementType = guidelineFactory.getElementType(code);
+        if(elementType === DV.CODEDTEXT) {
             return 'CodedText';
-        } else if(assignmentType === 'OrdinalConstant') {
+        } else if(elementType === DV.ORDINAL) {
             return 'Ordinal';
+        } else if(elementType === DV.TEXT) {
+            return 'Text';
+        } else if(elementType === DV.QUANTITY) {
+            return 'Quantity';
+        } else if(elementType === DV.DATETIME) {
+            return 'Datetime';
         }
     }
 
-    function getActionOptionsForRightModal(action) {
-        var actionType = getActionType(action);
-        if(actionType === 'SetAttribute') {
-            var attribute = action.variable.attribute;
+    function getOptionsModal(expression) {
+        //var actionType= actionFactory.getType(expression);
+        var expressionType = isAction(expression) ? actionFactory.getType(expression) : conditionFactory.getType(expression);
+        if(expressionType === 'Attribute') {
+            var attribute = isAction(expression) ? expression.variable.attribute : expression.expressionItem.left.expressionItem.attribute;
             if(attribute === 'units') {
-                return getOptionsForSetElement(action);
+                return getOptionsForAttributeUnits(expression);
             } else if(attribute === 'precision') {
-                return getOptionsForAttributePrecision(action);
+                return getOptionsForAttributePrecision(expression);
             }
-        } else if(actionType === "SetElement") {
-            return getOptionsForLeftModal(action);
-        } else if(actionType === "SetNullValue") {
-            return getOptionsForNullValue(action);
-        } else if(actionType === "SetDataValue") {
+        } else if(expressionType === "Element") {
+            return getOptionsForTreeModal(expression);
+        } else if(expressionType === "NullValue") {
+            return getOptionsForNullValue(expression);
+        } else if(expressionType === "DataValue") {
             // TODO: remaining tpes: QuantityConstant, StringConstant, DatetimeConstant, OrdinalConstant...
-            if(getDataValueType(action) === "CodedText") {
-                return getOptionsForSetDataValueCodedText(action);
-            } else if(getDataValueType(action) === "Ordinal") {
-                return getOptionsForSetDataValueOrdinal(action);
+            var dataValueType = getDataValueType(expression);
+            if(dataValueType === "CodedText") {
+                return getOptionsForSetDataValueCodedText(expression);
+            } else if(dataValueType === "Ordinal") {
+                return getOptionsForSetDataValueOrdinal(expression);
+            } else if(dataValueType === "Quantity") {
+                return getOptionsForSetDataValueQuantity(expression);
             }
         }
     }
@@ -331,16 +228,83 @@ function ruleFactory(guidelineFactory, definitionsFactory, utilsFactory, ATTRIBU
      * @param expression
      * @returns modalOptions Object with the modal options
      */
-    function getOptionsForAttributePrecision(expression) {
+    function getOptionsForSetDataValueQuantity(expression) {
         var modalOptions = {resolve: {}, component: "modalWithInputAndDropdownComponent"};
+        var quantity, magnitude;
 
-        var precision = expression.assignment.expressionItem.value;
+        if(isAction(expression)) {
+            quantity = expression.assignment.expressionItem.quantity || {};
+            magnitude = quantity.magnitude;
+        } else {
+            quantity = expression.expressionItem.right.expressionItem.quantity || {};
+            magnitude = quantity.magnitude;
+        }
+
         modalOptions.resolve.input = function() {
             var input = {
-                type: "Precision",
-                value: precision
-            }
+                value: magnitude,
+                type: DV.QUANTITY
+            };
             return input;
+        };
+        modalOptions.resolve.items = function() {
+            // FIXME: Get the options in a right way
+            var options = ['kg/m2', 'cm', 'in'];
+            var modalItems = [];
+            for(var i in options) {
+                modalItems.push({viewText: options[i]});
+            }
+            return modalItems;
+        };
+        modalOptions.resolve.default = function() {
+            var units = quantity.units || {};
+            var defaultOption = {
+                viewText: units
+            };
+            return defaultOption;
+        };
+        return modalOptions;
+    }
+
+    /**
+     * In "Actions": get the options for the right part of expression
+     * when the expression is a "Set(datavalue)" => Ordinal
+     *
+     *   1. Get the left side element
+     *   2. Retrieve all the coded text options for that element
+     *
+     * @param expression
+     * @returns modalOptions Object with the modal options
+     */
+    function getOptionsForAttributePrecision(expression) {
+        var modalOptions = {resolve: {}, component: "modalWithInputAndDropdownComponent"};
+        var precision = isAction(expression) ? expression.assignment.expressionItem.value : expression.expressionItem.right.expressionItem.value;
+        modalOptions.resolve.input = function() {
+            return { type: "AttributeValue", value: precision };
+        };
+        return modalOptions;
+    }
+
+    /**
+     * In "Actions": get the options for the right part of expression
+     * when the expression is a "Set(element)"
+     *
+     *   1. Get the left side attribute
+     *   2. Get all the options for that attribute to show in the modal
+     *
+     * @param expression
+     * @returns modalOptions Object with the modal options
+     */
+    function getOptionsForAttributeUnits(expression) {
+        var modalOptions = {resolve: {}, component: "modalWithInputAndDropdownComponent"}, modalItems = [];
+        var attribute = isAction(expression) ? expression.variable.attribute : expression.expressionItem.left.expressionItem.attribute;
+        // FIXME: Get the actual values. At this moment the API does not provide 'units'
+        var temporalMockOptions = ['kg/m2', 'in', 'cm'];
+        modalOptions.resolve.items = function() {
+            for(var i in temporalMockOptions) {
+                modalItems.push({viewText: temporalMockOptions[i], type: "AttributeValue"});
+            }
+            return modalItems;
         };
         return modalOptions;
     }
@@ -369,7 +333,7 @@ function ruleFactory(guidelineFactory, definitionsFactory, utilsFactory, ATTRIBU
         var element = guidelineFactory.getElementByGtCode(code);
         modalOptions.resolve.items = function() {
             var attributes = element.attributeMaps;
-            for(attribute in attributes) {
+            for(var attribute in attributes) {
                 if(ordinal && attributes[attribute].code == ordinal.symbol.definingCode.codeString) {
                     defaultOption = attributes[attribute];
                 }
@@ -412,51 +376,13 @@ function ruleFactory(guidelineFactory, definitionsFactory, utilsFactory, ATTRIBU
                     defaultOption = attributes[attribute];
                 }
                 attributes[attribute].viewText = attributes[attribute].text;
-                attributes[attribute].type = "CodedText";
+                attributes[attribute].type = DV.CODEDTEXT;
                 modalItems.push(attributes[attribute]);
             }
             return modalItems;
         };
         modalOptions.resolve.default = function() {
             return defaultOption;
-        };
-        return modalOptions;
-    }
-
-    /**
-     * In "Actions": get the options for the right part of expression
-     * when the action is a "Set(datavalue)" => CodedText
-     *
-     *   1. Get the left side element
-     *   2. Retrieve all the coded text options for that element
-     *
-     * @param action
-     * @returns modalOptions Object with the modal options
-     */
-    function getOptionsForSetDataValueQuantity(action) {
-
-    }
-
-
-    /**
-     * In "Actions": get the options for the right part of expression
-     * when the action is a "Set(element)"
-     *
-     *   1. Get the left side attribute
-     *   2. Get all the options for that attribute to show in the modal
-     *
-     * @param action
-     * @returns modalOptions Object with the modal options
-     */
-    function getOptionsForSetElement(action) {
-        var modalOptions = {resolve: {}, component: "modalWithInputAndDropdownComponent"}, modalItems = [];
-        var attribute = action.variable.attribute;
-        var temporalMockOptions = ['kg/m2', 'in', 'cm'];
-        modalOptions.resolve.items = function() {
-            for(var i in temporalMockOptions) {
-                modalItems.push({viewText: temporalMockOptions[i]});
-            }
-            return modalItems;
         };
         return modalOptions;
     }
@@ -476,23 +402,24 @@ function ruleFactory(guidelineFactory, definitionsFactory, utilsFactory, ATTRIBU
 
     } */
 
-
     /**
      * Adds an element into the Archetype Binding definitions
      * @param element
      */
     function addToElements(element) {
-        var archetypeId = element.parent.viewText;
+        var archetypeId = element.parentArchetypeId || element.parent.viewText;
         guidelineFactory.addElementToDefinitions(element, archetypeId);
     }
-
 
     /**
      * Fill the "Compare Attribute" left part of a condition
      * @param left Left part of the condition
      * @param data Input from the user
      */
-    function setLeftCompareAttribute (left, data) {
+    function setLeftAttribute (left, data) {
+
+        expression = isAction(left) ? left.variable : left.expressionItem;
+
         /*
          * If the selected item has an id, then it is an element present in archetype definitions, so
          * we only have to change its gtCode.
@@ -501,29 +428,50 @@ function ruleFactory(guidelineFactory, definitionsFactory, utilsFactory, ATTRIBU
          * then we have to create the corresponding entry in the ontology section
          */
         if (data.parent.id) {
-            left.expressionItem.code = data.parent.id;
-            left.expressionItem.attribute = data.viewText;
+            expression.code = data.parent.id;
+            expression.attribute = data.viewText;
         } else {
             data.id = utilsFactory.generateGt(guidelineFactory.getCurrentGuide());
-            left.expressionItem.code = data.id;
-            left.expressionItem.attribute = data.viewText;
-            addToElements(data);
-            var path = data.path;
+            expression.code = data.id;
+            expression.attribute = data.viewText;
+            data.parent.id= utilsFactory.generateGt(guidelineFactory.getCurrentGuide());
+            addToElements(data.parent);
+            var path = data.parent.path;
             var atCode = path.substring(path.lastIndexOf("[") + 1, path.lastIndexOf("]"));
             guidelineFactory.getOntology().termDefinitions.en.terms[data.id] = {
                 id: data.id,
-                text: atCode !== "" ? guidelineFactory.getTerms()[data.parent.viewText][atCode].text : "",
-                description: atCode !== "" ? guidelineFactory.getTerms()[data.parent.viewText][atCode].description : ""
+                text: atCode !== "" ? guidelineFactory.getTerms()[data.parent.parentArchetypeId][atCode].text : "",
+                description: atCode !== "" ? guidelineFactory.getTerms()[data.parent.parentArchetypeId][atCode].description : ""
             };
         }
     }
 
     /**
-     * Fill the remaining left part of a condition
-     * @param left Left part of the condition
+     * Fill the remaining expression part of a condition
+     * @param expression Left part of the condition
      * @param data Input from the user
      */
-    function setLeftRemaining (left, data, type) {
+    function setLeftRemaining (expression, data, actionType) {
+        var dataType = data.dataType;
+        var leftExpressionItem = isAction(expression) ? expression.variable : expression.expressionItem.left.expressionItem;
+
+        if(isAction(expression) && actionType === 'DataValue') {
+            if(dataType === DV.QUANTITY) {
+                expression.assignment.type = 'QuantityConstant'
+            } else if(dataType === DV.TEXT) {
+                expression.assignment.type = 'StringConstant'
+            } else if(dataType === DV.CODEDTEXT) {
+                expression.assignment.type = 'CodedTextConstant'
+            } else if(dataType === DV.DATETIME) {
+                expression.assignment.type = 'DateTimeConstant'
+            } else if(dataType === DV.ORDINAL) {
+                expression.assignment.type = 'OrdinalConstant'
+            } else if(dataType === DV.COUNT) {
+                expression.assignment.type = 'ConstantExpression'
+            }
+
+        }
+
         /*
          * If the selected item has an id, then it is an element present in archetype definitions, so
          * we only have to change its gtCode.
@@ -532,22 +480,21 @@ function ruleFactory(guidelineFactory, definitionsFactory, utilsFactory, ATTRIBU
          * then we have to create the corresponding entry in the ontology section
          */
         if (data.id) {
-            left.expressionItem.code = data.id;
+            leftExpressionItem.code = data.id;
             /**
              * If it is a Compare Null Value condition we should change the name property
              */
-            if (type === "CompareNullValue") {
-                left.expressionItem.name = data.viewText;
-                // TODO: Does the 'attribute' property have always the same value (null_flavour) ??
+            if (actionType === "NullValue") {
+                leftExpressionItem.name = data.viewText;
             }
         } else {
             data.id = utilsFactory.generateGt(guidelineFactory.getCurrentGuide());
-            left.expressionItem.code = data.id;
+            leftExpressionItem.code = data.id;
             /*
              * If it is a Compare Null Value condition we should change the name property
              */
-            if (type === "CompareNullValue") {
-                left.expressionItem.name = data.viewText;
+            if (actionType === "NullValue") {
+                leftExpressionItem.name = data.viewText;
             }
             addToElements(data);
             var path = data.path;
@@ -593,15 +540,15 @@ function ruleFactory(guidelineFactory, definitionsFactory, utilsFactory, ATTRIBU
     function setCompareDataValue (right, response) {
 
         if(right.type === 'OrdinalConstant') {
-            definitionsFactory.setOrdinalConstant(right, response);
+            expressionItemFactory.setOrdinalConstant(right, response);
         } else if(right.type === 'QuantityConstant') {
-            definitionsFactory.setQuantityConstant(right, response);
+            expressionItemFactory.setQuantityConstant(right, response);
         } else if(right.type === 'CodedTextConstant') {
-            definitionsFactory.setCodedTextConstant(right, response);
+            expressionItemFactory.setCodedTextConstant(right, response);
         } else if(right.type === 'StringConstant') {
-            definitionsFactory.setStringConstant(right, response);
+            expressionItemFactory.setStringConstant(right, response);
         } else if(right.type === 'DateTimeConstant') {
-            definitionsFactory.setDateTimeConstant(right, response);
+            expressionItemFactory.setDateTimeConstant(right, response);
         }
 
     }
@@ -636,125 +583,23 @@ function ruleFactory(guidelineFactory, definitionsFactory, utilsFactory, ATTRIBU
         }
     }
 
-    /**
-     * Common properties for all conditions
-     * @param model
-     */
-    function createCompare (model) {
-        model.type = "BinaryExpression";
-        model.expressionItem = {};
-
-        model.expressionItem.left = {};
-        model.expressionItem.left.unselected = true;
-        model.expressionItem.left.type = "Variable";
-        model.expressionItem.left.expressionItem = {};
-
-        model.expressionItem.right = {};
-        model.expressionItem.right.unselected = true;
-        model.expressionItem.right.expressionItem = {};
-    }
-
-    /**
-     * Create a new condition: Compare (DataValue)
-     * @param model The model upon which a "Compare (DataValue)" is created
-     */
-    function createCompareDataValue (model) {
-        createCompare(model);
-        model.expressionItem.right.type = "QuantityConstant";
-        model.expressionItem.operator = "EQUALITY";
-    }
-
-    /**
-     * Create a new condition: Compare (NullValue)
-     * @param model The model upon which a "Compare (NullValue)" is created
-     */
-    function createCompareNullValue (model) {
-        createCompare(model);
-        model.expressionItem.left.expressionItem.attribute = "null_flavor";
-        model.expressionItem.right.type = "CodedTextConstant";
-        model.expressionItem.right.expressionItem.code = "";
-        model.expressionItem.operator = "EQUALITY";
-    }
-
-    /**
-     * Create a new condition: Compare (Element)
-     * @param model The model upon which a "Compare (Element)" is created
-     */
-    function createCompareElement (model) {
-        createCompare(model);
-        model.expressionItem.right.type = "Variable";
-        model.expressionItem.right.expressionItem.code = "";
-        model.expressionItem.operator = "EQUALITY";
-    }
-
-    /**
-     * Create a new condition: Compare (Attribute)
-     * @param model The model upon which a "Compare (Attribute)" is created
-     */
-    function createCompareAttribute (model) {
-        createCompare(model);
-        model.expressionItem.left.expressionItem.attribute = "";
-        model.expressionItem.right.expressionItem.left = {};
-        model.expressionItem.right.expressionItem.right = {};
-        model.expressionItem.operator = "EQUALITY";
-    }
-
-    /**
-     * Create a new condition: Element exists
-     * @param model The model upon which a "Element exists" is created
-     */
-    function createElementExists (model) {
-        createCompare(model);
-        delete model.expressionItem.right.unselected;
-        model.expressionItem.right.type = "ConstantExpression";
-        model.expressionItem.right.expressionItem.value = "null";
-        model.expressionItem.operator = "UNEQUALITY";
-    }
-
-    function createOr (model) {
-        console.log("createOr" + model);
-    }
-
-    function setActionLeft (action, data) {
-        var code, attribute;
-        if(getActionType(action) === "SetAttribute") {
-            code = data.parent.id;
-            attribute = data.viewText;
-            action.variable.attribute = attribute;
-        } else {
-            code = data.id;
-        }
-        action.variable.code = code;
-    }
-
-    function setConditionAttribute(condition, data) {
-        if(condition.expressionItem.left.expressionItem.attribute === 'units') {
-            //FIXME: What's the differnence between them?
-            var string = data.viewText;
-            var value = data.viewText;
-            condition.expressionItem.right.expressionItem = {
-                string: string,
-                value: value
-            };
-        }
-    }
-
-    function setActionAttribute(action, response) {
-        var attribute = action.variable.attribute;
+    function setAttribute(left, right, response) {
+        var attribute = left.attribute;
         if(attribute === 'units') {
-            //FIXME: What's the differnence between them?
+            //FIXME: What's the difference between them?
             var string = response.data.selectedItem.viewText;
             var value = response.data.selectedItem.viewText;
-            action.assignment.expressionItem = {
+            right.expressionItem = {
                 string: string,
                 value: value
             };
         } if(attribute === 'precision') {
-            //FIXME: What's the differnence between them?
             var precision = response.data.input.value;
-            action.assignment.expressionItem = {
+            right.type = 'ConstantExpression';
+            right.expressionItem = {
                 value: precision
             };
         }
     }
+
 }

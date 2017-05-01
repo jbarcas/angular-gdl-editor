@@ -6,7 +6,7 @@ angular.module('app.controllers', [])
     .controller('DefinitionsCtrl', DefinitionsCtrl);
 
 
-function DefinitionsCtrl($log, $scope, $filter, archetypeFactory, utilsFactory, guidelineFactory, definitionsFactory, terminologyFactory, modalService, DV, ATTRIBUTES) {
+function DefinitionsCtrl($log, $scope, $filter, archetypeFactory, utilsFactory, guidelineFactory, expressionItemFactory, definitionsFactory, terminologyFactory, modalService, DV, ATTRIBUTES) {
 
     vm = this;
 
@@ -412,15 +412,17 @@ function DefinitionsCtrl($log, $scope, $filter, archetypeFactory, utilsFactory, 
             var constantExpression = vm.archetypeBindings[archetypeBindingIndex].predicateStatements[itemIndex].expressionItem.right;
 
             if (modalResponse.data.type === DV.CODEDTEXT || isHierarchy) {
-                definitionsFactory.setCodedTextConstant(constantExpression, modalResponse);
+                expressionItemFactory.setCodedTextConstant(constantExpression, modalResponse);
             } else if(modalResponse.data.type === DV.TEXT) {
-                definitionsFactory.setStringConstant(constantExpression, modalResponse);
+                expressionItemFactory.setStringConstant(constantExpression, modalResponse);
             } else if(modalResponse.data.type === DV.QUANTITY) {
-                definitionsFactory.setQuantityConstant(constantExpression, modalResponse);
+                expressionItemFactory.setQuantityConstant(constantExpression, modalResponse);
             } else if(modalResponse.data.type === DV.DATETIME) {
-                definitionsFactory.setDateTimeConstant(constantExpression, modalResponse);
+                expressionItemFactory.setDateTimeConstant(constantExpression, modalResponse);
             } else if(modalResponse.data.type === DV.ORDINAL) {
-                definitionsFactory.setOrdinalConstant(constantExpression, modalResponse);
+                expressionItemFactory.setOrdinalConstant(constantExpression, modalResponse);
+            } else if (modalResponse.data.type === DV.COUNT) {
+                expressionItemFactory.setConstantExpression(constantExpression, modalResponse);
             } else if (constantExpression.type === "CodePhraseConstant") {
                 $log.info("CodePhraseText");
             }

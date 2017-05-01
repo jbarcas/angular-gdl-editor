@@ -79,13 +79,13 @@
         guidelineFactory.insertGuideline(guideline).then(insertGuidelineComplete, insertGuidelineFailed);
 
         function insertGuidelineComplete(response) {
-          var modalOptions = {size: 'sm', component: 'dialogComponent'};
+          var modalOptions = {component: 'dialogComponent'};
           var modalData = {headerText: 'Updated!', bodyText: 'The guideline' + response.config.data.id + ' has been updated.'};
           modalService.showModal(modalOptions, modalData);
         };
 
         function insertGuidelineFailed(response) {
-          var modalDefaults = {size: 'sm'};
+          var modalDefaults = {size: 'md'};
 
           var modalOptions = {
             headerText: 'Error!',
