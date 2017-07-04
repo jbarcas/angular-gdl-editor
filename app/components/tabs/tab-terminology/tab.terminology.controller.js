@@ -18,12 +18,12 @@ function TerminologyCtrl(utilsFactory, guidelineFactory) {
     // save term
     function saveTerm (data, id) {
         angular.extend(data, {id: id});
-    };
+    }
 
     // remove term
     function removeTerm (term) {
         delete vm.guide.ontology.termDefinitions['en'].terms[term];
-    };
+    }
 
     // add term
     function addTerm () {
@@ -33,7 +33,7 @@ function TerminologyCtrl(utilsFactory, guidelineFactory) {
             description: ''
         };
         vm.guide.ontology.termDefinitions['en'].terms[vm.inserted.id] = vm.inserted;
-    };
+    }
 
     function generateGtCode(guide) {
         return utilsFactory.generateGt(guide);

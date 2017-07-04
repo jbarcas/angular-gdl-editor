@@ -7,15 +7,15 @@
     controller: function ($state, $log, guidelineFactory, utilsFactory, modalService) {
 
       this.tabs = [
-        {heading: "Guidelines", route: "tab-guidelines", active: false, disabled: false},
-        {heading: "Description", route: "tab-description", active: false, disabled: false},
-        {heading: "Definitions", route: "tab-definitions", active: false, disabled: false},
-        {heading: "Rule list", route: "tab-rulelist", active: false, disabled: false},
-        {heading: "Preconditions", route: "tab-preconditions", active: true, disabled: true},
-        {heading: "Terminology", route: "tab-terminology", active: false, disabled: false},
-        {heading: "Binding", route: "tab-binding", active: false, disabled: true},
-        {heading: "GDL", route:"tab-gdl", active: false, disabled: false},
-        {heading: "HTML", route:"tabs.tab-html", active: false, disabled: true}
+        {heading: "Guidelines", route: "tab-guidelines"},
+        {heading: "Description", route: "tab-description"},
+        {heading: "Definitions", route: "tab-definitions"},
+        {heading: "Rule list", route: "tab-rulelist"},
+        {heading: "Preconditions", route: "tab-preconditions"},
+        {heading: "Terminology", route: "tab-terminology"},
+        {heading: "Binding", route: "tab-bindings"},
+        {heading: "GDL", route:"tab-gdl"},
+        {heading: "HTML", route:"tab-html"}
       ];
 
       this.go = function (route) {
@@ -42,6 +42,9 @@
          * In rules
          */
         for (var rule in guideline.definition.rules) {
+          if(typeof guideline.definition.rules[rule].whenStatements === 'undefined') {
+            continue;
+          }
           for (var i=0; i<guideline.definition.rules[rule].whenStatements.length; i++) {
             if (guideline.definition.rules[rule].whenStatements[i].expressionItem.left.unselected ||guideline.definition.rules[rule].whenStatements[i].expressionItem.right.unselected) {
               item = guideline.definition.rules[rule];
@@ -82,7 +85,7 @@
           var modalOptions = {component: 'dialogComponent'};
           var modalData = {headerText: 'Updated!', bodyText: 'The guideline' + response.config.data.id + ' has been updated.'};
           modalService.showModal(modalOptions, modalData);
-        };
+        }
 
         function insertGuidelineFailed(response) {
           var modalDefaults = {size: 'md'};
@@ -93,9 +96,8 @@
           };
           modalService.showModal(modalDefaults, modalOptions);
           $log.info('Error at inserting guide (code status ' + response.status + '): ' + response);
-        };
+        }
 
-        this.active = 0;
         $state.go('tab-guidelines');
       };
 

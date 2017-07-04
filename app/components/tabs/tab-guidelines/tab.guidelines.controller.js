@@ -22,7 +22,7 @@ function GuidelineCtrl(guidelineFactory, guidelinesFactory, SharedProperties) {
     return getGuidelines().then(function() {
       vm.checked = SharedProperties.getChecked();
     })
-  };
+  }
 
   function getGuidelines() {
     return guidelinesFactory.getGuidelines().then(
@@ -34,7 +34,7 @@ function GuidelineCtrl(guidelineFactory, guidelinesFactory, SharedProperties) {
         vm.errorMsg = error.error;
       }
     );
-  };
+  }
 
   function getGuideline (guideId) {
     guidelineFactory.getGuideline(guideId).then(
@@ -46,9 +46,9 @@ function GuidelineCtrl(guidelineFactory, guidelinesFactory, SharedProperties) {
         vm.errorMsg = error.error;
       }
     );
-  };
+  }
 
-};
+}
 
 
 

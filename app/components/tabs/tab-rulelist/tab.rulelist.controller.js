@@ -5,7 +5,7 @@
 angular.module('app.controllers')
     .controller('RulelistCtrl', RulelistCtrl);
 
-function RulelistCtrl($state, guidelineFactory, rulelistFactory, modalService) {
+function RulelistCtrl($state, $log, guidelineFactory, rulelistFactory, modalService) {
 
     vm = this;
     vm.guide = {};
@@ -43,6 +43,9 @@ function RulelistCtrl($state, guidelineFactory, rulelistFactory, modalService) {
                         value: guidelineFactory.getOntology().termDefinitions.en.terms[rule.id].text
                     }
                     return input;
+                },
+                class: function() {
+                    return "rule-name"
                 }
             }
         };

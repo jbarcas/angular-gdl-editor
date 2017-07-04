@@ -1,0 +1,37 @@
+<div>
+    <uib-tabset ng-show="vm.termBindings">
+        <uib-tab ng-repeat="tab in vm.termBindings"
+                 heading="{{tab.id}}"
+                 select="vm.changeTab(tab)">
+        </uib-tab>
+    </uib-tabset>
+    <br>
+    <table class="table table-bordered table-hover table-condensed table-striped" ng-show="vm.termBindings">
+        <tr style="font-weight: bold">
+            <td style="width:50%">Local terms</td>
+            <td style="width:30%">Terminology codes</td>
+            <td style="width:20%">URI</td>
+        </tr>
+        <tr ng-repeat="binding in vm.termBinding.bindings">
+            <td>
+                <!-- editable id -->
+                <span>{{ binding.id || 'empty'}} - {{ vm.getName(binding.id) || 'empty'}}
+                    <a class="pull-right btn btn-xs" data-nodrag ng-click="vm.addBinding(this)"><img ng-src="{{vm.pencil}}"></a>
+                    <a class="pull-right btn btn-xs" data-nodrag ng-click="vm.removeBinding(this)"><img ng-src="{{vm.delete}}"></a>
+                </span>
+            </td>
+            <td>
+                <!-- editable text -->
+                <span>{{ vm.getCodes(binding.id) || 'empty' }}<a class="pull-right btn btn-xs" data-nodrag ng-click="vm.showTerminologyCodes(this)"><img ng-src="{{vm.magnifier}}"></a></span>
+            </td>
+            <td>
+                <!-- editable description -->
+                <span editable-text="term.description" e-name="description" e-form="rowform" e-required>{{ term.description|| 'empty' }}</span>
+            </td>
+        </tr>
+    </table>
+    <button class="btn btn-primary" ng-click="vm.newBinding(this)">New binding</button>
+    <button class="btn btn-primary" ng-click="vm.newTerminology(this)">New terminology</button>
+    <button class="btn btn-danger" ng-click="vm.removeBindingTerminology(this)">Remove terminology</button>
+
+</div>

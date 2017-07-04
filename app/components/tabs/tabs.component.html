@@ -3,7 +3,6 @@
     <uib-tab ng-repeat="tab in $ctrl.tabs"
       heading="{{tab.heading}}"
       select="$ctrl.go(tab.route)"
-      active="tab.active"
       disable="tab.disabled">
     </uib-tab>
     <a href="#" class="btn btn-success pull-right" ng-click="$ctrl.insertGuide()">

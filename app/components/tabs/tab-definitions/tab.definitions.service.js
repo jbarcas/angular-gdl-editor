@@ -5,7 +5,7 @@
 angular.module('app.services')
     .factory('definitionsFactory', definitionsFactory);
 
-function definitionsFactory(DV, OPERATORS, guidelineFactory, utilsFactory) {
+function definitionsFactory(DV, expressionItemFactory, guidelineFactory, utilsFactory) {
 
     return {
         createElementInstantiation: createElementInstantiation,
@@ -18,7 +18,6 @@ function definitionsFactory(DV, OPERATORS, guidelineFactory, utilsFactory) {
         existsInRules: existsInRules,
         existsInPreconditions: existsInPreconditions,
         convertModel: convertModel,
-        getExpression: getExpression,
         getPredicateStatementType: getPredicateStatementType,
         getDataForModal: getDataForModal,
         getOptionsForModal: getOptionsForModal,
@@ -199,7 +198,7 @@ function definitionsFactory(DV, OPERATORS, guidelineFactory, utilsFactory) {
             type = "PredicateExists";
 //      } else if(predicateStatement.expressionItem.left.attribute) {  // FIXME: this should be the right way to check if it is a PredicateExpression
         } else if(utilsFactory.isBinaryExpression(predicateStatement.expressionItem.right)) {
-            predicateStatement.expression = getExpression(predicateStatement.expressionItem.right);
+            predicateStatement.expression = expressionItemFactory.getExpression(predicateStatement.expressionItem.right);
             type = "PredicateExpression";
         } else {
             type = "PredicateDatavalue";
@@ -214,32 +213,6 @@ function definitionsFactory(DV, OPERATORS, guidelineFactory, utilsFactory) {
      */
     function isElement(item) {
         return item && item.hasOwnProperty("id") && item.hasOwnProperty("path");
-    }
-
-    /**
-     * Gets the expression from an object
-     * @param expression
-     * @returns {str}
-     */
-    function getExpression(expression) {
-
-        if (typeof str === 'undefined' || !str) {
-            str= "";
-        } else if (str.startsWith("(") && str.endsWith(")")) {
-            str = "";
-        }
-
-        if (!utilsFactory.isBinaryExpression(expression)) {
-            str += expression.expressionItem.code + "." + expression.expressionItem.attribute;
-        } else {
-            str += '(';
-            getExpression(expression.expressionItem.left);
-            str += " " + OPERATORS[expression.expressionItem.operator] + " ";
-            getExpression(expression.expressionItem.right);
-            str += ')';
-        }
-        //console.log(str);
-        return str;
     }
 
     /**

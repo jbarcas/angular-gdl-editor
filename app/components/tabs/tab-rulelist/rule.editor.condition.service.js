@@ -5,36 +5,17 @@
 angular.module('app.services')
     .factory('conditionFactory', conditionFactory);
 
-function conditionFactory(guidelineFactory, definitionsFactory, utilsFactory, ATTRIBUTES, NULLVALUE, DV) {
+function conditionFactory() {
 
     return {
-        getType: getType,
         createCompareDataValue: createCompareDataValue,
         createCompareNullValue: createCompareNullValue,
         createCompareElement: createCompareElement,
         createCompareAttribute: createCompareAttribute,
         createElementExists: createElementExists,
-        createOr: createOr
+        createOr: createOr,
+        beforeDrop: beforeDrop
     };
-
-
-    function getType(condition) {
-        var type;
-        if (condition.expressionItem.operator === "OR") {
-            type = "Or";
-        } else if (condition.expressionItem.right.expressionItem.value === "null") {
-            type = "Exists";
-        } else if (condition.expressionItem.left.expressionItem.attribute === "null_flavor") {
-            type = "NullValue";
-        } else if (condition.expressionItem.left.expressionItem.hasOwnProperty("attribute")) {
-            type = "Attribute";
-        } else if (condition.expressionItem.right.expressionItem.hasOwnProperty("code")) {
-            type = "Element";
-        } else {
-            type = "DataValue";
-        }
-        return type;
-    }
 
 
     /* *************************************************************************************
@@ -120,6 +101,26 @@ function conditionFactory(guidelineFactory, definitionsFactory, utilsFactory, AT
 
     function createOr (model) {
         console.log("createOr" + model);
+    }
+
+    function beforeDrop(event) {
+        var cloneModel = event.source.cloneModel;
+        if(cloneModel.category === "CompareDataValue") {
+            createCompareDataValue(cloneModel);
+        } else if(cloneModel.category === "CompareNullValue") {
+            createCompareNullValue(cloneModel);
+        } else if (cloneModel.category === "CompareElement") {
+            createCompareElement(cloneModel);
+        } else if (cloneModel.category === "CompareAttribute") {
+            createCompareAttribute(cloneModel);
+        } else if (cloneModel.category === "ElementExists") {
+            createElementExists(cloneModel);
+        } else if (cloneModel.category === "Or") {
+            createOr(cloneModel);
+        }
+        delete cloneModel.category;
+        delete cloneModel.draggable;
+        delete cloneModel.title;
     }
 
 }

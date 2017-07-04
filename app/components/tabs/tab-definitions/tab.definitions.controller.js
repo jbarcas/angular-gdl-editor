@@ -2,7 +2,7 @@
  * Created by jbarros on 11/05/15.
  */
 
-angular.module('app.controllers', [])
+angular.module('app.controllers')
     .controller('DefinitionsCtrl', DefinitionsCtrl);
 
 
@@ -30,11 +30,9 @@ function DefinitionsCtrl($log, $scope, $filter, archetypeFactory, utilsFactory, 
     vm.getText = getText;
     vm.getTextDebug = getTextDebug;
 
-    vm.openEditor = openEditor;
-
     vm.showOptions = showOptions;
 
-    vm.getExpression = definitionsFactory.getExpression;
+    //vm.getExpression = expressionItemFactory.getExpression;
 
     vm.delete = "../assets/img/del.png";
     vm.add = "../assets/img/add.png";
@@ -342,35 +340,6 @@ function DefinitionsCtrl($log, $scope, $filter, archetypeFactory, utilsFactory, 
         }
     }
 
-/*    function openExpression(node) {
-        var archetypeBindingIndex = node.$nodeScope.$parentNodeScope.$index;
-        var elementIndex = node.$nodeScope.$index;
-
-        var expression = node.$nodeScope.$modelValue.expression;
-        var dataForModal = {headerText: 'Enter expression'};
-
-        var defaults = {
-            component: 'modalWithTextareaComponent',
-            resolve: {
-                labels: function() {
-                    return dataForModal;
-                },
-                expression: function() {
-                    return expression;
-                }
-            }
-        };
-
-        modalService.showModal(defaults).then(showModalComplete, showModalFailed);
-        function showModalComplete(response) {
-            vm.archetypeBindings[archetypeBindingIndex].elements[elementIndex].expression = response;
-        }
-
-        function showModalFailed() {
-            $log.info('Modal dismissed at: ' + new Date() + ' in openExpression()');
-        }
-    } */
-
     function updateRightItem(node) {
 
         var archetypeBinding = node.$parentNodeScope.$modelValue;
@@ -395,7 +364,22 @@ function DefinitionsCtrl($log, $scope, $filter, archetypeFactory, utilsFactory, 
          */
         var type = definitionsFactory.getPredicateStatementType(item);
         if (type === "PredicateExpression") {
-            openEditor(node);
+            var modalDataExpressionEditor = {headerText: 'Expression editor'};
+            var modalOptionsExpressionEditor = getExpressionEditorOptions(node);
+
+            modalService.showModal(modalOptionsExpressionEditor, modalDataExpressionEditor).then(showModalCompleteExpressionEditor, showModalFailedExpressionEditor);
+
+            function showModalCompleteExpressionEditor(dataFromTree) {
+                if(dataFromTree.data === undefined) {
+                    return;
+                }
+                item.expressionItem.right = dataFromTree.data;
+                return;
+            }
+
+            function showModalFailedExpressionEditor() {
+                $log.info('Modal dismissed at: ' + new Date() + ' in openEditor()');
+            }
             return;
         }
 
@@ -681,19 +665,13 @@ function DefinitionsCtrl($log, $scope, $filter, archetypeFactory, utilsFactory, 
         return text;
     }
 
-    function openEditor(node) {
+    function getExpressionEditorOptions (node) {
         var archetypeBinding = node.$nodeScope.$parentNodeScope.$modelValue;
-        var elementIndex = node.$nodeScope.$index;
         var element = node.$nodeScope.$modelValue;
-
         var type = definitionsFactory.getPredicateStatementType(element);
 
         var archetype = guidelineFactory.getGuidelineArchetype(archetypeBinding.archetypeId);
-
-        var modalData = {headerText: 'Expression editor'};
-
-
-        var modalOptions = {
+        var options = {
             size: 'lg',
             component: 'expressionEditorComponent',
             resolve: {
@@ -701,7 +679,7 @@ function DefinitionsCtrl($log, $scope, $filter, archetypeFactory, utilsFactory, 
                     return element.expression;
                 },
                 modelExpression: function() {
-                    return element.expressionItem.right.expressionItem;
+                    return element.expressionItem.right;
                 },
                 labels: function () {
                     return modalData;
@@ -710,16 +688,14 @@ function DefinitionsCtrl($log, $scope, $filter, archetypeFactory, utilsFactory, 
                     var elementMaps = [];
                     angular.forEach(archetype.elementMaps, function (elementMap) {
                         var treeObject = angular.copy(elementMap);
+                        treeObject.id = elementMap.elementMapId
                         treeObject.viewText = elementMap.elementMapId;
-                        console.log(element);
-                        console.log(archetypeBinding);
                         // TODO: add css to leaf nodes
                         if(type === "PredicateExpression") {
                             var children = [];
-                            angular.forEach(ATTRIBUTES[treeObject.dataType], function(item){
+                            angular.forEach(ATTRIBUTES[treeObject.dataType], function(item) {
                                 children.push({viewText: item});
                             });
-
                             treeObject.children = children;
                         }
                         elementMaps.push(treeObject);
@@ -729,15 +705,7 @@ function DefinitionsCtrl($log, $scope, $filter, archetypeFactory, utilsFactory, 
             }
         };
 
-        modalService.showModal(modalOptions, modalData).then(showModalComplete, showModalFailed);
-
-        function showModalComplete() {
-            $log.info('Modal completed at: ' + new Date() + ' in openEditor()');
-        }
-
-        function showModalFailed() {
-            $log.info('Modal dismissed at: ' + new Date() + ' in openEditor()');
-        }
+        return options;
     }
 
 }

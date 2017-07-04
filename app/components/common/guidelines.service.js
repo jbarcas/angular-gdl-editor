@@ -55,7 +55,14 @@ function guidelineFactory($http, API_URL, $q, archetypeFactory, terminologyFacto
         removeTerm: removeTerm,
         getTermDescription: getTermDescription,
         //-------------------------------------
-        addElementToDefinitions: addElementToDefinitions
+        addElementToDefinitions: addElementToDefinitions,
+        getText: getText,
+        //getDescription: getDescription
+        getTermBindings: getTermBindings,
+        getTermBinding: getTermBinding,
+        setTermBinding: setTermBinding,
+        removeBindingTerminology: removeBindingTerminology,
+        setTermDefinition: setTermDefinition
     };
 
     function getTermDescription(archetypeId, atCode) {
@@ -75,7 +82,6 @@ function guidelineFactory($http, API_URL, $q, archetypeFactory, terminologyFacto
 
     function removeTerm(archetypeId) {
         delete terms[archetypeId];
-        console.log(terms);
     }
 
     function setGuidelineArchetypes(guideline) {
@@ -87,6 +93,7 @@ function guidelineFactory($http, API_URL, $q, archetypeFactory, terminologyFacto
         archetypeIds = archetypeIds.filter(function (item, pos) {
             return archetypeIds.indexOf(item) == pos;
         });
+        guidelineArchetypes = [];
         angular.forEach(archetypeIds, function (archetypeId) {
             archetypeFactory.getArchetype(archetypeId).then(function (data) {
                 guidelineArchetypes.push(data);
@@ -261,7 +268,6 @@ function guidelineFactory($http, API_URL, $q, archetypeFactory, terminologyFacto
                 guidelineArchetypes.splice(i, 1);
             }
         }
-        console.log(guidelineArchetypes.toString())
     }
 
     function getElementType(code) {
@@ -327,15 +333,21 @@ function guidelineFactory($http, API_URL, $q, archetypeFactory, terminologyFacto
 
     // Preconditions
     function getPreConditions() {
-        return guideline.definition.preConditions;
+        if(!guideline.definition) {
+            return null;
+        }
+        return guideline.definition.preConditionExpressions;
     }
 
     function setPreConditions (preConditions) {
-        guideline.definition.preConditions = preConditions;
+        guideline.definition.preConditionExpressions = preConditions;
     }
 
     // Rulelist
     function getRulelist() {
+        if(!guideline.definition) {
+            return null;
+        }
         return guideline.definition.rules;
     }
     function setRulelist(rulelist) {
@@ -392,6 +404,48 @@ function guidelineFactory($http, API_URL, $q, archetypeFactory, terminologyFacto
                 }
             }
         });
+    }
+
+    function getText(gtCode) {
+        if(gtCode && getOntology().termDefinitions.en.terms) {
+            return getOntology().termDefinitions.en.terms[gtCode].text;
+        }
+        return null;
+    }
+
+    /*function getDescription(gtCode) {
+        if(gtCode && getOntology().termDefinitions.en.description) {
+            return getOntology().termDefinitions.en.description[gtCode].text;
+        }
+        return null;
+    }*/
+
+    function getTermBindings() {
+        if(!guideline.ontology) {
+            return null;
+        }
+        return guideline.ontology.termBindings;
+    }
+
+    function setTermBinding(termBinding) {
+        if(!guideline.ontology.termBindings) {
+            guideline.ontology.termBindings = {};
+        }
+        guideline.ontology.termBindings[termBinding.id] = termBinding;
+
+    }
+
+    function getTermBinding(id) {
+        return guideline.ontology.termBindings[id];
+    }
+
+    function removeBindingTerminology(terminologyId) {
+        delete guideline.ontology.termBindings[terminologyId];
+    }
+
+    function setTermDefinition(termDefinition) {
+        var termDefinitionId = termDefinition.id;
+        guideline.ontology.termDefinitions.en.terms[termDefinitionId] = termDefinition;
     }
 
 }

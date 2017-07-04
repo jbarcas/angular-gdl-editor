@@ -27,6 +27,8 @@ angular.module('app.components')
 
       $ctrl.items = $ctrl.resolve.items;
 
+      $ctrl.selectedItems = $ctrl.resolve.selectedItems;
+
       $ctrl.labels = $ctrl.resolve.labels;
 
       $ctrl.domains = $ctrl.resolve.domains;
@@ -35,13 +37,24 @@ angular.module('app.components')
         /**
          * If no selection, do nothing
          */
-        if(!$ctrl.selected.item) {
-          $ctrl.cancel();
+
+        if($scope.treeOptions.multiSelection) {
+          if($ctrl.selectedItems.length == 0) {
+            $ctrl.cancel();
+          }
+        } else {
+          if(!$ctrl.selected.item) {
+            $ctrl.cancel();
+          }
         }
-        var response = {
-          selectedItem: $ctrl.selected.item,
-          domain: $ctrl.domain,
-          type: $ctrl.selected.item.type
+
+        var response = {};
+        if($scope.treeOptions.multiSelection) {
+          response.selectedItems = $ctrl.selectedItems;
+        } else {
+          response.selectedItem =  $ctrl.selected.item;
+          response.domain = $ctrl.domain;
+          response.type = $ctrl.selected.item.type;
         }
         $ctrl.close({$value: {data: response }});
       };
@@ -52,7 +65,8 @@ angular.module('app.components')
 
       $scope.treeOptions = {
         allowDeselect: false,
-        dirSelectable: false,
+        multiSelection: $ctrl.resolve.multiSelection,
+        dirSelectable: $ctrl.resolve.dirSelectable,
         injectClasses: {
           ul: "a1",
           li: "a2",
@@ -72,18 +86,20 @@ angular.module('app.components')
 
       $ctrl.contract = function() {
         $scope.expandedNodes = [];
-      }
+      };
 
       $scope.predicate = "";
 
       $scope.comparator = false;
 
       $scope.showSelected = function(node, parent) {
-        if(parent) {
-          node.parent = parent;
+        if(!$scope.treeOptions.multiSelection) {
+          if(parent) {
+            node.parent = parent;
+          }
+          $ctrl.selected.item = node;
         }
-        $ctrl.selected.item = node;
-      }
+      };
 
       function getAllSubitems(items) {
         if (typeof response === 'undefined' || !response) {
@@ -94,7 +110,7 @@ angular.module('app.components')
             getAllSubitems(item.children)
           }
           response.push(item);
-        })
+        });
         return response;
       }
 

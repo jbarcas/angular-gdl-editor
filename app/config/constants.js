@@ -19,7 +19,7 @@ angular.module('app.constants', [])
         DV_QUANTITY: ['magnitude', 'precision', 'units'],
         DV_TEXT: ['value'],
         DV_CODED_TEXT: ['value', 'terminologyId', 'code'],
-        DV_DATE_TIME: ['year', 'month', 'day', 'minute', 'second', 'fractionalSecond', 'timeZone', 'value'],
+        DV_DATE_TIME: ['year', 'month', 'day', 'hour', 'minute', 'second', 'fractionalSecond', 'timeZone', 'value'],
         DV_ORDINAL: ['magnitude', 'precision', 'units']
     })
     .constant('OPERATORS', {

@@ -5,48 +5,19 @@
 angular.module('app.services')
     .factory('actionFactory', actionFactory);
 
-function actionFactory(guidelineFactory, definitionsFactory, utilsFactory, ATTRIBUTES, NULLVALUE, DV) {
+function actionFactory($log, expressionItemFactory, modalService, guidelineFactory, utilsFactory) {
 
     return {
-        getType: getType,
         createEntry: createEntry,
         createSetDataValue: createSetDataValue,
         createSetNullValue: createSetNullValue,
         createSetElement: createSetElement,
-        createSetAttribute: createSetAttribute
+        createSetAttribute: createSetAttribute,
+        updateActionLeft: updateActionLeft,
+        updateActionRight: updateActionRight,
+        beforeDrop: beforeDrop,
+        getActionName: getActionName
     };
-
-    function getType(action) {
-        var type;
-        if (action.variable.attribute === "null_flavor") {
-            type = "NullValue";
-        } else if (hasAttribute(action)) {
-            type = "Attribute";
-        } else if (action.assignment.type === "Variable") {
-            type = "Element";
-        } else {
-            type = "DataValue";
-        }
-        return type;
-    }
-
-    /**
-     * This methos is used to check if an expression has an attribute
-     * @param expression
-     * @returns {boolean}
-     */
-    function hasAttribute(expression) {
-        for (var key in ATTRIBUTES) {
-            if(ATTRIBUTES.hasOwnProperty(key)) {
-                if(ATTRIBUTES[key].indexOf(expression.variable.attribute) > -1) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-
 
     /* *************************************************************************************
      *                                                                                     *
@@ -103,6 +74,117 @@ function actionFactory(guidelineFactory, definitionsFactory, utilsFactory, ATTRI
         model.assignment.unselected = true;
         model.assignment.type = '';
         model.assignment.expressionItem = {};
+    }
+
+    function updateActionLeft(node) {
+        var action = node.$modelValue;
+        var type = expressionItemFactory.getActionType(action);
+
+        var modalData = {headerText: 'Select element instance'};
+        var modalOptions = expressionItemFactory.getOptionsForTreeModal(action);
+
+        modalService.showModal(modalOptions, modalData).then(showModalComplete, showModalFailed);
+
+        function showModalComplete(modalResponse) {
+            if (modalResponse.data === undefined) {
+                return;
+            }
+            var selected = modalResponse.data.selectedItem;
+            /*
+             * Delete the unselected property used to highlight the text in the view
+             */
+            delete action.variable.unselected;
+
+            type === "Attribute" ? expressionItemFactory.setLeftAttribute(action, selected) : expressionItemFactory.setLeftRemaining(action, selected, type);
+        }
+
+        function showModalFailed() {
+            $log.info('Modal dismissed at: ' + new Date() + ' in rule.editor.action.service.updateActionLeft()');
+        }
+    }
+
+    function updateActionRight(node) {
+        var action = node.$modelValue;
+        var type = expressionItemFactory.getActionType(action);
+        /*
+         * If the action has a 'magnitude' left side attribute, the expression editor is opened
+         */
+        if (action.variable.attribute === 'magnitude') {
+            expressionItemFactory.openExpressionEditor(action.assignment);
+            return;
+        }
+        /*
+         * If the action at hand is a CompareDatavalue and the left item has not been selected yet
+         */
+        if(!action.variable.code && (type === "DataValue" || type === "Attribute")) {
+            var modalData = {headerText: 'Select an element', bodyText: 'You have to select an element before choosing a data value'};
+            var modalOptions = {component: 'dialogComponent'};
+            modalService.showModal(modalOptions, modalData);
+            return;
+        }
+
+        var data = expressionItemFactory.getDataModal(action);
+        var options = expressionItemFactory.getOptionsModal(action);
+
+        modalService.showModal(options, data).then(showModalComplete, showModalFailed);
+
+        function showModalComplete(modalResponse) {
+            if (modalResponse.data === undefined) {
+                return;
+            }
+            var selected = modalResponse.data.selectedItem;
+            var variable = action.variable;
+            var assignment = action.assignment;
+            /*
+             * Delete the unselected property used to highlight the text in the view
+             */
+
+            delete assignment.unselected;
+            var type = modalResponse.data.type;
+
+            if(type === "NullValue") {
+                expressionItemFactory.setNullValue(assignment, selected);
+            } else if(type === "ElementValue") {
+                expressionItemFactory.setCompareElement (assignment, selected);
+            } else if(type === "AttributeValue") {
+                expressionItemFactory.setAttribute(variable, assignment, modalResponse);
+            } else {
+                expressionItemFactory.setCompareDataValue(assignment, modalResponse);
+            }
+        }
+
+        function showModalFailed() {
+            $log.info('Modal dismissed at: ' + new Date() + ' in rule.editor.action.service.updateActionRight()');
+        }
+
+    }
+
+    function beforeDrop(event) {
+        var cloneModel = event.source.cloneModel;
+        if(cloneModel.category === "CreateEntry") {
+            createEntry(cloneModel);
+        } else if(cloneModel.category === "SetDataValue") {
+            createSetDataValue(cloneModel);
+        } else if (cloneModel.category === "SetNullValue") {
+            createSetNullValue(cloneModel);
+        } else if (cloneModel.category === "SetElement") {
+            createSetElement(cloneModel);
+        } else if (cloneModel.category === "SetAttribute") {
+            createSetAttribute(cloneModel);
+        }
+        delete cloneModel.category;
+        delete cloneModel.draggable;
+        delete cloneModel.title;
+    }
+
+    function getActionName(action) {
+        var thenStatement = action.$modelValue;
+        if (thenStatement.assignment.type === 'BinaryExpression') {
+            thenStatement.assignment.literalExpression = expressionItemFactory.getLiteralExpression(thenStatement.assignment);
+            thenStatement.assignment.expression = expressionItemFactory.getExpression(thenStatement.assignment);
+            return thenStatement.assignment.literalExpression;
+        }
+        return thenStatement.assignment.expressionItem.value; //|| vm.terms[thenStatement.assignment.expressionItem.code].text
     }
 
 }

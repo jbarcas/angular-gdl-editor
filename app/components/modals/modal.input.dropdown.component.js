@@ -16,6 +16,8 @@ angular.module('app.components')
 
       $ctrl.input = $ctrl.resolve.input;
 
+      $ctrl.class = $ctrl.resolve.class;
+
       $ctrl.options = $ctrl.resolve.items;
 
       $ctrl.selectedItem = $ctrl.resolve.default;

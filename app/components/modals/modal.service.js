@@ -8,7 +8,8 @@ function modalService ($uibModal) {
     backdrop: 'static',
     keyboard: true,
     modalFade: true,
-    templateUrl: 'modal.html'
+    //templateUrl: 'modal.html'
+    templateUrl: 'components/modals/modal.html'
   };
 
   var modalLabels = {

@@ -22,6 +22,7 @@ function removeUnderscore() {
 
 function parseLocal() {
     return function (input) {
+        //input = String(input);
         if (!input) {
             return "Select";
         } else if(input.indexOf("::") !== -1) {

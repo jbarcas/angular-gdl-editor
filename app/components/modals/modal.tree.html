@@ -28,6 +28,7 @@
     tree-model="$ctrl.items"
     options="treeOptions"
     expanded-nodes="expandedNodes"
+    selected-nodes="$ctrl.selectedItems"
     on-selection="showSelected(node, $parentNode)"
     filter-expression="predicate"
     filter-comparator="comparator"
@@ -51,7 +52,7 @@
           <span ng-switch-when="FOLDER"         class="glyphicon-folder" aria-hidden="true"></span>
           <!-- Leaf node -->
           <span ng-switch-when="undefined"      class="glyphicon-leaf" aria-hidden="true"></span>
-        </span> {{node.viewText | removeUnderscore}}
+        </span> {{node.viewText | removeUnderscore}} <span ng-if="treeOptions.multiSelection === true">({{node.id}})</span>
   </treecontrol>
 
 </div>

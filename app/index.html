@@ -9,7 +9,7 @@
   <title>GDL Editor</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  
+
   <link rel="stylesheet" href="app.css">
   <link rel="stylesheet" href="assets/css/angular-ui.tree.css">                                         <!-- Angular UI Tree -->
   <!--<link rel="stylesheet" href="bower_components/angular-ui-tree/dist/angular-ui-tree.min.css">      <!-- Angular UI Tree -->
@@ -58,8 +58,9 @@
   <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>         <!-- Bower: Angular UI bootstrap (Grid) -->
   <script src="bower_components/angular-ui-tree/dist/angular-ui-tree.js"></script>            <!-- Bower: Angular UI Tree -->
   <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script> <!-- Bower: Angular UI Router -->
-  <script src="bower_components/angular-query-builder/query-builder-directive.js"></script>   <!-- Bower: Angular UI Router -->
   <script src="lib/angular-tree-control/angular-tree-control.js"></script>                    <!-- Bower: Angular Tree Control -->
+  <script src="lib/jsep-0.3.1/jsep.js"></script>                                              <!-- JavaScript expression parser -->
+  <script src="bower_components/angular-sanitize/angular-sanitize.js"></script> <!-- Bower: Angular Sanitize: used in HTML tab -->
   <!-- Load components -->
   <script src="components/expression-editor/expression.editor.component.js"></script>
   <script src="components/modals/modal.component.js"></script>
@@ -87,9 +88,12 @@
   <script src="components/tabs/tab-rulelist/tab.rulelist.service.js"></script>
   <script src="components/tabs/tab-rulelist/rule.editor.condition.service.js"></script>
   <script src="components/tabs/tab-rulelist/rule.editor.action.service.js"></script>
+  <script src="components/tabs/tab-preconditions/tab.preconditions.service.js"></script>
+  <script src="components/tabs/tab-html/tab.html.service.js"></script>
   <!-- Load directives -->
   <script src="components/tabs/tab-description/tab.description.directive.js"></script>
   <!-- Load the controllers -->
+  <script src="components/tabs/tab-binding/tab.bindings.controller.js"></script>
   <script src="components/tabs/tab-definitions/tab.definitions.controller.js"></script>
   <script src="components/tabs/tab-description/tab.description.controller.js"></script>
   <script src="components/tabs/tab-terminology/tab.terminology.controller.js"></script>
@@ -97,6 +101,8 @@
   <script src="components/tabs/tab-gdl/tab.gdl.controller.js"></script>
   <script src="components/tabs/tab-rulelist/tab.rulelist.controller.js"></script>
   <script src="components/tabs/tab-rulelist/rule.editor.controller.js"></script>
+  <script src="components/tabs/tab-preconditions/tab.preconditions.controller.js"></script>
+  <script src="components/tabs/tab-html/tab.html.controller.js"></script>
 <!-- Load codemirror -->
   <script src="bower_components/codemirror/lib/codemirror.js"></script>
   <script src="bower_components/angular-ui-codemirror/ui-codemirror.js"></script>

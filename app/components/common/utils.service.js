@@ -26,7 +26,7 @@ function utilsFactory(guidelineFactory, GT_HEADER) {
         // TODO: Other languages
         var originalLanguage = "en";
         /*
-         * First, we fecth the gt codes from the Ontology section
+         * First, we fetch the gt codes from the Ontology section
          */
         var usedTerms = Object.keys(guide.ontology.termDefinitions[originalLanguage].terms);
 
@@ -72,6 +72,7 @@ function utilsFactory(guidelineFactory, GT_HEADER) {
         for (var archetypeBinding in guideline.definition.archetypeBindings) {
             if (guideline.definition.archetypeBindings.hasOwnProperty(archetypeBinding)) {
                 var elements = guideline.definition.archetypeBindings[archetypeBinding].elements;
+                var predicateStatements = guideline.definition.archetypeBindings[archetypeBinding].predicateStatements || [];
                 /**
                  *  If "elements" is an array, then the model has been modified, so we need to re-convert the model
                  */
@@ -80,6 +81,10 @@ function utilsFactory(guidelineFactory, GT_HEADER) {
                     for (var i = 0, len = elements.length; i < len; i++) {
                         var element = elements[i];
                         guideline.definition.archetypeBindings[archetypeBinding].elements[element.id] = element;
+                    }
+                    for (var i = 0, len = predicateStatements.length; i < len; i++) {
+                        var predicateStatement = predicateStatements[i];
+                        delete predicateStatement.expression;
                     }
                 }
             }

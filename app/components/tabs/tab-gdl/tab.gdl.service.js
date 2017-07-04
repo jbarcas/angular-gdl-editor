@@ -10,7 +10,7 @@ function gdlFactory($http, API_URL, $q) {
 
     return {
         getGdl: getGdl
-    }
+    };
 
     function getGdl(guidelineId) {
         var deferred = $q.defer();
@@ -23,6 +23,6 @@ function gdlFactory($http, API_URL, $q) {
             }
         );
         return deferred.promise;
-    };
+    }
 
 }

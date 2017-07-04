@@ -1,7 +1,8 @@
 
 <br>
-<div class="gdl-center gdl-padding-top-bottom">
-  <a href="#" class="btn btn-info" ng-click="vm.back()">
+<div class="well">
+  <span><label>Rule name:</label> {{vm.terms[vm.rule.id].text}}</span>
+  <a href="#" class="btn btn-info pull-right" ng-click="vm.back()">
     <span class="glyphicon glyphicon-chevron-left"></span> Back to guide
   </a>
 </div>
@@ -41,9 +42,9 @@
             <h2 class="panel-title">Conditions</h2>
           </div>
           <div class="panel-body">
-            <ol ui-tree-nodes ng-model="vm.conditions">
-              <li ng-repeat="item in vm.conditions" class="right-list" ui-tree-node data-nodrag="{{!item.draggable}}">
-                <div ui-tree-handle>{{item.title}}</div>
+            <ol ui-tree-nodes ng-model="vm.cloneConditions">
+              <li ng-repeat="condition in vm.cloneConditions" class="right-list" ui-tree-node data-nodrag="{{!condition.draggable}}">
+                <div ui-tree-handle>{{condition.title}}</div>
               </li>
             </ol>
           </div>
@@ -70,7 +71,7 @@
                   <a class="btn btn-success btn-xs"><span class="glyphicon glyphicon-list"></span></a>
                   Set element <sup>EHR</sup> <a ng-style="thenStatement.variable.unselected && {color:'red'}" ng-click="vm.updateActionLeft(this)" data-nodrag>{{vm.terms[thenStatement.variable.code].text | parseLocal}}<sub ng-show="thenStatement.variable.attribute && thenStatement.variable.attribute !== 'null_flavor'">{{thenStatement.variable.attribute}}</sub></a>
                   to
-                  <a ng-style="thenStatement.assignment.unselected && {color:'red'}" ng-click="vm.updateActionRight(this)"> {{thenStatement.assignment.expressionItem.value || vm.terms[thenStatement.assignment.expressionItem.code].text | parseLocal}} </a>
+                  <a ng-style="thenStatement.assignment.unselected && {color:'red'}" ng-click="vm.updateActionRight(this)"> {{vm.getActionName(this) | parseLocal}} </a>
                   <a class="pull-right btn btn-xs" data-nodrag ng-click="vm.removeCondition(this)"><img ng-src="{{vm.delete}}"></a>
                 </form>
               </div>
@@ -85,9 +86,9 @@
             <h2 class="panel-title">Actions</h2>
           </div>
           <div class="panel-body">
-            <ol ui-tree-nodes ng-model="vm.actions">
-              <li ng-repeat="item in vm.actions" class="right-list" ui-tree-node data-nodrag="{{!item.draggable}}">
-                <div ui-tree-handle>{{item.title}}</div>
+            <ol ui-tree-nodes ng-model="vm.cloneActions">
+              <li ng-repeat="action in vm.cloneActions" class="right-list" ui-tree-node data-nodrag="{{!action.draggable}}">
+                <div ui-tree-handle>{{action.title}}</div>
               </li>
             </ol>
           </div>
@@ -97,9 +98,6 @@
   </div>
 </div>
 
-
-
-</div>
-<!--<pre>{{vm.rule | json}}</pre>-->
-<pre>{{vm.rule.whenStatements | json}}</pre>
+<pre>{{vm.rule | json}}</pre>
+<!--<pre>{{vm.rule.whenStatements | json}}</pre>-->
 <!--<pre>{{vm.rule.thenStatements | json}}</pre>-->

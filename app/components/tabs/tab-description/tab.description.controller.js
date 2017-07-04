@@ -5,7 +5,7 @@
 angular.module('app.controllers')
     .controller('DescriptionCtrl', DescriptionCtrl);
 
-function DescriptionCtrl(guidelineFactory, SharedProperties, modalService) {
+function DescriptionCtrl(guidelineFactory, modalService) {
 
     var vm = this;
 
