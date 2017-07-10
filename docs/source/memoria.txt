@@ -1,56 +1,159 @@
-Editor de guías clínicas GDL
-============================
-Jesus Barros <j.barros@udc.es>
-v0.0.1, April 2015: Initial skeleton
+Desarrollo de un editor de guías clínicas (GDL) basadas en arquetipos utilizando tecnologías web
+================================================================================================
+Jesús Barros Castro <j.barros@udc.es>
+v0.0.1, Julio 2017
 :Author:	Jesús Barros Castro
+:doctype:   book
 :Email:		j.barros@udc.es
 :Revision: 	v0.0.1
 
+<<<
 
 Resumen
 -------
-Resumen
+Expresar y compartir contenido de soporte a la decisién clínica (CDS por sus siglas en inglés) de forma automatizada
+e independiente del lenguaje y de plataformas técnicas ha sido una tarea a compleja durante mucho  tiempo. Los dos
+principales motivos para compartir lógica de decisión entre diferentes sistemas son, por un lado, la  carencia de
+modelos de información clínica compartidos y, por otro, el soporte flexible para los diferentes recursos
+terminológicos.
+
+Para expresar la lógica que da soporte a la decisión clínica se necesita un modelo de representación de guías
+clínicas. Para ello la comunidad __open__EHR, comunidad virtual que trabaja en el desarrollo de especificaciones para la
+interoperabilidad de registros clínicos electrónicos entre sistemas sanitarios, ha desarrollado la especificación
+del lenguaje GDL (Guideline Definition Language). GDL un lenguaje formal diseñado para expresar lógica de soporte a
+la decisión médica, el cual, recientemente, ha pasado a formar parte del núcleo de la plataforma. Ha sido diseñado
+para ser independiente de lenguaje naturales y de terminologías clínicas haciendo uso, para ello de los diseños del
+Modelo de Referencia del Modelo de arquetipos de __open__EHR.
+
+El principal objetivo de este proyecto ha sido la elaboración de una herramienta Web para la edición de guías
+clínicas expresadas en lenguaje GDL, la comunidad no disponía de una herramienta de gestión de dichas guías con un
+enfoque colaborativo como el que puede ofrecer una aplicación Web. Lo que se pretende es que sean los propios
+profesionales sanitarios, los que tienen el conocimiento necesario, los que elaboren las guías clínicas de una manera
+colaborativa y consensuada, con el fin de que puedan utilizarlas de manera exitosa en la práctica médica.
+
+El resultado que se ha obtenido es un software capaz de crear y gestionar guías en formato GDL, las guías son
+validadas en el backend de la aplicación, denegándose la petición de envío cuando la guía posee algún error de
+elaboración/sintaxis. Se ha desarrollado una aplicación modular en AngularJS, framework Javascript de Google para el
+desarrollo de páginas web de una sola página basado en el patrón de arquitectura Modelo-Vista-Controlador, el cual
+nos ha permitido el desarrollo de una serie de controladores y servicios bien definidos como veremos en los
+siguientes capítulos. Dicho desarrollo modular permite una sencilla reutilización de sus componentes, así como el
+añadido y eliminción de otras funcionalidades utilizando la metodología de desarrollo ágil Scrum, que
+nos ha permitido reducir considerablemente los ciclos de desarrollo y ha asegurado que al final de cada ciclo se
+hubiesen desarrollado ciertas funcionalidades operativas de aplicación.
+
+*Palabras clave*
+
+Guías clínicas, arquetipos, sistema de soporte a la decisión, interoperabilidad.
+
+<<<
 
 Introducción
 ------------
-Expresar y compartir soporte a la decision clínica de forma automatizada independientemente del lenguaje y de plataformas técnicas ha sido una tarea a evitar durante mucho tiempo. Los dos principales motivos para compartir lógica de decisión entre diferentes sistemas son, por un lado, la carencia de modelos de información clínica compartidos y, por otro, el soporte flexible para varios recursos terminológicos.
+La toma de decisiones es el proceso mediante el que se realiza la elección de una alternativa para resolver un
+problema. La toma de decisiones está presnte cotidianamente tanto en la actividad humanda como en la de una
+organización. La clave del éxito está en tomar buenas decisiones. El concepto de apoyo a las decisiones es muy
+antiguo <<keen>> y ha evlocionado principalmente desde dos areas de investigación: los estudios teóricos de
+organización de la
+toma de decisiones, desarrollados en el Carnegie Intitute of Technology a principios de los años 60 y el trabajo
+técnico sobre sistemas informáticos interactivos, llevados a cabo principalmente en el Instituto Tecnológico de
+Massachusets en la década de los 60. Posteriormente, en la década de los 70, los sistemas de apoyo a las decisiones
+pasan a convertirse en un campo de investigación como tal.
 
-GDL (Guideline Definition Language) es un lenguaje formal diseñado para expresat lógica de soporte a la decisión médica. Ha sido diseñado para ser independiente de lenguaje naturales y de terminologías haciendo, para ello se ha utilizado los diseños del Modelo deReferencia de openEHR y el Modelo de arquetipos.
+Es necesario que se cumplan ciertos requisitos para tener éxito tomando decisiones, como son:
 
-Nec mauris sed aliquam nam mauris dolor lorem imperdiet.
+[options="compact"]
+* Conocimiento en profundidad el dominio de la organización
+* Experiencia
+* Información disponible:
+[options="compact"]
+  - abarcable por un conjunto de personas
+  - no siempre orientable al proceso analítico
+* Uso de metodologías de análisis sencillas e intuitivas
+
 
 Contextualización
 ~~~~~~~~~~~~~~~~~
-Text.
+En el ámbito de la salud las decisiones clínicas se toman mediante razonamiento deductivo utilizando el conocimiento
+que tienen los profesionales sanitarios sobre la fisiopatología humana teniendo en cuenta la información disponible
+para cada caso concreto.
+
+Parece bastante obvio que la experiencia de otros médicos y profesionales de la salud puede
+ayudar a la toma de decisiones. A principios de los años 60 ya se  empezaron a  dedicar esfuerzos para crear sistemas
+de soporte a la decisión clínica <<bonis>>. Incluso una década antes, se dedicaron muchos esfuerzos realizar
+diagnósticos a partir de la información que los médicos habían almacenado en sus computadoras, se basaban en reglas
+lógicas básicas. Dos ejemplos clásicos son el sistema de diagnóstico de alteraciones electrolíticas de Bleich
+<<bleich>> y el realizado por Warner et al. <<warner>> basado en la realización de razonamientos probabilísticos
+mediante el uso  intensivo del teorema de Bayes. Hasta este momento se fundaron lo que fueron las bases teóricas del
+desarrollo de los SSDC. Durante las dos décdas siguientes décadas se desarrollaron los primoeros SSDC basados en
+grandes ordenadores. Sin embargo no fue hasta los 80 y 90, con la llegada de los ordenadores personales y el uso
+generalizdo de los mismos, cuando se aprovecharon potencialmente este tipo de sistemas. Hoy en día el soporte a la
+decisión clínica forma parte de muchos sistemas sanitarios. <Comentar la situación de los SSD clínica actuales>
+
+Los sistemas de salud actuales requieren para sí una característica fundamental para garantizar la continuidad
+asistencialfootnote:[*Continuidad asistencial:* concepto que define el proceso, centrado en el paciente, en el cual
+intervienen diferentes profesionales sanitarios en diferentes periodos de tiempo y lugares con el objetivo
+compartido de mejorar la calidad de la asistencia prestada.]. Para conseguir esto es inevitable que la información
+clínica sea representada de una manera interoperable, de modo que diferentes organizaciones puedan hacer uso de dicha
+información independientemente de quién, cómo y cuándo se haya generado. La continuidad asistencial del paciente es
+indispensable en multitud de situaciones como cambios de residencia de los pacientes, cambios organizativos, cambios
+de niveles asistenciales, etc. La manera de conseguir la deseada interoperabilidad es aplicando la normalización.
+Las normas proporcionan la base sobre la que poder crear acuerdos con un objetivo en común, en este caso la
+contiuidad asistencial.
+
+Dificultad de conseguir la deseada interoperabilidad en entornos sanitarios: en el ámbito médico las organizaciones
+actúan, en cierto modo, como silos de información aislados, es decir, son autonomos a la hora de tomar sus propias
+decisiones, de implantar los sistemas de información que cada una de ellas quiere. Esto se repite incluso dentro de
+las propias organizaciones, un ejemplo claro podrían ser los propios servicios dentro de un hospital que, en
+numerosas ocasiones, utilizan sistemas distintos. Surge, de esta manera, la necesidad de crear una metodología que
+nos permita representar el conocimiento médico y, de este modo, poder separarlo de la información clínica existente
+en los sistemas...
 
 Objetivos
 ~~~~~~~~~
-Text.
-
+Objetivo principal: desarrollo de una SPA para la edición de guías clínicas basadas en arquetipos y expresadas en
+lenguaje GDL.
 
 Fundamentos tecnológicos
 ------------------------
-Ut suspendisse nulla. Auctor felis facilisis. Rutrum vivamus nec
-lectus porttitor dui dapibus eu ridiculus tempor sodales et. Sit a
-cras. Id tellus cubilia erat.
+Fundamentos tecnológicos
 
-Quisque nullam et. Blandit dui tempor. Posuere in elit diam egestas
-sem vivamus vel ac.
+Aplicaciones Web
+~~~~~~~~~~~~~~~~
+Aplicaciones Web y Single Page Applications
 
+Patrones de diseño
+~~~~~~~~~~~~~~~~~~
+Patrones de diseño utilizados en el desarrollo.
+
+[options="compact"]
+* Servicios
+* Factorías
+* Inyección de dependencias
+
+Patrones de arquitectura: AngularJS
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Patrón de arquetitectura MVC aprovechando las características de AngularJS.
+
+[options="compact"]
+* Modulos en AngularJS
+* Templates
+* Controlllers
+* Objeto `$scope` de AngularJS
+* Two-way databinding
 
 Estado del arte
 ---------------
-Aquí el estado de la cuestión
-
+Estado de la cuestion relacionado con la interoperabilidad clínica. Normas UNE EN ISO-13606 y __open__EHR: Modelos de
+referencia y arquetipos, modelo de guías clínicas GDL. Arquetipos clínicos. Terminologías clínicas: SNOMED-CT,
+ICD10, LOINC, ICPC...
 
 Métodos
 -------
-Text.
-
+Metodologías ágiles. Scrum
 
 Desarrollo
 ----------
-Text
+Número de iteraciones, hablar de cada una de ellas
 
 Iteración 1
 ~~~~~~~~~~~
@@ -92,59 +195,94 @@ Pruebas
 ^^^^^^^
 Texto pruebas iteración 2
 
+Testing
+-------
+
+Jasmine Framework
+~~~~~~~~~~~~~~~~~~~
+hablar del framework Jasmine (utilizado en los dos siguientes testrunners)
+
+Tests unitarios con Karma
+~~~~~~~~~~~~~~~~~~~~~~~~~
+Utilización de Karma test runner para probar nuestros servicios y controladores.
+
+Tests end-to-end con Protractor
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Hablar del framework de tests Protractor y mencionar cómo lo hemos aplicado para realizar pruebas end-to-end en nuestro
+proyecto.
+
+Material utilizado
+------------------
+
+* Sistema operativo Ubuntu 14.04, GNOME 3.
+* IDE JetBrain WebStorm.
+* NodeJS como entorno de ejecución de la applicación cliente.
+* SGBD PostgreSQL.
+* Servidor de aplicaciones JBoss Server EAP 6.2.
+* Astah Community Edition como herramienta de modelado UML.
+* AsciiDoc como herramienta de genración de documentos.
+* Git/Github como sistema de control de versiones y repositorio remoto de código.
+* Open Project como software de gestión de proyectos.
+* Travis CI como herramienta de integración continua.
 
 Implantación y seguimiento (si corresponde)
 -------------------------------------------
 Texto implantación y seguimiento
 
 
-Planificación y costes (planificación inicial vs. final)
---------------------------------------------------------
-Texto planificacion y costes
+Planificación y costes (planificación inicial vs. final) - (Opcional)
+---------------------------------------------------------------------
+Texto planificación y costes
 
 
 Resultados y discusión
 ----------------------
-Texto resultados y discusión
+Mencionar y discutir los resultados obtenidos, tanto los que se pudieron abordar como los que no.
 
 
 Conclusiones
 ------------
-Texto conclusiones
+Conclusiones finales sobre el proyecto.
 
 
 Futuros trabajos
 ----------------
-Texto futuros trabajos
+La herramienta supone el punto de partida hacia una serie de nuevas funcionalidades de gran utilidad para la
+comunidad. coo la edición colaborativa en tiempo real, la resolución de conflictos, la gestión del historial y de
+versiones de las guías clínicas, etc.
 
-
-Material utilizado
-------------------
-Texto material utilizado
 
 [appendix]
-Example Appendix
-----------------
+Apéndices
+---------
 One or more optional appendixes go here at section level 1.
 
-Appendix Sub-section
-~~~~~~~~~~~~~~~~~~~
-Sub-section body.
+Manual de usuario
+~~~~~~~~~~~~~~~~~
+Manual de usuario de la herramienta con capturas de pantalla.
 
+Ejemplo de creación de una guía clínica
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Desarrollo, paso a paso, de una guía clínica con algo de complejidad, con capturas de pantalla.
+
+<<<
 [bibliography]
-Example Bibliography
---------------------
+Bibliografía
+------------
 The bibliography list is a style of AsciiDoc bulleted list.
 
 [bibliography]
-- [[[taoup]]] Eric Steven Raymond. 'The Art of Unix Programming'. Addison-Wesley. ISBN 0-13-142901-9.
-- [[[walsh-muellner]]] Norman Walsh & Leonard Muellner. 'DocBook - The Definitive Guide'. O'Reilly & Associates. 1999. ISBN 1-56592-580-7.
+- [[[keen]]] Keen, P. G. W. 'Decision support systems: an organizational perspective'. Addison-Wesley. ISBN 0-201-03667-3.
+- [[[bonis]]] Bonis Julio, Sancho Juan J., Sanz Ferrán. 'Computer-assisted Clinical Decision Support Systems'.
+Clinical Medicine, Elsevier Ed. 2004;122 Supl 1:39-44.
+- [[[bleich]]] Bleich HL. 'Computer evaluation of acid-base disorders'. J Clin Invest, 48 (1969), pp. 1689-96 http://dx.doi.org/10.1172/JCI106134
+- [[[warner]]] Warner HR,Toronto AF,Veasey LG,Stephenson RA.'Mathematical approach to medical diagnosis.' JAMA, 177
+(1961), pp. 75-81.
 
 [glossary]
-Example Glossary
-----------------
-Glossaries are optional. Glossaries entries are an example of a style
-of AsciiDoc labeled lists.
+Glosario
+--------
+Glosario utilizado en el documento, con respectivos significados
 
 [glossary]
 A glossary term::
@@ -154,8 +292,8 @@ A second glossary term::
   The corresponding (indented) definition.
 
 [index]
-Example Index
--------------
+Índice
+------
 ////////////////////////////////////////////////////////////////
 The index is normally left completely empty, it's contents being
 generated automatically by the DocBook toolchain.
