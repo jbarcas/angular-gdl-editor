@@ -1,17 +1,13 @@
-Desarrollo de un editor de guías clínicas (GDL) basadas en arquetipos utilizando tecnologías web
-================================================================================================
+Editor de guías clínicas (GDL) basadas en arquetipos
+====================================================
 Jesús Barros Castro <j.barros@udc.es>
 v0.0.1, Julio 2017
-:Author:	Jesús Barros Castro
-:doctype:   book
-:Email:		j.barros@udc.es
+:lang:      es
 :Revision: 	v0.0.1
-
-<<<
 
 Resumen
 -------
-Expresar y compartir contenido de soporte a la decisién clínica (CDS por sus siglas en inglés) de forma automatizada
+Expresar y compartir contenido de soporte a la decisión clínica (CDS por sus siglas en inglés) de forma automatizada
 e independiente del lenguaje y de plataformas técnicas ha sido una tarea a compleja durante mucho  tiempo. Los dos
 principales motivos para compartir lógica de decisión entre diferentes sistemas son, por un lado, la  carencia de
 modelos de información clínica compartidos y, por otro, el soporte flexible para los diferentes recursos
@@ -45,14 +41,12 @@ hubiesen desarrollado ciertas funcionalidades operativas de aplicación.
 
 Guías clínicas, arquetipos, sistema de soporte a la decisión, interoperabilidad.
 
-<<<
-
 Introducción
 ------------
 La toma de decisiones es el proceso mediante el que se realiza la elección de una alternativa para resolver un
 problema. La toma de decisiones está presnte cotidianamente tanto en la actividad humanda como en la de una
 organización. La clave del éxito está en tomar buenas decisiones. El concepto de apoyo a las decisiones es muy
-antiguo <<keen>> y ha evlocionado principalmente desde dos areas de investigación: los estudios teóricos de
+antiguo <<keen>> y ha evolucionadp principalmente desde dos áreas de investigación: los estudios teóricos de
 organización de la
 toma de decisiones, desarrollados en el Carnegie Intitute of Technology a principios de los años 60 y el trabajo
 técnico sobre sistemas informáticos interactivos, llevados a cabo principalmente en el Instituto Tecnológico de
@@ -61,11 +55,9 @@ pasan a convertirse en un campo de investigación como tal.
 
 Es necesario que se cumplan ciertos requisitos para tener éxito tomando decisiones, como son:
 
-[options="compact"]
 * Conocimiento en profundidad el dominio de la organización
 * Experiencia
 * Información disponible:
-[options="compact"]
   - abarcable por un conjunto de personas
   - no siempre orientable al proceso analítico
 * Uso de metodologías de análisis sencillas e intuitivas
@@ -108,10 +100,17 @@ numerosas ocasiones, utilizan sistemas distintos. Surge, de esta manera, la nece
 nos permita representar el conocimiento médico y, de este modo, poder separarlo de la información clínica existente
 en los sistemas...
 
+NOTE: An admonition paragraph draws the reader's attention to
+auxiliary information.
+Its purpose is determined by the label
+at the beginning of the paragraph.
+
 Objetivos
 ~~~~~~~~~
-Objetivo principal: desarrollo de una SPA para la edición de guías clínicas basadas en arquetipos y expresadas en
-lenguaje GDL.
+El objetivo principal de este proyecto ha consistido en el desarrollo de una aplicación web para la gestión de clínicas
+basadas en arquetipos y expresadas en lenguaje GDL. Una herramienta de este tipo permite a los profesionales
+sanitarios generar conocimiento clínico interoperable al hacer uso de las tecnologías web de una manera colaborativa
+y consensuada.
 
 Fundamentos tecnológicos
 ------------------------
@@ -121,6 +120,7 @@ Aplicaciones Web
 ~~~~~~~~~~~~~~~~
 Aplicaciones Web y Single Page Applications
 
+[[patrones-de-diseno]]
 Patrones de diseño
 ~~~~~~~~~~~~~~~~~~
 Patrones de diseño utilizados en el desarrollo.
@@ -147,6 +147,7 @@ Estado de la cuestion relacionado con la interoperabilidad clínica. Normas UNE 
 referencia y arquetipos, modelo de guías clínicas GDL. Arquetipos clínicos. Terminologías clínicas: SNOMED-CT,
 ICD10, LOINC, ICPC...
 
+[[metodos]]
 Métodos
 -------
 Metodologías ágiles. Scrum
@@ -155,18 +156,22 @@ Desarrollo
 ----------
 Número de iteraciones, hablar de cada una de ellas
 
+[[iteracion1]]
 Iteración 1
 ~~~~~~~~~~~
 Text iteración 1
 
+[[analisis]]
 Análisis
 ^^^^^^^^
 Texto análisis iteración 1
 
+[[diseno-1]]
 Diseño
 ^^^^^^
 Texto diseño iteración 1
 
+[[imp-1]]
 Implementación
 ^^^^^^^^^^^^^^
 Texto implementación iteración 1
@@ -175,18 +180,22 @@ Pruebas
 ^^^^^^^
 Texto pruebas iteración 1
 
+[[iteracion-2]]
 Iteración 2
 ~~~~~~~~~~~
 Texto análisis iteración 2
 
+[[analisis-1]]
 Análisis
 ^^^^^^^^
 Texto análisis iteración 2
 
+[[diseno-2]]
 Diseño
 ^^^^^^
 Texto diseño iteración 2
 
+[[imp-2]]
 Implementación
 ^^^^^^^^^^^^^^
 Texto implementación iteración 1
@@ -251,7 +260,7 @@ La herramienta supone el punto de partida hacia una serie de nuevas funcionalida
 comunidad. coo la edición colaborativa en tiempo real, la resolución de conflictos, la gestión del historial y de
 versiones de las guías clínicas, etc.
 
-
+[[apendices]]
 [appendix]
 Apéndices
 ---------
@@ -261,11 +270,12 @@ Manual de usuario
 ~~~~~~~~~~~~~~~~~
 Manual de usuario de la herramienta con capturas de pantalla.
 
+[[ejemplo-creacion-guia]]
 Ejemplo de creación de una guía clínica
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Desarrollo, paso a paso, de una guía clínica con algo de complejidad, con capturas de pantalla.
 
-<<<
+[[bibliografia]]
 [bibliography]
 Bibliografía
 ------------
