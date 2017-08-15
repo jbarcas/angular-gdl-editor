@@ -22,9 +22,27 @@ function RulelistCtrl($state, $log, guidelineFactory, rulelistFactory, modalServ
     vm.rules = rulelistFactory.convertModel(rulelist);
 
     vm.remove = function (scope) {
+
         var rule = scope.$modelValue;
-        guidelineFactory.removeRule(rule);
-        scope.remove();
+
+        modalService.showModal(
+            {component: 'dialogComponent'},
+            {bodyText: 'Are you sure you want remove the rule "' + guidelineFactory.getText(rule.id) +'"'}
+        ).then(showModalComplete, showModalFailed);
+
+        function showModalComplete() {
+            guidelineFactory.removeRule(rule);
+            scope.remove();
+        }
+
+        function showModalFailed() {
+            $log.info('Modal dismissed at: ' + new Date() + ' in removeBinding()');
+        }
+
+
+
+
+
     };
 
     vm.openRuleEditor = function(rule) {

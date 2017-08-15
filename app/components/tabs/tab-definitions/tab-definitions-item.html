@@ -1,7 +1,7 @@
 <div ui-tree-handle class="tree-node tree-node-content element-background" >
   <form role="form"  class="form-inline">
     <!-- left item -->
-    {{vm.getTextDebug(this)}} - {{vm.getText(this)}} <a ng-style="item.unselected && {color:'red'}" ng-click="vm.updateLeftItem(this)" data-nodrag> {{vm.showLeftName(this) | removeUnderscore}}<sub>{{vm.getAttribute(this.$modelValue)}}</sub></a>
+    {{vm.getText(this)}} <a ng-style="item.unselected && {color:'red'}" ng-click="vm.updateLeftItem(this)" data-nodrag> {{vm.showLeftName(this) | removeUnderscore}}<sub>{{vm.getAttribute(this.$modelValue)}}</sub></a>
     <!-- operator -->
     <div class="form-group" ng-show="vm.showOptions(this)">
       <select class="form-control" ng-model="item.expressionItem.operator" data-nodrag>

@@ -214,6 +214,11 @@ sup {
     background: url("assets/img/entry_instruction.png") no-repeat;
 }
 
+.glyphicon-cluster {
+    padding: 1px 10px;
+    background: url("assets/img/cluster.png") no-repeat;
+}
+
 .glyphicon-leaf {
     padding: 1px 10px;
     background: url("assets/img/element.png") no-repeat;

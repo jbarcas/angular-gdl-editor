@@ -101,6 +101,38 @@
         $state.go('tab-guidelines');
       };
 
+      this.newGuide = function () {
+        var modalOptions = {
+          component: "modalWithInputAndDropdownComponent",
+          resolve: {
+            input: {
+              value: ""
+            }
+          }
+        };
+
+        var modalData = {
+          headerText: "New Guideline",
+          bodyText: "Name",
+          placeholder: "Guideline name"
+        };
+
+        modalService.showModal(modalOptions, modalData).then(showModalComplete, showModalFailed);
+
+        function showModalComplete(modalResponse) {
+          if (modalResponse.data === undefined) {
+            return;
+          }
+
+          var guidelineName = modalResponse.data.input.value;
+          guidelineFactory.newGuideline(guidelineName);
+        }
+
+        function showModalFailed() {
+          $log.info('Modal dismissed at: ' + new Date() + ' in updateRightItem');
+        }
+      }
+
     }
   });
 })();

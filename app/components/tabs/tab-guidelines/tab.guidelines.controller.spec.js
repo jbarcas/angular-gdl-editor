@@ -13,7 +13,6 @@ describe('Guidelines functionality:', function() {
   /*
    * Mock our factory and spy on methods
    */
-  var q;
   var deferred;
   beforeEach(inject(function($q, _guidelinesFactory_){
     deferred = $q.defer();

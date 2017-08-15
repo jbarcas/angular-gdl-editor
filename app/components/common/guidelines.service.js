@@ -8,6 +8,7 @@ function guidelineFactory($http, API_URL, $q, archetypeFactory, terminologyFacto
     var terms = {};
 
     return {
+        newGuideline: newGuideline,
         getGuideline: getGuideline,
         getCurrentGuide: getCurrentGuide,
         setCurrentGuideline: setCurrentGuideline,
@@ -64,6 +65,40 @@ function guidelineFactory($http, API_URL, $q, archetypeFactory, terminologyFacto
         removeBindingTerminology: removeBindingTerminology,
         setTermDefinition: setTermDefinition
     };
+
+    function newGuideline(guidelineId) {
+
+        var newGuide = {
+            "gdlVersion": "0.1",
+            "id": guidelineId,
+            "concept": "gt0000",
+            "language": {},
+            "description": {},
+            "definition": {
+                "archetypeBindings": {},
+                "preConditions": [],
+                "defaultActions": [],
+                "rules": {},
+                "defaultActionExpressions": []
+            },
+            "ontology": {
+                "termDefinitions": {
+                    "en": {
+                        "id": "en",
+                        "terms": {
+                            "gt0000": {
+                                "id": "gt0000",
+                                "text": "Body Mass Index calculation",
+                                "description": "*"
+                            }
+                        }
+                    }
+                }
+            }
+        };
+        guideline = newGuide;
+        return newGuide;
+    }
 
     function getTermDescription(archetypeId, atCode) {
         if(atCode === 'undefined' || atCode === "") {
