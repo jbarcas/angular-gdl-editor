@@ -11,7 +11,6 @@ v0.0.1, Julio 2017
 :grid: all
 :frame: topbot
 
-
 Resumen
 -------
 Expresar y compartir contenido de soporte a la decisión clínica (CDS por sus siglas en inglés) de forma automatizada
@@ -109,8 +108,8 @@ embargo no fue hasta los 80 y 90, con la llegada de los ordenadores personales y
 cuando se aprovecharon potencialmente este tipo de sistemas. Hoy en día el soporte a la decisión clínica forma parte
 de muchos sistemas sanitarios, se está invirtiendo mucho esfuerzo por parte de las instituciones médicas y compañías
 de software para producir SSDC viables para apoyar en todos los aspectos de las tareas clínicas. A pesar de estos
-esfuerzos por parte de las instituciones para producir y utlizar estos sistemas, todavía no se ha alcanzado la
-adoptión y la aceptación generalizada de la mayoría de las ofertas, y esto es debido principalmente a la escasez de
+esfuerzos por parte de las instituciones para producir y utilizar estos sistemas, todavía no se ha alcanzado la
+adopción y la aceptación generalizada de la mayoría de las ofertas, y esto es debido principalmente a la escasez de
 modelos información clínicos compartidos entre sistemas sanitarios.
 
 .Las TIC en los sistemas sanitarios.
@@ -237,7 +236,7 @@ hacerlo de una manera colaborativa y consensuada.
 Hasta el desarrollo de la aplicación objeto de este Trabajo Fin de Máster, se disponía de una herramienta basada en
 tecnología Java Swing que permite editar y ejecutar guías clínicas en GDL. Se trata de un software de escritorio
 independiente
-de la plataforma CKM, que permite editar las guías de manera off-line. Por tratarse de un software stand-alone que no
+de la plataforma CKM, que permite editar las guías de manera off-line. Por tratarse de un software _stand-alone_ que no
 se encuentra integrado en CKM, representa una limitación en la colaboración e intercambio de conocimiento clínico
 entre diferentes usuarios. Por estos motivos, se demanda una herramienta de gestión de guías clínicas con un enfoque
 colaborativo, además de proporcionar una usabilidad más adecuada, accesible y modular que la existente actualmente.
@@ -389,7 +388,7 @@ En este patrón de arquitectura, la vista obtiene los datos del modelo para ser 
 usuario interactúa con la aplicación haciendo clic con el ratón o escribiendo un _input_, el controlador responde
 cambiando los datos en el modelo Finalmente, el modelo notifica a la vista que se ha producido un cambio para que
 pueda actualizar lo que se está mostrando. En las aplicaciones Angular, la vista es el <<X2, Document Object Model>>
-(DOM)footnote:[Especificación técnida de w3c: https://www.w3.org/DOM/DOMTR], los controladores son clases
+(DOM)footnote:[Especificación técnica de w3c: https://www.w3.org/DOM/DOMTR], los controladores son clases
 JavaScript y los datos del modelo se almacenan en propiedades de objetos. MVC es apropiado por varios motivos.. En
 primer lugar ofrece un modelo mental que indica dónde colocar las cosas, de tal manera que no hay que reinventar la
 rueda continuamente. Los colegas que colaboran en un mismo proyecto tendrán una ventaja de antemano al entender lo
@@ -1197,6 +1196,7 @@ Expresión concreta que modela una función. Hereda de EXPRESSION_ITEM.
 .OPERATOR_KIND.
 Enumerado que contiene todos los operadores utilizados.
 
+[[operator-kind]]
 .Clase _OperatorKind_.
 [options="header"]
 |===
@@ -1825,7 +1825,7 @@ de forma segura en el elemento correspondiente de la vista. Se utiliza en la vis
 
 * `treeControl`: módulo utilizado para la gestión de los árboles de la aplicación, utilizado en diferentes situaciones.
 
-Para inicializar la aplicación AngularJS y declarar las dependencias mencionadas anteiormente lo hacemos a través un
+Para inicializar la aplicación AngularJS y declarar las dependencias mencionadas anteriormente lo hacemos a través un
 fichero en el que definimos el módulo principal (ver <<_modulos_en_angularjs>>), a este fichero le hemos llamado
 `app.js` y su contenido es el siguiente:
 
@@ -1901,7 +1901,7 @@ package.json
 El esquema anterior muestra una aproximación modularizada para construir aplicaciones AngularJS. Para la
 implementación de la primera iteración vamos a detallar los componentes que se han desarrollado para implementar la
 funcionalidad del listado de guías clínicas, así como los principales ficheros tanto de configuración como los
-necesarios para arrancar un proyecto Node.js y una aplicación AngularJS, exluyendo todo lo relacionado con las
+necesarios para arrancar un proyecto Node.js y una aplicación AngularJS, excluyendo todo lo relacionado con las
 pruebas, que se verán en la siguiente sección.
 
 En primer lugar, cabe mencionar el fichero de configuración de Node.js, denominado _package.json_. Permite la mejor
@@ -1922,9 +1922,9 @@ include::../../package.json[]
 Este fichero, como mínimo tiene que tener los campos _name_ y _version_, con el nombre y la versión del proyecto
 respectivamente. El campo _private_. Al establecer _private_ como 'true', _npm_ se negará a publicarlo. Esto impide
 que se publique accidentalmente en el registro público de _npm_, en _description_ se indica una descripción clara y
-concisa del proyecto, _author_ para el autor principal del proyecto. _repository_ se tiliza para especificar la URL y
+concisa del proyecto, _author_ para el autor principal del proyecto. _repository_ se utiliza para especificar la URL y
 el tipo de repositorio de código fuente, esto es útil para las personas que quieren contribuir a su módulo. Se usa el
-campo _license_ para indicar bajo qué licencia se ha lanzado el código. Bajo _devDependencies_ se idican las
+campo _license_ para indicar bajo qué licencia se ha lanzado el código. Bajo _devDependencies_ se indican las
 dependencias que sólo se destinan al desarrollo y pruebas del módulo. Por último, se tiene un campo _scripts_ que
 consta de un objeto que expone comandos adicionales de _npm_, se asume que la clave es el comando _npm_ y el valor es
 el _path_ del script, por ejemplo, para iniciar el servidor web de desarrollo ejecutamos `npm start`.
@@ -1941,10 +1941,10 @@ continuación se muestra el fichero _bower.json_.
 include::../../bower.json[]
 ----
 
-El formato es similar al _package.json_, sin embargo en el _bower.json_ indicamos las dependendias de terceros que
+El formato es similar al _package.json_, sin embargo en el _bower.json_ indicamos las dependencias de terceros que
 se han utilizado para el _frontend_, mientras que en el _package.json_ se gestionan los módulos de Node.js. Para
 instalar las dependencias del _frontend_ no es necesario ejecutar `bower install` a mano ya que se ha creado un
-script en el _package.json_ (denominado `postinstall`) que lo hara automáticamente una vez iniciado el servidor web
+script en el _package.json_ (denominado `postinstall`) que lo hará automáticamente una vez iniciado el servidor web
 Node.js.
 
 Para gestionar la navegación de la aplicación entre las diferentes vistas se ha utilizado el módulo `ui-router`, el
@@ -1955,7 +1955,7 @@ por varias subvistas que se actualizan de forma independiente.
 .Patrón _Composite View_.
 image::composite-view.png[scaledwidth="50%"]
 
-Para configurar AngularJS para que utilize el módulo `ui-router` lo registramos como dependencia del proyecto, tal
+Para configurar AngularJS para que utilice el módulo `ui-router` lo registramos como dependencia del proyecto, tal
 como se ha mostrado en la sección anterior. El módulo en cuestión es el `ui.router` y se apoya en el concepto de
 _estado_ para definir la navegación entre vistas:
 
@@ -1989,7 +1989,7 @@ angular.module('app')
 
 El módulo `ui-route` proporciona, entre otros, los servicios usados en el listado anterior, _i.e._ `$stateProvider` y
 `$urlRouterProvider`. El primero nos permite dar nombres a las rutas. Entre otras cosas, permite a cada estado
-asignarle un _path_, una vista y un controlador, de tal manera que, cuando se active dicho estado, rendereizará su
+asignarle un _path_, una vista y un controlador, de tal manera que, cuando se active dicho estado, renderizará su
 vista correspondiente, con su controlador y su `$scope` de manera aislada garantizando de este modo un bajo
 acoplamiento entre las vistas. Para esta primera iteración, solamente tendremos un estado que define la primera de
 las pestañas donde se muestran todas las guías clínicas y se le permite al usuario seleccionar una de ellas.
@@ -2013,7 +2013,7 @@ editar o eliminar ciertas características de las guías clínicas.
 
 El componente `tabs.component.js` contiene la directiva `ui-view` donde se insertarán cada una de las pestañas que
 permiten editar las guías. Las guías tienen que mostrarse en la vista que se cargue al iniciar la aplicación, que es
-la que está asociada con el _estado_ anteriormente definido (_tab-guidelines_). Este estado hace que se carge la
+la que está asociada con el _estado_ anteriormente definido (_tab-guidelines_). Este estado hace que se cargue la
 vista correspondiente en dicha pestaña, a continuación se muestra la vista y el controlador asociados a dicho estado.
 
 [source,html,numbered]
@@ -2042,11 +2042,11 @@ include::../../app/components/tabs/tab-guidelines/tab.guidelines.service.js[]
 ----
 
 A su vez, este servicio, hace uso de los servicios nativos de Angular `$http` y `$q`. El primero se usa para la
-comunicación con servidores HTTP remotos y el segundo para la ejecución de funcionaes asíncronas y la utilización de
+comunicación con servidores HTTP remotos y el segundo para la ejecución de funciones asíncronas y la utilización de
 los valores devueltos por dichas funciones. Se trata de una implementación compatible con https://promisesaplus.com/[Promises/A+],
 una implementación de promesas/objetos diferidos basado en https://github.com/kriskowal/q[Q de Kris Kowal].
 
-Lo que se ha obtenido en esta primera iteración es la definición de la estructura gobal del proyecto y la
+Lo que se ha obtenido en esta primera iteración es la definición de la estructura global del proyecto y la
 funcionalidad básica de la primera vista. En siguientes iteraciones, por tratarse de funcionalidades más complejas se
 omitirán capturas de código de servicios y controladores. Después de esta iteración, un usuario tiene la posibilidad
 de visualizar las guías contenidas en el servidor.
@@ -2061,8 +2061,8 @@ en la <<_testing>>.
 
 Es esta sección nos centraremos en los tests de cada una de las iteraciones, comenzando por la
 configuración necesaria para la ejecución de los tests. Como se ha mencionado, para los tests unitarios se ha
-utilizado el _testrunner_ Karma, el cual necesita un fichero de configuración deonimado `karma.conf` yq eu tiene que
-estar en el directorio raíz del proyecto. A continuacion se muestra el contenido de dicho fichero para nuestro proyecto.
+utilizado el _testrunner_ Karma, el cual necesita un fichero de configuración denominado `karma.conf` y que tiene que
+estar en el directorio raíz del proyecto. A continuación se muestra el contenido de dicho fichero para nuestro proyecto.
 
 [source,python,numbered]
 ----
@@ -2124,7 +2124,7 @@ le hemos llamado `tab.guidelines.service.spec.js`
 include::../../app/components/tabs/tab-guidelines/tab.guidelines.service.spec.js[]
 ----
 En el anterior test se comprueban varias cosas, por un lado que la inicialización del servicio no es `undefined`. Si
-se llama a `getGuidelines()` desde el test, hara una petición HTTP real al _endpoint_ indicado. Sin embargo, lo que
+se llama a `getGuidelines()` desde el test, hará una petición HTTP real al _endpoint_ indicado. Sin embargo, lo que
 hacemos es interceptar dicha llamada con `$httpBackend` y definimos la respuesta en vez de hacer la llamada remota real.
 Obsérvese que es necesario hacer `$httpBackend.flush()` ya que la llamada `$http` normalmente es asíncrona, pero en
 el test lo queremos ejecutar de forma síncrona. La llamada a `flush()` asegura que el `.then()` de la promesa
@@ -2213,16 +2213,6 @@ Apéndices
 ---------
 A continuación se detallan los apéndices referenciados durante la memoria de este Trabajo Fin de Máster.
 
-Gramática de GDL
-~~~~~~~~~~~~~~~~
-La gramática y la especificación léxica para las expresiones utilizadas por GDL se basa en líneas generales en la
-sintaxis de aserción en la especificación ADL. Esta gramática se implementa utilizando las especificaciones de
-https://javacc.java.net/[javaCC] en el entorno de programación Java. El código fuente completo del analizador GDL de
-Java se puede encontrar a continuación.
-----
-include::javacc/expression.jj[]
-----
-
 Manual de usuario
 ~~~~~~~~~~~~~~~~~
 El editor GDL se divide en 9 pestañas:
@@ -2233,7 +2223,7 @@ El editor GDL se divide en 9 pestañas:
 * Rule list: permite la gestión de todas las reglas dentro de la guía.
 * Preconditions: una lista de las condiciones que se tienen que cumplir para que la guía pueda ser ejecutada.
 * Terminology: traducciones para cada uno de los términos usados en las guías.
-* Binding: mapeo de los códigos locales utilizados en la guía a terminoloǵias externas.
+* Binding: mapeo de los códigos locales utilizados en la guía a terminologías externas.
 * GDL: la salida del editor (en formato GDL)
 * HTML: la salida del editor (en formato HTML)
 
@@ -2258,7 +2248,7 @@ trabajo a la guía clínica. Esta sección también puede incluir un enunciado s
 enunciado sobre posibles usos erróneos o desaconsejados de la misma. La definición de una guía clínica GDL también
 debe indicar información del _status_ de publicación (“Draft”, “Public”, “Deprecated”, etc.) footnote:[Ver todos los
 posibles valores en https://openehr.atlassian.net/wiki/spaces/healthmod/pages/2949205/Archetype+Publication+Status]
-y la fecha en la que se realizó dicha guía con este status de publicación. Por último existe un partado donde se
+y la fecha en la que se realizó dicha guía con este status de publicación. Por último existe un apartado donde se
 pueden indicar referencias relevantes para la guía.
 
 .Description: meta-información de la guía clínica.
@@ -2333,7 +2323,7 @@ definida (<<rule-editing-1>>), una instancia de elemento de una instancia de arq
 instancia de arquetipo (3).
 
 [[rule-editing-1]]
-.Edición de reglas: Seleccionar instacia de elemento.
+.Edición de reglas: Seleccionar instancia de elemento.
 image::rule-editing-1.png[scaledwidth="80%"]
 
 La edición de condiciones y acciones es muy similar a la de las definiciones. La versión actual de GDL soporta seis
@@ -2352,7 +2342,8 @@ Actualmente se soportan 4 tipos de acciones:
 * _Set (DataValue)_: inicializa la instancia del elemento con el valor de datos seleccionado.
 * _Set (NullValue)_: elimina el valor de la instancia del elemento y establece el código NULL_FLAVOUR seleccionado.
 * _Set (Element)_: copia el valor de una instancia de elemento a otra.
-* _Set (Attibute)_: establece el valor de un atributo utilizando una constante o una expresión (consulte <<_editor_de_expresiones, Editor de expresiones>>).
+* _Set (Attribute)_: establece el valor de un atributo utilizando una constante o una expresión (consulte
+<<_editor_de_expresiones, Editor de expresiones>>).
 
 [[rule-editing-2]]
 .Editor de reglas.
@@ -2364,12 +2355,242 @@ directamente en los elementos de EHR.
 
 Editor de expresiones
 ^^^^^^^^^^^^^^^^^^^^^
-blah
+Los atributos de los elementos de arquetipos pueden compararse con expresiones que contienen otros atributos o
+valores constantes. GDL soporta un conjunto básico de operadores aritméticos (ver <<operator-kind, operadores
+aritméticos en las especificaciones GDL>>). El editor de expresiones se divide en dos partes, el panel de edición
+(arriba) y el panel de visualización (abajo), cualquier cambio realizado en el panel de edición se mostrará en la
+parte de visualización, siempre que la expresión sea correcta. Los elementos se pueden agregar a la expresión
+manualmente o usar el asistente (lado derecho).
+
+[[expression-editor]]
+.Editor de expresiones.
+image::expression-editor.png[scaledwidth="80%"]
+
+Preconditions
+^^^^^^^^^^^^^
+Las precondiciones se gestionan de la misma manera que las condiciones en la <<_edicion_de_reglas, Edición de Reglas>>.
+Esta sección define los hechos que se deben de cumplir antes de que la guía pueda ser ejecutada.
+
+[[preconditions]]
+.Precondiciones.
+image::preconditions.png[scaledwidth="80%"]
+
+En el ejemplo anterior, la guía sólo podrá ser ejecutada en el caso de que el paciente haya tenido fibrilación
+auricular con anterioridad.
+
+Terminología
+^^^^^^^^^^^^
+El editor de terminologías permite editar los diferentes términos encontrados en el GDL. Los códigos _gt_ se crean
+automáticamente cuando añadimos instancias de elemento o creamos nuevas reglas, pero tendrán que crearse manualmente
+las vinculaciones a terminologías externas.
+
+[[terminology-1]]
+.Edición de terminologías.
+image::terminology-1.png[scaledwidth="80%"]
+
+Si se quiere añadir un nuevo término local, se hará haciendo clic en el botón _Add local term_, lo que creará un nuevo
+término con el código gt local con un identificador cuyo valor sea el siguiente correlativo al último que haya en la
+guía. A partir de aquí podremos editar su texto y su descripción.
+
+[[terminology-2]]
+.Edición de un término.
+image::terminology-2.png[scaledwidth="80%"]
+
+Binding
+^^^^^^^
+El enlace terminológico se gestiona desde la pestaña _Binding_. La tabla que se muestra aparecen los términos locales
+que tenemos vinculados con terminologías externas. Un término puede estar vinculado con varias terminologías por lo
+que éstas aparecen como pestañas en la interfaz. Un término puede estar vinculado con varios códigos dentro de una
+misma terminología.
+
+Cuando se ejecuta la guía, cualquier código contenido aquí y referenciado con un operador _is_a_ será traducido a sus
+terminologías vinculadas para su resolución. Cada fila en la tabla contiene tres columnas:
+* Términos locales: los códigos definidos en la terminología local de la guía (ver TERMINOLOGÍA). Pueden
+seleccionarse haciendo clic en el campo.
+* Códigos terminológicos: los códigos de la terminología a la que estamos vinculados, separados por coma. Se puede
+insertar manualmente o mediante el visor de terminología haciendo doble clic en el icono de la lupa.
+* URI: un identificador de recurso uniforme que apunta a una expresión post-coordinación (en desarrollo).
+
+[[binding-1]]
+.Enlaces con terminologías.
+image::binding-1.png[scaledwidth="80%"]
+
+Al hacer clic en el botón 'Añadir terminología' podremos añadir una nueva pestaña con la terminología seleccionada
+(las terminologías son recursos disponibles en el _backend_).
+
+[[binding-2]]
+.Añadir una nueva terminología.
+image::binding-2.png[scaledwidth="80%"]
+
+Para añadir un nuevo enlace, se debe hacer clic en el botón _New binding_. Esto abrirá un diálogo que nos pedirá el
+nombre del nuevo código local, le creará un nuevo código _gt_ (el siguiente correlativo al último definido en la
+guía) y nos permitirá vincularle el código que queramos de la terminología en la que estemos situados.
+
+[[binding-3]]
+.Asignar un código terminológico a una variable local a la guía.
+image::binding-3.png[scaledwidth="80%"]
+
+Código GDL
+^^^^^^^^^^
+La pestaña de código GDL muestra la guía editada en formato GDL. Cuando se visualiza, todas las secciones anteriores se
+convertirán en lenguaje formal. Este es el mismo formato utilizado al guardar la guía en un archivo `.gdl`.
+
+[[gdl-code]]
+.Código GDL.
+image::gdl-code.png[scaledwidth="80%"]
+
+Vista HTML
+^^^^^^^^^^
+Esta pestaña permite la visualización de la guía GDL en formato HTML, de manera que se pueda visualizar la
+información de la guía de una amanera más amigable de cara ala usuario.
+
+[[html-view]]
+.Vista HTML.
+image::html-view.png[scaledwidth="80%"]
+
 
 Ejemplo de creación de una guía clínica
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-blah
 
+Cálculo del IMC (Índice de Masa Corporal)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Este ejemplo describirá cómo crear una guía simple para calcular el índice de masa corporal usando la fórmula:
+
+latexmath:[IMC = masa(kg) / (altura(m))^2]
+
+Para crear una nueva guía, hacemos clic en el botón _New Guideline_. Le damos un nombre a la guía y hacemos clic en
+_OK_.
+
+[[calculateBMI-1]]
+.Creando una guía nueva.
+image::calculateBMI-1.png[scaledwidth="80%"]
+
+Después de completar este paso, debemos añadir cierta meta-información requerida para la guía. Esto se hace a través
+de la pestaña _Description_.
+
+[[calculateBMI-2]]
+.Añadiendo meta-información relevante para la guía.
+image::calculateBMI-2.png[scaledwidth="80%"]
+
+En el siguiente paso, definimos los elementos de los arquetipos necesarios para la guía.
+
+[[calculateBMI-3]]
+.Definiendo elementos de arquetipos.
+image::calculateBMI-3.png[scaledwidth="80%"]
+
+Estos elementos, para el caso del _Cálculo del Índice de Masa Corporal_, se definen de la siguiente manera:
+
+* Arrastramos la caja _Archetype instantiation_ del panel de la derecha y lo soltamos en el panel de las definiciones
+(en la izquierda). Hacemos clic en _Select Archetype_ para seleccionar un arquetipo y seleccionamos
+_openEHR-EHR-OBSERVATION.body_mass_index.v1_. De este arquetipo definimos el elemento _Body Mass Index_ bien
+arrastrando la caja _Element instantiation_ o haciendo clic sobre el símbolo (+) del arquetipo, que nos permite
+instanciar un elemento de dicho arquetipo.
+
+* Arrastramos la caja _Archetype instantiation_ del panel de la derecha y lo soltamos en el panel de las definiciones
+(en la izquierda). Hacemos clic en _Select Archetype_ para seleccionar un arquetipo y seleccionamos
+_openEHR-EHR-OBSERVATION.body_weight.v1_. De este arquetipo definimos el elemento _Weight_ bien
+arrastrando la caja _Element instantiation_ o haciendo clic sobre el símbolo (+) del arquetipo, que nos permite
+instanciar un elemento de dicho arquetipo. Además, en este caso, vamos a indicarle que seleccione el peso más
+reciente que haya disponible, para ello aplicamos la función de agregación _MAX_, arrastrando la caja _Predicate
+(Function)_, soltándola bajo el arquetipo y seleccionado el elemento _Event time_.
+
+* Arrastramos la caja _Archetype instantiation_ del panel de la derecha y lo soltamos en el panel de las definiciones
+(en la izquierda). Hacemos clic en _Select Archetype_ para seleccionar un arquetipo y seleccionamos
+_openEHR-EHR-OBSERVATION.height.v1_. De este arquetipo definimos el elemento _Height_ bien
+arrastrando la caja _Element instantiation_ o haciendo clic sobre el símbolo (+) del arquetipo, que nos permite
+instanciar un elemento de dicho arquetipo. Además, en este caso, vamos a indicarle que seleccione la altura más
+reciente que haya disponible, para ello aplicamos la función de agregación _MAX_, arrastrando la caja _Predicate
+(Function)_, soltándola bajo el arquetipo y seleccionado el elemento _Event time_.
+
+El siguiente paso será añadir una regla, para ello seleccionamos la pestaña _Rule list_ y hacemos clic en el botón
+_Add rule_. Insertamos el nombre de la regla y hacemos clic en _OK_.
+
+[[calculateBMI-4]]
+.Creando una nueva regla.
+image::calculateBMI-4.png[scaledwidth="80%"]
+
+Llegados a este punto, en la <<_rule_list, lista de reglas>> nos habrá aparecido la regla que acabamos de crear,
+hacemos clic sobre ella para entrar en dicha regla, se abre el <<_edicion_de_reglas, Editor de reglas>>. Debemos
+asegurarnos de que los elementos necesarios tengan las unidades correctas. Queremos añadir dos condiciones: el peso
+se mide en kilogramos y la altura en centímetros. Arrastrando la condición _Compare (Attribute)_, agregaremos dos
+condiciones vacías a la regla.
+
+[[calculateBMI-5]]
+.Añadiendo condiciones para especificar las unidades.
+image::calculateBMI-5.png[scaledwidth="80%"]
+
+Ahora podemos especificar las unidades para ambos elementos que vamos a obtener del EHR (peso y altura). Al hacer
+clic en el enlace Elemento, podemos seleccionar el atributo que vamos a utilizar, tendremos los arquetipos que hemos
+definido en la pestaña _Definitions_, de los cuales podremos obtener sus elementos.
+
+[[calculateBMI-6]]
+.Seleccionando un elemento del arquetipo.
+image::calculateBMI-6.png[scaledwidth="80%"]
+
+[[calculateBMI-7]]
+.Estableciendo las condiciones.
+image::calculateBMI-7.png[scaledwidth="80%"]
+
+A continuación tendremos que añadir una acción que actualizará el atributo _magnitude_ del elemento _Body Mass Index_
+del arquetipo _openEHR-EHR-OBSERVATION.body_mass_index.v1_. Arrastramos la acción _Set (Attribute)_, ubicado en el
+panel inferior derecho. Seguimos los mismos pasos que antes para seleccionar unidades, pero en lugar de ello,
+seleccionamos el atributo _magnitude_. Por ahora, la regla debe ser similar a la <<calculateBMI-8>>.
+
+[[calculateBMI-8]]
+.Seleccionada la magnitud del IMC.
+image::calculateBMI-8.png[scaledwidth="80%"]
+
+La última parte requiere definir la expresión para calcular el IMC. Hacemos clic en el enlace de Expresión para abrir
+el editor de expresiones e ingresar la ecuación (peso / ((altura / 100) 2)). Hacemos clic en el botón _OK_ para
+agregar la expresión a la acción.
+
+[[calculateBMI-9]]
+.Expresión para el cálculo del IMC.
+image::calculateBMI-9.png[scaledwidth="80%"]
+
+Llegados a este punto se debería repetir la tarea para establecer las unidades y la precisión del elemento calculado.
+
+Para esta guía no habrá precondiciones ya que no es necesario que se cumpla una condición para que la guía pueda ser
+ejecutada.
+
+En la pestaña _Terminology_ aparecen las descripciones terminológicas para los elementos que hemos definido,
+para algunos de ellos ya toma la descripción que viene directamente en los arquetipos. Aquí podríamos proporcionar
+definiciones de términos para el resto de variables locales de la guía, haciendo clic en _Add local term_.
+
+[[calculateBMI-10]]
+.Descripciones terminológicas para la guía.
+image::calculateBMI-10.png[scaledwidth="80%"]
+
+A continuación, se pueden establecer enlaces con terminologías externas desde la pestaña _Binding_. Para ello, se
+añade la terminología con la queremos enlazar, en este caso hemos añadido _SNOMED-CT_ y _ICD10_. Para _SNOMED-CT_
+hemos enlazado los conceptos Índice de Masa Corporal (IMC) y Peso, utilizados en la guía, con sus códigos SNOMED-CT
+correspondientes. Si queremos enlazar más conceptos lo hacemos utilizando el botón _New binding_, si lo que se quiere
+es añadir una nueva terminología, la añadimos con _New terminology_ y si lo que queremos es eliminarla, lo hacemos
+con el botón _Remove terminology_.
+
+[[calculateBMI-11]]
+.Añadiendo enlaces a terminologías externas.
+image::calculateBMI-11.png[scaledwidth="80%"]
+
+Las pestañas _GDL_ y _HTML_, tal como se comentó en <<_codigo_gdl>> y <<_vista_html>> respectivamente muestran una
+visualización del código GDL y una vista con formato más amigable en HTML de la guía que estamos definiendo.
+
+Una versión final del código GDL que se ha creado con esta guía lo podemos ver a continuación:
+
+----
+include::samples/Calculo.IMC.v1.gdl[]
+----
+
+
+Gramática de GDL
+~~~~~~~~~~~~~~~~
+La gramática y la especificación léxica para las expresiones utilizadas por GDL se basa en líneas generales en la
+sintaxis de aserción en la especificación ADL. Esta gramática se implementa utilizando las especificaciones de
+https://javacc.java.net/[javaCC] en el entorno de programación Java. El código fuente completo del analizador GDL de
+Java se puede encontrar a continuación.
+----
+include::javacc/expression.jj[]
+----
 
 [bibliography]
 Bibliografía

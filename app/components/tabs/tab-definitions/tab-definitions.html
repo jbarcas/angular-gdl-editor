@@ -5,8 +5,8 @@
 <div class="row">
   <div class="col-sm-9">
      <div ui-tree="vm.treeOptions" data-drag-delay="300">
-        <ol ui-tree-nodes ng-model="vm.archetypeBindings">
-           <li ng-repeat="archetypeBinding in vm.archetypeBindings" ui-tree-node>
+        <ol ui-tree-nodes ng-model="vm.guide.definition.archetypeBindings">
+           <li ng-repeat="archetypeBinding in vm.guide.definition.archetypeBindings" ui-tree-node>
               <div ui-tree-handle class="tree-node tree-node-content">
                  <a class="btn btn-success btn-xs" ng-if="archetypeBinding.elements" data-nodrag ng-click="toggle(this)">
                     <span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span>

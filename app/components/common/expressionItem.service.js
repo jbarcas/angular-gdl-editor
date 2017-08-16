@@ -53,7 +53,8 @@ function expressionItemFactory($log, guidelineFactory, utilsFactory, modalServic
         getConditions: getConditions,
         getActions: getActions,
         getExpression: getExpression,
-        getLiteralExpression: getLiteralExpression
+        getLiteralExpression: getLiteralExpression,
+        setLeftAttribute: setLeftAttribute
     };
 
 
@@ -463,12 +464,19 @@ function expressionItemFactory($log, guidelineFactory, utilsFactory, modalServic
         };
 
         //if(expressionType === "Attribute" && expression.expressionItem.left.expressionItem.attribute === "magnitude") {
-        if(expressionType === "Attribute" && (expression.expressionItem.left.type === 'BinaryExpression' || expression.expressionItem.left.expressionItem.attribute === "magnitude")) {
-            modalOptions.resolve.expression = function() {
-                if(isAction(expression)) {
-                    return getExpression(expression);
-                } else {
-                    return getExpression(expression.expressionItem.right);
+        if(expressionType === "Attribute") {
+            if(expression && expression.expressionItem && expression.expressionItem.left && (expression.expressionItem.left.type === 'BinaryExpression' || expression.expressionItem.left.expressionItem.attribute === "magnitude")) {
+                modalOptions.resolve.expression = function() {
+                    if(isAction(expression)) {
+                        return getExpression(expression);
+                    } else {
+                        return getExpression(expression.expressionItem.right);
+                    }
+                }
+            }
+            if(expression && expression.variable && expression.variable.attribute === "magnitude") {
+                modalOptions.resolve.expression = function() {
+                    return getExpression(expression.assignment);
                 }
             }
         }
@@ -656,7 +664,7 @@ function expressionItemFactory($log, guidelineFactory, utilsFactory, modalServic
         var modalOptions = {resolve: {}, component: "modalWithInputAndDropdownComponent"}, modalItems = [];
         var attribute = isAction(expression) ? expression.variable.attribute : expression.expressionItem.left.expressionItem.attribute;
         // FIXME: Get the actual values. At this moment the API does not provide 'units'
-        var temporalMockOptions = ['kg/m2', 'in', 'cm'];
+        var temporalMockOptions = ['kg/m2', 'kg', 'cm'];
         modalOptions.resolve.items = function() {
             for(var i in temporalMockOptions) {
                 modalItems.push({viewText: temporalMockOptions[i], type: "AttributeValue"});
@@ -1001,6 +1009,7 @@ function expressionItemFactory($log, guidelineFactory, utilsFactory, modalServic
             //FIXME: What's the difference between them?
             var string = response.data.selectedItem.viewText;
             var value = response.data.selectedItem.viewText;
+            right.type = 'StringConstant';
             right.expressionItem = {
                 string: string,
                 value: value
@@ -1063,7 +1072,11 @@ function expressionItemFactory($log, guidelineFactory, utilsFactory, modalServic
                 return;
             }
             if(isAction(expression)) {
-                expression.expressionItem = response.data.expressionItem;
+                expression.assignment.type = response.data.type;
+                expression.assignment.expressionItem = response.data.expressionItem;
+                delete expression.assignment.unselected;
+                //expression.expressionItem = response.data.expressionItem;
+
             } else {
                 expression.expressionItem.right = response.data;
             }
@@ -1080,7 +1093,7 @@ function expressionItemFactory($log, guidelineFactory, utilsFactory, modalServic
         var type;
         if (action && action.variable && action.variable.attribute === "null_flavor") {
             type = "NullValue";
-        } else if (hasAttribute(action)) {
+        } else if (action && action.variable && action.variable.attribute) {
             type = "Attribute";
         } else if (action.assignment.type === "Variable") {
             type = "Element";
@@ -1146,6 +1159,9 @@ function expressionItemFactory($log, guidelineFactory, utilsFactory, modalServic
             return str;
         }
         var str = "";
+        if(expression.unselected) {
+            return str;
+        }
         createExpression(expression);
         return str;
     }

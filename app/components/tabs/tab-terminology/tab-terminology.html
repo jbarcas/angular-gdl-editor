@@ -20,15 +20,16 @@
                 <!-- editable description -->
                 <span editable-text="term.description" e-name="description" e-form="rowform" e-required>{{ term.description|| 'empty' }}</span>
             </td>
-            <td style="white-space: nowrap">
+            <td>
                 <!-- form -->
-                <form editable-form name="rowform" onbeforesave="vm.saveTerm($data, term.id)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == term">
+                <form editable-form name="rowform" onbeforesave="vm.saveTerm($data, term.id)"
+                      ng-show="rowform.$visible" class="form-buttons form-inline gdl-terminology-icons" shown="inserted == term">
                     <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">save</button>
                     <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">cancel</button>
                 </form>
-                <div class="buttons" ng-show="!rowform.$visible">
-                    <button class="btn btn-primary" ng-click="rowform.$show()">edit</button>
-                    <button class="btn btn-danger" ng-click="vm.removeTerm(this.term.id)">del</button>
+                <div class="buttons gdl-terminology-icons" ng-show="!rowform.$visible">
+                    <a class="pull-right btn btn-xs" ng-click="rowform.$show()"><img ng-src="{{vm.pencil}}"></a>
+                    <a class="pull-right btn btn-xs" ng-click="vm.removeTerm(this.term.id)"><img ng-src="{{vm.delete}}"></a>
                 </div>
             </td>
         </tr>

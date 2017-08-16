@@ -89,6 +89,11 @@ function utilsFactory(guidelineFactory, GT_HEADER) {
                 }
             }
         }
+        var ab = guideline.definition.archetypeBindings;
+        guideline.definition.archetypeBindings = {};
+        for(var i=0; i<ab.length; i++) {
+            guideline.definition.archetypeBindings[ab[i].id] = ab[i];
+        }
         return guideline;
     }
 

@@ -16,8 +16,8 @@
             <td>
                 <!-- editable id -->
                 <span>{{ binding.id || 'empty'}} - {{ vm.getName(binding.id) || 'empty'}}
-                    <a class="pull-right btn btn-xs" data-nodrag ng-click="vm.addBinding(this)"><img ng-src="{{vm.pencil}}"></a>
                     <a class="pull-right btn btn-xs" data-nodrag ng-click="vm.removeBinding(this)"><img ng-src="{{vm.delete}}"></a>
+                    <a class="pull-right btn btn-xs" data-nodrag ng-click="vm.addBinding(this)"><img ng-src="{{vm.pencil}}"></a>
                 </span>
             </td>
             <td>

@@ -276,3 +276,8 @@ treecontrol.tree-boot li.tree-leaf i.tree-leaf-head {
     flex: 2;
 }
 
+.gdl-terminology-icons {
+    display: flex;
+    justify-content: center;
+}
+

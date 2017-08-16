@@ -11,7 +11,7 @@ function DefinitionsCtrl($log, $scope, $filter, archetypeFactory, utilsFactory, 
     vm = this;
 
     vm.guide = {};
-    //vm.guide.definition = {};
+    vm.guide.definition = guidelineFactory.getDefinition();
     vm.guide.ontology = guidelineFactory.getOntology();
 
     vm.removeArchetype = removeArchetype;
@@ -32,12 +32,10 @@ function DefinitionsCtrl($log, $scope, $filter, archetypeFactory, utilsFactory, 
 
     vm.showOptions = showOptions;
 
-    //vm.getExpression = expressionItemFactory.getExpression;
-
     vm.delete = "../assets/img/del.png";
     vm.add = "../assets/img/add.png";
 
-    vm.archetypeBindings = definitionsFactory.convertModel(guidelineFactory.getArchetypeBindings());
+    vm.guide.definition.archetypeBindings = definitionsFactory.convertModel(guidelineFactory.getArchetypeBindings());
 
     vm.definitions = [
         {title: 'Archetype instantiation', type: "ArchetypeInstantiation", archetypeId: 'Select an archetype',   draggable: true},
@@ -111,7 +109,7 @@ function DefinitionsCtrl($log, $scope, $filter, archetypeFactory, utilsFactory, 
      * Observes the archetype bindings so that the elements and predicate statements
      * fit the right place. Note: the tree component only allows onw array per level
      */
-    $scope.$watch("vm.archetypeBindings",function(newValue, oldValue) {
+    $scope.$watch("vm.guide.definition.archetypeBindings",function(newValue, oldValue) {
         if (newValue === oldValue) {
             return;
         }
@@ -221,10 +219,10 @@ function DefinitionsCtrl($log, $scope, $filter, archetypeFactory, utilsFactory, 
                     id: gtCode,
                     path: path
                 };
-                if(!vm.archetypeBindings[archetypeBindingIndex].elements) {
-                    vm.archetypeBindings[archetypeBindingIndex].elements = [];
+                if(!vm.guide.definition.archetypeBindings[archetypeBindingIndex].elements) {
+                    vm.guide.definition.archetypeBindings[archetypeBindingIndex].elements = [];
                 }
-                vm.archetypeBindings[archetypeBindingIndex].elements.push(element);
+                vm.guide.definition.archetypeBindings[archetypeBindingIndex].elements.push(element);
                 // FIXME: Where can I get the thext anf description?
                 var term = {
                     id: gtCode,
@@ -292,9 +290,9 @@ function DefinitionsCtrl($log, $scope, $filter, archetypeFactory, utilsFactory, 
 
             var elementToUpdate;
             if (definitionsFactory.isElement(item)) {
-                elementToUpdate = vm.archetypeBindings[archetypeBindingIndex].elements[itemIndex];
+                elementToUpdate = vm.guide.definition.archetypeBindings[archetypeBindingIndex].elements[itemIndex];
             } else {
-                elementToUpdate = vm.archetypeBindings[archetypeBindingIndex].predicateStatements[itemIndex];
+                elementToUpdate = vm.guide.definition.archetypeBindings[archetypeBindingIndex].predicateStatements[itemIndex];
             }
             delete elementToUpdate.unselected;
 
@@ -393,7 +391,7 @@ function DefinitionsCtrl($log, $scope, $filter, archetypeFactory, utilsFactory, 
                 return;
             }
 
-            var constantExpression = vm.archetypeBindings[archetypeBindingIndex].predicateStatements[itemIndex].expressionItem.right;
+            var constantExpression = vm.guide.definition.archetypeBindings[archetypeBindingIndex].predicateStatements[itemIndex].expressionItem.right;
 
             if (modalResponse.data.type === DV.CODEDTEXT || isHierarchy) {
                 expressionItemFactory.setCodedTextConstant(constantExpression, modalResponse);
@@ -412,7 +410,7 @@ function DefinitionsCtrl($log, $scope, $filter, archetypeFactory, utilsFactory, 
             }
 
             /*else if(definitionsFactory.getPredicateStatementType(item) === "PredicateExpression") {
-                vm.archetypeBindings[archetypeBindingIndex].elements[itemIndex].expression = modalResponse.data;
+             vm.guide.definition.archetypeBindings[archetypeBindingIndex].elements[itemIndex].expression = modalResponse.data;
             }*/
 
 
@@ -509,8 +507,8 @@ function DefinitionsCtrl($log, $scope, $filter, archetypeFactory, utilsFactory, 
                      * Replace the archetype binding
                      * @type {{archetypeId: (string|*), elements: Array, predicates: Array, domain: *, id: *}}
                      */
-                    vm.archetypeBindings[archetypeBindingIndex] = {
-                        id: vm.archetypeBindings[archetypeBindingIndex].id || utilsFactory.generateGt(vm.guide),
+                    vm.guide.definition.archetypeBindings[archetypeBindingIndex] = {
+                        id: vm.guide.definition.archetypeBindings[archetypeBindingIndex].id || utilsFactory.generateGt(vm.guide),
                         archetypeId: response.archetypeId,
                         domain: dataFromTree.data.domain,
                         elements: [],
@@ -518,8 +516,8 @@ function DefinitionsCtrl($log, $scope, $filter, archetypeFactory, utilsFactory, 
                         predicateStatements: []
                     };
 
-                    //console.log( vm.archetypeBindings);
-                    //guidelineFactory.setArchetypeBindings(vm.archetypeBindings);
+                    //console.log( vm.guide.definition.archetypeBindings);
+                    //guidelineFactory.setArchetypeBindings(vm.guide.definition.archetypeBindings);
 
 
                     // TODO: Ontology: text and description?

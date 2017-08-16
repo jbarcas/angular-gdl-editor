@@ -15,6 +15,9 @@ function TerminologyCtrl(utilsFactory, guidelineFactory) {
     vm.removeTerm = removeTerm;
     vm.addTerm = addTerm;
 
+    vm.pencil = "../assets/img/pencil.png";
+    vm.delete = "../assets/img/del.png";
+
     // save term
     function saveTerm (data, id) {
         angular.extend(data, {id: id});

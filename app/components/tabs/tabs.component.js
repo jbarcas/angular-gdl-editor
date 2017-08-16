@@ -4,9 +4,11 @@
 
   app.component('gdlTabs', {
     templateUrl: 'components/tabs/tabs.component.html',
-    controller: function ($state, $log, guidelineFactory, utilsFactory, modalService) {
+    controller: function ($state, $log, guidelineFactory, utilsFactory, modalService, SharedProperties) {
 
-      this.tabs = [
+      var $ctrl = this;
+
+      $ctrl.tabs = [
         {heading: "Guidelines", route: "tab-guidelines"},
         {heading: "Description", route: "tab-description"},
         {heading: "Definitions", route: "tab-definitions"},
@@ -18,7 +20,7 @@
         {heading: "HTML", route:"tab-html"}
       ];
 
-      this.go = function (route) {
+      $ctrl.go = function (route) {
         $state.go(route);
       };
 
@@ -57,7 +59,7 @@
         return false;
       }
 
-      this.insertGuide = function () {
+      $ctrl.insertGuide = function () {
         var guideline = guidelineFactory.getCurrentGuide();
 
         if(areUnselectedItems(guideline)) {
@@ -85,6 +87,8 @@
           var modalOptions = {component: 'dialogComponent'};
           var modalData = {headerText: 'Updated!', bodyText: 'The guideline' + response.config.data.id + ' has been updated.'};
           modalService.showModal(modalOptions, modalData);
+          // Active the Guidelines tab
+          $ctrl.active = 0;
         }
 
         function insertGuidelineFailed(response) {
@@ -101,7 +105,7 @@
         $state.go('tab-guidelines');
       };
 
-      this.newGuide = function () {
+      $ctrl.newGuide = function () {
         var modalOptions = {
           component: "modalWithInputAndDropdownComponent",
           resolve: {
@@ -120,12 +124,18 @@
         modalService.showModal(modalOptions, modalData).then(showModalComplete, showModalFailed);
 
         function showModalComplete(modalResponse) {
+          // If no selection, do nothing
           if (modalResponse.data === undefined) {
             return;
           }
-
+          // Retrieve the guideline name from user input
           var guidelineName = modalResponse.data.input.value;
+          // Set the guideline as the current one
           guidelineFactory.newGuideline(guidelineName);
+          // Set the new guideline as checked
+          SharedProperties.setChecked(guidelineName);
+          // Active the Description tab
+          $ctrl.active = 1;
         }
 
         function showModalFailed() {

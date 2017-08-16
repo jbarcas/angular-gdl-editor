@@ -68,7 +68,7 @@ function actionFactory($log, expressionItemFactory, modalService, guidelineFacto
         model.variable = {};
         model.variable.unselected = true;
         model.variable.code = '';
-        model.variable.attribute = 'units';
+        model.variable.attribute = 'attribute';
 
         model.assignment = {};
         model.assignment.unselected = true;
@@ -110,7 +110,8 @@ function actionFactory($log, expressionItemFactory, modalService, guidelineFacto
          * If the action has a 'magnitude' left side attribute, the expression editor is opened
          */
         if (action.variable.attribute === 'magnitude') {
-            expressionItemFactory.openExpressionEditor(action.assignment);
+            //expressionItemFactory.openExpressionEditor(action.assignment);
+            expressionItemFactory.openExpressionEditor(action);
             return;
         }
         /*
@@ -180,9 +181,11 @@ function actionFactory($log, expressionItemFactory, modalService, guidelineFacto
     function getActionName(action) {
         var thenStatement = action.$modelValue;
         if (thenStatement.assignment.type === 'BinaryExpression') {
-            thenStatement.assignment.literalExpression = expressionItemFactory.getLiteralExpression(thenStatement.assignment);
-            thenStatement.assignment.expression = expressionItemFactory.getExpression(thenStatement.assignment);
-            return thenStatement.assignment.literalExpression;
+            if(thenStatement.expressionItem) {
+                thenStatement.assignment.expressionItem.right.expressionItem = thenStatement.expressionItem;
+                delete thenStatement.expressionItem;
+            }
+            return expressionItemFactory.getLiteralExpression(thenStatement.assignment);
         }
         return thenStatement.assignment.expressionItem.value; //|| vm.terms[thenStatement.assignment.expressionItem.code].text
     }

@@ -2,19 +2,17 @@
   <h3 class="gdl-center">{{$ctrl.labels.headerText | removeUnderscore}}</h3>
 </div>
 <div class="modal-body">
+  <p>{{$ctrl.labels.bodyText}}</p>
 
   <div class="container-fluid gdl-center">
-    <div class="form-group">
-      <label class="col-sm-2 control-label">{{$ctrl.labels.bodyText}}</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" ng-model="$ctrl.input.value" placeholder="{{$ctrl.labels.placeholder || 'Enter input'}} ">
-      </div>
+    <div class="gdl-inline" ng-show="$ctrl.input">
+      <input type="text" class="form-control" ng-model="$ctrl.input.value" placeholder="{{$ctrl.labels.placeholder || 'Enter input'}} ">
     </div>
     <div class="form-group gdl-inline" ng-show="$ctrl.options">
       <select class="form-control"
-          ng-model="$ctrl.selectedItem"
-          ng-init="$ctrl.selectedItem = $ctrl.selectedItem || $ctrl.options[0]"
-          ng-options="option.viewText for option in $ctrl.options track by option.viewText">
+              ng-model="$ctrl.selectedItem"
+              ng-init="$ctrl.selectedItem = $ctrl.selectedItem || $ctrl.options[0]"
+              ng-options="option.viewText for option in $ctrl.options track by option.viewText">
       </select>
     </div>
   </div>
