@@ -79,7 +79,7 @@
         <ul class="list-group">
             <li class="list-group-item" ng-repeat="keyword in vm.guide.description.details['en'].keywords">
                 <button class="gdl-editor-transparent-background"
-                        ng-click="vm.guide.description.details['en'].keywords.splice($index,1)">
+                        ng-click="vm.removeKeyword($index)">
                     <img ng-src="{{vm.delImg}}">
                 </button>
                 {{keyword}}
@@ -95,7 +95,7 @@
         <ul class="list-group">
             <li class="list-group-item" ng-repeat="otherContributor in vm.guide.description.otherContributors">
                 <button class="gdl-editor-transparent-background"
-                        ng-click="vm.guide.description.otherContributors.splice($index,1)">
+                        ng-click="vm.removeContributor($index)">
                     <img ng-src="{{vm.delImg}}">
                 </button>
                 {{otherContributor}}

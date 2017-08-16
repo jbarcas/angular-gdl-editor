@@ -15,6 +15,8 @@ function DescriptionCtrl(guidelineFactory, modalService) {
     vm.guide.concept = guidelineFactory.getConcept();
     vm.addKeyword = addKeyword;
     vm.addOtherContributor = addOtherContributor;
+    vm.removeKeyword = removeKeyword;
+    vm.removeContributor = removeContributor;
 
     vm.addImg = "../../assets/img/add.png";
     vm.delImg = "../../assets/img/del.png";
@@ -35,75 +37,88 @@ function DescriptionCtrl(guidelineFactory, modalService) {
         {name: 'Obsolete', value: 'Obsolete'}
     ];
 
-    var defaults = {
-        size: 'sm',
-        component: 'modalWithInputComponent',
-        templateUrl: '',
-        resolve: {}
-    }
-
     function addKeyword () {
 
-        defaults.resolve.labels = function() {
-            label = {
-                headerText: 'Add keyword',
-                bodyText: 'Insert the new keyword',
-                closeButtonText: 'Close',
-                actionButtonText: 'OK'
-            };
-            return label;
-        }
-       
-        modalService.showModal(defaults).then(
-            function(response) {
-                if(response == "") {
-                    return;
-                }
-                var language = "en";
-                if(angular.isUndefined(vm.guide.description.details[language].keywords)) {
-                    vm.guide.description.details[language].keywords = [];
-                }
-                if(vm.guide.description.details[language].keywords.indexOf(response) == -1) {
-                    vm.guide.description.details[language].keywords.push(response);
-                }
-            },
-            function(error) {
-                console.log(error);
-                console.log("You have not add a new keyword");
+        var data = {headerText: 'Add keyword'};
+        var options = {component: 'modalWithInputAndDropdownComponent', resolve: {input: {}}};
+
+        modalService.showModal(options, data).then(showModalComplete, showModalFailed);
+
+        function showModalComplete(response) {
+            if(response == "") {
+                return;
             }
-        ); 
-    };
+            var language = "en";
+            var keyword = response.data.input.value;
+            if(angular.isUndefined(vm.guide.description.details[language].keywords)) {
+                vm.guide.description.details[language].keywords = [];
+            }
+            if(vm.guide.description.details[language].keywords.indexOf(keyword) == -1) {
+                vm.guide.description.details[language].keywords.push(keyword);
+            }
+        }
+
+        function showModalFailed(error) {
+            console.log(error);
+            console.log("You have not add a new keyword");
+        }
+    }
 
     function addOtherContributor () {
 
-        defaults.resolve.labels = function() {
-            label = {
-                headerText: 'Add contributor',
-                bodyText: 'Insert the new contributor',
-                closeButtonText: 'Close',
-                actionButtonText: 'OK'
-            };
-            return label;
-        };
-       
-        modalService.showModal(defaults).then(
-            function(response) {
-                if(response == "") {
-                    return;
-                }
-                if(angular.isUndefined(vm.guide.description.otherContributors)) {
-                    vm.guide.description.otherContributors = [];
-                }
-                if(vm.guide.description.otherContributors.indexOf(response) == -1) {
-                    vm.guide.description.otherContributors.push(response);
-                }
-            },
-            function(error) {
-                console.log(error);
-                console.log("You have not add a new contributor");
+        var data = {headerText: 'Add keyword'};
+        var options = {component: 'modalWithInputAndDropdownComponent', resolve: {input: {}}};
+
+        modalService.showModal(options, data).then(showModalComplete, showModalFailed);
+
+        function showModalComplete(response) {
+            if(response == "") {
+                return;
             }
-        );            
-       
-    };
+            var contributor = response.data.input.value;
+            if(angular.isUndefined(vm.guide.description.otherContributors)) {
+                vm.guide.description.otherContributors = [];
+            }
+            if(vm.guide.description.otherContributors.indexOf(contributor) == -1) {
+                vm.guide.description.otherContributors.push(contributor);
+            }
+        }
+
+        function showModalFailed(error) {
+            console.log(error);
+            console.log("You have not add a new contributor");
+        }
+    }
+
+    function removeKeyword(index) {
+        modalService.showModal(
+            {component: 'dialogComponent'},
+            {bodyText: 'Are you sure you want remove the keyword "' + vm.guide.description.details['en'].keywords[index] +'?"'}
+        ).then(showModalComplete, showModalFailed);
+
+        function showModalComplete() {
+            vm.guide.description.details['en'].keywords.splice(index, 1);
+        }
+
+        function showModalFailed() {
+            $log.info('Modal dismissed at: ' + new Date() + ' in removeKeyword()');
+        }
+    }
+
+    function removeContributor(index) {
+        modalService.showModal(
+            {component: 'dialogComponent'},
+            {bodyText: 'Are you sure you want remove the contibutor "' + vm.guide.description.otherContributors[index] +'?"'}
+        ).then(showModalComplete, showModalFailed);
+
+        function showModalComplete() {
+            vm.guide.description.otherContributors.splice(index,1);
+        }
+
+        function showModalFailed() {
+            $log.info('Modal dismissed at: ' + new Date() + ' in removeKeyword()');
+        }
+    }
+
 
 }
