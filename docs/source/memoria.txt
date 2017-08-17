@@ -967,6 +967,14 @@ __open__EHR: Modelo de Referencia y Modelo de arquetipos
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 __open__EHR: Modelo de Referencia y Modelo de arquetipos
 
+Modelo de Referencia
+^^^^^^^^^^^^^^^^^^^^
+Modelo de Referencia
+
+Modelo de arquetipos
+^^^^^^^^^^^^^^^^^^^^
+Modelo de arquetipos
+
 Terminologías clínicas
 ~~~~~~~~~~~~~~~~~~~~~~
 Terminologías clínicas
@@ -1682,88 +1690,87 @@ básica consistente en la visualización de las guías clínicas existentes en e
 Para la primera tarea, se ha estudiado la mejor mejor forma de estructurar la aplicación web. En numerosas ocasiones, en
 las primeras fases de un proyecto AngularJS, la estructura de directorios no importa demasiado y se tiende a ignorar
 las guías de buenas prácticas dedicadas a este cometido. Si se trata de una aplicación pequeña, esto no tendría
-importancia y permitiría al desarrollador tener algo funcional rápidamente, no afectando en ningún sentido. Pero si
-se trata de un proyecto mediano o grande con algo que complejidad, esto afectaría a la capacidad de mantenimiento de
-la aplicación. AngularJS es todavía relativamente nuevo y los desarrolladores todavía están averiguando cuál es la
-mejor forma de estructurar una SPA. Hay muchas maneras de estructurar una aplicación, se han tomado algunos
-principios de los _frameworks_ MVC maduros existentes, pero también hemos tomado algunas cosas que son específicas de
-Angular.
+importancia y permitiría al desarrollador tener algo funcional rápidamente, no afectando en ningún sentido a la
+aplicación. Pero si se trata de un proyecto mediano o grande con algo que complejidad, esto afectaría a la capacidad
+de mantenimiento de la aplicación. AngularJS es todavía relativamente nuevo y los desarrolladores aún están
+averiguando cuál es la mejor forma de estructurar una SPA. Hay muchas maneras de estructurar una aplicación, se han
+tomado algunos principios de los _frameworks_ MVC maduros existentes, pero también hemos tomado algunas cosas que son
+específicas de Angular.
 
 Para construir aplicaciones que sean escalables y mantenibles en AngularJS se debe hacer uso de las guías de buenas
 prácticas existentes a tal efecto. La estructura de una aplicación Angular ideal debe ser modularizada en
 funcionalidades específicas. Se deben aprovechar las extraordinarias directivas de AngularJS para compartimentar aún
-más nuestras aplicaciones. las estructuras donde se usa un directorio por funcionalidad se conoce como aquellas que
-siguen el principio LIFTfootnote:[*LIFT:* L-Localización del código sencilla, I-Identificación del código de un vistazo,
+más nuestras aplicaciones. Las estructuras donde se usa un directorio por funcionalidad se dice que siguen el
+principio LIFTfootnote:[*LIFT:* L-Localización del código sencilla, I-Identificación del código de un vistazo,
 F-Aplana la estructura lo máximo posible (F de 'flatten') y T-Tratar de no repetir código.]. Esta aproximación es la
 adecuada para proyectos que no sean pequeños, aportando una serie de beneficios como los siguientes:
 
-* Mantenibilidad del código: seguir este enfoque estructurando lógicamente las aplicaciones permite localizar u
-editar código fácilmente.
+* Mantenibilidad del código: seguir este enfoque estructurando lógicamente las aplicaciones permite localizar y
+editar el código de una manera sencilla.
 
 * Escalabilidad: la aplicación será mucho más escalable. Agregar nuevas directivas y plantillas no incrementará las
 carpetas existentes. La incorporación de nuevos desarrolladores también debería ser mucho más fácil una vez que se
-explica la estructura. Además, con este enfoque, se podrán añadir y eliminar funcionalidades de la aplicación con
+aplica esta aproximación. Además, con este enfoque, se podrán añadir y eliminar funcionalidades de la aplicación con
 relativa facilidad de manera que testear nuevas funcionalidades debería ser bastante sencillo.
 
-* Depuración: con esta aproximación modularizada es mucho más fácil depurar el código de la aplicación. Facilita
-encontrar las piezas de código erróneo y solucionar dichos errores.
+* Depuración: con esta aproximación modularizada es mucho más fácil depurar el código. Facilita encontrar las piezas
+de código erróneo y solucionar dichos errores.
 
 * Pruebas: escribir tests unitarios y probar aplicaciones modularizadas es mucho más sencillo que las no modularizadas.
 
-La segunda tarea de esta iteración se ha basado en la identificación de la funcionalidad básica consistente en la
-visualización de todas las guías clínicas existentes para que puedan ser seleccionadas y, a partir de ahí, se puedan
-modificar cada una de las secciones. Esta tarea se ha limitado a la visualización del listado de guías clínicas
-almacenadas en el _backend_. Para que esto sea posible, el caso de uso (ver <<use-cases>>) que se ha de implementar es
-el que permita navegar entre las guías clínicas (_Browse clinical guidelines_), el cual se describe a continuación.
+La segunda tarea de esta iteración se ha centrado en la funcionalidad básica consistente en la visualización de todas
+ las guías clínicas existentes para que se puedan seleccionar individualmente y, a partir de ahí, las guías puedan
+ ser modificadas. Esta tarea se ha limitado a la visualización del listado de guías  clínicas almacenadas en el
+ _backend_. Para que esto sea posible, el caso de uso (ver <<use-cases-iter-1>>) que se ha de implementar es el que
+ permita navegar entre las guías clínicas (_Browse clinical guidelines_), el cual se describe a continuación.
 
 Descripción de los casos de uso
 +++++++++++++++++++++++++++++++
-A continuación se describe el caso de uso comentado anteriormente.
+A continuación se describe el caso de uso _Browse clinical guidelines_.
 
 Navegar guías clínicas::
 Para que el profesional sanitario pueda editar un guía clínica existente, primero debe poder visualizar las guías que
-ya están creadas. Cuando se le muestre el listado con las guías, el usuario simplemente seleccionará la que
-quiera editar.
+ya están creadas. Cuando se muestre el listado con las guías, el usuario simplemente seleccionará la que desee editar.
 
 Diseño
 ^^^^^^
 Una aplicación profesional debe ir acompañada siempre de una documentación de modelado técnico y funcional hasta un
 cierto nivel de detalle, _i.e._ no demasiado detallado. El diseño debe ser suficiente para posteriormente encontrar
 más detalles en el código fuente. Si el código fuente aún no ha sido escrito, el diseño debe ser suficiente para que
-el desarrollador rellene los detalles a su propia discreción. Esta documentación permite ahorrar tiempo (y
-por lo tanto, dinero) y permite que los usuarios obtengan una aplicación de mayor calidad. El ahorro surge del hecho
-de que el diseño proporciona una visión de la estructura del software y por lo tanto reduce la posibilidad de una mala
-organización (_spaghetti code_, inconsistencias, código duplicado). Esta visión general de la estructura del
-software permite disminuir:
+el desarrollador rellene los detalles a su propia discreción. Esta documentación permite ahorrar tiempo (y por lo
+tanto, dinero) y permite que los usuarios obtengan una aplicación de mayor calidad. El ahorro surge del hecho de que
+el diseño proporciona una visión de la estructura del software y por lo tanto reduce la posibilidad de una mala
+organización (_spaghetti code_, inconsistencias, código duplicado). Esta visión general de la estructura del software
+permite disminuir:
 
-* La posibilidad de errores y, en consecuencia, el tiempo que se tarda en resolver dichos errores.
+* La posibilidad de cometer errores y, en consecuencia, el tiempo que se tarda en resolver dichos errores.
 * El tiempo que se tarda en determinar la mejor manera de integrar un cambio o extensión en particular.
 * El tiempo que se tarda en corregir defectos en la estructura más adelante.
 
 En la fase de diseño de la primera iteración hemos realizado el diseño básico de toda la aplicación, esto conlleva
-los principales diagramas orientado a las funcionalidades generales.
+los principales diagramas orientados a las funcionalidades generales.
 
 En un editor de guías clínicas las funciones básicas que se deben poder realizar son las de crear una guía clínica
 desde el principio y el de poder navegar entre las guías existentes para poder seleccionar una y modificarla. Los
 casos de uso que se han de implementar son los siguientes:
 
-[[use-cases]]
+[[use-cases-iter-1]]
 .Casos de uso de la aplicación.
-image::use-cases.png[scaledwidth="80%"]
+image::use-cases-iter-1.png[scaledwidth="80%"]
 
 El único actor que tenemos en este desarrollo es el de _Profesional Sanitario_ que, como conocedor del dominio médico,
 será el que elabore las guías clínicas.
 
 Se ha dedicado una iteración para cada uno de los casos de uso que extienden del caso de uso base _Editar guía
-clínica_, por lo que la explicación de cada uno de ellos se indicara en la iteración correspondiente.
-La creación de una guía nueva se entiende como la edición de una guía con sus secciones vacías, excepto las
-obligatorias (ver <<_paquete_de_guias_clinicas>>), que se rellenarán en el proceso que implementa el caso de uso _Crear
-nueva guía clínica_.
+clínica_, por lo que la explicación de cada uno de ellos se indicara en la iteración correspondiente. La creación de
+una guía nueva se entiende como la edición de una guía con sus secciones vacías, excepto las obligatorias (ver
+<<_paquete_de_guias_clinicas>>), que se rellenarán en el proceso que implementa el caso de uso _Crear nueva guía
+clínica_.
 
 Como se ha comentado en la <<_modulos_en_angularjs>>, la arquitectura de alto nivel de una aplicación AngularJS se
-estructura en módulos, de tal manera que lo natural es comenzar el diseño creando un diagrama que represente
-los módulos de la aplicación. El símbolo pertinente de UML para representar un  módulo es el paquete (_package_).
-Para dejar su significado absolutamente claro, se ha estereotipado el paquete como _\<<module>>_.
+estructura en módulos, de tal manera que lo natural es comenzar el diseño creando un diagrama que represente los
+módulos de la aplicación. El símbolo pertinente de UML para representar un  módulo es el paquete (_package_). Para
+dejar su significado absolutamente claro, se ha estereotipado el paquete como _\<<module>>_.
 
 [[architecture]]
 .Arquitectura de alto nivel.
@@ -1775,9 +1782,9 @@ continuación se describen los módulos definidos entrando un poco más en detal
 responsabilidades de cada uno:
 
 * `app`: es el módulo raíz de la aplicación. Se le pasa a la directiva https://docs.angularjs.org/api/ng/directive/ngApp[ngApp]
-para lo cargue en el https://docs.angularjs.org/api/auto/service/$injector[$injector] cuando se inicia la aplicación.
-Debe contener todo el código necesario para que la aplicación pueda funcionar o tener las dependencias sobre otros
-módulos que contengan dicho código.
+para lo cargue en el https://docs.angularjs.org/api/auto/service/$injector[$injector] cuando se inicia la aplicación
+AngularJS. Debe contener todo el código necesario para que la aplicación pueda funcionar o tener las dependencias
+sobre otros módulos que contengan dicho código.
 
 * `app.services`: módulo que contiene los servicios personalizados de la aplicación. La idea básica de los servicios
 es agrupar funcionalidad que permita posteriormente ser utilizada en los controladores, mejorando la claridad y
@@ -1826,8 +1833,8 @@ de forma segura en el elemento correspondiente de la vista. Se utiliza en la vis
 * `treeControl`: módulo utilizado para la gestión de los árboles de la aplicación, utilizado en diferentes situaciones.
 
 Para inicializar la aplicación AngularJS y declarar las dependencias mencionadas anteriormente lo hacemos a través un
-fichero en el que definimos el módulo principal (ver <<_modulos_en_angularjs>>), a este fichero le hemos llamado
-`app.js` y su contenido es el siguiente:
+fichero en el que definimos el módulo principal (ver la sección <<_modulos_en_angularjs, módulos en AngularJS>>), a
+este fichero  le hemos llamado `app.js` y su contenido es el siguiente:
 
 ----
 include::../../app/app.js[]
@@ -1835,25 +1842,25 @@ include::../../app/app.js[]
 
 La funcionalidad básica que se trató de llevar a cabo en esta primera iteración fue la de permitir mostrar las guías
 clínicas de manera que, en siguientes iteraciones, esta lista permitiese la navegación entre las mismas. El siguiente
-diagrama de secuencias muestra la forma en la que los objetos se comunican entre sí para cumplir esta tarea:
+diagrama de secuencias muestra la forma en la que diferentes componentes se comunican entre sí para cumplir esta tarea:
 
-[[diagram-guidelines]]
+[[sequence-guidelines]]
 .Diagrama de actividades: listado guías clínicas.
-image::diagram-guidelines.png[scaledwidth="80%"]
+image::sequence-guidelines.png[scaledwidth="80%"]
 
 Se diferencian 3 colores en los componentes implicados en las diferentes líneas de vida del diagrama de la
-<<diagram-guidelines>>: amarillo para los desarrollados para la aplicación, azul para los que son nativos de AngularJS
-y en gris está representado el _backend_. Cuando se selecciona la pestaña _Guidelines_ (ver manual de usuario), el
-enrutador de Angular automáticamente carga el controlador correspondiente (_GuidelinesCtrl_), al cual se le inyecta el
-servicio _guidelinesFactory_. Este controlador cuenta con un método _activate()_ que es invocado al iniciarse y que
-llama al método _getGuidelines()_ del servicio inyectado, el cual hace uso del servicio nativo de AngularJS `$http`,
-que hace una petición GET al <<X3, Clinical Knowledge Manager>> (CKM) API, el cual gestiona dicha petición y devuelve
-una promesa que se renderizará cuando dicha petición se haya completado.
+<<sequence-guidelines>>: amarillo para los desarrollados para la aplicación, azul para los que son nativos de AngularJS
+y en gris está representado el _backend_. Cuando se selecciona la pestaña _Guidelines_ (ver <<_manual_de_usuario,
+manual de usuario>>), el enrutador de Angular automáticamente carga el controlador correspondiente (_GuidelinesCtrl_),
+al cual se le inyecta el servicio _guidelinesFactory_. Este controlador cuenta con un método _activate()_ que es
+invocado al iniciarse y que llama al método _getGuidelines()_ del servicio inyectado, el cual hace uso del servicio
+nativo de AngularJS `$http`, que hace una petición GET a la API del <<X3, Clinical Knowledge Manager>> (CKM), el cual
+gestiona dicha petición y devuelve una promesa, que se renderizará cuando dicha petición se haya completado.
 
 Implementación
 ^^^^^^^^^^^^^^
-Como se ha comentado en <<_analisis>> se ha optado por seguir una aproximación LIFT para la estructura de directorios
-del proyecto.
+Como se ha comentado en la <<_analisis, sección de análisis>> se ha optado por seguir una aproximación LIFT para la
+estructura de directorios del proyecto.
 
 ----
 app/
@@ -1904,8 +1911,8 @@ funcionalidad del listado de guías clínicas, así como los principales fichero
 necesarios para arrancar un proyecto Node.js y una aplicación AngularJS, excluyendo todo lo relacionado con las
 pruebas, que se verán en la siguiente sección.
 
-En primer lugar, cabe mencionar el fichero de configuración de Node.js, denominado _package.json_. Permite la mejor
-manera de administrar los paquetes _npm_ footnote:[Node Package Management: https://www.npmjs.com/] instalados
+En primer lugar, cabe mencionar el fichero de configuración de Node.js, denominado _package.json_. Ofrece un modo
+eficiente de administrar los paquetes _npm_ footnote:[Node Package Management: https://www.npmjs.com/] instalados
 localmente, entre otras funciones se destacan las siguientes:
 
 * Sirve de documentación para los paquetes de los que depende un proyecto.
@@ -1920,10 +1927,10 @@ include::../../package.json[]
 ----
 
 Este fichero, como mínimo tiene que tener los campos _name_ y _version_, con el nombre y la versión del proyecto
-respectivamente. El campo _private_. Al establecer _private_ como 'true', _npm_ se negará a publicarlo. Esto impide
+respectivamente. Al establecer _private_ como 'true', _npm_ se negará a publicarlo, esto impide
 que se publique accidentalmente en el registro público de _npm_, en _description_ se indica una descripción clara y
 concisa del proyecto, _author_ para el autor principal del proyecto. _repository_ se utiliza para especificar la URL y
-el tipo de repositorio de código fuente, esto es útil para las personas que quieren contribuir a su módulo. Se usa el
+el tipo de repositorio del código fuente, esto es útil para las personas que quieren contribuir a su módulo. Se usa el
 campo _license_ para indicar bajo qué licencia se ha lanzado el código. Bajo _devDependencies_ se indican las
 dependencias que sólo se destinan al desarrollo y pruebas del módulo. Por último, se tiene un campo _scripts_ que
 consta de un objeto que expone comandos adicionales de _npm_, se asume que la clave es el comando _npm_ y el valor es
@@ -1931,11 +1938,11 @@ el _path_ del script, por ejemplo, para iniciar el servidor web de desarrollo ej
 
 Como gestor de dependencias para el desarrollo web _frontend_ se ha utilizado Bowerfootnote:[Sistema de gestión de
 paquetes: https://bower.io/]. Se cuenta con un fichero _bower.json_ donde se especifican las dependencias del
-proyecto, de modo que se le pueda pedir a Bower que las instale todas de una vez que las actualice todas de una vez,
-si es que se encuentran versiones nuevas que te interese instalar y también, cuando subas a producción un proyecto,
-que te permita aprovisionarlo con todas las librerías externas necesarias. Este archivo es muy fácil de construir,
-con sintaxis JSON, indicando una serie de campos que necesita para definir tu proyecto y sus dependencias. A
-continuación se muestra el fichero _bower.json_.
+proyecto, de modo que se le pueda pedir a Bower que las instale o actualice todas de una vez, si es que se encuentran
+versiones nuevas que interese que se instalen. También, al subir a producción un proyecto, permite aprovisionarlo con
+todas las librerías externas necesarias. Este archivo es muy fácil de construir, con sintaxis JSON, indicando una
+serie de campos que se necesitan para la definición de un proyecto y sus dependencias. A continuación se muestra el
+fichero _bower.json_.
 
 ----
 include::../../bower.json[]
@@ -2130,23 +2137,161 @@ Obsérvese que es necesario hacer `$httpBackend.flush()` ya que la llamada `$htt
 el test lo queremos ejecutar de forma síncrona. La llamada a `flush()` asegura que el `.then()` de la promesa
 devuelta por `$http` sea ejecutada inmediatamente.
 
-
-
 Iteración 2
 ~~~~~~~~~~~
-Texto análisis iteración 2
+En la primera iteración se desarrolló la funcionalidad básica de mostrar un listado con las guías clínicas
+disponibles. En la segunda iteración se busca acometer el desarrollo de dos funcionalidades: por un lado la edición
+de la descripción de las guías y por otro la edición de las definiciones.
 
 Análisis
 ^^^^^^^^
-Texto análisis iteración 2
+Para cumplir los objetivos marcados para esta segunda iteración, se implementan los casos de uso _Editar descripción_ y
+_Editar definiciones_ de una guía clínica. Para ello se hace un refinamiento de ambos casos de uso, estudiándolos con
+un nivel de detalle más fino.
+
+[[use-case-desc-2]]
+Descripción de los casos de uso
++++++++++++++++++++++++++++++++
+La edición de la descripción de guías clínicas es sencilla, simplemente consiste en la edición de meta-información de
+las guías. Los requisitos que se piden son los siguientes: se debe poder editar el nombre de la guía, detalles del
+autor principal, el estado del ciclo de vida de la guíafootnote:[Posibles estados: Ver todos los posibles valores en
+https://openehr.atlassian.net/wiki/spaces/healthmod/pages/2949205/Archetype+Publication+Status], si la guía posee
+_copyright_ debe existir un apartado para indicar quién es el propietario de dicho _copyright_, debe existir un
+mecanismo
+para gestionar palabras clave y colaboradores relacionados con la guía, así como una descripción que defina de forma
+clara y concisa la misma, un propósito que indique claramente para qué se ha desarrollado, dos campos para indicar el
+uso aconsejado y el desaconsejado de la guía y un medio para indicar referencias relacionadas con la guía clínica.
+
+La edición de las definiciones es más compleja. Las definiciones se encargan de enlazar los términos utilizados en
+las guías con elementos de arquetipos. Para que el profesional sanitario pueda realizar dicha vinculación, primero
+debe poder instanciar un arquetipo, es decir, debe poder seleccionar un arquetipo entre los disponibles, y poder
+importarlo a la guía que esté elaborando para, posteriormente, poder instanciar elementos de dicho arquetipo
+vinculándolos a variables locales de la guía (_i.e._ poder seleccionar elementos de arquetipos para utilizarlos en
+nuestra guía).
+
+Además de estas dos instanciaciones se deben poder establecer restricciones sobre la instanciación de arquetipos. Se
+deben de poder añadir, eliminar y/o modificar predicados. Estos predicados definen restricciones para una instancia
+de arquetipo, por lo tanto deben situarse dentro de la instanciación del mismo, mediante un componente de _drag and
+drop_ que permita arrastrar cada predicado y poder soltarlo en la instancia de arquetipo correspondiente. Hay 4 tipos
+de predicados :
+
+* _Predicate (DataValue)_: este predicado tiene dos operandos y un operador. El operando izquierdo puede ser cualquier
+elemento del arquetipo. El operador puede ser un operador de igualdad (==), de mayor o igual (>=), de menor o igual
+(\<=) o un operador jerárquico (IS_A). El operando derecho debe de tener en cuenta dos cosas: el tipo de operador y
+el tipo de datofootnote:[Cada elemento del arquetipo tiene un tipo de datos. Tipos de datos de __open__EHR:
+http://www.openehr.org/releases/RM/latest/docs/data_types/data_types.html] del operador izquierdo, de tal manera que,
+ si el operador es un operador jerárquico (IS_A) lo que se tiene que mostrar al editar el lado derecho es un árbol
+ con las variables locales de la guía, se trata de que el predicado restrinja el valor de un elemento manifestando
+ que éste _es un_ elemento de la parte derecha. Si el operador no es  un operador jerárquico, entonces hay que tener
+ en cuenta el tipo de dato del operando izquierdo. Los atributos de un DataValue vienen definidos por el
+ <<_modelo_de_referencia, Modelo de Referencia>>, de tal modo que para cada tipo de dato hay que renderizar el
+ formulario correspondiente para poder establecer la restricción, _e.g._ el tipo de dato _DV_QUANTITY_ tiene dos
+ atributos (_magnitude_ y _units_), por lo tanto cuando el operando izquierdo sea de tipo _DV_QUANTITY_ al editar el
+ operando derecho se debe renderizar un formulario con estos dos atributos.
+
+* _Predicate (Function)_: se trata de un predicado unario, consta de un elemento y una función de agregación. De
+momento GDL soporta dos funciones: _MAX_ y _MIN_ que obtienen el valor máximo y mínimo del elemento almacenado en la
+HCE.
+
+* _Predicate (Exists)_: es un predicado unario, consta de un elemento y de un valor ("existe" o "no existe"). Lo que
+hace este predicado es comprobar si el elemento existe o no (si su valor es distinto de `null` o no).
+
+* _Predicate (Expression)_: se trata de un predicado binario y consta de dos operandos y un operador. El primer
+operando es un atributo de un elemento de un arquetipo. El operador puede ser un operador de igualdad (==), de mayor
+o igual (>=) o de menor o igual (\<=). La edición del segundo operador depende del atributo del primer operador. Cada
+tipo de dato tiene una serie de atributos que son los que regularán el segundo operador, _e.g._ si el atributo es un
+_units_ de un _DV_QUANTITY_ se mostrará un combobox con las unidades en UCUMfootnote:[UCUM: Unified Code for Units of
+ Measure, sistema de codificación para representar de forma inequívoca unidades de medida] para el atributo de ese
+elemento o si el atributo es un _magnitude_ de _DV_AMOUNT_ se renderizará el <<_editor_de_expresiones, editor de
+expresiones>> para que se pueda introducir un valor constante o una expresión.
 
 Diseño
 ^^^^^^
-Texto diseño iteración 2
+La fase de diseño de esta segunda iteración se ha centrado en precisar los diagramas de los casos de uso descritos en
+la fase de análisis. Para ello hacemos un refinamiento de los casos de uso que competen a esta iteración
+afinando el nivel de detalle.
+
+[[use-cases-iter-2]]
+.Casos de uso de la iteración 2.
+image::use-cases-iter-2.png[scaledwidth="90%"]
+
+El diagrama de casos de uso de la segunda iteración se centra en dos casos de uso incluidos en _Editar guías
+clínicas_, estos son _Editar descripción_ y _Editar definiciones_. Este último, debido a su complejidad, se ha
+desgranado y se muestra con un nivel de detalle más fino para poder reflejar con mayor precisión las funcionalidades
+que un profesional sanitario puede realizar cuando edita las definiciones de una guía clínica. Para editar las
+definiciones, el usuario debe poder instanciar arquetipos, instanciar elementos de arquetipos y gestionar predicados.
+Se muestran dos diagramas de secuencia: uno para mostrar el flujo de trabajo de lo que ocurre cuando se selecciona
+una guía de la lista de guías disponibles y otro que ayuda a comprender cuál es el flujo de la aplicación cuando
+se están editando las definiciones. En primer lugar se muestra qué ocurre cuando se selecciona una guía (este paso se
+va a producir siempre cuando se empiece a editar una guía):
+
+[[sequence-guideline]]
+.Diagrama de actividades: seleccionando una guía.
+image::sequence-guideline.png[scaledwidth="80%"]
+
+Se verá con más detalle en la siguiente sección. Básicamente el usuario cuando selecciona una guía se obtiene un
+objeto JSON enlazado con el `$scope` de AngularJS que representa dicha guía. Una vez seleccionada una guía
+se puede editar cualquier sección de la misma usando las pestañas de la aplicación. Eligiendo la pestaña
+_Definitions_ se pueden editar las definiciones, a continuación se muestra un diagrama de secuencia que muestra qué
+ocurre por detrás cuando se instancia un arquetipo y un elemento de arquetipo.
+
+[[sequence-elementInst]]
+.Diagrama de actividades: instanciar un elemento de arquetipo.
+image::sequence-elementInst.png[scaledwidth="80%"]
+
+Para _Instanciar un predicado_, el procedimiento es similar, la instanciación de arquetipo es idéntica. Se arrastra
+el predicado--de los cuatro disponibles--que se quiera instanciar y se suelta dentro de la instanciación de arquetipo
+que se desee. A partir de entonces se puede seleccionar el operando (u operandos) y el operador del predicado.
 
 Implementación
 ^^^^^^^^^^^^^^
-Texto implementación iteración 1
+La implementación de la segunda iteración se centra totalmente en la lógica de negocio de la aplicación (recordemos que
+parte de la primera iteración se centró en la configuración del proyecto AngularJS y en la decisión de la estructura
+de directorios).
+
+La implementación del primer caso de uso _Editar descripción_ es relativamente sencilla y se realiza en la vista de
+la pestaña _Description_. Para ello se cuenta con la vista `tab-description.html` donde se implementan una serie de
+paneles, cada uno de ellos destinado a los requisitos de información que se piden para este caso de uso (ver
+<<use-case-desc-2, descripción de los casos de uso de la segunda iteración>>). A continuación se muestra un resumen
+de la vista de la pestaña _Description_:
+
+[source, html]
+----
+include::samples/description.html[]
+----
+<1> Uso de una directiva _transform-date_ para la manipulación de fechas.
+
+Cabe mencionar el desarrollo de una directiva para la gestión de fechas. En AngularJS la manipulación de cualquier
+elemento del DOM debe realizarse mediante una https://docs.angularjs.org/guide/directive[directiva]. A continuación se
+muestra el código de la directiva `transformDate`.
+
+[source,python,numbered]
+----
+include::../../app/components/tabs/tab-description/tab.description.directive.js[]
+----
+
+Se ha creado un controlador `DescriptionCtrl` para gestionar la vista anteriormente mencionada donde se declaran los
+las propiedades del modelo que se vinculan con la vista. Como puede observarse en la plantilla HTML, se hace uso de la
+directiva https://docs.angularjs.org/api/ng/directive/ngModel[ngModel] que vincula elementos del DOM con propiedades del
+`$scope` de AngularJS. Además de esta vinculación se definen dos métodos para gestionar las palabras clave y
+colaboradores. A continuación se muestra dicho controlador.
+
+[source,python,numbered]
+----
+include::../../app/components/tabs/tab-description/tab.description.controller.js[]
+----
+
+Como se muestra en la <<sequence-guideline>>, el profesional sanitario selecciona la pestaña _Guidelines_ (o se le
+muestra por defecto al iniciarse la aplicación) donde puede ver el listado de guías clínicas. Al seleccionar una guía,
+se llama a un método del controlador `GuidelineCtrl`, este método utiliza un servicio que se le ha inyectado
+denominado `guidelineFactory`. Este servicio a su vez hace uso de un servicio nativo de AngularJS llamado `$http` el
+cual hace una petición GET a la API REST. `$http` devuelve una promesa que, en cuanto se resuelva, se le asigna al
+`$scope` del controlador `GuidelineCtrl`, en ese momento ya tenemos un objeto en memoria que representa la guía
+clínica. En el momento que se resuelve la promesa que devuelve `$http`, `guidelineFactory` hace una petición de los
+arquetipos que contiene la guía en su sección `archetypeBinding`. Esta petición se ha decidido hacerla en este punto,
+y no cuando pasemos a editar las definiciones, porque mejora el rendimiento de tal modo que cuando se renderice la
+vista de las definiciones el `$scope` ya cuente con los arquetipos en memoria, por lo que no tiene que hacer dicha
+petición y la vista se carga de forma inmediata.
 
 Pruebas
 ^^^^^^^
@@ -2195,6 +2340,10 @@ Texto planificación y costes
 Resultados y discusión
 ----------------------
 Mencionar y discutir los resultados obtenidos, tanto los que se pudieron abordar como los que no.
+
+* Internacionalización de la aplicación
+* Permitir diversos lenguajes
+* Soporte para Slots
 
 
 Conclusiones

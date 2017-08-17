@@ -1,11 +1,7 @@
-/**
- * Created by jbarros on 13/08/15.
- */
-
 angular.module('app.controllers')
     .controller('DescriptionCtrl', DescriptionCtrl);
 
-function DescriptionCtrl(guidelineFactory, modalService) {
+function DescriptionCtrl(guidelineFactory, modalService, $log) {
 
     var vm = this;
 
@@ -20,6 +16,8 @@ function DescriptionCtrl(guidelineFactory, modalService) {
 
     vm.addImg = "../../assets/img/add.png";
     vm.delImg = "../../assets/img/del.png";
+
+    vm.errorMsg = false;
 
     //TODO: lifecycleState = 'Not set' should remove the JSON entry description.lifecycleState
     vm.lifecycleStates = [
@@ -59,8 +57,8 @@ function DescriptionCtrl(guidelineFactory, modalService) {
         }
 
         function showModalFailed(error) {
-            console.log(error);
-            console.log("You have not add a new keyword");
+            vm.errorMsg = error;
+            $log.error('You have not added a new keyword: ' + error );
         }
     }
 
@@ -85,8 +83,8 @@ function DescriptionCtrl(guidelineFactory, modalService) {
         }
 
         function showModalFailed(error) {
-            console.log(error);
-            console.log("You have not add a new contributor");
+            vm.errorMsg = error;
+            $log.error('You have not added a new contributor: ' + error );
         }
     }
 
@@ -119,6 +117,5 @@ function DescriptionCtrl(guidelineFactory, modalService) {
             $log.info('Modal dismissed at: ' + new Date() + ' in removeKeyword()');
         }
     }
-
 
 }

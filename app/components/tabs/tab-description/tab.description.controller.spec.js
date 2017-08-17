@@ -38,7 +38,7 @@ describe('Description functionality:', function() {
       expect(descriptionCtrl.guide.description).toBeUndefined();
       expect(descriptionCtrl.guide.ontology).toBeUndefined();
       expect(descriptionCtrl.guide.concept).toBeUndefined();
-      //expect(descriptionCtrl.errorMsg).toEqual(false);
+      expect(descriptionCtrl.errorMsg).toEqual(false);
     });
   });
 

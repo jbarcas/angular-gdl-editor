@@ -1,7 +1,3 @@
-/**
- * Created by jbarros on 13/08/15.
- */
-
 angular.module('app.directives', [])
     .directive('transformDate', transformDate);
 
