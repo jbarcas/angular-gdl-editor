@@ -19,6 +19,11 @@ describe('GDL Editor application', function() {
     expect(browser.getLocationAbsUrl()).toMatch("/tab-guidelines");
   });
 
+  it('should jump to the /home path when / is accessed', function() {
+    browser.get('#/');
+    expect(browser.getLocationAbsUrl()).toBe("/tab-guidelines");
+  });
+
   describe('tab guidelines', function() {
 
     beforeEach(function() {

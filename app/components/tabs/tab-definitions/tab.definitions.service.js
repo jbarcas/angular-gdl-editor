@@ -25,7 +25,7 @@ function definitionsFactory(DV, expressionItemFactory, guidelineFactory, utilsFa
         isElement: isElement,
         isPredicate: isPredicate,
         sort: sort
-    }
+    };
 
     function createArchetypeInstantiation(model) {
 
@@ -65,7 +65,7 @@ function definitionsFactory(DV, expressionItemFactory, guidelineFactory, utilsFa
         model.expressionItem.right.expressionItem.value = "Select DataValue";
         model.expressionItem.operator = "IS_A";
         return model;
-    };
+    }
 
     /**
      * Create a new definition: Predicate (Function)
@@ -110,7 +110,9 @@ function definitionsFactory(DV, expressionItemFactory, guidelineFactory, utilsFa
 
     /**
      * Determine whether a node is droppable or not
-     * @param node
+     * @param sourceNodeScope
+     * @param destNodeScope
+     * @returns {boolean}
      */
     function isDroppable(sourceNodeScope, destNodeScope) {
         //console.log(sourceNodeScope.$modelValue);

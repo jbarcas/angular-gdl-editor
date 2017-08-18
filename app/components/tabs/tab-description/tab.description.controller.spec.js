@@ -35,42 +35,14 @@ describe('Description functionality:', function() {
   describe('initialization', function() {
     it('initializes with proper $scope variables and methods', function() {
       scope.$apply();
-      expect(descriptionCtrl.guide.description).toBeUndefined();
-      expect(descriptionCtrl.guide.ontology).toBeUndefined();
-      expect(descriptionCtrl.guide.concept).toBeUndefined();
+      expect(descriptionCtrl).toBeDefined();
+      expect(descriptionCtrl.guide).toBeDefined();
       expect(descriptionCtrl.errorMsg).toEqual(false);
+      expect(descriptionCtrl.addKeyword).toBeDefined();
+      expect(descriptionCtrl.addOtherContributor).toBeDefined();
+      expect(descriptionCtrl.removeKeyword).toBeDefined();
+      expect(descriptionCtrl.removeContributor).toBeDefined();
     });
   });
-
-
-  /*describe('should match the scope variables', function() {
-
-    var httpBackend;
-    beforeEach(inject(function ($httpBackend) {
-        httpBackend = $httpBackend;
-    }));
-
-    var testErrorMessage = 'Error at getting the guideline';
-    var testResponseSuccess = { success: true, data: mock.guideline };
-    var testResponseFailure = { error: testErrorMessage };
-
-
-    it('successfully gets the list of guidelines', function() {
-      expect(mock.guidelineFactory.getGuideline).toBeDefined();
-      // Perform the action
-      httpBackend.expectGET('http://localhost:8080/km/admin/guidelines/json/Estimated_GFR.v1').respond(200, testResponseSuccess.data);
-      httpBackend.flush();
-      deferred.resolve(mock.guideline);
-      scope.$apply(function(){
-        mock.guidelineFactory.getGuideline("Estimated_GFR.v1");
-      });
-      // Run expectations
-      expect(mock.guidelineFactory.getGuideline).toHaveBeenCalled();
-      expect(descriptionCtrl.guide.description).toBeUndefined();
-      expect(descriptionCtrl.guide.ontology).toBeUndefined();
-      expect(descriptionCtrl.guide.concept).toBeUndefined();
-    });
-
-  });*/
 
 });

@@ -1117,7 +1117,7 @@ El enlace de la lista de elementos de un arquetipo o plantilla seleccionado a lo
 |Atributos      |Firma                                          |Significado
 |1..1           |archetype_id: String                           |El ID del arquetipo desde el que se selecciona la lista de elementos.
 |0..1           |template_id: String                            |ID de una plantilla opcional que se utilizará para seleccionar elementos.
-|0..1           |domain: String                                 |El espacio en el que residen las variables de regla. El valor puede ser "EHR" (cuando el valor se recupera del EHR) o "CDS" (cuando el valor deriva del motor CDS). Cuando no existe. Valor por defecto: "EHR" o "CDS".
+|0..1           |domain: String                                 |El espacio en el que residen las variables de regla. El valor puede ser "EHR" (cuando el valor se recupera del EHR) o "CDS" (cuando el valor deriva del motor CDS). Cuando no existe. Valor por defecto: "EHR".
 |1..1           |Elements: Map<String, ELEMENT_BINDING>         |Mapa de _element bindings_ indexados por código _gt_.
 |0..1           |predicate_statements: List<EXPRESSION_ITEM>    |Lista de predicados (restricciones) que deben cumplirse antes de que se puedan realizar las consultas de a la HCE
 |===
@@ -2152,6 +2152,8 @@ un nivel de detalle más fino.
 [[use-case-desc-2]]
 Descripción de los casos de uso
 +++++++++++++++++++++++++++++++
+
+Editar descripción::
 La edición de la descripción de guías clínicas es sencilla, simplemente consiste en la edición de meta-información de
 las guías. Los requisitos que se piden son los siguientes: se debe poder editar el nombre de la guía, detalles del
 autor principal, el estado del ciclo de vida de la guíafootnote:[Posibles estados: Ver todos los posibles valores en
@@ -2162,19 +2164,20 @@ para gestionar palabras clave y colaboradores relacionados con la guía, así co
 clara y concisa la misma, un propósito que indique claramente para qué se ha desarrollado, dos campos para indicar el
 uso aconsejado y el desaconsejado de la guía y un medio para indicar referencias relacionadas con la guía clínica.
 
+Editar definición::
 La edición de las definiciones es más compleja. Las definiciones se encargan de enlazar los términos utilizados en
 las guías con elementos de arquetipos. Para que el profesional sanitario pueda realizar dicha vinculación, primero
 debe poder instanciar un arquetipo, es decir, debe poder seleccionar un arquetipo entre los disponibles, y poder
 importarlo a la guía que esté elaborando para, posteriormente, poder instanciar elementos de dicho arquetipo
 vinculándolos a variables locales de la guía (_i.e._ poder seleccionar elementos de arquetipos para utilizarlos en
 nuestra guía).
-
++
 Además de estas dos instanciaciones se deben poder establecer restricciones sobre la instanciación de arquetipos. Se
 deben de poder añadir, eliminar y/o modificar predicados. Estos predicados definen restricciones para una instancia
 de arquetipo, por lo tanto deben situarse dentro de la instanciación del mismo, mediante un componente de _drag and
 drop_ que permita arrastrar cada predicado y poder soltarlo en la instancia de arquetipo correspondiente. Hay 4 tipos
 de predicados :
-
++
 * _Predicate (DataValue)_: este predicado tiene dos operandos y un operador. El operando izquierdo puede ser cualquier
 elemento del arquetipo. El operador puede ser un operador de igualdad (==), de mayor o igual (>=), de menor o igual
 (\<=) o un operador jerárquico (IS_A). El operando derecho debe de tener en cuenta dos cosas: el tipo de operador y
@@ -2188,14 +2191,14 @@ http://www.openehr.org/releases/RM/latest/docs/data_types/data_types.html] del o
  formulario correspondiente para poder establecer la restricción, _e.g._ el tipo de dato _DV_QUANTITY_ tiene dos
  atributos (_magnitude_ y _units_), por lo tanto cuando el operando izquierdo sea de tipo _DV_QUANTITY_ al editar el
  operando derecho se debe renderizar un formulario con estos dos atributos.
-
++
 * _Predicate (Function)_: se trata de un predicado unario, consta de un elemento y una función de agregación. De
 momento GDL soporta dos funciones: _MAX_ y _MIN_ que obtienen el valor máximo y mínimo del elemento almacenado en la
 HCE.
-
++
 * _Predicate (Exists)_: es un predicado unario, consta de un elemento y de un valor ("existe" o "no existe"). Lo que
 hace este predicado es comprobar si el elemento existe o no (si su valor es distinto de `null` o no).
-
++
 * _Predicate (Expression)_: se trata de un predicado binario y consta de dos operandos y un operador. El primer
 operando es un atributo de un elemento de un arquetipo. El operador puede ser un operador de igualdad (==), de mayor
 o igual (>=) o de menor o igual (\<=). La edición del segundo operador depende del atributo del primer operador. Cada
@@ -2249,6 +2252,18 @@ La implementación de la segunda iteración se centra totalmente en la lógica d
 parte de la primera iteración se centró en la configuración del proyecto AngularJS y en la decisión de la estructura
 de directorios).
 
+Como se muestra en la <<sequence-guideline>>, el profesional sanitario selecciona la pestaña _Guidelines_ (o se le
+muestra por defecto al iniciarse la aplicación) donde puede ver el listado de guías clínicas. Al seleccionar una guía,
+se llama a un método del controlador `GuidelineCtrl`, este método utiliza un servicio que se le ha inyectado
+denominado `guidelineFactory`. Este servicio a su vez hace uso de un servicio nativo de AngularJS llamado `$http` el
+cual hace una petición GET a la API REST. `$http` devuelve una promesa que, en cuanto se resuelva, se le asigna al
+`$scope` del controlador `GuidelineCtrl`, en ese momento ya tenemos un objeto en memoria que representa la guía
+clínica. En el momento que se resuelve la promesa que devuelve `$http`, `guidelineFactory` hace una petición de los
+arquetipos que contiene la guía en su sección `archetypeBinding`. Esta petición se ha decidido hacerla en este punto,
+y no cuando pasemos a editar las definiciones, porque mejora el rendimiento de tal modo que cuando se renderice la
+vista de las definiciones el `$scope` ya cuente con los arquetipos en memoria, por lo que no tiene que hacer dicha
+petición y la vista se carga de forma inmediata.
+
 La implementación del primer caso de uso _Editar descripción_ es relativamente sencilla y se realiza en la vista de
 la pestaña _Description_. Para ello se cuenta con la vista `tab-description.html` donde se implementan una serie de
 paneles, cada uno de ellos destinado a los requisitos de información que se piden para este caso de uso (ver
@@ -2281,21 +2296,209 @@ colaboradores. A continuación se muestra dicho controlador.
 include::../../app/components/tabs/tab-description/tab.description.controller.js[]
 ----
 
-Como se muestra en la <<sequence-guideline>>, el profesional sanitario selecciona la pestaña _Guidelines_ (o se le
-muestra por defecto al iniciarse la aplicación) donde puede ver el listado de guías clínicas. Al seleccionar una guía,
-se llama a un método del controlador `GuidelineCtrl`, este método utiliza un servicio que se le ha inyectado
-denominado `guidelineFactory`. Este servicio a su vez hace uso de un servicio nativo de AngularJS llamado `$http` el
-cual hace una petición GET a la API REST. `$http` devuelve una promesa que, en cuanto se resuelva, se le asigna al
-`$scope` del controlador `GuidelineCtrl`, en ese momento ya tenemos un objeto en memoria que representa la guía
-clínica. En el momento que se resuelve la promesa que devuelve `$http`, `guidelineFactory` hace una petición de los
-arquetipos que contiene la guía en su sección `archetypeBinding`. Esta petición se ha decidido hacerla en este punto,
-y no cuando pasemos a editar las definiciones, porque mejora el rendimiento de tal modo que cuando se renderice la
-vista de las definiciones el `$scope` ya cuente con los arquetipos en memoria, por lo que no tiene que hacer dicha
-petición y la vista se carga de forma inmediata.
+La implementación del caso de uso _Editar definiciones_, al igual que el diseño, es más compleja que _Editar
+descripción_. Uno de los requisitos de la aplicación fue que tanto la edición de las definiciones, como la de las
+reglas y las precondiciones tendrían que ser utilizando un componente en forma de árbol con _drag and drop_, de manera
+que el usuario pudiese ir generando las guías arrastrando y soltando los elementos correspondientes. Para este
+cometido se ha utilizado un componente en forma de árbol llamado `ui-tree` (ver <<architecture>>). Este componente,
+para gestionar su jerarquía, utiliza arrays de objetos y lo que queremos representar usándolo son objetos compuestos,
+por lo que se ha tenido que trabajar con una transformación del modelo en memoria y hacer una reconversión en el
+momento que se hace un POST de la guía.
+
+Por motivos de limitación de espacio no se van a mostrar el controlador y el servicio de Angular que gestionan esta
+funcionalidad. Para el desarrollo de la funcionalidad de editar las definiciones se ha implementado un controlador
+llamado `DefinitionsCtrl` que se encarga de vincular el modelo de la definición de la ontología de la guía con la
+vista `tab-definitions.html`. En la vista tenemos un panel principal donde se visualizan las definiciones y un panel
+lateral derecho donde se muestran los diferentes elementos que podemos arrastrar y soltar para crear nuevas instancias.
+
+[[implementation-iter-2]]
+.Editar las definiciones de una guía.
+image::implementation-iter-2.png[scaledwidth="90%"]
+
+Para realizar nuevas instanciaciones se utiliza el panel derecho que cuenta con la directiva uiTree del módulo
+`ui-tree` y se le pasa un objeto de configuración definido en el controlador (`treeDefinitions`) donde se le indica
+que tiene que ser un árbol _clonable_ (aunque en este caso sólo tiene un nivel de anidamiento, el componente es un
+árbol) y que al soltar cada uno de los elementos tiene que generar la definición correspondiente.
+
+[source, html]
+----
+<div class="col-sm-3">
+  <div ui-tree="vm.treeDefinitions" class="panel panel-default" data-clone-enabled="true" data-nodrop-enabled="true">
+    <div class="panel-heading">
+      <h2 class="panel-title">Definitions</h2>
+    </div>
+    <div class="panel-body">
+      <ol ui-tree-nodes ng-model="vm.definitions">
+        <li ng-repeat="item in vm.definitions" class="right-list" ui-tree-node data-nodrag="{{!item.draggable}}">
+          <div ui-tree-handle>{{item.title}}</div>
+        </li>
+      </ol>
+    </div>
+  </div>
+</div>
+----
+
+El objeto de configuración de este árbol se define en el controlador, se hace uso de un método de la propiedad
+`$callbacks` del módulo, denominado `beforeDrop`, que se llama justo antes de que el objeto arrastrado sea soltado,
+de manera que antes de soltar el elemento, genere la instanciación que corresponda.
+
+[source, python]
+----
+vm.treeDefinitions = {
+  beforeDrop: function(event) {
+    var cloneModel = event.source.cloneModel;
+    if(cloneModel.title === "Archetype instantiation") {
+      definitionsFactory.createArchetypeInstantiation(cloneModel);
+    } else if(cloneModel.title === "Element instantiation") {
+      definitionsFactory.createElementInstantiation(cloneModel);
+    } else if (cloneModel.ruleLine === "PredicateDatavalue") {
+      definitionsFactory.createPredicateDatavalue(cloneModel);
+    } else if (cloneModel.ruleLine === "PredicateFunction") {
+      definitionsFactory.createPredicateFunction(cloneModel);
+    } else if (cloneModel.ruleLine === "PredicateExists") {
+      definitionsFactory.createPredicateExists(cloneModel);
+    } else if (cloneModel.ruleLine === "PredicateExpression") {
+      definitionsFactory.createPredicateExpression(cloneModel);
+    }
+  }
+};
+----
+
+Como puede verse en el fragmento anterior, se utiliza un servicio denominado `definitionsFactory` que genera la
+instanciación correspondiente dependiendo del nodo del panel derecho que se haya seleccionado. El panel principal
+renderiza los `archetypeBindings` la guía. En el modelo, un `archetypeBinding` se representa mediante un objeto JSON
+con la siguiente estructura:
+
+----
+{
+  "id": "gt0016",                                                           <1>
+  "archetypeId": "openEHR-EHR-OBSERVATION.body_weight.v1",                  <2>
+  "domain": "EHR",                                                          <3>
+  "elements": {                                                             <4>
+    "gt0005": {
+      "id": "gt0005",
+      "path": "/data[at0002]/events[at0003]/data[at0001]/items[at0004]"     <5>
+    }
+  },
+  "predicates": [                                                           <6>
+    "max(/data/events/time)"
+  ],
+  predicateStatements": [
+    {
+      "type": "UnaryExpression",
+      "expressionItem": {
+        "operand": {
+          "type": "Variable",
+          "expressionItem": {
+            "path": "/data/events/time"
+          }
+        },
+        "operator": "MAX"
+      }
+    }
+  ]
+}
+----
+<1> Identificador del _archetypeBinding_.
+<2> Identificador del arquetipo al que se pretende enlazar.
+<3> Espacio en el que residen las variables de regla: EHR o CDS.
+<4> Lista de elementos definidos en el _archetypeBinding_ actual.
+<5> _path_ unívoco del elemento en el arquetipo.
+<6> Predicados definidos para el _archetypeBinding_ actual.
+
+El controlador `DefinitionsCtrl` cuenta con diferentes métodos que permiten la edición de las definiciones, se
+destacan varios métodos: un método `updateArchetype()` que permite actualizar un arquetipo seleccionándolo de una
+lista de arquetipos (si se está sustituyendo por otro, automáticamente los elementos del arquetipo a sustituir se
+eliminarían). Un método `updateLeftItem()` que permite actualizar tanto instanciaciones de elementos como de
+predicados, en este último caso sería el elemento de la parte izquierda del predicado. Por último, mencionar el
+método `updateRightItem()` que permite actualizar la parte derecha de los predicados, teniendo en cuenta el tipo de
+dato del elemento de la parte izquierda, tal como se comentó en la definición de <<use-case-desc-2, casos de uso de
+la iteración 2>>.
 
 Pruebas
 ^^^^^^^
-Texto pruebas iteración 2
+Siguiendo la guía de buenas prácticas, al fichero que contiene los test unitarios para testear el controlador
+`DefinitionsCtrl` definido en el fichero `tab.definitions.controller.js`, le hemos llamado `tab.definitions.controller.spec.js`.
+
+[source,python,numbered]
+----
+include::../../app/components/tabs/tab-description/tab.description.controller.spec.js[]
+----
+
+En este test se comprueba que el controlador se inicializa correctamente, que las propiedades que vinculan el modelo
+con la vista están definidas, así como los métodos que gestionan las palabras clave y los colaboradores que contienen
+las descripciones de las guías clínicas.
+
+Iteración 3
+~~~~~~~~~~~
+Al término de la segunda iteración se ha obtenido un subsistema funcional que muestra las guías clínicas al usuario
+para que pueda seleccionar una de ellas para editarla. Además permite editar la descripción de la guía y las
+definiciones (enlaces de elementos de arquetipos a variables locales de las guías). En la tercera iteración se busca
+acometer el desarrollo de otras dos funcionalidades: por un lado la edición de la lista de reglas de las guías y por
+otro la edición de las precondiciones.
+
+Análisis
+^^^^^^^^
+Para cumplir los objetivos marcados para esta tercera iteración, se implementan los casos de uso _Editar lista de
+reglas_ y _Editar precondiciones_ de una guía clínica. Para ello se descomponen ambos casos de uso en factores de
+casos de uso más simples.
+
+Descripción de los casos de uso
++++++++++++++++++++++++++++++++
+
+Crear nueva regla::
+La pestaña _Rule list_ muestra un listado de todas las reglas definidas para una guía. A las reglas se les puede
+asignar una prioridad para asegurar el orden de ejecución de las mismas--puede haber reglas que dependan de otras
+anteriores--. La lista se muestra en un componente _drag and drop_ de modo que podamos arrastrar y soltar cada regla
+pudiendo asignar la posición de esa manera.
+
+Editar regla::
+Edición del nombre de la regla. Desde la propia lista se puede modificar su nombre.
+
+Eliminar regla::
+Descarta la regla, eliminando intrínsecamente sus condiciones y sus acciones.
+
+Gestionar condiciones::
+GDL es independiente de tecnologías y se puede implementar usando diferentes motores de reglas. Ha sido diseñado para
+que sus expresiones sean lo más parecido posible a las expresiones de reglas de negocio de los principales motores,
+_i.e._ un conjunto de condiciones y un conjunto de acciones. La edición de condiciones y acciones es muy similar a la
+de las definiciones. La versión actual de GDL soporta seis tipos de condiciones:
+
+* _Compare (DataValue)_: compara el valor de una instancia de elemento con un valor de datos (constante).
+* _Compare (NullValue)_: compara el valor nulo de una instancia de elemento con un código __open__EHR NULL_FLAVOUR.
+* _Compare (Element)_: compara el valor de una instancia de elemento con el valor de otra instancia de elemento.
+* _Compare (Attribute)_: compara el atributo de una instancia de elemento con una constante o una expresión (véase
+<<_editor_de_expresiones, Editor de expresiones>>).
+* El elemento se inicializa: comprueba si la instancia del elemento tiene o no tiene ningún valor asignado.
+* _O operator_: realiza una disyunción lógica entre dos condiciones.
+
+Gestionar acciones::
+Se trata de las acciones que se ejecutan cuando se cumplen las condiciones, actualmente se soportan cuatro tipos de
+acciones:
+
+* _Set (DataValue)_: inicializa la instancia del elemento con el valor de datos seleccionado.
+* _Set (NullValue)_: elimina el valor de la instancia del elemento y establece el código NULL_FLAVOUR seleccionado.
+* _Set (Element)_: copia el valor de una instancia de elemento a otra.
+* _Set (Attribute)_: establece el valor de un atributo utilizando una constante o una expresión (consulte
+<<_editor_de_expresiones, Editor de expresiones>>).
+
+Diseño
+^^^^^^
+En la fase de diseño de la tercera iteración se han dedicado esfuerzos a detallar los diagramas de casos de uso
+concretados en la fase análisis. Para ello hemos descompuesto los escenarios de la edición de las reglas y de las
+precondiciones en casos de uso más simples.
+
+[[use-cases-iter-3]]
+.Casos de uso de la iteración 3.
+image::use-cases-iter-3.png[scaledwidth="90%"]
+
+implementación
+^^^^^^^^^^^^^^
+implementación
+
+Pruebas
+^^^^^^^
+Pruebas
 
 Testing
 -------
@@ -2486,7 +2689,7 @@ tipos de condiciones:
 * El elemento se inicializa: comprueba si la instancia del elemento tiene o no tiene ningún valor asignado.
 * _O operator_: realiza una disyunción lógica entre dos condiciones.
 
-Actualmente se soportan 4 tipos de acciones:
+Actualmente se soportan cuatro tipos de acciones:
 
 * _Set (DataValue)_: inicializa la instancia del elemento con el valor de datos seleccionado.
 * _Set (NullValue)_: elimina el valor de la instancia del elemento y establece el código NULL_FLAVOUR seleccionado.
