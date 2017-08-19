@@ -1,7 +1,3 @@
-/**
- * Created by jbarros on 16/03/17.
- */
-
 angular.module('app.controllers')
     .controller('RulelistCtrl', RulelistCtrl);
 
@@ -12,13 +8,10 @@ function RulelistCtrl($state, $log, guidelineFactory, rulelistFactory, modalServ
     vm.guide.ontology = guidelineFactory.getOntology();
     vm.addRule = addRule;
     vm.editName = editName;
-
     vm.delete = "../assets/img/del.png";
     vm.accept = "../assets/img/accept.png";
     vm.pencil = "../assets/img/pencil.png";
-
     var rulelist = guidelineFactory.getRulelist();
-
     vm.rules = rulelistFactory.convertModel(rulelist);
 
     vm.remove = function (scope) {
@@ -38,15 +31,10 @@ function RulelistCtrl($state, $log, guidelineFactory, rulelistFactory, modalServ
         function showModalFailed() {
             $log.info('Modal dismissed at: ' + new Date() + ' in removeBinding()');
         }
-
-
-
-
-
     };
 
-    vm.openRuleEditor = function(rule) {
-        var rule = rule.$nodeScope.rule;
+    vm.openRuleEditor = function(node) {
+        var rule = node.$nodeScope.rule;
         $state.go("rule-editor", {ruleId: rule.id});
     };
 
@@ -59,7 +47,7 @@ function RulelistCtrl($state, $log, guidelineFactory, rulelistFactory, modalServ
                 input: function() {
                     var input = {
                         value: guidelineFactory.getOntology().termDefinitions.en.terms[rule.id].text
-                    }
+                    };
                     return input;
                 },
                 class: function() {
@@ -131,7 +119,6 @@ function RulelistCtrl($state, $log, guidelineFactory, rulelistFactory, modalServ
     }
 
     vm.treeRulelist = {
-
         /**
          * Used to re-order the priorities
          * @param event Drag and drop event
@@ -150,5 +137,4 @@ function RulelistCtrl($state, $log, guidelineFactory, rulelistFactory, modalServ
         });
         return max;
     }
-
 }

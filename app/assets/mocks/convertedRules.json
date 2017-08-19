@@ -1,0 +1,674 @@
+[
+  {
+    "id": "gt0012",
+    "when": [
+      "$gt0002.value<=($currentDateTime.value-20,a)",
+      "$gt0003==local::at0005|Male|",
+      "$gt0005.units=='kg'",
+      "$gt0009.units=='umol/l'"
+    ],
+    "then": [
+      "$gt0011.magnitude=((1.23*(140-($currentDateTime.year-$gt0002.year)))*($gt0005.magnitude/$gt0009.magnitude))",
+      "$gt0011.precision=2",
+      "$gt0011.units='ml/min'"
+    ],
+    "priority": 2,
+    "whenStatements": [
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "Variable",
+            "expressionItem": {
+              "code": "gt0002",
+              "attribute": "value"
+            }
+          },
+          "right": {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "currentDateTime",
+                  "attribute": "value"
+                }
+              },
+              "right": {
+                "type": "QuantityConstant",
+                "expressionItem": {
+                  "quantity": {
+                    "magnitude": 20,
+                    "precision": 0,
+                    "units": "a",
+                    "accuracy": 0,
+                    "accuracyPercent": false
+                  },
+                  "value": "20,a"
+                }
+              },
+              "operator": "SUBSTRATION"
+            }
+          },
+          "operator": "LESS_THAN_OR_EQUAL"
+        }
+      },
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "Variable",
+            "expressionItem": {
+              "code": "gt0003"
+            }
+          },
+          "right": {
+            "type": "CodedTextConstant",
+            "expressionItem": {
+              "codedText": {
+                "definingCode": {
+                  "terminologyId": {
+                    "name": "local",
+                    "value": "local"
+                  },
+                  "codeString": "at0005"
+                },
+                "value": "Male"
+              },
+              "value": "local::at0005|Male|"
+            }
+          },
+          "operator": "EQUALITY"
+        }
+      },
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "Variable",
+            "expressionItem": {
+              "code": "gt0005",
+              "attribute": "units"
+            }
+          },
+          "right": {
+            "type": "StringConstant",
+            "expressionItem": {
+              "string": "kg",
+              "value": "kg"
+            }
+          },
+          "operator": "EQUALITY"
+        }
+      },
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "Variable",
+            "expressionItem": {
+              "code": "gt0009",
+              "attribute": "units"
+            }
+          },
+          "right": {
+            "type": "StringConstant",
+            "expressionItem": {
+              "string": "umol/l",
+              "value": "umol/l"
+            }
+          },
+          "operator": "EQUALITY"
+        }
+      }
+    ],
+    "thenStatements": [
+      {
+        "variable": {
+          "code": "gt0011",
+          "attribute": "magnitude"
+        },
+        "assignment": {
+          "type": "BinaryExpression",
+          "expressionItem": {
+            "left": {
+              "type": "BinaryExpression",
+              "expressionItem": {
+                "left": {
+                  "type": "ConstantExpression",
+                  "expressionItem": {
+                    "value": "1.23"
+                  }
+                },
+                "right": {
+                  "type": "BinaryExpression",
+                  "expressionItem": {
+                    "left": {
+                      "type": "ConstantExpression",
+                      "expressionItem": {
+                        "value": "140"
+                      }
+                    },
+                    "right": {
+                      "type": "BinaryExpression",
+                      "expressionItem": {
+                        "left": {
+                          "type": "Variable",
+                          "expressionItem": {
+                            "code": "currentDateTime",
+                            "attribute": "year"
+                          }
+                        },
+                        "right": {
+                          "type": "Variable",
+                          "expressionItem": {
+                            "code": "gt0002",
+                            "attribute": "year"
+                          }
+                        },
+                        "operator": "SUBSTRATION"
+                      }
+                    },
+                    "operator": "SUBSTRATION"
+                  }
+                },
+                "operator": "MULTIPLICATION"
+              }
+            },
+            "right": {
+              "type": "BinaryExpression",
+              "expressionItem": {
+                "left": {
+                  "type": "Variable",
+                  "expressionItem": {
+                    "code": "gt0005",
+                    "attribute": "magnitude"
+                  }
+                },
+                "right": {
+                  "type": "Variable",
+                  "expressionItem": {
+                    "code": "gt0009",
+                    "attribute": "magnitude"
+                  }
+                },
+                "operator": "DIVISION"
+              }
+            },
+            "operator": "MULTIPLICATION"
+          }
+        }
+      },
+      {
+        "variable": {
+          "code": "gt0011",
+          "attribute": "precision"
+        },
+        "assignment": {
+          "type": "ConstantExpression",
+          "expressionItem": {
+            "value": "2"
+          }
+        }
+      },
+      {
+        "variable": {
+          "code": "gt0011",
+          "attribute": "units"
+        },
+        "assignment": {
+          "type": "StringConstant",
+          "expressionItem": {
+            "string": "ml/min",
+            "value": "ml/min"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "gt0013",
+    "when": [
+      "$gt0002.value<=($currentDateTime.value-20,a)",
+      "$gt0003==local::at0006|Female|",
+      "$gt0005.units=='kg'",
+      "$gt0009.units=='umol/l'"
+    ],
+    "then": [
+      "$gt0011.units='ml/min'",
+      "$gt0011.precision=2",
+      "$gt0011.magnitude=((1.04*(140-($currentDateTime.year-$gt0002.year)))*($gt0005.magnitude/$gt0009.magnitude))"
+    ],
+    "priority": 1,
+    "whenStatements": [
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "Variable",
+            "expressionItem": {
+              "code": "gt0002",
+              "attribute": "value"
+            }
+          },
+          "right": {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "currentDateTime",
+                  "attribute": "value"
+                }
+              },
+              "right": {
+                "type": "QuantityConstant",
+                "expressionItem": {
+                  "quantity": {
+                    "magnitude": 20,
+                    "precision": 0,
+                    "units": "a",
+                    "accuracy": 0,
+                    "accuracyPercent": false
+                  },
+                  "value": "20,a"
+                }
+              },
+              "operator": "SUBSTRATION"
+            }
+          },
+          "operator": "LESS_THAN_OR_EQUAL"
+        }
+      },
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "Variable",
+            "expressionItem": {
+              "code": "gt0003"
+            }
+          },
+          "right": {
+            "type": "CodedTextConstant",
+            "expressionItem": {
+              "codedText": {
+                "definingCode": {
+                  "terminologyId": {
+                    "name": "local",
+                    "value": "local"
+                  },
+                  "codeString": "at0006"
+                },
+                "value": "Female"
+              },
+              "value": "local::at0006|Female|"
+            }
+          },
+          "operator": "EQUALITY"
+        }
+      },
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "Variable",
+            "expressionItem": {
+              "code": "gt0005",
+              "attribute": "units"
+            }
+          },
+          "right": {
+            "type": "StringConstant",
+            "expressionItem": {
+              "string": "kg",
+              "value": "kg"
+            }
+          },
+          "operator": "EQUALITY"
+        }
+      },
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "Variable",
+            "expressionItem": {
+              "code": "gt0009",
+              "attribute": "units"
+            }
+          },
+          "right": {
+            "type": "StringConstant",
+            "expressionItem": {
+              "string": "umol/l",
+              "value": "umol/l"
+            }
+          },
+          "operator": "EQUALITY"
+        }
+      }
+    ],
+    "thenStatements": [
+      {
+        "variable": {
+          "code": "gt0011",
+          "attribute": "units"
+        },
+        "assignment": {
+          "type": "StringConstant",
+          "expressionItem": {
+            "string": "ml/min",
+            "value": "ml/min"
+          }
+        }
+      },
+      {
+        "variable": {
+          "code": "gt0011",
+          "attribute": "precision"
+        },
+        "assignment": {
+          "type": "ConstantExpression",
+          "expressionItem": {
+            "value": "2"
+          }
+        }
+      },
+      {
+        "variable": {
+          "code": "gt0011",
+          "attribute": "magnitude"
+        },
+        "assignment": {
+          "type": "BinaryExpression",
+          "expressionItem": {
+            "left": {
+              "type": "BinaryExpression",
+              "expressionItem": {
+                "left": {
+                  "type": "ConstantExpression",
+                  "expressionItem": {
+                    "value": "1.04"
+                  }
+                },
+                "right": {
+                  "type": "BinaryExpression",
+                  "expressionItem": {
+                    "left": {
+                      "type": "ConstantExpression",
+                      "expressionItem": {
+                        "value": "140"
+                      }
+                    },
+                    "right": {
+                      "type": "BinaryExpression",
+                      "expressionItem": {
+                        "left": {
+                          "type": "Variable",
+                          "expressionItem": {
+                            "code": "currentDateTime",
+                            "attribute": "year"
+                          }
+                        },
+                        "right": {
+                          "type": "Variable",
+                          "expressionItem": {
+                            "code": "gt0002",
+                            "attribute": "year"
+                          }
+                        },
+                        "operator": "SUBSTRATION"
+                      }
+                    },
+                    "operator": "SUBSTRATION"
+                  }
+                },
+                "operator": "MULTIPLICATION"
+              }
+            },
+            "right": {
+              "type": "BinaryExpression",
+              "expressionItem": {
+                "left": {
+                  "type": "Variable",
+                  "expressionItem": {
+                    "code": "gt0005",
+                    "attribute": "magnitude"
+                  }
+                },
+                "right": {
+                  "type": "Variable",
+                  "expressionItem": {
+                    "code": "gt0009",
+                    "attribute": "magnitude"
+                  }
+                },
+                "operator": "DIVISION"
+              }
+            },
+            "operator": "MULTIPLICATION"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "gt0014",
+    "when": [
+      "$gt0002.value>($currentDateTime.value-20,a)",
+      "$gt0007.units=='cm'",
+      "$gt0005.units=='kg'",
+      "$gt0009.units=='umol/l'"
+    ],
+    "then": [
+      "$gt0011.magnitude=(((42.5*$gt0007.magnitude)/$gt0009.magnitude)/(($gt0005.magnitude/70)^0.7))",
+      "$gt0011.units='ml/min'",
+      "$gt0011.precision=2"
+    ],
+    "priority": 3,
+    "whenStatements": [
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "Variable",
+            "expressionItem": {
+              "code": "gt0002",
+              "attribute": "value"
+            }
+          },
+          "right": {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "currentDateTime",
+                  "attribute": "value"
+                }
+              },
+              "right": {
+                "type": "QuantityConstant",
+                "expressionItem": {
+                  "quantity": {
+                    "magnitude": 20,
+                    "precision": 0,
+                    "units": "a",
+                    "accuracy": 0,
+                    "accuracyPercent": false
+                  },
+                  "value": "20,a"
+                }
+              },
+              "operator": "SUBSTRATION"
+            }
+          },
+          "operator": "GREATER_THAN"
+        }
+      },
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "Variable",
+            "expressionItem": {
+              "code": "gt0007",
+              "attribute": "units"
+            }
+          },
+          "right": {
+            "type": "StringConstant",
+            "expressionItem": {
+              "string": "cm",
+              "value": "cm"
+            }
+          },
+          "operator": "EQUALITY"
+        }
+      },
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "Variable",
+            "expressionItem": {
+              "code": "gt0005",
+              "attribute": "units"
+            }
+          },
+          "right": {
+            "type": "StringConstant",
+            "expressionItem": {
+              "string": "kg",
+              "value": "kg"
+            }
+          },
+          "operator": "EQUALITY"
+        }
+      },
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "Variable",
+            "expressionItem": {
+              "code": "gt0009",
+              "attribute": "units"
+            }
+          },
+          "right": {
+            "type": "StringConstant",
+            "expressionItem": {
+              "string": "umol/l",
+              "value": "umol/l"
+            }
+          },
+          "operator": "EQUALITY"
+        }
+      }
+    ],
+    "thenStatements": [
+      {
+        "variable": {
+          "code": "gt0011",
+          "attribute": "magnitude"
+        },
+        "assignment": {
+          "type": "BinaryExpression",
+          "expressionItem": {
+            "left": {
+              "type": "BinaryExpression",
+              "expressionItem": {
+                "left": {
+                  "type": "BinaryExpression",
+                  "expressionItem": {
+                    "left": {
+                      "type": "ConstantExpression",
+                      "expressionItem": {
+                        "value": "42.5"
+                      }
+                    },
+                    "right": {
+                      "type": "Variable",
+                      "expressionItem": {
+                        "code": "gt0007",
+                        "attribute": "magnitude"
+                      }
+                    },
+                    "operator": "MULTIPLICATION"
+                  }
+                },
+                "right": {
+                  "type": "Variable",
+                  "expressionItem": {
+                    "code": "gt0009",
+                    "attribute": "magnitude"
+                  }
+                },
+                "operator": "DIVISION"
+              }
+            },
+            "right": {
+              "type": "BinaryExpression",
+              "expressionItem": {
+                "left": {
+                  "type": "BinaryExpression",
+                  "expressionItem": {
+                    "left": {
+                      "type": "Variable",
+                      "expressionItem": {
+                        "code": "gt0005",
+                        "attribute": "magnitude"
+                      }
+                    },
+                    "right": {
+                      "type": "ConstantExpression",
+                      "expressionItem": {
+                        "value": "70"
+                      }
+                    },
+                    "operator": "DIVISION"
+                  }
+                },
+                "right": {
+                  "type": "ConstantExpression",
+                  "expressionItem": {
+                    "value": "0.7"
+                  }
+                },
+                "operator": "EXPONENT"
+              }
+            },
+            "operator": "DIVISION"
+          }
+        }
+      },
+      {
+        "variable": {
+          "code": "gt0011",
+          "attribute": "units"
+        },
+        "assignment": {
+          "type": "StringConstant",
+          "expressionItem": {
+            "string": "ml/min",
+            "value": "ml/min"
+          }
+        }
+      },
+      {
+        "variable": {
+          "code": "gt0011",
+          "attribute": "precision"
+        },
+        "assignment": {
+          "type": "ConstantExpression",
+          "expressionItem": {
+            "value": "2"
+          }
+        }
+      }
+    ]
+  }
+]

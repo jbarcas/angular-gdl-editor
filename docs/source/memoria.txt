@@ -2246,11 +2246,29 @@ Para _Instanciar un predicado_, el procedimiento es similar, la instanciación d
 el predicado--de los cuatro disponibles--que se quiera instanciar y se suelta dentro de la instanciación de arquetipo
 que se desee. A partir de entonces se puede seleccionar el operando (u operandos) y el operador del predicado.
 
+Debido a las funcionalidades incorporadas en esta segunda iteración, en esta fase de diseño se ha elaborado un
+diagrama de clases que manifiesta el comportamiento de cada uno de los componentes--controladores, factorías,
+servicios, etc.--que intervienen en dichos escenarios, y las relaciones entre ellos.
+
+[[classes-iter-2]]
+.Diagrama de colaboraciones entre componentes en la iteración 2.
+image::classes-iter-2.png[]
+
+En el diagrama anterior se puede observar las dependencias entre los diferentes componentes, así vemos cómo _Editar
+descripción_ depende de `guidelineFactory` principalmente para obtener los objetos que representan la ontología y la
+descripción de la guía clínica. Los modales se han delegado todos en un servicio `modalService` con unas opciones por
+defecto que pueden ser sobreescritas con los parámetros que queramos mostrar en dichos componentes gráficos. El caso
+de uso _Editar definiciones_ utiliza el servicio `GuidelineFactory` que proporcionará los arquetipos con los que
+está vinculados la guía actual, permite obtener loas descripciones de los términos utilizados en la guía, obtener la
+ontología, etc. Utiliza el `modalService` para proporcionar los diálogos que facilitan la comunicación con el usuario
+permitiendo seleccionar arquetipos y elementos de éstos. la gestión de las expresiones (utilizadas en los predicados)
+se delegan en el servicio `expressionItemFactory` y la gestión de los conceptos terminológicos en `terminologyFactory`.
+
 Implementación
 ^^^^^^^^^^^^^^
-La implementación de la segunda iteración se centra totalmente en la lógica de negocio de la aplicación (recordemos que
-parte de la primera iteración se centró en la configuración del proyecto AngularJS y en la decisión de la estructura
-de directorios).
+La implementación de la segunda iteración se centra totalmente en el desarrollo de funcionalidad de la aplicación
+(recordemos que parte de la primera iteración se centró en la configuración del proyecto AngularJS y en la decisión
+de la estructura de directorios).
 
 Como se muestra en la <<sequence-guideline>>, el profesional sanitario selecciona la pestaña _Guidelines_ (o se le
 muestra por defecto al iniciarse la aplicación) donde puede ver el listado de guías clínicas. Al seleccionar una guía,
@@ -2437,6 +2455,7 @@ definiciones (enlaces de elementos de arquetipos a variables locales de las guí
 acometer el desarrollo de otras dos funcionalidades: por un lado la edición de la lista de reglas de las guías y por
 otro la edición de las precondiciones.
 
+[[analisis-3]]
 Análisis
 ^^^^^^^^
 Para cumplir los objetivos marcados para esta tercera iteración, se implementan los casos de uso _Editar lista de
@@ -2492,13 +2511,105 @@ precondiciones en casos de uso más simples.
 .Casos de uso de la iteración 3.
 image::use-cases-iter-3.png[scaledwidth="90%"]
 
-implementación
+De los dos escenarios que se incorporan en esta iteración, se ha elaborado de un diagrama de clases para la
+funcionalidad de edición de reglas--la edición de precondiciones se obvia, por ser más sencilla--donde se muestra el
+comportamiento controladores, factorías, servicios, etc. y las colaboraciones entre ellos.
+
+[[classes-iter-3]]
+.Diagrama de colaboraciones entre componentes en la iteración 3.
+image::classes-iter-3.png[]
+
+En el diagrama anterior se pone de manifiesto cómo el controlador que gestiona la lógica de negocio que hay tras la
+lista de reglas (`RulelistCtrl`) depende de `guidelineFactory`, esto lo hace para obtener la ontología y para añadir o
+eliminar reglas a una guía. Asimismo, el controlador que gestiona el editor de las reglas, `RuleEditorCtrl`, utiliza
+dos servicios, `conditionFactory` y `actionFactory` para la gestión de los diferentes tipos de condiciones y acciones
+del editor. Se puede observar que también depende de `guidelineFactory` y de `expressionItemFactory` para la gestión
+de las expresiones utilizadas tanto en las condiciones como en las acciones.
+
+Implementación
 ^^^^^^^^^^^^^^
-implementación
+Para la tercera iteración se parte del hecho de que el usuario ha seleccionado una guía clínica y, por lo tanto,
+se dispone de una representación JSON de dicha guía en memoria. En esta fase se transforma el resultado de las fases
+anteriores en un subproyecto funcional que contiene los casos de uso descritos.
+
+En cuanto a la edición de reglas GDL, como se puede ver en la <<gom>>, una guía clínica consta de una o varias reglas,
+en concreto en la clase _GuideDefinition_ existe un atributo _rules_ que es un mapa de reglas, indexado por un
+código _gt_ local. Por lo tanto, la primera vista al seleccionar la pestaña _Rulelist_ mostrará la lista de todas las
+reglas definidas para la guía (ver <<rule-list>>). Además, este listado, tiene que ser ordenable ya que las reglas pueden tener
+un orden de ejecución. La vista que renderiza este listado se muestra a continuación.
+
+[source,html]
+----
+include::../../app/components/tabs/tab-rulelist/tab-rulelist.html[]
+----
+
+La lista se gestiona con el componente `ui-tree`, de manera que los nodos de la vista se puedan arrastrar y soltar
+para indicar la prioridad de cada regla. Se implementa un botón que permite la adición de nuevas reglas y se
+renderizan las ya creadas haciendo uso de la directiva https://docs.angularjs.org/api/ng/directive/ngRepeat[ngRepeat]
+asignándole a cada una de ellas las funcionalidades de edición y de eliminado. Dentro del `ng-repeat` hacemos uso del
+filtro nativo de Angular https://docs.angularjs.org/api/ng/filter/orderBy[orderBy], de modo que las reglas se
+ordenarán automáticamente para su visualización. En el objeto de configuración que se le para a la directiva `uiTree`
+se le indica que cuando se suelte un nodo se recalcule la prioridad de la guía dependiendo de donde se haya colocado
+dicho nodo.
+
+[source,python,numbered]
+----
+include::../../app/components/tabs/tab-rulelist/tab.rulelist.controller.js[]
+----
+
+El controlador `RulelistCtrl` es el que se encarga de gestionar la lógica de negocio que hay detrás de la vista
+`tab-rulelist`. Al seleccionar una de las guías, se debe mostrar el editor de guías (ver <<rule-editing-2>>), para
+abrir el editor de guías se hace uso del método `openRuleEditor` al cual le pasamos el identificador de la guía
+seleccionada, para ello se hace uso del servicio
+https://github.com/angular-ui/ui-router/wiki/URL-Routing#stateparams-service[$stateParams] del módulo `ui.router`
+visto anteriormente. La vista del editor de reglas GDL se compone de dos paneles, un panel superior para las
+condiciones y un panel inferior para las acciones. Cada uno de estos paneles tiene dos subpaneles, uno principal
+donde se muestran las definiciones de las reglas y un panel lateral con los componentes _drag and drop_ necesarios
+para la creación de dichas reglas, cuya funcionalidad se describió en la subsección de <<analisis-3, Análisis>>.
+Tanto el código de la vista como el del controlador del editor de reglas no se muestran en la memoria por motivos de
+espacio, pero se puede acceder al mismo en el https://github.com/jbarcas/angular-gdl-editor[repositorio de GitHub].
+Cabe mencionar, como se puede ver en la <<classes-iter-3>>, que se han desarrollado dos servicios `ConditionFactory` y
+`ActionFactory` sobre los que el controlador `RuleEditorCtrl` delega la funcionalidad de las condiciones y de las
+acciones respectivamente del editor de reglas. Se ha hecho de esta manera para simplificar y delimitar mejor las
+funcionalidades de cada una de ellas, obteniendo unos servicios más manejables y fáciles de comprender.
 
 Pruebas
 ^^^^^^^
-Pruebas
+En esta sección se proporcionan los tests unitarios que se han desarrollado para las funcionalidades de la tercera
+iteración. Como se ha comentado anteriormente, para el listado de las reglas de una guía clínica no se necesita hacer
+ninguna llamada http ya que el modelo que representa la guía se encuentra asociado al `$scope` AngularJS, por lo
+tanto no vamos a necesitar para este caso el servicio `$httpBackend`.
+
+Debido a que los controladores no están disponibles en el ámbito global, necesitamos utilizar `angular.mock.inject`
+para inyectar nuestro controlador `ruleListCtrl` primero. El primer paso es utilizar la función `module`
+proporcionada por `angular-mocks`. Esto carga el módulo que se le pasa como parámetro, de manera que estaría
+disponible en los tests. Pasamos esto en el `beforeEach`, que es la función que Jasmine proporciona que permite
+ejecutar código antes de cada test. A partir de aquí se puede usar el método `inject` para tener acceso a `$controller`,
+el servicio que es responsable de instanciar los controladores.
+
+[source,python,numbered]
+----
+include::../../app/components/tabs/tab-rulelist/tab.rulelist.controller.spec.js[]
+----
+
+Se está utilizando la notación de guión bajo para tener una referencia global a los servicios inyectado en el
+controlador, _i.e._ `guidelineFactory` y `rulelistFactory`.  Los guiones bajos serán ignorados por el inyector cuando
+la referencia se resuelva. En el test anterior se comprueba la funcionalidad del controlador `RulelistCtrl`.
+
+En el objeto `mock` definimos los resultados que esperamos para posteriormente compararlos con el resultado de las
+operaciones que queremos llevar a cabo y comprobar si han funcionado o no. Una vez definidos los controladores con
+sus servicios inyectados hacemos uso de la función https://jasmine.github.io/2.0/introduction.html#section-Spies[SpyOn]
+de Jasmine. Primero se comprueban que tanto las propiedades como los métodos se han definido correctamente.
+Posteriormente comprobamos que el método `getOntology` del servicio `guidelineFactory` ha sido llamado desde el
+controlador y que ha devuelto correctamente la ontología de una guía clínica en particular (la que hemos definido en
+el objeto `mock`).
+
+El componente que se utiliza para renderizar la lista de reglas gestiona sus nodos (ítems de la lista) como un array.
+En nuestro modelo, las reglas están representadas como un objeto, por lo que no son compatibles. Por lo tanto, se ha
+tenido que realizar una conversión del objeto con las guías y transformarlo a un array. Esta función de utilidad es la
+que se está probando en el último test, donde primero nos aseguramos que se ha obtenido la lista de reglas de la
+guía actual y a continuación nos aseguramos que la propiedad `rules` definida en el controlador tiene la estructura
+que se necesita para poder proporcionársela al componente que renderiza las guías.
 
 Testing
 -------
@@ -2514,7 +2625,7 @@ Utilización de Karma test runner para probar nuestros servicios y controladores
 Tests end-to-end con Protractor
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Hablar del framework de tests Protractor y mencionar cómo lo hemos aplicado para realizar pruebas end-to-end en nuestro
-proyecto.
+proyecto. El escenario _Editar reglas_
 
 Material utilizado
 ------------------

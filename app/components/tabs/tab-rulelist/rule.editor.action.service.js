@@ -5,7 +5,7 @@
 angular.module('app.services')
     .factory('actionFactory', actionFactory);
 
-function actionFactory($log, expressionItemFactory, modalService, guidelineFactory, utilsFactory) {
+function actionFactory($log, expressionItemFactory, modalService) {
 
     return {
         createEntry: createEntry,
