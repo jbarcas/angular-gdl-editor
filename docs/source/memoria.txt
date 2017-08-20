@@ -417,7 +417,7 @@ dichos tests sean muy rápidos.
 
 En AngularJS un módulo se declara de una manera muy sencilla.
 
-[source, python, numbered]
+[source, python]
 ----------------------------------------------------
 // declare a module
 var myAppModule = angular.module('myApp', []);
@@ -434,7 +434,7 @@ myAppModule.filter('greet', function() {
 Dicho módulo se utilizaría en la vista declarándolo con la _directiva_ `ng-app`. Esta _directiva_ le dice a Angular que
 inicie la aplicación usando el módulo _myApp_.
 
-[source, html, numbered]
+[source, html]
 -------------------------
 <div ng-app="myApp">
   <div>
@@ -492,7 +492,7 @@ funcional de un módulo, con
  objeto `module` visto anteriormente. Este método acepta, como mínimo, un parámetro llamado `$scope`, que representa
  el alcance de variables, modelos y métodos del controlador.
 
-[source, python, numbered]
+[source, python]
 ----------------------------------------------------
 var app = angular.module("MyApp", []);
 app.controller("mainController", function($scope) {
@@ -508,7 +508,7 @@ del controlador, sean nativos de AngularJS u otros componentes creados por nosot
 Angular hace uso intensivo de la inyección de dependencias en todos sus componentes, para inyectar nuevas
 dependencias simplemente se le pasan como parámetros al controlador separados por comas.
 
-[source, python, numbered]
+[source, python]
 ----------------------------------------------------------------------
 app.controller('mainController', function($scope, servicio, factoria) {
    //contenido
@@ -519,7 +519,7 @@ Tal como se ha comentado anteriormente, en la vista se usa la directiva `ng-cont
 definido a la vista. El controlador debemos añadirlo en el nivel de anidamiento adecuado en el cual se quiere que
 tenga alcance.
 
-[source, html, numbered]
+[source, html]
 -------------------------
 <body>
    <div ng-controller="mainController">
@@ -531,14 +531,14 @@ tenga alcance.
 Dentro del alcance donde se haya declarado el controlador se tiene un objeto `$scope` que permite controlar los datos.
 A continuación se muestra un sencillo ejemplo de cómo se pueden mostrar los datos del controlador en la vista.
 
-[source, python, numbered]
+[source, python]
 ---------------------------------------------------
 app.controller('mainController', function($scope) {
    $scope.saludo = "AngularJS";
 });
 ---------------------------------------------------
 
-[source, html, numbered]
+[source, html]
 -------------------------
 <body>
    <div ng-controller="mainController">
@@ -573,21 +573,21 @@ Similar a la terminología usada cuando un https://developer.mozilla.org/en-US/d
 directiva es parte de su declaración. En el siguiente ejemplo se puede decir que el elemento `<input>` se corresponde
 con la directiva `ngModel`.
 
-[source, html, numbered]
+[source, html]
 -------------------------
 <input ng-model="foo">
 -------------------------
 
 El elemento `<input>` de a continuación también encaja con `ngModel`.
 
-[source, html, numbered]
+[source, html]
 -------------------------
 <input data-ng-model="foo">
 -------------------------
 
 Y el siguiente elemento `<person>` se corresponde con la directiva `person`.
 
-[source, html, numbered]
+[source, html]
 -------------------------
 <person>{{name}}</person>
 -------------------------
@@ -606,7 +606,7 @@ https://en.wikipedia.org/wiki/Letter_case#Special_case_styles[_dash-delimited_] 
 
 Por ejemplo, las siguientes formas son equivalentes y todas ellas se corresponden con la directiva `ngBind`.
 
-[source, html, numbered]
+[source, html]
 -------------------------
 <div ng-controller="Controller">
   Hello <input ng-model='name'> <hr/>
@@ -626,7 +626,7 @@ caso) que cumple los cuatro tipos mencionados puede ser referenciada desde una p
 especificar qué tipos soporta en su propiedad `restrict` de su definición. Si no se indica ninguno, por defecto
 soporta los tipos `EA`.
 
-[source, html, numbered]
+[source, html]
 -------------------------
 <my-dir></my-dir>
 <span my-dir="exp"></span>
@@ -644,7 +644,7 @@ momento. La función se invoca usando https://docs.angularjs.org/api/auto/servic
 lo cual la hace inyectable como si de un controlador se tratase. De manera análoga a la declaración de un
 controlador, una directiva se declara de la siguiente manera:
 
-[source, python, numbered]
+[source, python]
 ---------------------------------------------------
 var app = angular.module("myApp", []);
 app.directive("myDirective", function() {
@@ -773,7 +773,7 @@ requeridas por la dependencia dada. Este proceso puede llevar a una dependencia 
 
 Se puede observar mejor el código fuente de AngularJS, que implementa el método `getService`:
 
-[source, python, numbered]
+[source, python]
 ----
 function getService(serviceName) {
   if (cache.hasOwnProperty(serviceName)) {
@@ -828,7 +828,7 @@ En AngularJS se suelen utilizar con asiduidad las fachadas. Cada vez que se quie
 a una funcionalidad dada se suele crear una fachada. Por ejemplo, a continuación se muestra cómo podemos hacer una
 petición `XMLHttpRequest` POST:
 
-[source, python, numbered]
+[source, python]
 ----
 var http = new XMLHttpRequest(),
     url = '/example/new',
@@ -850,7 +850,7 @@ http.send(params);
 Pero si se quiere hacer un POST de esos mismos datos usando el servicio `$http` de AngularJS, se puede hacer lo
 siguiente:
 
-[source, python, numbered]
+[source, python]
 ----
 $http({
   method: 'POST',
@@ -864,7 +864,7 @@ $http({
 
 o, incluso, se podría hacer de la siguiente manera:
 
-[source, python, numbered]
+[source, python]
 ----
 $http.post('/someUrl', data)
 .then(function (response) {
@@ -894,7 +894,7 @@ Se pueden distinguir 3 tipos de proxies:
 Se mencionará la implementación que AngularJS tiene del proxy virtual. A continuación se muestra una llamada al
 método `get` de la instancia `$resource`, llamada `User`:
 
-[source, python, numbered]
+[source, python]
 ----
 var User = $resource('/users/:id'),
     user = User.get({ id: 42 });
@@ -908,7 +908,7 @@ este objeto como proxy virtual (un simple _placeholder_), que se rellenaría con
 cliente reciba la respuesta del servidor. Esto en Angular funciona de la siguiente manera, consideremos el siguiente
 _snippet_:
 
-[source, python, numbered]
+[source, python]
 ----
 function MainCtrl($scope, $resource) {
   var User = $resource('/users/:id'),
@@ -916,7 +916,7 @@ function MainCtrl($scope, $resource) {
 }
 ----
 
-[source, html, numbered]
+[source, html]
 ----
 <span ng-bind="user.name"></span>
 ----
@@ -1560,7 +1560,6 @@ Cierre::
 En esta fase se encuentran las típicas actividades de fin de proyecto dirigidas a obtener una versión distribuible,
 como el _testing_, el _debugging_, la promoción, el _marketing_, etc.
 
-
 Ventajas de Scrum
 ^^^^^^^^^^^^^^^^^
 Scrum proporciona una serie de ventajas al proyecto. Debido a la filosofía de las metodologías ágiles y a las
@@ -1661,12 +1660,12 @@ desarrollo guiado por las reuniones regulares por parte de las partes implicadas
 
 Desarrollo
 ----------
-La fase de desarrollo de este editor de guías clínicas se ha llevado a cabo en X iteraciones o Sprints de Scrum,
+La fase de desarrollo de este editor de guías clínicas se ha llevado a cabo en cuatro iteraciones o Sprints de Scrum,
 obteniéndose al final de cada una de ellas una aplicación funcional y operativa. Cada iteración se corresponde con
-cada una de las funcionalidades que representa cada caso de uso y consta de una fase de análisis, una de diseño, una de
+varias de las funcionalidades que representan los caso de uso y consta de una fase de análisis, una de diseño, una de
 implementación y una de pruebas. Siguiendo la metodología Scrum, ha habido una reunión de planificación antes del
-primer Sprint para decidir el orden de las funcionalidades a desarrollar en cada Sprint. A mayores nos hemos reunido
-antes de empezar cada iteración para decidir los componentes a desarrollar durante la misma.
+primer Sprint para decidir el orden de las funcionalidades a desarrollar en cada iteración. A mayores nos hemos reunido
+antes de empezar cada Sprint para decidir los componentes a desarrollar durante el mismo.
 
 A continuación se muestra un diagrama de despliegue de alto nivel, que ayuda a situar cada componente de los que se
 mencionan en esta memoria:
@@ -2010,7 +2009,7 @@ En `index.html` se cuenta con dos https://docs.angularjs.org/guide/component[com
 que indica la guía seleccionada y otro que define un conjunto de pestañas donde, cada una de ellas, va a permitir crear,
 editar o eliminar ciertas características de las guías clínicas.
 
-[source,html,numbered]
+[source,html]
 ----
 <div class="container-fluid">
   <gdl-panel></gdl-panel>
@@ -2023,7 +2022,7 @@ permiten editar las guías. Las guías tienen que mostrarse en la vista que se c
 la que está asociada con el _estado_ anteriormente definido (_tab-guidelines_). Este estado hace que se cargue la
 vista correspondiente en dicha pestaña, a continuación se muestra la vista y el controlador asociados a dicho estado.
 
-[source,html,numbered]
+[source,html]
 ----
 include::../../app/components/tabs/tab-guidelines/tab-guidelines.html[]
 ----
@@ -2032,7 +2031,7 @@ Tal como indica el `routes.js`, esta vista tiene asociado un controlador con un 
 Este controlador se llama `GuidelineCtrl` y es definido en `tab.guidelines.controller.js`, a continuación se muestra
 dicho controlador.
 
-[source,python,numbered]
+[source,python]
 ----
 include::../../app/components/tabs/tab-guidelines/tab.guidelines.controller.js[]
 ----
@@ -2043,7 +2042,7 @@ controlador se le inyecta un servicio (`guidelinesFactory`), que se ha definido 
 realizar la petición correspondiente a la API REST proporcionada por el CKM. Como vemos a continuación, este servicio
 cuenta con un método `getGuidelines()` que recupera las guías clínicas.
 
-[source,python,numbered]
+[source,python]
 ----
 include::../../app/components/tabs/tab-guidelines/tab.guidelines.service.js[]
 ----
@@ -2071,7 +2070,7 @@ configuración necesaria para la ejecución de los tests. Como se ha mencionado,
 utilizado el _testrunner_ Karma, el cual necesita un fichero de configuración denominado `karma.conf` y que tiene que
 estar en el directorio raíz del proyecto. A continuación se muestra el contenido de dicho fichero para nuestro proyecto.
 
-[source,python,numbered]
+[source,python]
 ----
 include::../../karma.conf.js[]
 ----
@@ -2105,7 +2104,7 @@ proporciona un servicio llamado `$controller` que se puede utilizar para testear
 instanciar dicho controlador. Siguiendo la guía de buenas prácticas, al fichero que contiene los tests unitarios para
 testear el controlador `tab.guidelines.controller.js` le hemos llamado `tab.guidelines.controller.spec.js`
 
-[source,python,numbered]
+[source,python]
 ----
 include::../../app/components/tabs/tab-guidelines/tab.guidelines.controller.spec.js[]
 ----
@@ -2126,7 +2125,7 @@ propia versión de `$httpBackend` con ciertas ventajas que nos ayudan a simular 
 la guía de buenas prácticas, al fichero que contiene los tests unitarios para testear el servicio `tab.guidelines.service.js`
 le hemos llamado `tab.guidelines.service.spec.js`
 
-[source,python,numbered]
+[source,python]
 ----
 include::../../app/components/tabs/tab-guidelines/tab.guidelines.service.spec.js[]
 ----
@@ -2298,7 +2297,7 @@ Cabe mencionar el desarrollo de una directiva para la gestión de fechas. En Ang
 elemento del DOM debe realizarse mediante una https://docs.angularjs.org/guide/directive[directiva]. A continuación se
 muestra el código de la directiva `transformDate`.
 
-[source,python,numbered]
+[source,python]
 ----
 include::../../app/components/tabs/tab-description/tab.description.directive.js[]
 ----
@@ -2309,7 +2308,7 @@ directiva https://docs.angularjs.org/api/ng/directive/ngModel[ngModel] que vincu
 `$scope` de AngularJS. Además de esta vinculación se definen dos métodos para gestionar las palabras clave y
 colaboradores. A continuación se muestra dicho controlador.
 
-[source,python,numbered]
+[source,python]
 ----
 include::../../app/components/tabs/tab-description/tab.description.controller.js[]
 ----
@@ -2438,7 +2437,7 @@ Pruebas
 Siguiendo la guía de buenas prácticas, al fichero que contiene los test unitarios para testear el controlador
 `DefinitionsCtrl` definido en el fichero `tab.definitions.controller.js`, le hemos llamado `tab.definitions.controller.spec.js`.
 
-[source,python,numbered]
+[source,python]
 ----
 include::../../app/components/tabs/tab-description/tab.description.controller.spec.js[]
 ----
@@ -2488,8 +2487,8 @@ de las definiciones. La versión actual de GDL soporta seis tipos de condiciones
 * _Compare (Element)_: compara el valor de una instancia de elemento con el valor de otra instancia de elemento.
 * _Compare (Attribute)_: compara el atributo de una instancia de elemento con una constante o una expresión (véase
 <<_editor_de_expresiones, Editor de expresiones>>).
-* El elemento se inicializa: comprueba si la instancia del elemento tiene o no tiene ningún valor asignado.
-* _O operator_: realiza una disyunción lógica entre dos condiciones.
+* _Element exists_: comprueba si la instancia del elemento tiene o no tiene ningún valor asignado.
+* _Or operator_: realiza una disyunción lógica entre dos condiciones.
 
 Gestionar acciones::
 Se trata de las acciones que se ejecutan cuando se cumplen las condiciones, actualmente se soportan cuatro tipos de
@@ -2500,6 +2499,13 @@ acciones:
 * _Set (Element)_: copia el valor de una instancia de elemento a otra.
 * _Set (Attribute)_: establece el valor de un atributo utilizando una constante o una expresión (consulte
 <<_editor_de_expresiones, Editor de expresiones>>).
+
+Gestionar precondiciones::
+Se trata de una serie de condiciones que se tienen que cumplir para que la guía pueda ser ejecutada. Las precondiciones
+se gestionan en la pestaña _Preconditions_, de manera similar a cómo se gestionan las _condiciones_ y las _acciones_.
+Poseen su propio editor de precondiciones. Están soportados los mismos tipos de precondiciones que de condiciones,
+_i.e._ _Compare (DataValue)_, _Compare (NullValue)_, _Compare (Element)_, _Compare (Attribute)_, _Element exists_ y
+_Or operator_.
 
 Diseño
 ^^^^^^
@@ -2513,7 +2519,7 @@ image::use-cases-iter-3.png[scaledwidth="90%"]
 
 De los dos escenarios que se incorporan en esta iteración, se ha elaborado de un diagrama de clases para la
 funcionalidad de edición de reglas--la edición de precondiciones se obvia, por ser más sencilla--donde se muestra el
-comportamiento controladores, factorías, servicios, etc. y las colaboraciones entre ellos.
+comportamiento de controladores, factorías, servicios, etc. y las colaboraciones entre ellos.
 
 [[classes-iter-3]]
 .Diagrama de colaboraciones entre componentes en la iteración 3.
@@ -2523,14 +2529,14 @@ En el diagrama anterior se pone de manifiesto cómo el controlador que gestiona 
 lista de reglas (`RulelistCtrl`) depende de `guidelineFactory`, esto lo hace para obtener la ontología y para añadir o
 eliminar reglas a una guía. Asimismo, el controlador que gestiona el editor de las reglas, `RuleEditorCtrl`, utiliza
 dos servicios, `conditionFactory` y `actionFactory` para la gestión de los diferentes tipos de condiciones y acciones
-del editor. Se puede observar que también depende de `guidelineFactory` y de `expressionItemFactory` para la gestión
-de las expresiones utilizadas tanto en las condiciones como en las acciones.
+respectivamente del editor. Se puede observar que también depende de `guidelineFactory` y de `expressionItemFactory`
+para la gestión de las expresiones utilizadas tanto en las condiciones como en las acciones.
 
 Implementación
 ^^^^^^^^^^^^^^
 Para la tercera iteración se parte del hecho de que el usuario ha seleccionado una guía clínica y, por lo tanto,
 se dispone de una representación JSON de dicha guía en memoria. En esta fase se transforma el resultado de las fases
-anteriores en un subproyecto funcional que contiene los casos de uso descritos.
+anteriores en un subproyecto funcional que implemente los casos de uso descritos.
 
 En cuanto a la edición de reglas GDL, como se puede ver en la <<gom>>, una guía clínica consta de una o varias reglas,
 en concreto en la clase _GuideDefinition_ existe un atributo _rules_ que es un mapa de reglas, indexado por un
@@ -2552,7 +2558,7 @@ ordenarán automáticamente para su visualización. En el objeto de configuraci�
 se le indica que cuando se suelte un nodo se recalcule la prioridad de la guía dependiendo de donde se haya colocado
 dicho nodo.
 
-[source,python,numbered]
+[source,python]
 ----
 include::../../app/components/tabs/tab-rulelist/tab.rulelist.controller.js[]
 ----
@@ -2573,6 +2579,29 @@ Cabe mencionar, como se puede ver en la <<classes-iter-3>>, que se han desarroll
 acciones respectivamente del editor de reglas. Se ha hecho de esta manera para simplificar y delimitar mejor las
 funcionalidades de cada una de ellas, obteniendo unos servicios más manejables y fáciles de comprender.
 
+La implementación de las precondiciones es más sencilla y se ha desarrollado una vista muy parecida a la de las
+condiciones.
+
+[source,html]
+----
+include::../../app/components/tabs/tab-preconditions/tab-preconditions.html[]
+----
+
+Se utiliza el componente de árbol `ui.tree` para el renderizado de cada una de las precondiciones. Se recorre el
+modelo que representa las precondiciones haciendo uso de `ng-repeat` y renderizando el operando izquierdo, el
+operador y el operando derecho (en caso de que lo tenga) de cada una de ellas, asignando a cada uno de ellos el
+manejador de eventos correspondiente. A continuación se muestra el controlador que gestiona la lógica de negocio que
+hay tras la vista de las precondiciones.
+
+[source,python]
+----
+include::../../app/components/tabs/tab-preconditions/tab.preconditions.controller.js[]
+----
+
+En el controlador `PreconditionsCtrl` define una serie de métodos para obtener las precondiciones de la guía y para
+su gestión, cuya lógica de negocio la delega en los servicios `guidelineFactory`, `expressionItemFactory`,
+`conditionFactory`, ya que esta lógica de negocio es reutilizada en otros controladores.
+
 Pruebas
 ^^^^^^^
 En esta sección se proporcionan los tests unitarios que se han desarrollado para las funcionalidades de la tercera
@@ -2587,7 +2616,7 @@ disponible en los tests. Pasamos esto en el `beforeEach`, que es la función que
 ejecutar código antes de cada test. A partir de aquí se puede usar el método `inject` para tener acceso a `$controller`,
 el servicio que es responsable de instanciar los controladores.
 
-[source,python,numbered]
+[source,python]
 ----
 include::../../app/components/tabs/tab-rulelist/tab.rulelist.controller.spec.js[]
 ----
@@ -2611,6 +2640,245 @@ que se está probando en el último test, donde primero nos aseguramos que se ha
 guía actual y a continuación nos aseguramos que la propiedad `rules` definida en el controlador tiene la estructura
 que se necesita para poder proporcionársela al componente que renderiza las guías.
 
+Iteración 4
+~~~~~~~~~~~
+La iteración cuatro es la última y se ha tratado de dejar el proyecto en un estado funcional que comprendiese todas
+las escenarios descritos en los objetivos del proyecto.
+
+Análisis
+^^^^^^^^
+En esta última iteración se han implementado los restantes casos de uso, es decir, aquellas funcionalidades que
+permitan editar la terminología de las guías, los enlaces con terminologías externas, visualizar el código GDL de la
+guía clínica, así como una visualización en formato HTML de modo que el usuario pueda, con un sólo vistazo conocer
+toda la información relacionada con la guía. Asimismo se necesita cubrir el caso de uso relacionado con el
+almacenamiento de la guía modificada en el _backend_.
+
+Descripción de los casos de uso.
++++++++++++++++++++++++++++++++
+
+Editar terminología::
+La edición de los términos utilizados en la guía se hace en la pestaña _Terminology_, donde se muestra una relación de
+todas las definiciones de los términos locales encontrados en el GDL, que tienen la forma _[gtNNNN]_. Para cada uno de
+los términos se muestra un campo con su código _gt_ local, un campo con el texto del término en sí, un campo para
+indicar una descripción de dicho concepto y un mecanismo que permita gestionar cada término (editar cada uno de los
+campos anteriores y/o eliminar dicho concepto).
+
+Añadir términos locales::
+Dentro de la edición terminología debe poderse añadir términos locales a la guía y darles un texto y una descripción.
+
+Editar enlaces::
+Se lleva a cabo en la pestaña _Binding_, se utiliza para describir las equivalencias entre los términos locales de
+las guías clínicas y los términos que figuran en las terminologías externas. Para cada terminología con la que se
+quiera enlazar y cada enlace debe mostrar su _código gt_ acompañado de su definición literal (el texto del término
+mencionado en el caso de uso anterior), un listado de códigos con los que dicho término se puede enlazar y una URI
+(esto último todavía no está soportado por GDL).
+
+Añadir enlaces nuevos::
+Para cada una de las terminologías se deben poder añadir nuevos enlaces. Para ello se seleccionará un término
+existente en la guía y se podrán editar sus enlaces haciendo uso del caso de uso anteriormente mencionado.
+
+Añadir terminologías a los enlaces::
+Los enlaces se clasifican dependiendo a la terminología a la que hagan referencia. Se debe poder añadir una
+terminología a la cual enlazar términos de una guía.
+
+Eliminar terminologías de los enlaces::
+De la misma manera que se añaden terminologías (ver caso de uso anterior), se deben poder eliminar dichas terminologías.
+
+Visualizar GDL::
+Visualización del código GDL que se está generando. Debe existir la posibilidad de almacenar la guía clínica en este
+formato en local.
+
+Visualizar la guía en formato HTML::
+Visualización informativa de la guía actual en formato HTML, de forma que pueda verse de una manera amigable toda la
+información de autoría y clínica de la guía
+
+Almacenar guía clínica::
+La guía que se está editando debe poder almacenarse en el _backend_ de la aplicación.
+
+Diseño
+^^^^^^
+Con el fin de una mejor comprensión de los casos de uso que se pretenden abordar en esta última iteración,
+se ha elaborado un diagrama de casos de uso que, al igual que en iteraciones anteriores, refina algunos casos de
+uso base en casos de uso más simples.
+
+[[use-cases-iter-4]]
+.Casos de uso de la iteración 4.
+image::use-cases-iter-4.png[scaledwidth="80%"]
+
+Se han refinado los casos de uso _Editar terminologías_ y _Editar enlaces_. El pimero ha dado lugar a un nuevo caso de
+uso denominado _Añadir término local_ y del segundo han surgido los casos de uso _Añadir enlaces nuevos_, _Añadir
+terminologías a los enlaces_ y _Eliminar terminologías de los enlaces_.
+
+A continuación se muestra un diagrama de secuencia con una de las funcionalidades de esta iteración consistente en la
+edición de un enlace terminológico.
+
+[[sequence-editBinding]]
+.Diagrama de secuencia para "Editar enlace".
+image::sequence-editBinding.png[scaledwidth="80%"]
+
+La edición de enlaces se hace en la pestaña _Binding_. En el momento que se activa dicha pestaña, automáticamente se
+ejecuta el controlador que gestiona su vista (`tab-binding.html`) que, viendo el fichero `routes.js`, se trata de
+`BindingCtrl`, que hará uso del método `getTermBindings` del servicio `guidelineFactory` que se le ha inyectado para
+recuperar los enlaces a terminologías externas que tiene guía actual. Una vez recuperados se asignan al `$scope` de
+Angular y se muestran al usuario (ver <<binding-1>>). Llegados a este punto el usuario tiene varias opciones como
+editar cada enlace, eliminarlo, añadir una terminología-lo cual crearía una pestaña nueva para gestionar los
+nuevos enlaces--, añadir un nuevo enlace a la terminología actual, eliminar la terminología actual--lo que haría
+que se eliminasen todos sus enlaces y su pestaña asociada--y editar los enlaces a códigos de una terminología.
+
+Al seleccionar la edición de enlaces, el controlador llama al servicio `TerminologyFactory` para que le devuelva los
+términos de dicha terminología y poder mostrárselos al usuario, en un modal en forma de árbol--las terminologías son
+jerárquicas--para que el usuario elija el código (o códigos) de la terminología con los que quiera vincular el
+término de la guía. En el momento que el clínico seleccione un término, automáticamente se actualiza el modelo en
+memoria y se renderiza la vista. Las demás funcionalidades mencionadas en el apartado anterior no se explicarán en
+detalle por motivos de similitud con la funcionalidad mencionada, intervendrían los mismos componentes pero
+realizando diferentes operaciones.
+
+La edición terminológica de la guía tiene como finalidad permitir la edición de los términos locales utilizados en
+las guías. Al activar la vista de la pestaña _Terminology_ donde se gestionan dichos términos, se ejecuta su
+controlador asociad `TerminologyCtrl`, que vincula la ontología de la guía al contexto donde se almacena el modelo.
+Una vez obtenida la ontología, se renderiza en una tabla editable cada uno de los términos que aparecen en la guía.
+Esta tabla editable está indexada por el código _gt_ local de cada término y permite modificar tanto el texto como la
+descripción de cada uno.
+
+Los casos de uso _Visualizar GDL_ y _Visualizar la guía en formato HTML_ tienen un diseño bastante sencillo. Cada uno
+cuenta con su propio controlador  (`GdlCtrl`y `HtmlCtrl`) y su propio servicio (`GdlFactory y HtmlFactory`). El
+controlador delega en su servicio correspondiente la petición de su código fuente GDL o de su código HTML para ser
+renderizado en la vista, el primero en un editor de textos y el segundo como HTML estático que ofrece una
+visualización amigable del contenido tanto de descriptivo como clínico de la guía.
+
+Implementación
+^^^^^^^^^^^^^^
+En esta fase de implementación de la última iteración se mencionan los detalles más significativos de las
+funcionalidades que se acometieron en el _Sprint_. Para la edición de enlaces, tal como se ha visto en la sección
+anterior, se ha desarrollado una vista `tab-bindings.html` que renderiza una tabla por cada terminología externa con
+los enlaces a dichas terminologías (ver <<binding-1>>).
+
+[source,html]
+----
+include::../../app/components/tabs/tab-binding/tab-bindings.html[]
+----
+
+En esta vista cabe mencionar que se cuenta con un componente de pestañas (_tabs_), que gestiona las terminologías a
+las que se vinculan los conceptos locales de la guía. Este componentes de pestañas está sincronizado con la propiedad
+`termBindings` definida en el controlador. Un ejemplo real del modelo de esta asociada a esta propiedad puede ser el
+siguiente.
+
+----
+{
+  "termBindings": {                     <1>
+    "ICD10": {                          <2>
+      "id": "ICD10",
+      "bindings": {                     <3>
+        "gt0100": {
+          "id": "gt0100",               <4>
+          "codes": [
+            {
+              "terminologyId": {
+                "name": "ICD10",
+                "value": "ICD10"
+              },
+              "codeString": "I50"       <5>
+            }
+          ],
+          "uri": ""
+        },
+        "gt0101": {
+          "id": "gt0101",
+          "codes": [
+            {
+              "terminologyId": {
+                "name": "ICD10",
+                "value": "ICD10"
+              },
+              "codeString": "I12"
+            },
+            {
+              "terminologyId": {
+                "name": "ICD10",
+                "value": "ICD10"
+              },
+              "codeString": "I13"
+            }
+          ],
+          "uri": ""
+        }
+      }
+    },
+    "SNOMED-CT": {                      <6>
+      "id": "SNOMED-CT",
+      "bindings": {
+        "gt0100": {
+          "id": "gt0100",
+          "codes": [
+            {
+              "terminologyId": {
+                "name": "SNOMED-CT",
+                "value": "SNOMED-CT"
+              },
+              "codeString": "42343007"
+            }
+          ],
+          "uri": ""
+        }
+      }
+    }
+  }
+}
+----
+<1> Propiedad `termBindins` asociada al `$scope`.
+<2> Una terminología, en este caso ICD10.
+<3> Los enlaces de la terminología ICD10.
+<4> Término local que se quiere vincular con un terminología externa.
+<5> El código (o códigos) de la terminología asociados al término local.
+<6> Otra terminología, en este caso SNOMED-CT.
+
+En el ejemplo anterior vemos como se enlazan dos conceptos locales, _gt0100_ que se corresponde con "Insuficiencia
+cardíaca" y _gt0101_ que se corresponde con "Hipertensión". El primero de ellos se enlaza con dos códigos de IDC10 y
+el segundo con un código de SNOMED-CT. Dentro de la tabla se hace uso de la directiva `ngRepeat` que recorre los
+enlaces (ver propiedad `bindings` en el fragmento anterior) y renderiza sus campos asignándoles ciertos eventos y
+manejadores que se definen en el controlador `BindingsCtrl` que no se mostrará explícitamente por cuestiones de
+espacio, pero puede consultarse en el repositorio de código del proyecto.
+
+La edición de la terminología de la guía (edición de términos locales) se hace a través de la vista `tab-terminology
+.html` (ver <<terminology-1>>) que renderiza una tabla editable que permite modificar tanto el texto como la
+descripción de cada termino. El módulo `xEditable` que se muestra en la <<architecture>> se utilizó para generar
+dicha tabla, ya que el hecho de que fuese una tabla editable era un requisito de la aplicación. El controlador
+`TerminologyCtrl` se trae a memoria la ontología de la guía y renderiza sus términos locales. Este controlador define
+los métodos necesarios para la gestión de los términos locales.
+
+Pruebas
+^^^^^^^
+A continuación se muestran los tests unitarios que se han desarrollado para probar las principales funcionalidades
+que se abordaron en la última iteración.
+
+Comenzando con el enlace a terminologías externas se decidió que las principales funcionalidades se podrían probar
+testeando en controlador `BindingCtrl` que se ha definido de la siguiente manera.
+
+[source,python]
+----
+include::../../app/components/tabs/tab-binding/tab.bindings.controller.spec.js[]
+----
+
+Se comienza el test cargando los módulos necesarios para ejecutar las funcionalidades que vamos a probar, al igual
+que se ha hecho en iteraciones anteriores. Hacemos un _mock_ de una guía de pruebas para comprobar que los métodos
+que testeamos del controlador van a devolver correctamente lo que se le solicita. A continuación, usando el servicio
+`$controller`, se instancia el controlador que se quiere probar, en este caso, `BindingCtrl` con los servicios
+inyectados que interesen para dichas funcionalidades. Las comprobaciones que se hacen para este controlador son, en
+primer lugar, que el controlador esté definido. se comprueba que la propiedad `terminologies` utilizada
+constantemente para esta funcionalidad esté definida y vacía antes de que se ejecute el controlador, que los métodos
+`addBinding()`, `getCodes()`, `newBinding`, `newTerminology`, `removeBinding` , `removeBindingTerminology` están
+definidos. A continuación se comprueba la que la propiedad `termBinding` se corresponde con el primer objeto--ya que
+es el que se muestra por defecto--de la propiedad `termBindings`, se comprueba que su identificador es _ICD10_ y que
+cuenta con 6 enlaces exactamente para esta guía clínica de pruebas. Finalmente, se hace la comprobación de que se ha
+llamado  correctamente al método `getTermBindings` que devuelve todos los enlaces la guía, que se ha vinculado
+correctamente con la propiedad del controlador `termBindings` y se comprueba que el objeto que contiene con los datos
+es el correcto comparándolo con la guía clínica de pruebas.
+
+Para la escenario relacionada con la gestión de los términos locales, se ha definido otra batería de tests en el
+fichero `tab.terminology.controller.spec` en el que se han probado las funcionalidades que se han considerado más
+importantes para la realización de su cometido.
+
+
 Testing
 -------
 
@@ -2632,6 +2900,7 @@ Material utilizado
 
 * Sistema operativo Ubuntu 14.04, GNOME 3.
 * IDE JetBrain WebStorm.
+* ¿UML? Mostrar cómo se utiliza UML para un proyecto AngularJS
 * NodeJS como entorno de ejecución de la aplicación cliente.
 * SGBD PostgreSQL.
 * Servidor de aplicaciones JBoss Server EAP 6.2.
@@ -2656,7 +2925,7 @@ Resultados y discusión
 Mencionar y discutir los resultados obtenidos, tanto los que se pudieron abordar como los que no.
 
 * Internacionalización de la aplicación
-* Permitir diversos lenguajes
+* Permitir diversos lenguajes, hablar del cambio de lenguaje en la pestaña terminología.
 * Soporte para Slots
 
 
@@ -2797,8 +3066,8 @@ tipos de condiciones:
 * _Compare (Element)_: compara el valor de una instancia de elemento con el valor de otra instancia de elemento.
 * _Compare (Attribute)_: compara el atributo de una instancia de elemento con una constante o una expresión (véase
 <<_editor_de_expresiones, Editor de expresiones>>).
-* El elemento se inicializa: comprueba si la instancia del elemento tiene o no tiene ningún valor asignado.
-* _O operator_: realiza una disyunción lógica entre dos condiciones.
+* _Element exists_: comprueba si la instancia del elemento tiene o no tiene ningún valor asignado.
+* _Or operator_: realiza una disyunción lógica entre dos condiciones.
 
 Actualmente se soportan cuatro tipos de acciones:
 
@@ -2843,12 +3112,12 @@ auricular con anterioridad.
 
 Terminología
 ^^^^^^^^^^^^
-El editor de terminologías permite editar los diferentes términos encontrados en el GDL. Los códigos _gt_ se crean
-automáticamente cuando añadimos instancias de elemento o creamos nuevas reglas, pero tendrán que crearse manualmente
-las vinculaciones a terminologías externas.
+El editor de la terminología de la guía permite editar los diferentes términos encontrados en el GDL. Los códigos _gt_
+se crean automáticamente cuando añadimos instancias de elemento o creamos nuevas reglas, pero tendrán que crearse
+manualmente las vinculaciones a terminologías externas.
 
 [[terminology-1]]
-.Edición de terminologías.
+.Edición de la terminología.
 image::terminology-1.png[scaledwidth="80%"]
 
 Si se quiere añadir un nuevo término local, se hará haciendo clic en el botón _Add local term_, lo que creará un nuevo
@@ -3004,7 +3273,8 @@ seleccionamos el atributo _magnitude_. Por ahora, la regla debe ser similar a la
 image::calculateBMI-8.png[scaledwidth="80%"]
 
 La última parte requiere definir la expresión para calcular el IMC. Hacemos clic en el enlace de Expresión para abrir
-el editor de expresiones e ingresar la ecuación (peso / ((altura / 100) 2)). Hacemos clic en el botón _OK_ para
+el editor de expresiones e introducimos la ecuación latexmath:[ (peso / (altura/100))^2]. Hacemos clic en el botón _OK_
+para
 agregar la expresión a la acción.
 
 [[calculateBMI-9]]

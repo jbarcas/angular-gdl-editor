@@ -1,7 +1,7 @@
 {
   "gdlVersion": "0.1",
-  "id": "Estimated_GFR.v1",
-  "concept": "gt0016",
+  "id": "CHA2DS2VASc_diagnosis_review.v1",
+  "concept": "gt0036",
   "language": {
     "originalLanguage": {
       "terminologyId": {
@@ -13,84 +13,321 @@
   },
   "description": {
     "originalAuthor": {
-      "date": "2012-09-12",
-      "name": "Rong Chen",
+      "date": "2014-02-13",
+      "name": "Konstantinos Kalliamvakos",
       "organisation": "Cambio Healthcare Systems",
-      "email": "rong.chen@cambio.se"
+      "email": "Konstantinos.Kalliamvakos@cambio.se"
     },
-    "otherContributors": [
-      "Gustavo Barcelar",
-      "Iago Corbal"
-    ],
     "lifecycleState": "Author draft",
     "details": {
       "sv": {
-        "id": "sv",
-        "copyright": "Cambio Healthcare Systems"
-      },
-      "pt": {
-        "id": "pt"
-      },
-      "el": {
-        "id": "el"
+        "id": "sv"
       },
       "en": {
         "id": "en",
-        "purpose": "To calculate estimated glomerular filtration rate based on serum creatine lab test result according to the Cockcroft-Gault formula , in males, females and children.",
+        "purpose": "Provides a set of diagnosis for the calculation of CHA2DS2-VASc Score in patients with Atrial fribrilation",
         "keywords": [
-          "estimated glomerular filtration rate",
-          "estimated GFR",
-          "kidney function",
-          "creatinine",
-          "kidney",
-          "Cockcroft-Gault"
+          "CHA2DS2-VASc",
+          "stroke",
+          "atrial fibrillation",
+          "diabetes",
+          "hypertension",
+          "congestive heart failure",
+          "CHF",
+          "vascular disease"
         ],
-        "use": "Use for calculating eGFR based on Cockcroft-Gault formula.",
-        "misuse": "Do not use for caulculating eGFR based on other formulas.",
-        "copyright": "Cambio Healthcare Systems"
-      },
-      "da": {
-        "id": "da",
-        "copyright": "Cambio Healthcare Systems"
-      },
-      "es": {
-        "id": "es",
-        "purpose": "Calcular el índice de filtrado glomerular estimado basándose en el nivel de creatinina del sujeto",
-        "keywords": [
-          "IFG estimado"
-        ]
+        "use": "Use to detect relevant diagnosis for calculation of CHA2DS2-VASc Score and to overide diagnosis in patients with Atrial fibrilation",
+        "misuse": "",
+        "copyright": ""
       }
     },
     "otherDetails": {
-      "references": "1. M. Rowland and T. N. Tozer, “Clinical Pharmacokinetics. Concepts and Applications,” 3rd Edition, Lea & Febiger, Philadelphia, London, 1995."
+      "references": "1. European Heart Rhythm Association; European Association for Cardio-Thoracic Surgery, Camm AJ, Kirchhof P, Lip GY, Schotten U, Savelieva I, Ernst S, Van Gelder IC, Al-Attar N, Hindricks G, Prendergast B, Heidbuchel H, Alfieri O, Angelini A, Atar D, Colonna P, De Caterina R, De Sutter J, Goette A, Gorenek B, Heldal M, Hohloser SH, Kolh P, Le Heuzey JY, Ponikowski P, Rutten FH. Guidelines for the management of atrial fibrillation: the Task Force for the Management of Atrial Fibrillation of the European Society of Cardiology (ESC). Eur Heart J. 2010 Oct;31(19):2369-429. Epub 2010 Aug 29. Erratum in: Eur Heart J. 2011 May;32(9):1172. PubMed PMID: 20802247."
     }
   },
   "definition": {
     "archetypeBindings": {
-      "gt0021": {
-        "id": "gt0021",
-        "archetypeId": "openEHR-EHR-OBSERVATION.estimated_glomerular_filtration_rate.v1",
-        "domain": "CDS",
-        "elements": {
-          "gt0011": {
-            "id": "gt0011",
-            "path": "/data[at0001]/events[at0002]/data[at0003]/items[at0004]"
-          }
-        },
-        "predicates": []
-      },
-      "gt0020": {
-        "id": "gt0020",
-        "archetypeId": "openEHR-EHR-OBSERVATION.lab_test-urea_and_electrolytes.v1",
+      "gt0164": {
+        "id": "gt0164",
+        "archetypeId": "openEHR-EHR-EVALUATION.problem-diagnosis.v1",
+        "templateId": "diagnosis_icd10",
         "domain": "EHR",
         "elements": {
-          "gt0009": {
-            "id": "gt0009",
-            "path": "/data[at0001]/events[at0002]/data[at0003]/items[at0078.7]"
+          "gt0112": {
+            "id": "gt0112",
+            "path": "/data[at0001]/items[at0002.1]"
+          },
+          "gt0129": {
+            "id": "gt0129",
+            "path": "/data[at0001]/items[at0003]"
           }
         },
         "predicates": [
-          "max(/data/events/time)"
+          "/data[at0001]/items[at0002.1] is_a local::gt0104|Vascular disease|"
+        ],
+        "predicateStatements": [
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "path": "/data[at0001]/items[at0002.1]"
+                }
+              },
+              "right": {
+                "type": "CodedTextConstant",
+                "expressionItem": {
+                  "codedText": {
+                    "definingCode": {
+                      "terminologyId": {
+                        "name": "local",
+                        "value": "local"
+                      },
+                      "codeString": "gt0104"
+                    },
+                    "value": "Vascular disease"
+                  },
+                  "value": "local::gt0104|Vascular disease|"
+                }
+              },
+              "operator": "IS_A"
+            }
+          }
+        ]
+      },
+      "gt0160": {
+        "id": "gt0160",
+        "archetypeId": "openEHR-EHR-EVALUATION.problem-diagnosis.v1",
+        "templateId": "diagnosis_icd10",
+        "domain": "EHR",
+        "elements": {
+          "gt0123": {
+            "id": "gt0123",
+            "path": "/data[at0001]/items[at0003]"
+          },
+          "gt0108": {
+            "id": "gt0108",
+            "path": "/data[at0001]/items[at0002.1]"
+          }
+        },
+        "predicates": [
+          "/data[at0001]/items[at0002.1] is_a local::gt0101|Hypertension|"
+        ],
+        "predicateStatements": [
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "path": "/data[at0001]/items[at0002.1]"
+                }
+              },
+              "right": {
+                "type": "CodedTextConstant",
+                "expressionItem": {
+                  "codedText": {
+                    "definingCode": {
+                      "terminologyId": {
+                        "name": "local",
+                        "value": "local"
+                      },
+                      "codeString": "gt0101"
+                    },
+                    "value": "Hypertension"
+                  },
+                  "value": "local::gt0101|Hypertension|"
+                }
+              },
+              "operator": "IS_A"
+            }
+          }
+        ]
+      },
+      "gt0161": {
+        "id": "gt0161",
+        "archetypeId": "openEHR-EHR-EVALUATION.problem-diagnosis.v1",
+        "templateId": "diagnosis_icd10",
+        "domain": "EHR",
+        "elements": {
+          "gt0109": {
+            "id": "gt0109",
+            "path": "/data[at0001]/items[at0002.1]"
+          },
+          "gt0126": {
+            "id": "gt0126",
+            "path": "/data[at0001]/items[at0003]"
+          }
+        },
+        "predicates": [
+          "/data[at0001]/items[at0002.1] is_a local::gt0102|Diabetes|"
+        ],
+        "predicateStatements": [
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "path": "/data[at0001]/items[at0002.1]"
+                }
+              },
+              "right": {
+                "type": "CodedTextConstant",
+                "expressionItem": {
+                  "codedText": {
+                    "definingCode": {
+                      "terminologyId": {
+                        "name": "local",
+                        "value": "local"
+                      },
+                      "codeString": "gt0102"
+                    },
+                    "value": "Diabetes"
+                  },
+                  "value": "local::gt0102|Diabetes|"
+                }
+              },
+              "operator": "IS_A"
+            }
+          }
+        ]
+      },
+      "gt0162": {
+        "id": "gt0162",
+        "archetypeId": "openEHR-EHR-EVALUATION.problem-diagnosis.v1",
+        "templateId": "diagnosis_icd10",
+        "domain": "EHR",
+        "elements": {
+          "gt0110": {
+            "id": "gt0110",
+            "path": "/data[at0001]/items[at0002.1]"
+          },
+          "gt0127": {
+            "id": "gt0127",
+            "path": "/data[at0001]/items[at0003]"
+          }
+        },
+        "predicates": [
+          "/data[at0001]/items[at0002.1] is_a local::gt0100|Congestive heart failure|"
+        ],
+        "predicateStatements": [
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "path": "/data[at0001]/items[at0002.1]"
+                }
+              },
+              "right": {
+                "type": "CodedTextConstant",
+                "expressionItem": {
+                  "codedText": {
+                    "definingCode": {
+                      "terminologyId": {
+                        "name": "local",
+                        "value": "local"
+                      },
+                      "codeString": "gt0100"
+                    },
+                    "value": "Congestive heart failure"
+                  },
+                  "value": "local::gt0100|Congestive heart failure|"
+                }
+              },
+              "operator": "IS_A"
+            }
+          }
+        ]
+      },
+      "gt0163": {
+        "id": "gt0163",
+        "archetypeId": "openEHR-EHR-EVALUATION.problem-diagnosis.v1",
+        "templateId": "diagnosis_icd10",
+        "domain": "EHR",
+        "elements": {
+          "gt0111": {
+            "id": "gt0111",
+            "path": "/data[at0001]/items[at0002.1]"
+          },
+          "gt0128": {
+            "id": "gt0128",
+            "path": "/data[at0001]/items[at0003]"
+          }
+        },
+        "predicates": [
+          "/data[at0001]/items[at0002.1] is_a local::gt0103|Previous stroke or TIA|"
+        ],
+        "predicateStatements": [
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "path": "/data[at0001]/items[at0002.1]"
+                }
+              },
+              "right": {
+                "type": "CodedTextConstant",
+                "expressionItem": {
+                  "codedText": {
+                    "definingCode": {
+                      "terminologyId": {
+                        "name": "local",
+                        "value": "local"
+                      },
+                      "codeString": "gt0103"
+                    },
+                    "value": "Previous stroke or TIA"
+                  },
+                  "value": "local::gt0103|Previous stroke or TIA|"
+                }
+              },
+              "operator": "IS_A"
+            }
+          }
+        ]
+      },
+      "gt0157": {
+        "id": "gt0157",
+        "archetypeId": "openEHR-EHR-EVALUATION.chadsvas_diagnosis_review.v1",
+        "domain": "EHR",
+        "elements": {
+          "gt0142": {
+            "id": "gt0142",
+            "path": "/data[at0001]/items[at0037]"
+          },
+          "gt0143": {
+            "id": "gt0143",
+            "path": "/data[at0001]/items[at0039]"
+          },
+          "gt0140": {
+            "id": "gt0140",
+            "path": "/data[at0001]/items[at0038]"
+          },
+          "gt0141": {
+            "id": "gt0141",
+            "path": "/data[at0001]/items[at0036]"
+          },
+          "gt0139": {
+            "id": "gt0139",
+            "path": "/data[at0001]/items[at0040]"
+          },
+          "gt0137": {
+            "id": "gt0137",
+            "path": "/data[at0001]/items[at0035]"
+          },
+          "gt0138": {
+            "id": "gt0138",
+            "path": "/data[at0001]/items[at0041]"
+          }
+        },
+        "predicates": [
+          "max(/data[at0001]/items[at0041])"
         ],
         "predicateStatements": [
           {
@@ -99,7 +336,7 @@
               "operand": {
                 "type": "Variable",
                 "expressionItem": {
-                  "path": "/data/events/time"
+                  "path": "/data[at0001]/items[at0041]"
                 }
               },
               "operator": "MAX"
@@ -107,110 +344,523 @@
           }
         ]
       },
-      "gt0018": {
-        "id": "gt0018",
-        "archetypeId": "openEHR-EHR-OBSERVATION.body_weight.v1",
-        "domain": "EHR",
+      "gt0158": {
+        "id": "gt0158",
+        "archetypeId": "openEHR-EHR-EVALUATION.chadsvas_diagnosis_review.v1",
+        "domain": "CDS",
         "elements": {
-          "gt0005": {
-            "id": "gt0005",
-            "path": "/data[at0002]/events[at0003]/data[at0001]/items[at0004]"
+          "gt0117": {
+            "id": "gt0117",
+            "path": "/data[at0001]/items[at0038]"
+          },
+          "gt0118": {
+            "id": "gt0118",
+            "path": "/data[at0001]/items[at0039]"
+          },
+          "gt0119": {
+            "id": "gt0119",
+            "path": "/data[at0001]/items[at0040]"
+          },
+          "gt0124": {
+            "id": "gt0124",
+            "path": "/data[at0001]/items[at0041]"
+          },
+          "gt0114": {
+            "id": "gt0114",
+            "path": "/data[at0001]/items[at0035]"
+          },
+          "gt0115": {
+            "id": "gt0115",
+            "path": "/data[at0001]/items[at0036]"
+          },
+          "gt0116": {
+            "id": "gt0116",
+            "path": "/data[at0001]/items[at0037]"
           }
         },
         "predicates": [
-          "max(/data/events/time)"
+
+        ]
+      },
+      "gt0159": {
+        "id": "gt0159",
+        "archetypeId": "openEHR-EHR-EVALUATION.problem-diagnosis.v1",
+        "templateId": "diagnosis_icd10",
+        "domain": "EHR",
+        "elements": {
+          "gt0122": {
+            "id": "gt0122",
+            "path": "/data[at0001]/items[at0002.1]"
+          },
+          "gt0125": {
+            "id": "gt0125",
+            "path": "/data[at0001]/items[at0003]"
+          }
+        },
+        "predicates": [
+          "/data[at0001]/items[at0002.1] is_a local::gt0149|Atrial fibrillation diagnosis|"
         ],
         "predicateStatements": [
           {
-            "type": "UnaryExpression",
+            "type": "BinaryExpression",
             "expressionItem": {
-              "operand": {
+              "left": {
                 "type": "Variable",
                 "expressionItem": {
-                  "path": "/data/events/time"
+                  "path": "/data[at0001]/items[at0002.1]"
                 }
               },
-              "operator": "MAX"
+              "right": {
+                "type": "CodedTextConstant",
+                "expressionItem": {
+                  "codedText": {
+                    "definingCode": {
+                      "terminologyId": {
+                        "name": "local",
+                        "value": "local"
+                      },
+                      "codeString": "gt0149"
+                    },
+                    "value": "Atrial fibrillation diagnosis"
+                  },
+                  "value": "local::gt0149|Atrial fibrillation diagnosis|"
+                }
+              },
+              "operator": "IS_A"
+            }
+          }
+        ]
+      }
+    },
+    "preConditions": [
+
+    ],
+    "defaultActions": [
+
+    ],
+    "rules": {
+      "gt0018": {
+        "id": "gt0018",
+        "when": [
+          "$gt0119!\u003d1|local::at0051|Present|",
+          "$gt0108!\u003dnull",
+          "($gt0139\u003d\u003dnull)||($gt0123\u003e$gt0138)"
+        ],
+        "then": [
+          "$gt0119\u003d1|local::at0051|Present|"
+        ],
+        "priority": 13,
+        "whenStatements": [
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0119"
+                }
+              },
+              "right": {
+                "type": "OrdinalConstant",
+                "expressionItem": {
+                  "ordinal": {
+                    "value": 1,
+                    "symbol": {
+                      "definingCode": {
+                        "terminologyId": {
+                          "name": "local",
+                          "value": "local"
+                        },
+                        "codeString": "at0051"
+                      },
+                      "value": "Present"
+                    },
+                    "limitsIndex": -1
+                  },
+                  "value": "1|local::at0051|Present|"
+                }
+              },
+              "operator": "INEQUAL"
+            }
+          },
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0108"
+                }
+              },
+              "right": {
+                "type": "ConstantExpression",
+                "expressionItem": {
+                  "value": "null"
+                }
+              },
+              "operator": "INEQUAL"
+            }
+          },
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "BinaryExpression",
+                "expressionItem": {
+                  "left": {
+                    "type": "Variable",
+                    "expressionItem": {
+                      "code": "gt0139"
+                    }
+                  },
+                  "right": {
+                    "type": "ConstantExpression",
+                    "expressionItem": {
+                      "value": "null"
+                    }
+                  },
+                  "operator": "EQUALITY"
+                }
+              },
+              "right": {
+                "type": "BinaryExpression",
+                "expressionItem": {
+                  "left": {
+                    "type": "Variable",
+                    "expressionItem": {
+                      "code": "gt0123"
+                    }
+                  },
+                  "right": {
+                    "type": "Variable",
+                    "expressionItem": {
+                      "code": "gt0138"
+                    }
+                  },
+                  "operator": "GREATER_THAN"
+                }
+              },
+              "operator": "OR"
+            }
+          }
+        ],
+        "thenStatements": [
+          {
+            "variable": {
+              "code": "gt0119"
+            },
+            "assignment": {
+              "type": "OrdinalConstant",
+              "expressionItem": {
+                "ordinal": {
+                  "value": 1,
+                  "symbol": {
+                    "definingCode": {
+                      "terminologyId": {
+                        "name": "local",
+                        "value": "local"
+                      },
+                      "codeString": "at0051"
+                    },
+                    "value": "Present"
+                  },
+                  "limitsIndex": -1
+                },
+                "value": "1|local::at0051|Present|"
+              }
             }
           }
         ]
       },
       "gt0019": {
         "id": "gt0019",
-        "archetypeId": "openEHR-EHR-OBSERVATION.height.v1",
-        "domain": "EHR",
-        "elements": {
-          "gt0007": {
-            "id": "gt0007",
-            "path": "/data[at0001]/events[at0002]/data[at0003]/items[at0004]"
-          }
-        },
-        "predicates": [
-          "max(/data/events/time)"
+        "when": [
+          "$gt0115!\u003d1|local::at0051|Present|",
+          "$gt0109!\u003dnull",
+          "($gt0141\u003d\u003dnull)||($gt0126\u003e$gt0138)"
         ],
-        "predicateStatements": [
+        "then": [
+          "$gt0115\u003d1|local::at0051|Present|"
+        ],
+        "priority": 11,
+        "whenStatements": [
           {
-            "type": "UnaryExpression",
+            "type": "BinaryExpression",
             "expressionItem": {
-              "operand": {
+              "left": {
                 "type": "Variable",
                 "expressionItem": {
-                  "path": "/data/events/time"
+                  "code": "gt0115"
                 }
               },
-              "operator": "MAX"
+              "right": {
+                "type": "OrdinalConstant",
+                "expressionItem": {
+                  "ordinal": {
+                    "value": 1,
+                    "symbol": {
+                      "definingCode": {
+                        "terminologyId": {
+                          "name": "local",
+                          "value": "local"
+                        },
+                        "codeString": "at0051"
+                      },
+                      "value": "Present"
+                    },
+                    "limitsIndex": -1
+                  },
+                  "value": "1|local::at0051|Present|"
+                }
+              },
+              "operator": "INEQUAL"
+            }
+          },
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0109"
+                }
+              },
+              "right": {
+                "type": "ConstantExpression",
+                "expressionItem": {
+                  "value": "null"
+                }
+              },
+              "operator": "INEQUAL"
+            }
+          },
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "BinaryExpression",
+                "expressionItem": {
+                  "left": {
+                    "type": "Variable",
+                    "expressionItem": {
+                      "code": "gt0141"
+                    }
+                  },
+                  "right": {
+                    "type": "ConstantExpression",
+                    "expressionItem": {
+                      "value": "null"
+                    }
+                  },
+                  "operator": "EQUALITY"
+                }
+              },
+              "right": {
+                "type": "BinaryExpression",
+                "expressionItem": {
+                  "left": {
+                    "type": "Variable",
+                    "expressionItem": {
+                      "code": "gt0126"
+                    }
+                  },
+                  "right": {
+                    "type": "Variable",
+                    "expressionItem": {
+                      "code": "gt0138"
+                    }
+                  },
+                  "operator": "GREATER_THAN"
+                }
+              },
+              "operator": "OR"
+            }
+          }
+        ],
+        "thenStatements": [
+          {
+            "variable": {
+              "code": "gt0115"
+            },
+            "assignment": {
+              "type": "OrdinalConstant",
+              "expressionItem": {
+                "ordinal": {
+                  "value": 1,
+                  "symbol": {
+                    "definingCode": {
+                      "terminologyId": {
+                        "name": "local",
+                        "value": "local"
+                      },
+                      "codeString": "at0051"
+                    },
+                    "value": "Present"
+                  },
+                  "limitsIndex": -1
+                },
+                "value": "1|local::at0051|Present|"
+              }
             }
           }
         ]
       },
-      "gt0017": {
-        "id": "gt0017",
-        "archetypeId": "openEHR-EHR-OBSERVATION.basic_demographic.v1",
-        "domain": "EHR",
-        "elements": {
-          "gt0002": {
-            "id": "gt0002",
-            "path": "/data[at0001]/events[at0002]/data[at0003]/items[at0008]"
-          },
-          "gt0003": {
-            "id": "gt0003",
-            "path": "/data[at0001]/events[at0002]/data[at0003]/items[at0004]"
-          }
-        },
-        "predicates": [
-          "max(/data/events/time)"
+      "gt0146": {
+        "id": "gt0146",
+        "when": [
+          "$gt0115!\u003d1|local::at0051|Present|",
+          "$gt0141\u003d\u003d1|local::at0051|Present|",
+          "($gt0138\u003e$gt0126)||($gt0109\u003d\u003dnull)"
         ],
-        "predicateStatements": [
+        "then": [
+          "$gt0115\u003d1|local::at0051|Present|"
+        ],
+        "priority": 5,
+        "whenStatements": [
           {
-            "type": "UnaryExpression",
+            "type": "BinaryExpression",
             "expressionItem": {
-              "operand": {
+              "left": {
                 "type": "Variable",
                 "expressionItem": {
-                  "path": "/data/events/time"
+                  "code": "gt0115"
                 }
               },
-              "operator": "MAX"
+              "right": {
+                "type": "OrdinalConstant",
+                "expressionItem": {
+                  "ordinal": {
+                    "value": 1,
+                    "symbol": {
+                      "definingCode": {
+                        "terminologyId": {
+                          "name": "local",
+                          "value": "local"
+                        },
+                        "codeString": "at0051"
+                      },
+                      "value": "Present"
+                    },
+                    "limitsIndex": -1
+                  },
+                  "value": "1|local::at0051|Present|"
+                }
+              },
+              "operator": "INEQUAL"
+            }
+          },
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0141"
+                }
+              },
+              "right": {
+                "type": "OrdinalConstant",
+                "expressionItem": {
+                  "ordinal": {
+                    "value": 1,
+                    "symbol": {
+                      "definingCode": {
+                        "terminologyId": {
+                          "name": "local",
+                          "value": "local"
+                        },
+                        "codeString": "at0051"
+                      },
+                      "value": "Present"
+                    },
+                    "limitsIndex": -1
+                  },
+                  "value": "1|local::at0051|Present|"
+                }
+              },
+              "operator": "EQUALITY"
+            }
+          },
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "BinaryExpression",
+                "expressionItem": {
+                  "left": {
+                    "type": "Variable",
+                    "expressionItem": {
+                      "code": "gt0138"
+                    }
+                  },
+                  "right": {
+                    "type": "Variable",
+                    "expressionItem": {
+                      "code": "gt0126"
+                    }
+                  },
+                  "operator": "GREATER_THAN"
+                }
+              },
+              "right": {
+                "type": "BinaryExpression",
+                "expressionItem": {
+                  "left": {
+                    "type": "Variable",
+                    "expressionItem": {
+                      "code": "gt0109"
+                    }
+                  },
+                  "right": {
+                    "type": "ConstantExpression",
+                    "expressionItem": {
+                      "value": "null"
+                    }
+                  },
+                  "operator": "EQUALITY"
+                }
+              },
+              "operator": "OR"
+            }
+          }
+        ],
+        "thenStatements": [
+          {
+            "variable": {
+              "code": "gt0115"
+            },
+            "assignment": {
+              "type": "OrdinalConstant",
+              "expressionItem": {
+                "ordinal": {
+                  "value": 1,
+                  "symbol": {
+                    "definingCode": {
+                      "terminologyId": {
+                        "name": "local",
+                        "value": "local"
+                      },
+                      "codeString": "at0051"
+                    },
+                    "value": "Present"
+                  },
+                  "limitsIndex": -1
+                },
+                "value": "1|local::at0051|Present|"
+              }
             }
           }
         ]
-      }
-    },
-    "preConditions": [],
-    "defaultActions": [],
-    "rules": {
-      "gt0012": {
-        "id": "gt0012",
+      },
+      "gt0136": {
+        "id": "gt0136",
         "when": [
-          "$gt0002.value<=($currentDateTime.value-20,a)",
-          "$gt0003==local::at0005|Male|",
-          "$gt0005.units=='kg'",
-          "$gt0009.units=='umol/l'"
+          "$gt0114!\u003d1|local::at0051|Present|",
+          "$gt0137\u003d\u003d1|local::at0051|Present|",
+          "($gt0138\u003e$gt0125)||($gt0122\u003d\u003dnull)"
         ],
         "then": [
-          "$gt0011.magnitude=((1.23*(140-($currentDateTime.year-$gt0002.year)))*($gt0005.magnitude/$gt0009.magnitude))",
-          "$gt0011.precision=2",
-          "$gt0011.units='ml/min'"
+          "$gt0114\u003d1|local::at0051|Present|"
         ],
         "priority": 2,
         "whenStatements": [
@@ -220,8 +870,83 @@
               "left": {
                 "type": "Variable",
                 "expressionItem": {
-                  "code": "gt0002",
-                  "attribute": "value"
+                  "code": "gt0114"
+                }
+              },
+              "right": {
+                "type": "OrdinalConstant",
+                "expressionItem": {
+                  "ordinal": {
+                    "value": 1,
+                    "symbol": {
+                      "definingCode": {
+                        "terminologyId": {
+                          "name": "local",
+                          "value": "local"
+                        },
+                        "codeString": "at0051"
+                      },
+                      "value": "Present"
+                    },
+                    "limitsIndex": -1
+                  },
+                  "value": "1|local::at0051|Present|"
+                }
+              },
+              "operator": "INEQUAL"
+            }
+          },
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0137"
+                }
+              },
+              "right": {
+                "type": "OrdinalConstant",
+                "expressionItem": {
+                  "ordinal": {
+                    "value": 1,
+                    "symbol": {
+                      "definingCode": {
+                        "terminologyId": {
+                          "name": "local",
+                          "value": "local"
+                        },
+                        "codeString": "at0051"
+                      },
+                      "value": "Present"
+                    },
+                    "limitsIndex": -1
+                  },
+                  "value": "1|local::at0051|Present|"
+                }
+              },
+              "operator": "EQUALITY"
+            }
+          },
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "BinaryExpression",
+                "expressionItem": {
+                  "left": {
+                    "type": "Variable",
+                    "expressionItem": {
+                      "code": "gt0138"
+                    }
+                  },
+                  "right": {
+                    "type": "Variable",
+                    "expressionItem": {
+                      "code": "gt0125"
+                    }
+                  },
+                  "operator": "GREATER_THAN"
                 }
               },
               "right": {
@@ -230,216 +955,61 @@
                   "left": {
                     "type": "Variable",
                     "expressionItem": {
-                      "code": "currentDateTime",
-                      "attribute": "value"
+                      "code": "gt0122"
                     }
                   },
                   "right": {
-                    "type": "QuantityConstant",
+                    "type": "ConstantExpression",
                     "expressionItem": {
-                      "quantity": {
-                        "magnitude": 20,
-                        "precision": 0,
-                        "units": "a",
-                        "accuracy": 0,
-                        "accuracyPercent": false
-                      },
-                      "value": "20,a"
+                      "value": "null"
                     }
                   },
-                  "operator": "SUBSTRATION"
+                  "operator": "EQUALITY"
                 }
               },
-              "operator": "LESS_THAN_OR_EQUAL"
-            }
-          },
-          {
-            "type": "BinaryExpression",
-            "expressionItem": {
-              "left": {
-                "type": "Variable",
-                "expressionItem": {
-                  "code": "gt0003"
-                }
-              },
-              "right": {
-                "type": "CodedTextConstant",
-                "expressionItem": {
-                  "codedText": {
-                    "definingCode": {
-                      "terminologyId": {
-                        "name": "local",
-                        "value": "local"
-                      },
-                      "codeString": "at0005"
-                    },
-                    "value": "Male"
-                  },
-                  "value": "local::at0005|Male|"
-                }
-              },
-              "operator": "EQUALITY"
-            }
-          },
-          {
-            "type": "BinaryExpression",
-            "expressionItem": {
-              "left": {
-                "type": "Variable",
-                "expressionItem": {
-                  "code": "gt0005",
-                  "attribute": "units"
-                }
-              },
-              "right": {
-                "type": "StringConstant",
-                "expressionItem": {
-                  "string": "kg",
-                  "value": "kg"
-                }
-              },
-              "operator": "EQUALITY"
-            }
-          },
-          {
-            "type": "BinaryExpression",
-            "expressionItem": {
-              "left": {
-                "type": "Variable",
-                "expressionItem": {
-                  "code": "gt0009",
-                  "attribute": "units"
-                }
-              },
-              "right": {
-                "type": "StringConstant",
-                "expressionItem": {
-                  "string": "umol/l",
-                  "value": "umol/l"
-                }
-              },
-              "operator": "EQUALITY"
+              "operator": "OR"
             }
           }
         ],
         "thenStatements": [
           {
             "variable": {
-              "code": "gt0011",
-              "attribute": "magnitude"
+              "code": "gt0114"
             },
             "assignment": {
-              "type": "BinaryExpression",
+              "type": "OrdinalConstant",
               "expressionItem": {
-                "left": {
-                  "type": "BinaryExpression",
-                  "expressionItem": {
-                    "left": {
-                      "type": "ConstantExpression",
-                      "expressionItem": {
-                        "value": "1.23"
-                      }
+                "ordinal": {
+                  "value": 1,
+                  "symbol": {
+                    "definingCode": {
+                      "terminologyId": {
+                        "name": "local",
+                        "value": "local"
+                      },
+                      "codeString": "at0051"
                     },
-                    "right": {
-                      "type": "BinaryExpression",
-                      "expressionItem": {
-                        "left": {
-                          "type": "ConstantExpression",
-                          "expressionItem": {
-                            "value": "140"
-                          }
-                        },
-                        "right": {
-                          "type": "BinaryExpression",
-                          "expressionItem": {
-                            "left": {
-                              "type": "Variable",
-                              "expressionItem": {
-                                "code": "currentDateTime",
-                                "attribute": "year"
-                              }
-                            },
-                            "right": {
-                              "type": "Variable",
-                              "expressionItem": {
-                                "code": "gt0002",
-                                "attribute": "year"
-                              }
-                            },
-                            "operator": "SUBSTRATION"
-                          }
-                        },
-                        "operator": "SUBSTRATION"
-                      }
-                    },
-                    "operator": "MULTIPLICATION"
-                  }
+                    "value": "Present"
+                  },
+                  "limitsIndex": -1
                 },
-                "right": {
-                  "type": "BinaryExpression",
-                  "expressionItem": {
-                    "left": {
-                      "type": "Variable",
-                      "expressionItem": {
-                        "code": "gt0005",
-                        "attribute": "magnitude"
-                      }
-                    },
-                    "right": {
-                      "type": "Variable",
-                      "expressionItem": {
-                        "code": "gt0009",
-                        "attribute": "magnitude"
-                      }
-                    },
-                    "operator": "DIVISION"
-                  }
-                },
-                "operator": "MULTIPLICATION"
-              }
-            }
-          },
-          {
-            "variable": {
-              "code": "gt0011",
-              "attribute": "precision"
-            },
-            "assignment": {
-              "type": "ConstantExpression",
-              "expressionItem": {
-                "value": "2"
-              }
-            }
-          },
-          {
-            "variable": {
-              "code": "gt0011",
-              "attribute": "units"
-            },
-            "assignment": {
-              "type": "StringConstant",
-              "expressionItem": {
-                "string": "ml/min",
-                "value": "ml/min"
+                "value": "1|local::at0051|Present|"
               }
             }
           }
         ]
       },
-      "gt0013": {
-        "id": "gt0013",
+      "gt0147": {
+        "id": "gt0147",
         "when": [
-          "$gt0002.value<=($currentDateTime.value-20,a)",
-          "$gt0003==local::at0006|Female|",
-          "$gt0005.units=='kg'",
-          "$gt0009.units=='umol/l'"
+          "$gt0116!\u003d1|local::at0051|Present|",
+          "$gt0142\u003d\u003d1|local::at0051|Present|",
+          "($gt0138\u003e$gt0128)||($gt0111\u003d\u003dnull)"
         ],
         "then": [
-          "$gt0011.units='ml/min'",
-          "$gt0011.precision=2",
-          "$gt0011.magnitude=((1.04*(140-($currentDateTime.year-$gt0002.year)))*($gt0005.magnitude/$gt0009.magnitude))"
+          "$gt0116\u003d1|local::at0051|Present|"
         ],
-        "priority": 1,
+        "priority": 4,
         "whenStatements": [
           {
             "type": "BinaryExpression",
@@ -447,8 +1017,83 @@
               "left": {
                 "type": "Variable",
                 "expressionItem": {
-                  "code": "gt0002",
-                  "attribute": "value"
+                  "code": "gt0116"
+                }
+              },
+              "right": {
+                "type": "OrdinalConstant",
+                "expressionItem": {
+                  "ordinal": {
+                    "value": 1,
+                    "symbol": {
+                      "definingCode": {
+                        "terminologyId": {
+                          "name": "local",
+                          "value": "local"
+                        },
+                        "codeString": "at0051"
+                      },
+                      "value": "Present"
+                    },
+                    "limitsIndex": -1
+                  },
+                  "value": "1|local::at0051|Present|"
+                }
+              },
+              "operator": "INEQUAL"
+            }
+          },
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0142"
+                }
+              },
+              "right": {
+                "type": "OrdinalConstant",
+                "expressionItem": {
+                  "ordinal": {
+                    "value": 1,
+                    "symbol": {
+                      "definingCode": {
+                        "terminologyId": {
+                          "name": "local",
+                          "value": "local"
+                        },
+                        "codeString": "at0051"
+                      },
+                      "value": "Present"
+                    },
+                    "limitsIndex": -1
+                  },
+                  "value": "1|local::at0051|Present|"
+                }
+              },
+              "operator": "EQUALITY"
+            }
+          },
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "BinaryExpression",
+                "expressionItem": {
+                  "left": {
+                    "type": "Variable",
+                    "expressionItem": {
+                      "code": "gt0138"
+                    }
+                  },
+                  "right": {
+                    "type": "Variable",
+                    "expressionItem": {
+                      "code": "gt0128"
+                    }
+                  },
+                  "operator": "GREATER_THAN"
                 }
               },
               "right": {
@@ -457,52 +1102,85 @@
                   "left": {
                     "type": "Variable",
                     "expressionItem": {
-                      "code": "currentDateTime",
-                      "attribute": "value"
+                      "code": "gt0111"
                     }
                   },
                   "right": {
-                    "type": "QuantityConstant",
+                    "type": "ConstantExpression",
                     "expressionItem": {
-                      "quantity": {
-                        "magnitude": 20,
-                        "precision": 0,
-                        "units": "a",
-                        "accuracy": 0,
-                        "accuracyPercent": false
-                      },
-                      "value": "20,a"
+                      "value": "null"
                     }
                   },
-                  "operator": "SUBSTRATION"
+                  "operator": "EQUALITY"
                 }
               },
-              "operator": "LESS_THAN_OR_EQUAL"
+              "operator": "OR"
             }
-          },
+          }
+        ],
+        "thenStatements": [
           {
-            "type": "BinaryExpression",
-            "expressionItem": {
-              "left": {
-                "type": "Variable",
-                "expressionItem": {
-                  "code": "gt0003"
-                }
-              },
-              "right": {
-                "type": "CodedTextConstant",
-                "expressionItem": {
-                  "codedText": {
+            "variable": {
+              "code": "gt0116"
+            },
+            "assignment": {
+              "type": "OrdinalConstant",
+              "expressionItem": {
+                "ordinal": {
+                  "value": 1,
+                  "symbol": {
                     "definingCode": {
                       "terminologyId": {
                         "name": "local",
                         "value": "local"
                       },
-                      "codeString": "at0006"
+                      "codeString": "at0051"
                     },
-                    "value": "Female"
+                    "value": "Present"
                   },
-                  "value": "local::at0006|Female|"
+                  "limitsIndex": -1
+                },
+                "value": "1|local::at0051|Present|"
+              }
+            }
+          }
+        ]
+      },
+      "gt0027": {
+        "id": "gt0027",
+        "when": [
+          "$gt0124\u003d\u003dnull",
+          "$gt0119\u003d\u003dnull",
+          "$gt0118\u003d\u003dnull",
+          "$gt0117\u003d\u003dnull",
+          "$gt0116\u003d\u003dnull",
+          "$gt0115\u003d\u003dnull",
+          "$gt0114\u003d\u003dnull"
+        ],
+        "then": [
+          "$gt0124.value\u003d$currentDateTime.value",
+          "$gt0119\u003d0|local::at0050|Absent|",
+          "$gt0118\u003d0|local::at0050|Absent|",
+          "$gt0117\u003d0|local::at0050|Absent|",
+          "$gt0116\u003d0|local::at0050|Absent|",
+          "$gt0115\u003d0|local::at0050|Absent|",
+          "$gt0114\u003d0|local::at0050|Absent|"
+        ],
+        "priority": 14,
+        "whenStatements": [
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0124"
+                }
+              },
+              "right": {
+                "type": "ConstantExpression",
+                "expressionItem": {
+                  "value": "null"
                 }
               },
               "operator": "EQUALITY"
@@ -514,15 +1192,13 @@
               "left": {
                 "type": "Variable",
                 "expressionItem": {
-                  "code": "gt0005",
-                  "attribute": "units"
+                  "code": "gt0119"
                 }
               },
               "right": {
-                "type": "StringConstant",
+                "type": "ConstantExpression",
                 "expressionItem": {
-                  "string": "kg",
-                  "value": "kg"
+                  "value": "null"
                 }
               },
               "operator": "EQUALITY"
@@ -534,15 +1210,85 @@
               "left": {
                 "type": "Variable",
                 "expressionItem": {
-                  "code": "gt0009",
-                  "attribute": "units"
+                  "code": "gt0118"
                 }
               },
               "right": {
-                "type": "StringConstant",
+                "type": "ConstantExpression",
                 "expressionItem": {
-                  "string": "umol/l",
-                  "value": "umol/l"
+                  "value": "null"
+                }
+              },
+              "operator": "EQUALITY"
+            }
+          },
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0117"
+                }
+              },
+              "right": {
+                "type": "ConstantExpression",
+                "expressionItem": {
+                  "value": "null"
+                }
+              },
+              "operator": "EQUALITY"
+            }
+          },
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0116"
+                }
+              },
+              "right": {
+                "type": "ConstantExpression",
+                "expressionItem": {
+                  "value": "null"
+                }
+              },
+              "operator": "EQUALITY"
+            }
+          },
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0115"
+                }
+              },
+              "right": {
+                "type": "ConstantExpression",
+                "expressionItem": {
+                  "value": "null"
+                }
+              },
+              "operator": "EQUALITY"
+            }
+          },
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0114"
+                }
+              },
+              "right": {
+                "type": "ConstantExpression",
+                "expressionItem": {
+                  "value": "null"
                 }
               },
               "operator": "EQUALITY"
@@ -552,119 +1298,178 @@
         "thenStatements": [
           {
             "variable": {
-              "code": "gt0011",
-              "attribute": "units"
+              "code": "gt0124",
+              "attribute": "value"
             },
             "assignment": {
-              "type": "StringConstant",
+              "type": "Variable",
               "expressionItem": {
-                "string": "ml/min",
-                "value": "ml/min"
+                "code": "currentDateTime",
+                "attribute": "value"
               }
             }
           },
           {
             "variable": {
-              "code": "gt0011",
-              "attribute": "precision"
+              "code": "gt0119"
             },
             "assignment": {
-              "type": "ConstantExpression",
+              "type": "OrdinalConstant",
               "expressionItem": {
-                "value": "2"
+                "ordinal": {
+                  "value": 0,
+                  "symbol": {
+                    "definingCode": {
+                      "terminologyId": {
+                        "name": "local",
+                        "value": "local"
+                      },
+                      "codeString": "at0050"
+                    },
+                    "value": "Absent"
+                  },
+                  "limitsIndex": -1
+                },
+                "value": "0|local::at0050|Absent|"
               }
             }
           },
           {
             "variable": {
-              "code": "gt0011",
-              "attribute": "magnitude"
+              "code": "gt0118"
             },
             "assignment": {
-              "type": "BinaryExpression",
+              "type": "OrdinalConstant",
               "expressionItem": {
-                "left": {
-                  "type": "BinaryExpression",
-                  "expressionItem": {
-                    "left": {
-                      "type": "ConstantExpression",
-                      "expressionItem": {
-                        "value": "1.04"
-                      }
+                "ordinal": {
+                  "value": 0,
+                  "symbol": {
+                    "definingCode": {
+                      "terminologyId": {
+                        "name": "local",
+                        "value": "local"
+                      },
+                      "codeString": "at0050"
                     },
-                    "right": {
-                      "type": "BinaryExpression",
-                      "expressionItem": {
-                        "left": {
-                          "type": "ConstantExpression",
-                          "expressionItem": {
-                            "value": "140"
-                          }
-                        },
-                        "right": {
-                          "type": "BinaryExpression",
-                          "expressionItem": {
-                            "left": {
-                              "type": "Variable",
-                              "expressionItem": {
-                                "code": "currentDateTime",
-                                "attribute": "year"
-                              }
-                            },
-                            "right": {
-                              "type": "Variable",
-                              "expressionItem": {
-                                "code": "gt0002",
-                                "attribute": "year"
-                              }
-                            },
-                            "operator": "SUBSTRATION"
-                          }
-                        },
-                        "operator": "SUBSTRATION"
-                      }
-                    },
-                    "operator": "MULTIPLICATION"
-                  }
+                    "value": "Absent"
+                  },
+                  "limitsIndex": -1
                 },
-                "right": {
-                  "type": "BinaryExpression",
-                  "expressionItem": {
-                    "left": {
-                      "type": "Variable",
-                      "expressionItem": {
-                        "code": "gt0005",
-                        "attribute": "magnitude"
-                      }
+                "value": "0|local::at0050|Absent|"
+              }
+            }
+          },
+          {
+            "variable": {
+              "code": "gt0117"
+            },
+            "assignment": {
+              "type": "OrdinalConstant",
+              "expressionItem": {
+                "ordinal": {
+                  "value": 0,
+                  "symbol": {
+                    "definingCode": {
+                      "terminologyId": {
+                        "name": "local",
+                        "value": "local"
+                      },
+                      "codeString": "at0050"
                     },
-                    "right": {
-                      "type": "Variable",
-                      "expressionItem": {
-                        "code": "gt0009",
-                        "attribute": "magnitude"
-                      }
-                    },
-                    "operator": "DIVISION"
-                  }
+                    "value": "Absent"
+                  },
+                  "limitsIndex": -1
                 },
-                "operator": "MULTIPLICATION"
+                "value": "0|local::at0050|Absent|"
+              }
+            }
+          },
+          {
+            "variable": {
+              "code": "gt0116"
+            },
+            "assignment": {
+              "type": "OrdinalConstant",
+              "expressionItem": {
+                "ordinal": {
+                  "value": 0,
+                  "symbol": {
+                    "definingCode": {
+                      "terminologyId": {
+                        "name": "local",
+                        "value": "local"
+                      },
+                      "codeString": "at0050"
+                    },
+                    "value": "Absent"
+                  },
+                  "limitsIndex": -1
+                },
+                "value": "0|local::at0050|Absent|"
+              }
+            }
+          },
+          {
+            "variable": {
+              "code": "gt0115"
+            },
+            "assignment": {
+              "type": "OrdinalConstant",
+              "expressionItem": {
+                "ordinal": {
+                  "value": 0,
+                  "symbol": {
+                    "definingCode": {
+                      "terminologyId": {
+                        "name": "local",
+                        "value": "local"
+                      },
+                      "codeString": "at0050"
+                    },
+                    "value": "Absent"
+                  },
+                  "limitsIndex": -1
+                },
+                "value": "0|local::at0050|Absent|"
+              }
+            }
+          },
+          {
+            "variable": {
+              "code": "gt0114"
+            },
+            "assignment": {
+              "type": "OrdinalConstant",
+              "expressionItem": {
+                "ordinal": {
+                  "value": 0,
+                  "symbol": {
+                    "definingCode": {
+                      "terminologyId": {
+                        "name": "local",
+                        "value": "local"
+                      },
+                      "codeString": "at0050"
+                    },
+                    "value": "Absent"
+                  },
+                  "limitsIndex": -1
+                },
+                "value": "0|local::at0050|Absent|"
               }
             }
           }
         ]
       },
-      "gt0014": {
-        "id": "gt0014",
+      "gt0148": {
+        "id": "gt0148",
         "when": [
-          "$gt0002.value>($currentDateTime.value-20,a)",
-          "$gt0007.units=='cm'",
-          "$gt0005.units=='kg'",
-          "$gt0009.units=='umol/l'"
+          "$gt0118!\u003d1|local::at0051|Present|",
+          "$gt0143\u003d\u003d1|local::at0051|Present|",
+          "($gt0138\u003e$gt0129)||($gt0112\u003d\u003dnull)"
         ],
         "then": [
-          "$gt0011.magnitude=(((42.5*$gt0007.magnitude)/$gt0009.magnitude)/(($gt0005.magnitude/70)^0.7))",
-          "$gt0011.units='ml/min'",
-          "$gt0011.precision=2"
+          "$gt0118\u003d1|local::at0051|Present|"
         ],
         "priority": 3,
         "whenStatements": [
@@ -674,8 +1479,83 @@
               "left": {
                 "type": "Variable",
                 "expressionItem": {
-                  "code": "gt0002",
-                  "attribute": "value"
+                  "code": "gt0118"
+                }
+              },
+              "right": {
+                "type": "OrdinalConstant",
+                "expressionItem": {
+                  "ordinal": {
+                    "value": 1,
+                    "symbol": {
+                      "definingCode": {
+                        "terminologyId": {
+                          "name": "local",
+                          "value": "local"
+                        },
+                        "codeString": "at0051"
+                      },
+                      "value": "Present"
+                    },
+                    "limitsIndex": -1
+                  },
+                  "value": "1|local::at0051|Present|"
+                }
+              },
+              "operator": "INEQUAL"
+            }
+          },
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0143"
+                }
+              },
+              "right": {
+                "type": "OrdinalConstant",
+                "expressionItem": {
+                  "ordinal": {
+                    "value": 1,
+                    "symbol": {
+                      "definingCode": {
+                        "terminologyId": {
+                          "name": "local",
+                          "value": "local"
+                        },
+                        "codeString": "at0051"
+                      },
+                      "value": "Present"
+                    },
+                    "limitsIndex": -1
+                  },
+                  "value": "1|local::at0051|Present|"
+                }
+              },
+              "operator": "EQUALITY"
+            }
+          },
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "BinaryExpression",
+                "expressionItem": {
+                  "left": {
+                    "type": "Variable",
+                    "expressionItem": {
+                      "code": "gt0138"
+                    }
+                  },
+                  "right": {
+                    "type": "Variable",
+                    "expressionItem": {
+                      "code": "gt0129"
+                    }
+                  },
+                  "operator": "GREATER_THAN"
                 }
               },
               "right": {
@@ -684,549 +1564,1797 @@
                   "left": {
                     "type": "Variable",
                     "expressionItem": {
-                      "code": "currentDateTime",
-                      "attribute": "value"
+                      "code": "gt0112"
                     }
                   },
                   "right": {
-                    "type": "QuantityConstant",
+                    "type": "ConstantExpression",
                     "expressionItem": {
-                      "quantity": {
-                        "magnitude": 20,
-                        "precision": 0,
-                        "units": "a",
-                        "accuracy": 0,
-                        "accuracyPercent": false
-                      },
-                      "value": "20,a"
+                      "value": "null"
                     }
                   },
-                  "operator": "SUBSTRATION"
+                  "operator": "EQUALITY"
                 }
               },
-              "operator": "GREATER_THAN"
-            }
-          },
-          {
-            "type": "BinaryExpression",
-            "expressionItem": {
-              "left": {
-                "type": "Variable",
-                "expressionItem": {
-                  "code": "gt0007",
-                  "attribute": "units"
-                }
-              },
-              "right": {
-                "type": "StringConstant",
-                "expressionItem": {
-                  "string": "cm",
-                  "value": "cm"
-                }
-              },
-              "operator": "EQUALITY"
-            }
-          },
-          {
-            "type": "BinaryExpression",
-            "expressionItem": {
-              "left": {
-                "type": "Variable",
-                "expressionItem": {
-                  "code": "gt0005",
-                  "attribute": "units"
-                }
-              },
-              "right": {
-                "type": "StringConstant",
-                "expressionItem": {
-                  "string": "kg",
-                  "value": "kg"
-                }
-              },
-              "operator": "EQUALITY"
-            }
-          },
-          {
-            "type": "BinaryExpression",
-            "expressionItem": {
-              "left": {
-                "type": "Variable",
-                "expressionItem": {
-                  "code": "gt0009",
-                  "attribute": "units"
-                }
-              },
-              "right": {
-                "type": "StringConstant",
-                "expressionItem": {
-                  "string": "umol/l",
-                  "value": "umol/l"
-                }
-              },
-              "operator": "EQUALITY"
+              "operator": "OR"
             }
           }
         ],
         "thenStatements": [
           {
             "variable": {
-              "code": "gt0011",
-              "attribute": "magnitude"
+              "code": "gt0118"
             },
             "assignment": {
-              "type": "BinaryExpression",
+              "type": "OrdinalConstant",
               "expressionItem": {
-                "left": {
-                  "type": "BinaryExpression",
-                  "expressionItem": {
-                    "left": {
-                      "type": "BinaryExpression",
-                      "expressionItem": {
-                        "left": {
-                          "type": "ConstantExpression",
-                          "expressionItem": {
-                            "value": "42.5"
-                          }
-                        },
-                        "right": {
-                          "type": "Variable",
-                          "expressionItem": {
-                            "code": "gt0007",
-                            "attribute": "magnitude"
-                          }
-                        },
-                        "operator": "MULTIPLICATION"
-                      }
+                "ordinal": {
+                  "value": 1,
+                  "symbol": {
+                    "definingCode": {
+                      "terminologyId": {
+                        "name": "local",
+                        "value": "local"
+                      },
+                      "codeString": "at0051"
                     },
-                    "right": {
-                      "type": "Variable",
-                      "expressionItem": {
-                        "code": "gt0009",
-                        "attribute": "magnitude"
-                      }
-                    },
-                    "operator": "DIVISION"
-                  }
+                    "value": "Present"
+                  },
+                  "limitsIndex": -1
                 },
-                "right": {
-                  "type": "BinaryExpression",
-                  "expressionItem": {
-                    "left": {
-                      "type": "BinaryExpression",
-                      "expressionItem": {
-                        "left": {
-                          "type": "Variable",
-                          "expressionItem": {
-                            "code": "gt0005",
-                            "attribute": "magnitude"
-                          }
+                "value": "1|local::at0051|Present|"
+              }
+            }
+          }
+        ]
+      },
+      "gt0017": {
+        "id": "gt0017",
+        "when": [
+          "$gt0117!\u003d1|local::at0051|Present|",
+          "$gt0110!\u003dnull",
+          "($gt0140\u003d\u003dnull)||($gt0127\u003e$gt0138)"
+        ],
+        "then": [
+          "$gt0117\u003d1|local::at0051|Present|"
+        ],
+        "priority": 12,
+        "whenStatements": [
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0117"
+                }
+              },
+              "right": {
+                "type": "OrdinalConstant",
+                "expressionItem": {
+                  "ordinal": {
+                    "value": 1,
+                    "symbol": {
+                      "definingCode": {
+                        "terminologyId": {
+                          "name": "local",
+                          "value": "local"
                         },
-                        "right": {
-                          "type": "ConstantExpression",
-                          "expressionItem": {
-                            "value": "70"
-                          }
-                        },
-                        "operator": "DIVISION"
-                      }
+                        "codeString": "at0051"
+                      },
+                      "value": "Present"
                     },
-                    "right": {
-                      "type": "ConstantExpression",
-                      "expressionItem": {
-                        "value": "0.7"
-                      }
+                    "limitsIndex": -1
+                  },
+                  "value": "1|local::at0051|Present|"
+                }
+              },
+              "operator": "INEQUAL"
+            }
+          },
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0110"
+                }
+              },
+              "right": {
+                "type": "ConstantExpression",
+                "expressionItem": {
+                  "value": "null"
+                }
+              },
+              "operator": "INEQUAL"
+            }
+          },
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "BinaryExpression",
+                "expressionItem": {
+                  "left": {
+                    "type": "Variable",
+                    "expressionItem": {
+                      "code": "gt0140"
+                    }
+                  },
+                  "right": {
+                    "type": "ConstantExpression",
+                    "expressionItem": {
+                      "value": "null"
+                    }
+                  },
+                  "operator": "EQUALITY"
+                }
+              },
+              "right": {
+                "type": "BinaryExpression",
+                "expressionItem": {
+                  "left": {
+                    "type": "Variable",
+                    "expressionItem": {
+                      "code": "gt0127"
+                    }
+                  },
+                  "right": {
+                    "type": "Variable",
+                    "expressionItem": {
+                      "code": "gt0138"
+                    }
+                  },
+                  "operator": "GREATER_THAN"
+                }
+              },
+              "operator": "OR"
+            }
+          }
+        ],
+        "thenStatements": [
+          {
+            "variable": {
+              "code": "gt0117"
+            },
+            "assignment": {
+              "type": "OrdinalConstant",
+              "expressionItem": {
+                "ordinal": {
+                  "value": 1,
+                  "symbol": {
+                    "definingCode": {
+                      "terminologyId": {
+                        "name": "local",
+                        "value": "local"
+                      },
+                      "codeString": "at0051"
                     },
-                    "operator": "EXPONENT"
-                  }
+                    "value": "Present"
+                  },
+                  "limitsIndex": -1
                 },
-                "operator": "DIVISION"
+                "value": "1|local::at0051|Present|"
+              }
+            }
+          }
+        ]
+      },
+      "gt0028": {
+        "id": "gt0028",
+        "when": [
+          "$gt0118!\u003d1|local::at0051|Present|",
+          "$gt0112!\u003dnull",
+          "($gt0143\u003d\u003dnull)||($gt0129\u003e$gt0138)"
+        ],
+        "then": [
+          "$gt0118\u003d1|local::at0051|Present|"
+        ],
+        "priority": 9,
+        "whenStatements": [
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0118"
+                }
+              },
+              "right": {
+                "type": "OrdinalConstant",
+                "expressionItem": {
+                  "ordinal": {
+                    "value": 1,
+                    "symbol": {
+                      "definingCode": {
+                        "terminologyId": {
+                          "name": "local",
+                          "value": "local"
+                        },
+                        "codeString": "at0051"
+                      },
+                      "value": "Present"
+                    },
+                    "limitsIndex": -1
+                  },
+                  "value": "1|local::at0051|Present|"
+                }
+              },
+              "operator": "INEQUAL"
+            }
+          },
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0112"
+                }
+              },
+              "right": {
+                "type": "ConstantExpression",
+                "expressionItem": {
+                  "value": "null"
+                }
+              },
+              "operator": "INEQUAL"
+            }
+          },
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "BinaryExpression",
+                "expressionItem": {
+                  "left": {
+                    "type": "Variable",
+                    "expressionItem": {
+                      "code": "gt0143"
+                    }
+                  },
+                  "right": {
+                    "type": "ConstantExpression",
+                    "expressionItem": {
+                      "value": "null"
+                    }
+                  },
+                  "operator": "EQUALITY"
+                }
+              },
+              "right": {
+                "type": "BinaryExpression",
+                "expressionItem": {
+                  "left": {
+                    "type": "Variable",
+                    "expressionItem": {
+                      "code": "gt0129"
+                    }
+                  },
+                  "right": {
+                    "type": "Variable",
+                    "expressionItem": {
+                      "code": "gt0138"
+                    }
+                  },
+                  "operator": "GREATER_THAN"
+                }
+              },
+              "operator": "OR"
+            }
+          }
+        ],
+        "thenStatements": [
+          {
+            "variable": {
+              "code": "gt0118"
+            },
+            "assignment": {
+              "type": "OrdinalConstant",
+              "expressionItem": {
+                "ordinal": {
+                  "value": 1,
+                  "symbol": {
+                    "definingCode": {
+                      "terminologyId": {
+                        "name": "local",
+                        "value": "local"
+                      },
+                      "codeString": "at0051"
+                    },
+                    "value": "Present"
+                  },
+                  "limitsIndex": -1
+                },
+                "value": "1|local::at0051|Present|"
+              }
+            }
+          }
+        ]
+      },
+      "gt0121": {
+        "id": "gt0121",
+        "when": [
+          "$gt0114!\u003d1|local::at0051|Present|",
+          "$gt0122!\u003dnull",
+          "($gt0137\u003d\u003dnull)||($gt0125\u003e$gt0138)"
+        ],
+        "then": [
+          "$gt0114\u003d1|local::at0051|Present|"
+        ],
+        "priority": 8,
+        "whenStatements": [
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0114"
+                }
+              },
+              "right": {
+                "type": "OrdinalConstant",
+                "expressionItem": {
+                  "ordinal": {
+                    "value": 1,
+                    "symbol": {
+                      "definingCode": {
+                        "terminologyId": {
+                          "name": "local",
+                          "value": "local"
+                        },
+                        "codeString": "at0051"
+                      },
+                      "value": "Present"
+                    },
+                    "limitsIndex": -1
+                  },
+                  "value": "1|local::at0051|Present|"
+                }
+              },
+              "operator": "INEQUAL"
+            }
+          },
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0122"
+                }
+              },
+              "right": {
+                "type": "ConstantExpression",
+                "expressionItem": {
+                  "value": "null"
+                }
+              },
+              "operator": "INEQUAL"
+            }
+          },
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "BinaryExpression",
+                "expressionItem": {
+                  "left": {
+                    "type": "Variable",
+                    "expressionItem": {
+                      "code": "gt0137"
+                    }
+                  },
+                  "right": {
+                    "type": "ConstantExpression",
+                    "expressionItem": {
+                      "value": "null"
+                    }
+                  },
+                  "operator": "EQUALITY"
+                }
+              },
+              "right": {
+                "type": "BinaryExpression",
+                "expressionItem": {
+                  "left": {
+                    "type": "Variable",
+                    "expressionItem": {
+                      "code": "gt0125"
+                    }
+                  },
+                  "right": {
+                    "type": "Variable",
+                    "expressionItem": {
+                      "code": "gt0138"
+                    }
+                  },
+                  "operator": "GREATER_THAN"
+                }
+              },
+              "operator": "OR"
+            }
+          }
+        ],
+        "thenStatements": [
+          {
+            "variable": {
+              "code": "gt0114"
+            },
+            "assignment": {
+              "type": "OrdinalConstant",
+              "expressionItem": {
+                "ordinal": {
+                  "value": 1,
+                  "symbol": {
+                    "definingCode": {
+                      "terminologyId": {
+                        "name": "local",
+                        "value": "local"
+                      },
+                      "codeString": "at0051"
+                    },
+                    "value": "Present"
+                  },
+                  "limitsIndex": -1
+                },
+                "value": "1|local::at0051|Present|"
+              }
+            }
+          }
+        ]
+      },
+      "gt0144": {
+        "id": "gt0144",
+        "when": [
+          "$gt0119!\u003d1|local::at0051|Present|",
+          "$gt0139\u003d\u003d1|local::at0051|Present|",
+          "($gt0138\u003e$gt0123)||($gt0108\u003d\u003dnull)"
+        ],
+        "then": [
+          "$gt0119\u003d1|local::at0051|Present|"
+        ],
+        "priority": 7,
+        "whenStatements": [
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0119"
+                }
+              },
+              "right": {
+                "type": "OrdinalConstant",
+                "expressionItem": {
+                  "ordinal": {
+                    "value": 1,
+                    "symbol": {
+                      "definingCode": {
+                        "terminologyId": {
+                          "name": "local",
+                          "value": "local"
+                        },
+                        "codeString": "at0051"
+                      },
+                      "value": "Present"
+                    },
+                    "limitsIndex": -1
+                  },
+                  "value": "1|local::at0051|Present|"
+                }
+              },
+              "operator": "INEQUAL"
+            }
+          },
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0139"
+                }
+              },
+              "right": {
+                "type": "OrdinalConstant",
+                "expressionItem": {
+                  "ordinal": {
+                    "value": 1,
+                    "symbol": {
+                      "definingCode": {
+                        "terminologyId": {
+                          "name": "local",
+                          "value": "local"
+                        },
+                        "codeString": "at0051"
+                      },
+                      "value": "Present"
+                    },
+                    "limitsIndex": -1
+                  },
+                  "value": "1|local::at0051|Present|"
+                }
+              },
+              "operator": "EQUALITY"
+            }
+          },
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "BinaryExpression",
+                "expressionItem": {
+                  "left": {
+                    "type": "Variable",
+                    "expressionItem": {
+                      "code": "gt0138"
+                    }
+                  },
+                  "right": {
+                    "type": "Variable",
+                    "expressionItem": {
+                      "code": "gt0123"
+                    }
+                  },
+                  "operator": "GREATER_THAN"
+                }
+              },
+              "right": {
+                "type": "BinaryExpression",
+                "expressionItem": {
+                  "left": {
+                    "type": "Variable",
+                    "expressionItem": {
+                      "code": "gt0108"
+                    }
+                  },
+                  "right": {
+                    "type": "ConstantExpression",
+                    "expressionItem": {
+                      "value": "null"
+                    }
+                  },
+                  "operator": "EQUALITY"
+                }
+              },
+              "operator": "OR"
+            }
+          }
+        ],
+        "thenStatements": [
+          {
+            "variable": {
+              "code": "gt0119"
+            },
+            "assignment": {
+              "type": "OrdinalConstant",
+              "expressionItem": {
+                "ordinal": {
+                  "value": 1,
+                  "symbol": {
+                    "definingCode": {
+                      "terminologyId": {
+                        "name": "local",
+                        "value": "local"
+                      },
+                      "codeString": "at0051"
+                    },
+                    "value": "Present"
+                  },
+                  "limitsIndex": -1
+                },
+                "value": "1|local::at0051|Present|"
+              }
+            }
+          }
+        ]
+      },
+      "gt0145": {
+        "id": "gt0145",
+        "when": [
+          "$gt0117!\u003d1|local::at0051|Present|",
+          "$gt0140\u003d\u003d1|local::at0051|Present|",
+          "($gt0138\u003e$gt0127)||($gt0110\u003d\u003dnull)"
+        ],
+        "then": [
+          "$gt0117\u003d1|local::at0051|Present|"
+        ],
+        "priority": 6,
+        "whenStatements": [
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0117"
+                }
+              },
+              "right": {
+                "type": "OrdinalConstant",
+                "expressionItem": {
+                  "ordinal": {
+                    "value": 1,
+                    "symbol": {
+                      "definingCode": {
+                        "terminologyId": {
+                          "name": "local",
+                          "value": "local"
+                        },
+                        "codeString": "at0051"
+                      },
+                      "value": "Present"
+                    },
+                    "limitsIndex": -1
+                  },
+                  "value": "1|local::at0051|Present|"
+                }
+              },
+              "operator": "INEQUAL"
+            }
+          },
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0140"
+                }
+              },
+              "right": {
+                "type": "OrdinalConstant",
+                "expressionItem": {
+                  "ordinal": {
+                    "value": 1,
+                    "symbol": {
+                      "definingCode": {
+                        "terminologyId": {
+                          "name": "local",
+                          "value": "local"
+                        },
+                        "codeString": "at0051"
+                      },
+                      "value": "Present"
+                    },
+                    "limitsIndex": -1
+                  },
+                  "value": "1|local::at0051|Present|"
+                }
+              },
+              "operator": "EQUALITY"
+            }
+          },
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "BinaryExpression",
+                "expressionItem": {
+                  "left": {
+                    "type": "Variable",
+                    "expressionItem": {
+                      "code": "gt0138"
+                    }
+                  },
+                  "right": {
+                    "type": "Variable",
+                    "expressionItem": {
+                      "code": "gt0127"
+                    }
+                  },
+                  "operator": "GREATER_THAN"
+                }
+              },
+              "right": {
+                "type": "BinaryExpression",
+                "expressionItem": {
+                  "left": {
+                    "type": "Variable",
+                    "expressionItem": {
+                      "code": "gt0110"
+                    }
+                  },
+                  "right": {
+                    "type": "ConstantExpression",
+                    "expressionItem": {
+                      "value": "null"
+                    }
+                  },
+                  "operator": "EQUALITY"
+                }
+              },
+              "operator": "OR"
+            }
+          }
+        ],
+        "thenStatements": [
+          {
+            "variable": {
+              "code": "gt0117"
+            },
+            "assignment": {
+              "type": "OrdinalConstant",
+              "expressionItem": {
+                "ordinal": {
+                  "value": 1,
+                  "symbol": {
+                    "definingCode": {
+                      "terminologyId": {
+                        "name": "local",
+                        "value": "local"
+                      },
+                      "codeString": "at0051"
+                    },
+                    "value": "Present"
+                  },
+                  "limitsIndex": -1
+                },
+                "value": "1|local::at0051|Present|"
+              }
+            }
+          }
+        ]
+      },
+      "gt0156": {
+        "id": "gt0156",
+        "when": [
+          "$gt0114\u003d\u003d0|local::at0050|Absent|",
+          "$gt0116!\u003dnull",
+          "$gt0117!\u003dnull",
+          "$gt0118!\u003dnull",
+          "$gt0119!\u003dnull",
+          "$gt0115!\u003dnull"
+        ],
+        "then": [
+          "$gt0117.null_flavor\u003dopenehr::271|no information|",
+          "$gt0118.null_flavor\u003dopenehr::271|no information|",
+          "$gt0119.null_flavor\u003dopenehr::271|no information|",
+          "$gt0116.null_flavor\u003dopenehr::271|no information|",
+          "$gt0115.null_flavor\u003dopenehr::271|no information|"
+        ],
+        "priority": 1,
+        "whenStatements": [
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0114"
+                }
+              },
+              "right": {
+                "type": "OrdinalConstant",
+                "expressionItem": {
+                  "ordinal": {
+                    "value": 0,
+                    "symbol": {
+                      "definingCode": {
+                        "terminologyId": {
+                          "name": "local",
+                          "value": "local"
+                        },
+                        "codeString": "at0050"
+                      },
+                      "value": "Absent"
+                    },
+                    "limitsIndex": -1
+                  },
+                  "value": "0|local::at0050|Absent|"
+                }
+              },
+              "operator": "EQUALITY"
+            }
+          },
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0116"
+                }
+              },
+              "right": {
+                "type": "ConstantExpression",
+                "expressionItem": {
+                  "value": "null"
+                }
+              },
+              "operator": "INEQUAL"
+            }
+          },
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0117"
+                }
+              },
+              "right": {
+                "type": "ConstantExpression",
+                "expressionItem": {
+                  "value": "null"
+                }
+              },
+              "operator": "INEQUAL"
+            }
+          },
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0118"
+                }
+              },
+              "right": {
+                "type": "ConstantExpression",
+                "expressionItem": {
+                  "value": "null"
+                }
+              },
+              "operator": "INEQUAL"
+            }
+          },
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0119"
+                }
+              },
+              "right": {
+                "type": "ConstantExpression",
+                "expressionItem": {
+                  "value": "null"
+                }
+              },
+              "operator": "INEQUAL"
+            }
+          },
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0115"
+                }
+              },
+              "right": {
+                "type": "ConstantExpression",
+                "expressionItem": {
+                  "value": "null"
+                }
+              },
+              "operator": "INEQUAL"
+            }
+          }
+        ],
+        "thenStatements": [
+          {
+            "variable": {
+              "code": "gt0117",
+              "attribute": "null_flavor"
+            },
+            "assignment": {
+              "type": "CodedTextConstant",
+              "expressionItem": {
+                "codedText": {
+                  "definingCode": {
+                    "terminologyId": {
+                      "name": "openehr",
+                      "value": "openehr"
+                    },
+                    "codeString": "271"
+                  },
+                  "value": "no information"
+                },
+                "value": "openehr::271|no information|"
               }
             }
           },
           {
             "variable": {
-              "code": "gt0011",
-              "attribute": "units"
+              "code": "gt0118",
+              "attribute": "null_flavor"
             },
             "assignment": {
-              "type": "StringConstant",
+              "type": "CodedTextConstant",
               "expressionItem": {
-                "string": "ml/min",
-                "value": "ml/min"
+                "codedText": {
+                  "definingCode": {
+                    "terminologyId": {
+                      "name": "openehr",
+                      "value": "openehr"
+                    },
+                    "codeString": "271"
+                  },
+                  "value": "no information"
+                },
+                "value": "openehr::271|no information|"
               }
             }
           },
           {
             "variable": {
-              "code": "gt0011",
-              "attribute": "precision"
+              "code": "gt0119",
+              "attribute": "null_flavor"
             },
             "assignment": {
-              "type": "ConstantExpression",
+              "type": "CodedTextConstant",
               "expressionItem": {
-                "value": "2"
+                "codedText": {
+                  "definingCode": {
+                    "terminologyId": {
+                      "name": "openehr",
+                      "value": "openehr"
+                    },
+                    "codeString": "271"
+                  },
+                  "value": "no information"
+                },
+                "value": "openehr::271|no information|"
+              }
+            }
+          },
+          {
+            "variable": {
+              "code": "gt0116",
+              "attribute": "null_flavor"
+            },
+            "assignment": {
+              "type": "CodedTextConstant",
+              "expressionItem": {
+                "codedText": {
+                  "definingCode": {
+                    "terminologyId": {
+                      "name": "openehr",
+                      "value": "openehr"
+                    },
+                    "codeString": "271"
+                  },
+                  "value": "no information"
+                },
+                "value": "openehr::271|no information|"
+              }
+            }
+          },
+          {
+            "variable": {
+              "code": "gt0115",
+              "attribute": "null_flavor"
+            },
+            "assignment": {
+              "type": "CodedTextConstant",
+              "expressionItem": {
+                "codedText": {
+                  "definingCode": {
+                    "terminologyId": {
+                      "name": "openehr",
+                      "value": "openehr"
+                    },
+                    "codeString": "271"
+                  },
+                  "value": "no information"
+                },
+                "value": "openehr::271|no information|"
+              }
+            }
+          }
+        ]
+      },
+      "gt0020": {
+        "id": "gt0020",
+        "when": [
+          "$gt0116!\u003d1|local::at0051|Present|",
+          "$gt0111!\u003dnull",
+          "($gt0142\u003d\u003dnull)||($gt0128\u003e$gt0138)"
+        ],
+        "then": [
+          "$gt0116\u003d1|local::at0051|Present|"
+        ],
+        "priority": 10,
+        "whenStatements": [
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0116"
+                }
+              },
+              "right": {
+                "type": "OrdinalConstant",
+                "expressionItem": {
+                  "ordinal": {
+                    "value": 1,
+                    "symbol": {
+                      "definingCode": {
+                        "terminologyId": {
+                          "name": "local",
+                          "value": "local"
+                        },
+                        "codeString": "at0051"
+                      },
+                      "value": "Present"
+                    },
+                    "limitsIndex": -1
+                  },
+                  "value": "1|local::at0051|Present|"
+                }
+              },
+              "operator": "INEQUAL"
+            }
+          },
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0111"
+                }
+              },
+              "right": {
+                "type": "ConstantExpression",
+                "expressionItem": {
+                  "value": "null"
+                }
+              },
+              "operator": "INEQUAL"
+            }
+          },
+          {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "BinaryExpression",
+                "expressionItem": {
+                  "left": {
+                    "type": "Variable",
+                    "expressionItem": {
+                      "code": "gt0142"
+                    }
+                  },
+                  "right": {
+                    "type": "ConstantExpression",
+                    "expressionItem": {
+                      "value": "null"
+                    }
+                  },
+                  "operator": "EQUALITY"
+                }
+              },
+              "right": {
+                "type": "BinaryExpression",
+                "expressionItem": {
+                  "left": {
+                    "type": "Variable",
+                    "expressionItem": {
+                      "code": "gt0128"
+                    }
+                  },
+                  "right": {
+                    "type": "Variable",
+                    "expressionItem": {
+                      "code": "gt0138"
+                    }
+                  },
+                  "operator": "GREATER_THAN"
+                }
+              },
+              "operator": "OR"
+            }
+          }
+        ],
+        "thenStatements": [
+          {
+            "variable": {
+              "code": "gt0116"
+            },
+            "assignment": {
+              "type": "OrdinalConstant",
+              "expressionItem": {
+                "ordinal": {
+                  "value": 1,
+                  "symbol": {
+                    "definingCode": {
+                      "terminologyId": {
+                        "name": "local",
+                        "value": "local"
+                      },
+                      "codeString": "at0051"
+                    },
+                    "value": "Present"
+                  },
+                  "limitsIndex": -1
+                },
+                "value": "1|local::at0051|Present|"
               }
             }
           }
         ]
       }
     },
-    "defaultActionExpressions": []
+    "defaultActionExpressions": [
+
+    ]
   },
   "ontology": {
     "termDefinitions": {
       "sv": {
         "id": "sv",
         "terms": {
-          "gt0011": {
-            "id": "gt0011",
-            "text": "GFR",
-            "description": "*"
+          "gt0128": {
+            "id": "gt0128",
+            "text": "Tidigare Stroke/TIA tidpunkt för inledning"
           },
-          "gt0012": {
-            "id": "gt0012",
-            "text": "Beräkna GFR för vuxen man",
-            "description": "*"
+          "gt0129": {
+            "id": "gt0129",
+            "text": "Vaskulär sjukdom tidpunkt för inledning"
           },
-          "gt0002": {
-            "id": "gt0002",
-            "text": "Ålder",
-            "description": "Ålder"
+          "gt0108": {
+            "id": "gt0108",
+            "text": "Hypertoni diagnos"
           },
-          "gt0013": {
-            "id": "gt0013",
-            "text": "Beräkna GFR för vuxen hona",
-            "description": "*"
+          "gt0109": {
+            "id": "gt0109",
+            "text": "Diabetes diagnos"
           },
-          "gt0007": {
-            "id": "gt0007",
-            "text": "Höjd/Längd",
-            "description": "*"
+          "gt0102": {
+            "id": "gt0102",
+            "text": "Diabetes"
           },
-          "gt0009": {
-            "id": "gt0009",
-            "text": "Kreatinin",
-            "description": "*"
+          "gt0124": {
+            "id": "gt0124",
+            "text": "Tidpunkt för översikt av diagnos"
           },
-          "gt0003": {
-            "id": "gt0003",
-            "text": "Kön",
-            "description": "Kön"
+          "gt0146": {
+            "id": "gt0146",
+            "text": "Sätt diabetes baserat på översyn"
           },
-          "gt0014": {
-            "id": "gt0014",
-            "text": "Beräkna GFR för barn",
-            "description": "*"
+          "gt0103": {
+            "id": "gt0103",
+            "text": "Tidigare Stroke/TIA"
           },
-          "gt0015": {
-            "id": "gt0015",
-            "text": "*GFR Calculation (en)",
-            "description": ""
+          "gt0125": {
+            "id": "gt0125",
+            "text": "Förmaksflimmer tidpunkt för inledning"
           },
-          "gt0005": {
-            "id": "gt0005",
-            "text": "Vikt",
-            "description": "*"
+          "gt0147": {
+            "id": "gt0147",
+            "text": "Sätt Tidigare Stroke/TIA baserat på översyn"
           },
-          "gt0016": {
-            "id": "gt0016",
-            "text": "GFR beräkning",
-            "description": "*Calculation of glomerular filtration rate (GFR) to asssess renal function. (en)"
-          }
-        }
-      },
-      "pt": {
-        "id": "pt",
-        "terms": {
-          "gt0011": {
-            "id": "gt0011",
-            "text": "*Estimated GFR (en)",
-            "description": "*Value describing estimation of glomerular filtration rate adjusted by body-surface area (mL/min/1.73m?). (en)"
+          "gt0027": {
+            "id": "gt0027",
+            "text": "Ange som förval"
           },
-          "gt0012": {
-            "id": "gt0012",
-            "text": "*Calculate GFR for Adult Male (en)",
-            "description": "*Rule for calculating estimated GFR for adult male (en)"
+          "gt0104": {
+            "id": "gt0104",
+            "text": "Vaskulär sjukdom"
           },
-          "gt0002": {
-            "id": "gt0002",
-            "text": "Idade",
-            "description": "** (en)"
+          "gt0126": {
+            "id": "gt0126",
+            "text": "Diabetes tidpunkt för inledning"
           },
-          "gt0013": {
-            "id": "gt0013",
-            "text": "*Calculate GFR for Adult Female (en)",
-            "description": "*Rule for  calculating estimated GFR for adult female (en)"
+          "gt0148": {
+            "id": "gt0148",
+            "text": "Sätt vaskulär sjukdom baserat på översyn"
           },
-          "gt0007": {
-            "id": "gt0007",
-            "text": "*Height (en)",
-            "description": "*The length of the body from crown of head to sole of foot. (en)"
+          "gt0028": {
+            "id": "gt0028",
+            "text": "Ange vaskulär sjukdom"
           },
-          "gt0009": {
-            "id": "gt0009",
-            "text": "*Creatinine (en)",
-            "description": "*Creatinine level in this specimen (en)"
+          "gt0127": {
+            "id": "gt0127",
+            "text": "Hjärtsvikt/VK-dysfunktion tidpunkt för inledning"
           },
-          "gt0003": {
-            "id": "gt0003",
-            "text": "Sexo",
-            "description": "** (en)"
+          "gt0149": {
+            "id": "gt0149",
+            "text": "Förmaksflimmer diagnos"
           },
-          "gt0014": {
-            "id": "gt0014",
-            "text": "*Calculate GFR for Children (en)",
-            "description": "*Rule for calculating estimated GFR for children (en)"
+          "gt0142": {
+            "id": "gt0142",
+            "text": "Tidigare Stroke/TIA"
           },
-          "gt0015": {
-            "id": "gt0015",
-            "text": "*GFR Calculation (en)"
+          "gt0121": {
+            "id": "gt0121",
+            "text": "Ange förmaksflimmer"
           },
-          "gt0005": {
-            "id": "gt0005",
-            "text": "Peso",
-            "description": "*The weight of the individual. (en)"
+          "gt0143": {
+            "id": "gt0143",
+            "text": "Vaskulär sjukdom"
           },
-          "gt0016": {
-            "id": "gt0016",
-            "text": "*GFR Calculation (en)"
-          }
-        }
-      },
-      "el": {
-        "id": "el",
-        "terms": {
-          "gt0011": {
-            "id": "gt0011",
-            "text": "Εκτιμώμενος ρυθμός σπειραματικής διήθησης",
-            "description": "*Value describing estimation of glomerular filtration rate adjusted by body-surface area (mL/min/1.73m?). (en)"
+          "gt0100": {
+            "id": "gt0100",
+            "text": "Hjärtsvikt/VK-dysfunktion"
           },
-          "gt0012": {
-            "id": "gt0012",
-            "text": "Υπολογισμός ρυθμού σπειραματικής διήθησης σε ενήλικες άνδρες",
-            "description": "*Rule for calculating estimated GFR for adult male (en)"
+          "gt0122": {
+            "id": "gt0122",
+            "text": "Förmaksflimmer diagnos"
           },
-          "gt0002": {
-            "id": "gt0002",
-            "text": "Ημερομηνία γέννησης",
-            "description": "** (en)"
+          "gt0144": {
+            "id": "gt0144",
+            "text": "Sätt hypertoni baserat på översyn"
           },
-          "gt0013": {
-            "id": "gt0013",
-            "text": "Υπολογισμός ρυθμού σπειραματικής διήθησης σε ενήλικες γυναίκες",
-            "description": "*Rule for  calculating estimated GFR for adult female (en)"
+          "gt0101": {
+            "id": "gt0101",
+            "text": "Hypertoni"
           },
-          "gt0007": {
-            "id": "gt0007",
-            "text": "Ύψος",
-            "description": "*The length of the body from crown of head to sole of foot. (en)"
+          "gt0123": {
+            "id": "gt0123",
+            "text": "Hypertoni tidpunkt för inledning"
           },
-          "gt0009": {
-            "id": "gt0009",
-            "text": "Κρεατινίνη",
-            "description": "*Creatinine level in this specimen (en)"
+          "gt0145": {
+            "id": "gt0145",
+            "text": "Sätt Hjärtsvikt/VK-dysfunktion baserat på översyn"
           },
-          "gt0003": {
-            "id": "gt0003",
-            "text": "Φύλο",
-            "description": "** (en)"
+          "gt0140": {
+            "id": "gt0140",
+            "text": "Hjärtsvikt/VK-dysfunktion"
           },
-          "gt0014": {
-            "id": "gt0014",
-            "text": "Υπολογισμός ρυθμού σπειραματικής διήθησης σε παιδιά",
-            "description": "*Rule for calculating estimated GFR for children (en)"
+          "gt0020": {
+            "id": "gt0020",
+            "text": "Ange stroke/TIA"
           },
-          "gt0015": {
-            "id": "gt0015",
-            "text": "*GFR Calculation (en)"
+          "gt0141": {
+            "id": "gt0141",
+            "text": "Diabetes"
           },
-          "gt0005": {
-            "id": "gt0005",
-            "text": "Σωματικό βάρος",
-            "description": "*The weight of the individual. (en)"
+          "gt0018": {
+            "id": "gt0018",
+            "text": "Ange hypertoni"
           },
-          "gt0016": {
-            "id": "gt0016",
-            "text": "*GFR Calculation (en)"
+          "gt0117": {
+            "id": "gt0117",
+            "text": "Hjärtsvikt/VK-dysfunktion"
+          },
+          "gt0139": {
+            "id": "gt0139",
+            "text": "Hypertoni"
+          },
+          "gt0019": {
+            "id": "gt0019",
+            "text": "Ange diabetes"
+          },
+          "gt0118": {
+            "id": "gt0118",
+            "text": "Vaskulär sjukdom"
+          },
+          "gt0119": {
+            "id": "gt0119",
+            "text": "Hypertoni"
+          },
+          "gt0036": {
+            "id": "gt0036",
+            "text": "Diagnosöversikt",
+            "description": "*CHA2DS2-VASc Score for estimation stroke risks in atrial fibrillation (en)"
+          },
+          "gt0114": {
+            "id": "gt0114",
+            "text": "Förmaksflimmer"
+          },
+          "gt0136": {
+            "id": "gt0136",
+            "text": "Sätt förmaksflimmer baserat på översyn"
+          },
+          "gt0115": {
+            "id": "gt0115",
+            "text": "Diabetes"
+          },
+          "gt0137": {
+            "id": "gt0137",
+            "text": "Förmaksflimmer"
+          },
+          "gt0017": {
+            "id": "gt0017",
+            "text": "Ange Hjärtsvikt/VK-dysfunktion finss"
+          },
+          "gt0116": {
+            "id": "gt0116",
+            "text": "Tidigare Stroke/TIA"
+          },
+          "gt0138": {
+            "id": "gt0138",
+            "text": "Tidpunkt för översikt av diagnos"
+          },
+          "gt0110": {
+            "id": "gt0110",
+            "text": "Hjärtsvikt/VK-dysfunktion diagnos"
+          },
+          "gt0111": {
+            "id": "gt0111",
+            "text": "Tidigare Stroke/TIA diagnos"
+          },
+          "gt0112": {
+            "id": "gt0112",
+            "text": "Vaskulär sjukdom diagnos"
+          },
+          "gt0156": {
+            "id": "gt0156",
+            "text": "Nollställ översyn av diagnos när förmaksflimmer saknas"
           }
         }
       },
       "en": {
         "id": "en",
         "terms": {
-          "gt0011": {
-            "id": "gt0011",
-            "text": "Estimated GFR",
-            "description": "Value describing estimation of glomerular filtration rate adjusted by body-surface area (mL/min/1.73m?)."
-          },
-          "gt0012": {
-            "id": "gt0012",
-            "text": "Calculate GFR for Adult Male",
-            "description": "Rule for calculating estimated GFR for adult male"
-          },
-          "gt0002": {
-            "id": "gt0002",
-            "text": "Birthdate",
-            "description": "*"
-          },
-          "gt0013": {
-            "id": "gt0013",
-            "text": "Calculate GFR for Adult Female",
-            "description": "Rule for  calculating estimated GFR for adult female"
-          },
-          "gt0007": {
-            "id": "gt0007",
-            "text": "Height",
-            "description": "The length of the body from crown of head to sole of foot."
-          },
-          "gt0009": {
-            "id": "gt0009",
-            "text": "Creatinine",
-            "description": "Creatinine level in this specimen"
-          },
-          "gt0003": {
-            "id": "gt0003",
-            "text": "Gender",
-            "description": "*"
-          },
-          "gt0014": {
-            "id": "gt0014",
-            "text": "Calculate GFR for Children",
-            "description": "Rule for calculating estimated GFR for children"
-          },
-          "gt0015": {
-            "id": "gt0015",
-            "text": "GFR Calculation"
-          },
-          "gt0005": {
-            "id": "gt0005",
-            "text": "Weight",
-            "description": "The weight of the individual."
-          },
-          "gt0016": {
-            "id": "gt0016",
-            "text": "GFR Calculation",
-            "description": "Calculation of glomerular filtration rate (GFR) to asssess renal function."
-          }
-        }
-      },
-      "da": {
-        "id": "da",
-        "terms": {
-          "gt0011": {
-            "id": "gt0011",
-            "text": "Anslået eGFR",
-            "description": "*Value describing estimation of glomerular filtration rate adjusted by body-surface area (mL/min/1.73m?). (en)"
-          },
-          "gt0012": {
-            "id": "gt0012",
-            "text": "Beregn GFR for voksne mænd",
-            "description": "*Rule for calculating estimated GFR for adult male (en)"
-          },
-          "gt0002": {
-            "id": "gt0002",
-            "text": "Fødselsdato",
-            "description": "** (en)"
-          },
-          "gt0013": {
-            "id": "gt0013",
-            "text": "Beregn GFR for voksen kvinde",
-            "description": "*Rule for  calculating estimated GFR for adult female (en)"
-          },
-          "gt0007": {
-            "id": "gt0007",
-            "text": "Højde",
-            "description": "*The length of the body from crown of head to sole of foot. (en)"
-          },
-          "gt0009": {
-            "id": "gt0009",
-            "text": "Creatinin",
-            "description": "*Creatinine level in this specimen (en)"
-          },
-          "gt0003": {
-            "id": "gt0003",
-            "text": "Køn",
-            "description": "** (en)"
-          },
-          "gt0014": {
-            "id": "gt0014",
-            "text": "Beregn GFR for børn",
-            "description": "*Rule for calculating estimated GFR for children (en)"
-          },
-          "gt0015": {
-            "id": "gt0015",
-            "text": "*GFR Calculation (en)"
-          },
-          "gt0005": {
-            "id": "gt0005",
-            "text": "Vægt",
-            "description": "*The weight of the individual. (en)"
-          },
-          "gt0016": {
-            "id": "gt0016",
-            "text": "GFR beregning",
-            "description": "*Calculation of glomerular filtration rate (GFR) to asssess renal function. (en)"
-          }
-        }
-      },
-      "es": {
-        "id": "es",
-        "terms": {
-          "gt0011": {
-            "id": "gt0011",
-            "text": "IFG estimado",
-            "description": "Valor del índice de filtrado glomerular basado en la superficie corporal (mL/min/1.73m?). "
-          },
-          "gt0012": {
-            "id": "gt0012",
-            "text": "Cálculo del IFG para hombre adulto",
-            "description": "Regla para calcular el IFG estimado de un hombre adulto"
-          },
-          "gt0002": {
-            "id": "gt0002",
-            "text": "Edad",
-            "description": "Edad"
-          },
-          "gt0013": {
-            "id": "gt0013",
-            "text": "Cálculo del IFG para mujer adulta",
-            "description": "Regla para calcular el IFG estimado de una mujer adulta"
-          },
-          "gt0007": {
-            "id": "gt0007",
-            "text": "Altura",
-            "description": "La longitud del individuo desde la parte superior de la cabeza hasta la planta de los pies"
-          },
-          "gt0009": {
-            "id": "gt0009",
-            "text": "Creatinina",
-            "description": "El nivel de creatinina en este espécimen"
-          },
-          "gt0003": {
-            "id": "gt0003",
-            "text": "Sexo",
-            "description": "Sexo"
-          },
-          "gt0014": {
-            "id": "gt0014",
-            "text": "Cálculo del IFG para niño/a",
-            "description": "Regla para calcular el IFG estimado de un niño"
-          },
-          "gt0015": {
-            "id": "gt0015",
-            "text": "Cálculo del IFG",
+          "gt0128": {
+            "id": "gt0128",
+            "text": "Previous stroke or TIA  date of initial onset",
             "description": ""
           },
-          "gt0005": {
-            "id": "gt0005",
-            "text": "Peso",
-            "description": "El peso del individuo"
-          },
-          "gt0016": {
-            "id": "gt0016",
-            "text": "Cálculo del IFG",
+          "gt0129": {
+            "id": "gt0129",
+            "text": "Vascular disease date of initial onset",
             "description": ""
+          },
+          "gt0108": {
+            "id": "gt0108",
+            "text": "Hypertension diagnosis"
+          },
+          "gt0109": {
+            "id": "gt0109",
+            "text": "Diabetes diagnosis"
+          },
+          "gt0102": {
+            "id": "gt0102",
+            "text": "Diabetes"
+          },
+          "gt0124": {
+            "id": "gt0124",
+            "text": "Date (time) of diagnosis review",
+            "description": ""
+          },
+          "gt0146": {
+            "id": "gt0146",
+            "text": "Set diabetes based on review"
+          },
+          "gt0103": {
+            "id": "gt0103",
+            "text": "Previous stroke or TIA"
+          },
+          "gt0125": {
+            "id": "gt0125",
+            "text": "Atrial fibrillation date of initial onset",
+            "description": ""
+          },
+          "gt0147": {
+            "id": "gt0147",
+            "text": "Set previous stroke based on review"
+          },
+          "gt0027": {
+            "id": "gt0027",
+            "text": "Set default"
+          },
+          "gt0104": {
+            "id": "gt0104",
+            "text": "Vascular disease"
+          },
+          "gt0126": {
+            "id": "gt0126",
+            "text": "Diabetes date of initial onset",
+            "description": ""
+          },
+          "gt0148": {
+            "id": "gt0148",
+            "text": "Set vascular disease based on review"
+          },
+          "gt0028": {
+            "id": "gt0028",
+            "text": "Set vascular disease based on diagnosis"
+          },
+          "gt0127": {
+            "id": "gt0127",
+            "text": "Congestive heart failure date of initial onset",
+            "description": ""
+          },
+          "gt0149": {
+            "id": "gt0149",
+            "text": "Atrial fibrillation diagnosis"
+          },
+          "gt0142": {
+            "id": "gt0142",
+            "text": "Stroke review",
+            "description": ""
+          },
+          "gt0121": {
+            "id": "gt0121",
+            "text": "Set atrial fibrillation based on diagnosis"
+          },
+          "gt0143": {
+            "id": "gt0143",
+            "text": "Vascular disease review",
+            "description": ""
+          },
+          "gt0100": {
+            "id": "gt0100",
+            "text": "Congestive heart failure"
+          },
+          "gt0122": {
+            "id": "gt0122",
+            "text": "Atrial fibrillation diagnosis",
+            "description": ""
+          },
+          "gt0144": {
+            "id": "gt0144",
+            "text": "Set hypertension based on review"
+          },
+          "gt0101": {
+            "id": "gt0101",
+            "text": "Hypertension"
+          },
+          "gt0123": {
+            "id": "gt0123",
+            "text": "Hypertension date of initial onset",
+            "description": ""
+          },
+          "gt0145": {
+            "id": "gt0145",
+            "text": "Set CHF present based on review"
+          },
+          "gt0140": {
+            "id": "gt0140",
+            "text": "Congestive heart failure review",
+            "description": ""
+          },
+          "gt0020": {
+            "id": "gt0020",
+            "text": "Set previous stroke based on diagnosis"
+          },
+          "gt0141": {
+            "id": "gt0141",
+            "text": "Diabetes review",
+            "description": ""
+          },
+          "gt0018": {
+            "id": "gt0018",
+            "text": "Set hypertension based on diagnosis"
+          },
+          "gt0117": {
+            "id": "gt0117",
+            "text": "Congestive heart failure",
+            "description": ""
+          },
+          "gt0139": {
+            "id": "gt0139",
+            "text": "Hypertension review",
+            "description": ""
+          },
+          "gt0019": {
+            "id": "gt0019",
+            "text": "Set diabetes based on diagnosis"
+          },
+          "gt0118": {
+            "id": "gt0118",
+            "text": "Vascular disease",
+            "description": ""
+          },
+          "gt0119": {
+            "id": "gt0119",
+            "text": "Hypertension",
+            "description": ""
+          },
+          "gt0036": {
+            "id": "gt0036",
+            "text": "Diagnosis review",
+            "description": ""
+          },
+          "gt0114": {
+            "id": "gt0114",
+            "text": "Atrial fibrillation",
+            "description": ""
+          },
+          "gt0136": {
+            "id": "gt0136",
+            "text": "Set atrial fibrillation based on review"
+          },
+          "gt0115": {
+            "id": "gt0115",
+            "text": "Diabetes",
+            "description": ""
+          },
+          "gt0137": {
+            "id": "gt0137",
+            "text": "Atrial fibrillation review",
+            "description": ""
+          },
+          "gt0017": {
+            "id": "gt0017",
+            "text": "Set CHF present based on diagnosis"
+          },
+          "gt0116": {
+            "id": "gt0116",
+            "text": "Stroke",
+            "description": ""
+          },
+          "gt0138": {
+            "id": "gt0138",
+            "text": "Date (time) of diagnosis review",
+            "description": ""
+          },
+          "gt0110": {
+            "id": "gt0110",
+            "text": "Congestive heart failure diagnosis"
+          },
+          "gt0111": {
+            "id": "gt0111",
+            "text": "Previous stroke or TIA diagnosis"
+          },
+          "gt0112": {
+            "id": "gt0112",
+            "text": "Vascular disease diagnosis"
+          },
+          "gt0156": {
+            "id": "gt0156",
+            "text": "Clear diagnosis review when AF is absent"
+          }
+        }
+      }
+    },
+    "termBindings": {
+      "ICD10": {
+        "id": "ICD10",
+        "bindings": {
+          "gt0100": {
+            "id": "gt0100",
+            "codes": [
+              {
+                "terminologyId": {
+                  "name": "ICD10",
+                  "value": "ICD10"
+                },
+                "codeString": "I50"
+              }
+            ],
+            "uri": ""
+          },
+          "gt0101": {
+            "id": "gt0101",
+            "codes": [
+              {
+                "terminologyId": {
+                  "name": "ICD10",
+                  "value": "ICD10"
+                },
+                "codeString": "I12"
+              },
+              {
+                "terminologyId": {
+                  "name": "ICD10",
+                  "value": "ICD10"
+                },
+                "codeString": "I13"
+              },
+              {
+                "terminologyId": {
+                  "name": "ICD10",
+                  "value": "ICD10"
+                },
+                "codeString": "I10"
+              },
+              {
+                "terminologyId": {
+                  "name": "ICD10",
+                  "value": "ICD10"
+                },
+                "codeString": "I11"
+              },
+              {
+                "terminologyId": {
+                  "name": "ICD10",
+                  "value": "ICD10"
+                },
+                "codeString": "I15"
+              }
+            ],
+            "uri": ""
+          },
+          "gt0102": {
+            "id": "gt0102",
+            "codes": [
+              {
+                "terminologyId": {
+                  "name": "ICD10",
+                  "value": "ICD10"
+                },
+                "codeString": "E11"
+              },
+              {
+                "terminologyId": {
+                  "name": "ICD10",
+                  "value": "ICD10"
+                },
+                "codeString": "E10"
+              },
+              {
+                "terminologyId": {
+                  "name": "ICD10",
+                  "value": "ICD10"
+                },
+                "codeString": "E13"
+              },
+              {
+                "terminologyId": {
+                  "name": "ICD10",
+                  "value": "ICD10"
+                },
+                "codeString": "E12"
+              },
+              {
+                "terminologyId": {
+                  "name": "ICD10",
+                  "value": "ICD10"
+                },
+                "codeString": "E14"
+              }
+            ],
+            "uri": ""
+          },
+          "gt0103": {
+            "id": "gt0103",
+            "codes": [
+              {
+                "terminologyId": {
+                  "name": "ICD10",
+                  "value": "ICD10"
+                },
+                "codeString": "G459"
+              },
+              {
+                "terminologyId": {
+                  "name": "ICD10",
+                  "value": "ICD10"
+                },
+                "codeString": "I63"
+              },
+              {
+                "terminologyId": {
+                  "name": "ICD10",
+                  "value": "ICD10"
+                },
+                "codeString": "I693"
+              }
+            ],
+            "uri": ""
+          },
+          "gt0104": {
+            "id": "gt0104",
+            "codes": [
+              {
+                "terminologyId": {
+                  "name": "ICD10",
+                  "value": "ICD10"
+                },
+                "codeString": "I249"
+              },
+              {
+                "terminologyId": {
+                  "name": "ICD10",
+                  "value": "ICD10"
+                },
+                "codeString": "I258"
+              },
+              {
+                "terminologyId": {
+                  "name": "ICD10",
+                  "value": "ICD10"
+                },
+                "codeString": "I259"
+              },
+              {
+                "terminologyId": {
+                  "name": "ICD10",
+                  "value": "ICD10"
+                },
+                "codeString": "I255"
+              },
+              {
+                "terminologyId": {
+                  "name": "ICD10",
+                  "value": "ICD10"
+                },
+                "codeString": "I256"
+              },
+              {
+                "terminologyId": {
+                  "name": "ICD10",
+                  "value": "ICD10"
+                },
+                "codeString": "I739"
+              },
+              {
+                "terminologyId": {
+                  "name": "ICD10",
+                  "value": "ICD10"
+                },
+                "codeString": "I250"
+              },
+              {
+                "terminologyId": {
+                  "name": "ICD10",
+                  "value": "ICD10"
+                },
+                "codeString": "I251"
+              },
+              {
+                "terminologyId": {
+                  "name": "ICD10",
+                  "value": "ICD10"
+                },
+                "codeString": "I252"
+              },
+              {
+                "terminologyId": {
+                  "name": "ICD10",
+                  "value": "ICD10"
+                },
+                "codeString": "I72"
+              },
+              {
+                "terminologyId": {
+                  "name": "ICD10",
+                  "value": "ICD10"
+                },
+                "codeString": "I71"
+              },
+              {
+                "terminologyId": {
+                  "name": "ICD10",
+                  "value": "ICD10"
+                },
+                "codeString": "I21"
+              },
+              {
+                "terminologyId": {
+                  "name": "ICD10",
+                  "value": "ICD10"
+                },
+                "codeString": "I70"
+              },
+              {
+                "terminologyId": {
+                  "name": "ICD10",
+                  "value": "ICD10"
+                },
+                "codeString": "I22"
+              },
+              {
+                "terminologyId": {
+                  "name": "ICD10",
+                  "value": "ICD10"
+                },
+                "codeString": "Z951"
+              }
+            ],
+            "uri": ""
+          },
+          "gt0149": {
+            "id": "gt0149",
+            "codes": [
+              {
+                "terminologyId": {
+                  "name": "ICD10",
+                  "value": "ICD10"
+                },
+                "codeString": "I48"
+              }
+            ],
+            "uri": ""
           }
         }
       }

@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Description functionality:', function() {
+describe('Rule list functionality:', function() {
 
   var rulelistCtrl, guidelineFactory, rulelistFactory;
   beforeEach(module('app.controllers'));

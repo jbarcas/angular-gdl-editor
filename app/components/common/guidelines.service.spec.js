@@ -31,7 +31,7 @@ describe('GuidelinesFactory', function() {
   
   describe('getGuideline(guidelineId)', function(){
 
-    var guidelineId = "Estimated_GFR.v1";
+    var guidelineId = "CHA2DS2VASc_diagnosis_review.v1";
 
     it('get a particular guideline', function() {
       var promise, response, result;
@@ -48,16 +48,10 @@ describe('GuidelinesFactory', function() {
       };
       var urlMisc = "http://localhost:8080/km/misc/archetypes/";
       httpBackend.expectGET(baseUrl + "/guidelines/json/" + guidelineId).respond(200, response.data); // Expect a GET request and send back a canned response
-      httpBackend.expectGET(baseUrl + "/archetypes/json/openEHR-EHR-OBSERVATION.estimated_glomerular_filtration_rate.v1").respond(200, true); // Expect a GET request and send back a canned response
-      httpBackend.expectGET(baseUrl + "/archetypes/json/openEHR-EHR-OBSERVATION.lab_test-urea_and_electrolytes.v1").respond(200, true); // Expect a GET request and send back a canned response
-      httpBackend.expectGET(baseUrl + "/archetypes/json/openEHR-EHR-OBSERVATION.body_weight.v1").respond(200, true); // Expect a GET request and send back a canned response
-      httpBackend.expectGET(baseUrl + "/archetypes/json/openEHR-EHR-OBSERVATION.height.v1").respond(200, true); // Expect a GET request and send back a canned response
-      httpBackend.expectGET(baseUrl + "/archetypes/json/openEHR-EHR-OBSERVATION.basic_demographic.v1").respond(200, true); // Expect a GET request and send back a canned response
-      httpBackend.expectGET(urlMisc + "openEHR-EHR-OBSERVATION.estimated_glomerular_filtration_rate.v1/en/terms").respond(200, true); // Expect a GET request and send back a canned response
-      httpBackend.expectGET(urlMisc + "openEHR-EHR-OBSERVATION.lab_test-urea_and_electrolytes.v1/en/terms").respond(200, true); // Expect a GET request and send back a canned response
-      httpBackend.expectGET(urlMisc + "openEHR-EHR-OBSERVATION.body_weight.v1/en/terms").respond(200, true); // Expect a GET request and send back a canned response
-      httpBackend.expectGET(urlMisc + "openEHR-EHR-OBSERVATION.height.v1/en/terms").respond(200, true); // Expect a GET request and send back a canned response
-      httpBackend.expectGET(urlMisc + "openEHR-EHR-OBSERVATION.basic_demographic.v1/en/terms").respond(200, true); // Expect a GET request and send back a canned response
+      httpBackend.expectGET(baseUrl + "/archetypes/json/openEHR-EHR-EVALUATION.problem-diagnosis.v1").respond(200, true); // Expect a GET request and send back a canned response
+      httpBackend.expectGET(baseUrl + "/archetypes/json/openEHR-EHR-EVALUATION.chadsvas_diagnosis_review.v1").respond(200, true); // Expect a GET request and send back a canned response
+      httpBackend.expectGET(urlMisc + "openEHR-EHR-EVALUATION.problem-diagnosis.v1/en/terms").respond(200, true); // Expect a GET request and send back a canned response
+      httpBackend.expectGET(urlMisc + "openEHR-EHR-EVALUATION.chadsvas_diagnosis_review.v1/en/terms").respond(200, true); // Expect a GET request and send back a canned response
       httpBackend.flush(); // Flush pending requests
       expect(result).toEqual(response.data);
 

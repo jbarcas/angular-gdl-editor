@@ -1,16 +1,426 @@
 [
   {
-    "id": "gt0012",
+    "id": "gt0018",
     "when": [
-      "$gt0002.value<=($currentDateTime.value-20,a)",
-      "$gt0003==local::at0005|Male|",
-      "$gt0005.units=='kg'",
-      "$gt0009.units=='umol/l'"
+      "$gt0119!=1|local::at0051|Present|",
+      "$gt0108!=null",
+      "($gt0139==null)||($gt0123>$gt0138)"
     ],
     "then": [
-      "$gt0011.magnitude=((1.23*(140-($currentDateTime.year-$gt0002.year)))*($gt0005.magnitude/$gt0009.magnitude))",
-      "$gt0011.precision=2",
-      "$gt0011.units='ml/min'"
+      "$gt0119=1|local::at0051|Present|"
+    ],
+    "priority": 13,
+    "whenStatements": [
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "Variable",
+            "expressionItem": {
+              "code": "gt0119"
+            }
+          },
+          "right": {
+            "type": "OrdinalConstant",
+            "expressionItem": {
+              "ordinal": {
+                "value": 1,
+                "symbol": {
+                  "definingCode": {
+                    "terminologyId": {
+                      "name": "local",
+                      "value": "local"
+                    },
+                    "codeString": "at0051"
+                  },
+                  "value": "Present"
+                },
+                "limitsIndex": -1
+              },
+              "value": "1|local::at0051|Present|"
+            }
+          },
+          "operator": "INEQUAL"
+        }
+      },
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "Variable",
+            "expressionItem": {
+              "code": "gt0108"
+            }
+          },
+          "right": {
+            "type": "ConstantExpression",
+            "expressionItem": {
+              "value": "null"
+            }
+          },
+          "operator": "INEQUAL"
+        }
+      },
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0139"
+                }
+              },
+              "right": {
+                "type": "ConstantExpression",
+                "expressionItem": {
+                  "value": "null"
+                }
+              },
+              "operator": "EQUALITY"
+            }
+          },
+          "right": {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0123"
+                }
+              },
+              "right": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0138"
+                }
+              },
+              "operator": "GREATER_THAN"
+            }
+          },
+          "operator": "OR"
+        }
+      }
+    ],
+    "thenStatements": [
+      {
+        "variable": {
+          "code": "gt0119"
+        },
+        "assignment": {
+          "type": "OrdinalConstant",
+          "expressionItem": {
+            "ordinal": {
+              "value": 1,
+              "symbol": {
+                "definingCode": {
+                  "terminologyId": {
+                    "name": "local",
+                    "value": "local"
+                  },
+                  "codeString": "at0051"
+                },
+                "value": "Present"
+              },
+              "limitsIndex": -1
+            },
+            "value": "1|local::at0051|Present|"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "gt0019",
+    "when": [
+      "$gt0115!=1|local::at0051|Present|",
+      "$gt0109!=null",
+      "($gt0141==null)||($gt0126>$gt0138)"
+    ],
+    "then": [
+      "$gt0115=1|local::at0051|Present|"
+    ],
+    "priority": 11,
+    "whenStatements": [
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "Variable",
+            "expressionItem": {
+              "code": "gt0115"
+            }
+          },
+          "right": {
+            "type": "OrdinalConstant",
+            "expressionItem": {
+              "ordinal": {
+                "value": 1,
+                "symbol": {
+                  "definingCode": {
+                    "terminologyId": {
+                      "name": "local",
+                      "value": "local"
+                    },
+                    "codeString": "at0051"
+                  },
+                  "value": "Present"
+                },
+                "limitsIndex": -1
+              },
+              "value": "1|local::at0051|Present|"
+            }
+          },
+          "operator": "INEQUAL"
+        }
+      },
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "Variable",
+            "expressionItem": {
+              "code": "gt0109"
+            }
+          },
+          "right": {
+            "type": "ConstantExpression",
+            "expressionItem": {
+              "value": "null"
+            }
+          },
+          "operator": "INEQUAL"
+        }
+      },
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0141"
+                }
+              },
+              "right": {
+                "type": "ConstantExpression",
+                "expressionItem": {
+                  "value": "null"
+                }
+              },
+              "operator": "EQUALITY"
+            }
+          },
+          "right": {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0126"
+                }
+              },
+              "right": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0138"
+                }
+              },
+              "operator": "GREATER_THAN"
+            }
+          },
+          "operator": "OR"
+        }
+      }
+    ],
+    "thenStatements": [
+      {
+        "variable": {
+          "code": "gt0115"
+        },
+        "assignment": {
+          "type": "OrdinalConstant",
+          "expressionItem": {
+            "ordinal": {
+              "value": 1,
+              "symbol": {
+                "definingCode": {
+                  "terminologyId": {
+                    "name": "local",
+                    "value": "local"
+                  },
+                  "codeString": "at0051"
+                },
+                "value": "Present"
+              },
+              "limitsIndex": -1
+            },
+            "value": "1|local::at0051|Present|"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "gt0146",
+    "when": [
+      "$gt0115!=1|local::at0051|Present|",
+      "$gt0141==1|local::at0051|Present|",
+      "($gt0138>$gt0126)||($gt0109==null)"
+    ],
+    "then": [
+      "$gt0115=1|local::at0051|Present|"
+    ],
+    "priority": 5,
+    "whenStatements": [
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "Variable",
+            "expressionItem": {
+              "code": "gt0115"
+            }
+          },
+          "right": {
+            "type": "OrdinalConstant",
+            "expressionItem": {
+              "ordinal": {
+                "value": 1,
+                "symbol": {
+                  "definingCode": {
+                    "terminologyId": {
+                      "name": "local",
+                      "value": "local"
+                    },
+                    "codeString": "at0051"
+                  },
+                  "value": "Present"
+                },
+                "limitsIndex": -1
+              },
+              "value": "1|local::at0051|Present|"
+            }
+          },
+          "operator": "INEQUAL"
+        }
+      },
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "Variable",
+            "expressionItem": {
+              "code": "gt0141"
+            }
+          },
+          "right": {
+            "type": "OrdinalConstant",
+            "expressionItem": {
+              "ordinal": {
+                "value": 1,
+                "symbol": {
+                  "definingCode": {
+                    "terminologyId": {
+                      "name": "local",
+                      "value": "local"
+                    },
+                    "codeString": "at0051"
+                  },
+                  "value": "Present"
+                },
+                "limitsIndex": -1
+              },
+              "value": "1|local::at0051|Present|"
+            }
+          },
+          "operator": "EQUALITY"
+        }
+      },
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0138"
+                }
+              },
+              "right": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0126"
+                }
+              },
+              "operator": "GREATER_THAN"
+            }
+          },
+          "right": {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0109"
+                }
+              },
+              "right": {
+                "type": "ConstantExpression",
+                "expressionItem": {
+                  "value": "null"
+                }
+              },
+              "operator": "EQUALITY"
+            }
+          },
+          "operator": "OR"
+        }
+      }
+    ],
+    "thenStatements": [
+      {
+        "variable": {
+          "code": "gt0115"
+        },
+        "assignment": {
+          "type": "OrdinalConstant",
+          "expressionItem": {
+            "ordinal": {
+              "value": 1,
+              "symbol": {
+                "definingCode": {
+                  "terminologyId": {
+                    "name": "local",
+                    "value": "local"
+                  },
+                  "codeString": "at0051"
+                },
+                "value": "Present"
+              },
+              "limitsIndex": -1
+            },
+            "value": "1|local::at0051|Present|"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "gt0136",
+    "when": [
+      "$gt0114!=1|local::at0051|Present|",
+      "$gt0137==1|local::at0051|Present|",
+      "($gt0138>$gt0125)||($gt0122==null)"
+    ],
+    "then": [
+      "$gt0114=1|local::at0051|Present|"
     ],
     "priority": 2,
     "whenStatements": [
@@ -20,8 +430,83 @@
           "left": {
             "type": "Variable",
             "expressionItem": {
-              "code": "gt0002",
-              "attribute": "value"
+              "code": "gt0114"
+            }
+          },
+          "right": {
+            "type": "OrdinalConstant",
+            "expressionItem": {
+              "ordinal": {
+                "value": 1,
+                "symbol": {
+                  "definingCode": {
+                    "terminologyId": {
+                      "name": "local",
+                      "value": "local"
+                    },
+                    "codeString": "at0051"
+                  },
+                  "value": "Present"
+                },
+                "limitsIndex": -1
+              },
+              "value": "1|local::at0051|Present|"
+            }
+          },
+          "operator": "INEQUAL"
+        }
+      },
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "Variable",
+            "expressionItem": {
+              "code": "gt0137"
+            }
+          },
+          "right": {
+            "type": "OrdinalConstant",
+            "expressionItem": {
+              "ordinal": {
+                "value": 1,
+                "symbol": {
+                  "definingCode": {
+                    "terminologyId": {
+                      "name": "local",
+                      "value": "local"
+                    },
+                    "codeString": "at0051"
+                  },
+                  "value": "Present"
+                },
+                "limitsIndex": -1
+              },
+              "value": "1|local::at0051|Present|"
+            }
+          },
+          "operator": "EQUALITY"
+        }
+      },
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0138"
+                }
+              },
+              "right": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0125"
+                }
+              },
+              "operator": "GREATER_THAN"
             }
           },
           "right": {
@@ -30,216 +515,61 @@
               "left": {
                 "type": "Variable",
                 "expressionItem": {
-                  "code": "currentDateTime",
-                  "attribute": "value"
+                  "code": "gt0122"
                 }
               },
               "right": {
-                "type": "QuantityConstant",
+                "type": "ConstantExpression",
                 "expressionItem": {
-                  "quantity": {
-                    "magnitude": 20,
-                    "precision": 0,
-                    "units": "a",
-                    "accuracy": 0,
-                    "accuracyPercent": false
-                  },
-                  "value": "20,a"
+                  "value": "null"
                 }
               },
-              "operator": "SUBSTRATION"
+              "operator": "EQUALITY"
             }
           },
-          "operator": "LESS_THAN_OR_EQUAL"
-        }
-      },
-      {
-        "type": "BinaryExpression",
-        "expressionItem": {
-          "left": {
-            "type": "Variable",
-            "expressionItem": {
-              "code": "gt0003"
-            }
-          },
-          "right": {
-            "type": "CodedTextConstant",
-            "expressionItem": {
-              "codedText": {
-                "definingCode": {
-                  "terminologyId": {
-                    "name": "local",
-                    "value": "local"
-                  },
-                  "codeString": "at0005"
-                },
-                "value": "Male"
-              },
-              "value": "local::at0005|Male|"
-            }
-          },
-          "operator": "EQUALITY"
-        }
-      },
-      {
-        "type": "BinaryExpression",
-        "expressionItem": {
-          "left": {
-            "type": "Variable",
-            "expressionItem": {
-              "code": "gt0005",
-              "attribute": "units"
-            }
-          },
-          "right": {
-            "type": "StringConstant",
-            "expressionItem": {
-              "string": "kg",
-              "value": "kg"
-            }
-          },
-          "operator": "EQUALITY"
-        }
-      },
-      {
-        "type": "BinaryExpression",
-        "expressionItem": {
-          "left": {
-            "type": "Variable",
-            "expressionItem": {
-              "code": "gt0009",
-              "attribute": "units"
-            }
-          },
-          "right": {
-            "type": "StringConstant",
-            "expressionItem": {
-              "string": "umol/l",
-              "value": "umol/l"
-            }
-          },
-          "operator": "EQUALITY"
+          "operator": "OR"
         }
       }
     ],
     "thenStatements": [
       {
         "variable": {
-          "code": "gt0011",
-          "attribute": "magnitude"
+          "code": "gt0114"
         },
         "assignment": {
-          "type": "BinaryExpression",
+          "type": "OrdinalConstant",
           "expressionItem": {
-            "left": {
-              "type": "BinaryExpression",
-              "expressionItem": {
-                "left": {
-                  "type": "ConstantExpression",
-                  "expressionItem": {
-                    "value": "1.23"
-                  }
+            "ordinal": {
+              "value": 1,
+              "symbol": {
+                "definingCode": {
+                  "terminologyId": {
+                    "name": "local",
+                    "value": "local"
+                  },
+                  "codeString": "at0051"
                 },
-                "right": {
-                  "type": "BinaryExpression",
-                  "expressionItem": {
-                    "left": {
-                      "type": "ConstantExpression",
-                      "expressionItem": {
-                        "value": "140"
-                      }
-                    },
-                    "right": {
-                      "type": "BinaryExpression",
-                      "expressionItem": {
-                        "left": {
-                          "type": "Variable",
-                          "expressionItem": {
-                            "code": "currentDateTime",
-                            "attribute": "year"
-                          }
-                        },
-                        "right": {
-                          "type": "Variable",
-                          "expressionItem": {
-                            "code": "gt0002",
-                            "attribute": "year"
-                          }
-                        },
-                        "operator": "SUBSTRATION"
-                      }
-                    },
-                    "operator": "SUBSTRATION"
-                  }
-                },
-                "operator": "MULTIPLICATION"
-              }
+                "value": "Present"
+              },
+              "limitsIndex": -1
             },
-            "right": {
-              "type": "BinaryExpression",
-              "expressionItem": {
-                "left": {
-                  "type": "Variable",
-                  "expressionItem": {
-                    "code": "gt0005",
-                    "attribute": "magnitude"
-                  }
-                },
-                "right": {
-                  "type": "Variable",
-                  "expressionItem": {
-                    "code": "gt0009",
-                    "attribute": "magnitude"
-                  }
-                },
-                "operator": "DIVISION"
-              }
-            },
-            "operator": "MULTIPLICATION"
-          }
-        }
-      },
-      {
-        "variable": {
-          "code": "gt0011",
-          "attribute": "precision"
-        },
-        "assignment": {
-          "type": "ConstantExpression",
-          "expressionItem": {
-            "value": "2"
-          }
-        }
-      },
-      {
-        "variable": {
-          "code": "gt0011",
-          "attribute": "units"
-        },
-        "assignment": {
-          "type": "StringConstant",
-          "expressionItem": {
-            "string": "ml/min",
-            "value": "ml/min"
+            "value": "1|local::at0051|Present|"
           }
         }
       }
     ]
   },
   {
-    "id": "gt0013",
+    "id": "gt0147",
     "when": [
-      "$gt0002.value<=($currentDateTime.value-20,a)",
-      "$gt0003==local::at0006|Female|",
-      "$gt0005.units=='kg'",
-      "$gt0009.units=='umol/l'"
+      "$gt0116!=1|local::at0051|Present|",
+      "$gt0142==1|local::at0051|Present|",
+      "($gt0138>$gt0128)||($gt0111==null)"
     ],
     "then": [
-      "$gt0011.units='ml/min'",
-      "$gt0011.precision=2",
-      "$gt0011.magnitude=((1.04*(140-($currentDateTime.year-$gt0002.year)))*($gt0005.magnitude/$gt0009.magnitude))"
+      "$gt0116=1|local::at0051|Present|"
     ],
-    "priority": 1,
+    "priority": 4,
     "whenStatements": [
       {
         "type": "BinaryExpression",
@@ -247,8 +577,83 @@
           "left": {
             "type": "Variable",
             "expressionItem": {
-              "code": "gt0002",
-              "attribute": "value"
+              "code": "gt0116"
+            }
+          },
+          "right": {
+            "type": "OrdinalConstant",
+            "expressionItem": {
+              "ordinal": {
+                "value": 1,
+                "symbol": {
+                  "definingCode": {
+                    "terminologyId": {
+                      "name": "local",
+                      "value": "local"
+                    },
+                    "codeString": "at0051"
+                  },
+                  "value": "Present"
+                },
+                "limitsIndex": -1
+              },
+              "value": "1|local::at0051|Present|"
+            }
+          },
+          "operator": "INEQUAL"
+        }
+      },
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "Variable",
+            "expressionItem": {
+              "code": "gt0142"
+            }
+          },
+          "right": {
+            "type": "OrdinalConstant",
+            "expressionItem": {
+              "ordinal": {
+                "value": 1,
+                "symbol": {
+                  "definingCode": {
+                    "terminologyId": {
+                      "name": "local",
+                      "value": "local"
+                    },
+                    "codeString": "at0051"
+                  },
+                  "value": "Present"
+                },
+                "limitsIndex": -1
+              },
+              "value": "1|local::at0051|Present|"
+            }
+          },
+          "operator": "EQUALITY"
+        }
+      },
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0138"
+                }
+              },
+              "right": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0128"
+                }
+              },
+              "operator": "GREATER_THAN"
             }
           },
           "right": {
@@ -257,52 +662,85 @@
               "left": {
                 "type": "Variable",
                 "expressionItem": {
-                  "code": "currentDateTime",
-                  "attribute": "value"
+                  "code": "gt0111"
                 }
               },
               "right": {
-                "type": "QuantityConstant",
+                "type": "ConstantExpression",
                 "expressionItem": {
-                  "quantity": {
-                    "magnitude": 20,
-                    "precision": 0,
-                    "units": "a",
-                    "accuracy": 0,
-                    "accuracyPercent": false
-                  },
-                  "value": "20,a"
+                  "value": "null"
                 }
               },
-              "operator": "SUBSTRATION"
+              "operator": "EQUALITY"
             }
           },
-          "operator": "LESS_THAN_OR_EQUAL"
+          "operator": "OR"
         }
-      },
+      }
+    ],
+    "thenStatements": [
       {
-        "type": "BinaryExpression",
-        "expressionItem": {
-          "left": {
-            "type": "Variable",
-            "expressionItem": {
-              "code": "gt0003"
-            }
-          },
-          "right": {
-            "type": "CodedTextConstant",
-            "expressionItem": {
-              "codedText": {
+        "variable": {
+          "code": "gt0116"
+        },
+        "assignment": {
+          "type": "OrdinalConstant",
+          "expressionItem": {
+            "ordinal": {
+              "value": 1,
+              "symbol": {
                 "definingCode": {
                   "terminologyId": {
                     "name": "local",
                     "value": "local"
                   },
-                  "codeString": "at0006"
+                  "codeString": "at0051"
                 },
-                "value": "Female"
+                "value": "Present"
               },
-              "value": "local::at0006|Female|"
+              "limitsIndex": -1
+            },
+            "value": "1|local::at0051|Present|"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "gt0027",
+    "when": [
+      "$gt0124==null",
+      "$gt0119==null",
+      "$gt0118==null",
+      "$gt0117==null",
+      "$gt0116==null",
+      "$gt0115==null",
+      "$gt0114==null"
+    ],
+    "then": [
+      "$gt0124.value=$currentDateTime.value",
+      "$gt0119=0|local::at0050|Absent|",
+      "$gt0118=0|local::at0050|Absent|",
+      "$gt0117=0|local::at0050|Absent|",
+      "$gt0116=0|local::at0050|Absent|",
+      "$gt0115=0|local::at0050|Absent|",
+      "$gt0114=0|local::at0050|Absent|"
+    ],
+    "priority": 14,
+    "whenStatements": [
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "Variable",
+            "expressionItem": {
+              "code": "gt0124"
+            }
+          },
+          "right": {
+            "type": "ConstantExpression",
+            "expressionItem": {
+              "value": "null"
             }
           },
           "operator": "EQUALITY"
@@ -314,15 +752,13 @@
           "left": {
             "type": "Variable",
             "expressionItem": {
-              "code": "gt0005",
-              "attribute": "units"
+              "code": "gt0119"
             }
           },
           "right": {
-            "type": "StringConstant",
+            "type": "ConstantExpression",
             "expressionItem": {
-              "string": "kg",
-              "value": "kg"
+              "value": "null"
             }
           },
           "operator": "EQUALITY"
@@ -334,15 +770,85 @@
           "left": {
             "type": "Variable",
             "expressionItem": {
-              "code": "gt0009",
-              "attribute": "units"
+              "code": "gt0118"
             }
           },
           "right": {
-            "type": "StringConstant",
+            "type": "ConstantExpression",
             "expressionItem": {
-              "string": "umol/l",
-              "value": "umol/l"
+              "value": "null"
+            }
+          },
+          "operator": "EQUALITY"
+        }
+      },
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "Variable",
+            "expressionItem": {
+              "code": "gt0117"
+            }
+          },
+          "right": {
+            "type": "ConstantExpression",
+            "expressionItem": {
+              "value": "null"
+            }
+          },
+          "operator": "EQUALITY"
+        }
+      },
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "Variable",
+            "expressionItem": {
+              "code": "gt0116"
+            }
+          },
+          "right": {
+            "type": "ConstantExpression",
+            "expressionItem": {
+              "value": "null"
+            }
+          },
+          "operator": "EQUALITY"
+        }
+      },
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "Variable",
+            "expressionItem": {
+              "code": "gt0115"
+            }
+          },
+          "right": {
+            "type": "ConstantExpression",
+            "expressionItem": {
+              "value": "null"
+            }
+          },
+          "operator": "EQUALITY"
+        }
+      },
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "Variable",
+            "expressionItem": {
+              "code": "gt0114"
+            }
+          },
+          "right": {
+            "type": "ConstantExpression",
+            "expressionItem": {
+              "value": "null"
             }
           },
           "operator": "EQUALITY"
@@ -352,119 +858,178 @@
     "thenStatements": [
       {
         "variable": {
-          "code": "gt0011",
-          "attribute": "units"
+          "code": "gt0124",
+          "attribute": "value"
         },
         "assignment": {
-          "type": "StringConstant",
+          "type": "Variable",
           "expressionItem": {
-            "string": "ml/min",
-            "value": "ml/min"
+            "code": "currentDateTime",
+            "attribute": "value"
           }
         }
       },
       {
         "variable": {
-          "code": "gt0011",
-          "attribute": "precision"
+          "code": "gt0119"
         },
         "assignment": {
-          "type": "ConstantExpression",
+          "type": "OrdinalConstant",
           "expressionItem": {
-            "value": "2"
+            "ordinal": {
+              "value": 0,
+              "symbol": {
+                "definingCode": {
+                  "terminologyId": {
+                    "name": "local",
+                    "value": "local"
+                  },
+                  "codeString": "at0050"
+                },
+                "value": "Absent"
+              },
+              "limitsIndex": -1
+            },
+            "value": "0|local::at0050|Absent|"
           }
         }
       },
       {
         "variable": {
-          "code": "gt0011",
-          "attribute": "magnitude"
+          "code": "gt0118"
         },
         "assignment": {
-          "type": "BinaryExpression",
+          "type": "OrdinalConstant",
           "expressionItem": {
-            "left": {
-              "type": "BinaryExpression",
-              "expressionItem": {
-                "left": {
-                  "type": "ConstantExpression",
-                  "expressionItem": {
-                    "value": "1.04"
-                  }
+            "ordinal": {
+              "value": 0,
+              "symbol": {
+                "definingCode": {
+                  "terminologyId": {
+                    "name": "local",
+                    "value": "local"
+                  },
+                  "codeString": "at0050"
                 },
-                "right": {
-                  "type": "BinaryExpression",
-                  "expressionItem": {
-                    "left": {
-                      "type": "ConstantExpression",
-                      "expressionItem": {
-                        "value": "140"
-                      }
-                    },
-                    "right": {
-                      "type": "BinaryExpression",
-                      "expressionItem": {
-                        "left": {
-                          "type": "Variable",
-                          "expressionItem": {
-                            "code": "currentDateTime",
-                            "attribute": "year"
-                          }
-                        },
-                        "right": {
-                          "type": "Variable",
-                          "expressionItem": {
-                            "code": "gt0002",
-                            "attribute": "year"
-                          }
-                        },
-                        "operator": "SUBSTRATION"
-                      }
-                    },
-                    "operator": "SUBSTRATION"
-                  }
-                },
-                "operator": "MULTIPLICATION"
-              }
+                "value": "Absent"
+              },
+              "limitsIndex": -1
             },
-            "right": {
-              "type": "BinaryExpression",
-              "expressionItem": {
-                "left": {
-                  "type": "Variable",
-                  "expressionItem": {
-                    "code": "gt0005",
-                    "attribute": "magnitude"
-                  }
+            "value": "0|local::at0050|Absent|"
+          }
+        }
+      },
+      {
+        "variable": {
+          "code": "gt0117"
+        },
+        "assignment": {
+          "type": "OrdinalConstant",
+          "expressionItem": {
+            "ordinal": {
+              "value": 0,
+              "symbol": {
+                "definingCode": {
+                  "terminologyId": {
+                    "name": "local",
+                    "value": "local"
+                  },
+                  "codeString": "at0050"
                 },
-                "right": {
-                  "type": "Variable",
-                  "expressionItem": {
-                    "code": "gt0009",
-                    "attribute": "magnitude"
-                  }
-                },
-                "operator": "DIVISION"
-              }
+                "value": "Absent"
+              },
+              "limitsIndex": -1
             },
-            "operator": "MULTIPLICATION"
+            "value": "0|local::at0050|Absent|"
+          }
+        }
+      },
+      {
+        "variable": {
+          "code": "gt0116"
+        },
+        "assignment": {
+          "type": "OrdinalConstant",
+          "expressionItem": {
+            "ordinal": {
+              "value": 0,
+              "symbol": {
+                "definingCode": {
+                  "terminologyId": {
+                    "name": "local",
+                    "value": "local"
+                  },
+                  "codeString": "at0050"
+                },
+                "value": "Absent"
+              },
+              "limitsIndex": -1
+            },
+            "value": "0|local::at0050|Absent|"
+          }
+        }
+      },
+      {
+        "variable": {
+          "code": "gt0115"
+        },
+        "assignment": {
+          "type": "OrdinalConstant",
+          "expressionItem": {
+            "ordinal": {
+              "value": 0,
+              "symbol": {
+                "definingCode": {
+                  "terminologyId": {
+                    "name": "local",
+                    "value": "local"
+                  },
+                  "codeString": "at0050"
+                },
+                "value": "Absent"
+              },
+              "limitsIndex": -1
+            },
+            "value": "0|local::at0050|Absent|"
+          }
+        }
+      },
+      {
+        "variable": {
+          "code": "gt0114"
+        },
+        "assignment": {
+          "type": "OrdinalConstant",
+          "expressionItem": {
+            "ordinal": {
+              "value": 0,
+              "symbol": {
+                "definingCode": {
+                  "terminologyId": {
+                    "name": "local",
+                    "value": "local"
+                  },
+                  "codeString": "at0050"
+                },
+                "value": "Absent"
+              },
+              "limitsIndex": -1
+            },
+            "value": "0|local::at0050|Absent|"
           }
         }
       }
     ]
   },
   {
-    "id": "gt0014",
+    "id": "gt0148",
     "when": [
-      "$gt0002.value>($currentDateTime.value-20,a)",
-      "$gt0007.units=='cm'",
-      "$gt0005.units=='kg'",
-      "$gt0009.units=='umol/l'"
+      "$gt0118!=1|local::at0051|Present|",
+      "$gt0143==1|local::at0051|Present|",
+      "($gt0138>$gt0129)||($gt0112==null)"
     ],
     "then": [
-      "$gt0011.magnitude=(((42.5*$gt0007.magnitude)/$gt0009.magnitude)/(($gt0005.magnitude/70)^0.7))",
-      "$gt0011.units='ml/min'",
-      "$gt0011.precision=2"
+      "$gt0118=1|local::at0051|Present|"
     ],
     "priority": 3,
     "whenStatements": [
@@ -474,8 +1039,83 @@
           "left": {
             "type": "Variable",
             "expressionItem": {
-              "code": "gt0002",
-              "attribute": "value"
+              "code": "gt0118"
+            }
+          },
+          "right": {
+            "type": "OrdinalConstant",
+            "expressionItem": {
+              "ordinal": {
+                "value": 1,
+                "symbol": {
+                  "definingCode": {
+                    "terminologyId": {
+                      "name": "local",
+                      "value": "local"
+                    },
+                    "codeString": "at0051"
+                  },
+                  "value": "Present"
+                },
+                "limitsIndex": -1
+              },
+              "value": "1|local::at0051|Present|"
+            }
+          },
+          "operator": "INEQUAL"
+        }
+      },
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "Variable",
+            "expressionItem": {
+              "code": "gt0143"
+            }
+          },
+          "right": {
+            "type": "OrdinalConstant",
+            "expressionItem": {
+              "ordinal": {
+                "value": 1,
+                "symbol": {
+                  "definingCode": {
+                    "terminologyId": {
+                      "name": "local",
+                      "value": "local"
+                    },
+                    "codeString": "at0051"
+                  },
+                  "value": "Present"
+                },
+                "limitsIndex": -1
+              },
+              "value": "1|local::at0051|Present|"
+            }
+          },
+          "operator": "EQUALITY"
+        }
+      },
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0138"
+                }
+              },
+              "right": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0129"
+                }
+              },
+              "operator": "GREATER_THAN"
             }
           },
           "right": {
@@ -484,188 +1124,1126 @@
               "left": {
                 "type": "Variable",
                 "expressionItem": {
-                  "code": "currentDateTime",
-                  "attribute": "value"
+                  "code": "gt0112"
                 }
               },
               "right": {
-                "type": "QuantityConstant",
+                "type": "ConstantExpression",
                 "expressionItem": {
-                  "quantity": {
-                    "magnitude": 20,
-                    "precision": 0,
-                    "units": "a",
-                    "accuracy": 0,
-                    "accuracyPercent": false
-                  },
-                  "value": "20,a"
+                  "value": "null"
                 }
               },
-              "operator": "SUBSTRATION"
+              "operator": "EQUALITY"
             }
           },
-          "operator": "GREATER_THAN"
-        }
-      },
-      {
-        "type": "BinaryExpression",
-        "expressionItem": {
-          "left": {
-            "type": "Variable",
-            "expressionItem": {
-              "code": "gt0007",
-              "attribute": "units"
-            }
-          },
-          "right": {
-            "type": "StringConstant",
-            "expressionItem": {
-              "string": "cm",
-              "value": "cm"
-            }
-          },
-          "operator": "EQUALITY"
-        }
-      },
-      {
-        "type": "BinaryExpression",
-        "expressionItem": {
-          "left": {
-            "type": "Variable",
-            "expressionItem": {
-              "code": "gt0005",
-              "attribute": "units"
-            }
-          },
-          "right": {
-            "type": "StringConstant",
-            "expressionItem": {
-              "string": "kg",
-              "value": "kg"
-            }
-          },
-          "operator": "EQUALITY"
-        }
-      },
-      {
-        "type": "BinaryExpression",
-        "expressionItem": {
-          "left": {
-            "type": "Variable",
-            "expressionItem": {
-              "code": "gt0009",
-              "attribute": "units"
-            }
-          },
-          "right": {
-            "type": "StringConstant",
-            "expressionItem": {
-              "string": "umol/l",
-              "value": "umol/l"
-            }
-          },
-          "operator": "EQUALITY"
+          "operator": "OR"
         }
       }
     ],
     "thenStatements": [
       {
         "variable": {
-          "code": "gt0011",
-          "attribute": "magnitude"
+          "code": "gt0118"
         },
         "assignment": {
-          "type": "BinaryExpression",
+          "type": "OrdinalConstant",
           "expressionItem": {
-            "left": {
-              "type": "BinaryExpression",
-              "expressionItem": {
-                "left": {
-                  "type": "BinaryExpression",
-                  "expressionItem": {
-                    "left": {
-                      "type": "ConstantExpression",
-                      "expressionItem": {
-                        "value": "42.5"
-                      }
-                    },
-                    "right": {
-                      "type": "Variable",
-                      "expressionItem": {
-                        "code": "gt0007",
-                        "attribute": "magnitude"
-                      }
-                    },
-                    "operator": "MULTIPLICATION"
-                  }
+            "ordinal": {
+              "value": 1,
+              "symbol": {
+                "definingCode": {
+                  "terminologyId": {
+                    "name": "local",
+                    "value": "local"
+                  },
+                  "codeString": "at0051"
                 },
-                "right": {
-                  "type": "Variable",
-                  "expressionItem": {
-                    "code": "gt0009",
-                    "attribute": "magnitude"
-                  }
-                },
-                "operator": "DIVISION"
-              }
+                "value": "Present"
+              },
+              "limitsIndex": -1
             },
-            "right": {
-              "type": "BinaryExpression",
-              "expressionItem": {
-                "left": {
-                  "type": "BinaryExpression",
-                  "expressionItem": {
-                    "left": {
-                      "type": "Variable",
-                      "expressionItem": {
-                        "code": "gt0005",
-                        "attribute": "magnitude"
-                      }
+            "value": "1|local::at0051|Present|"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "gt0017",
+    "when": [
+      "$gt0117!=1|local::at0051|Present|",
+      "$gt0110!=null",
+      "($gt0140==null)||($gt0127>$gt0138)"
+    ],
+    "then": [
+      "$gt0117=1|local::at0051|Present|"
+    ],
+    "priority": 12,
+    "whenStatements": [
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "Variable",
+            "expressionItem": {
+              "code": "gt0117"
+            }
+          },
+          "right": {
+            "type": "OrdinalConstant",
+            "expressionItem": {
+              "ordinal": {
+                "value": 1,
+                "symbol": {
+                  "definingCode": {
+                    "terminologyId": {
+                      "name": "local",
+                      "value": "local"
                     },
-                    "right": {
-                      "type": "ConstantExpression",
-                      "expressionItem": {
-                        "value": "70"
-                      }
-                    },
-                    "operator": "DIVISION"
-                  }
+                    "codeString": "at0051"
+                  },
+                  "value": "Present"
                 },
-                "right": {
-                  "type": "ConstantExpression",
-                  "expressionItem": {
-                    "value": "0.7"
-                  }
+                "limitsIndex": -1
+              },
+              "value": "1|local::at0051|Present|"
+            }
+          },
+          "operator": "INEQUAL"
+        }
+      },
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "Variable",
+            "expressionItem": {
+              "code": "gt0110"
+            }
+          },
+          "right": {
+            "type": "ConstantExpression",
+            "expressionItem": {
+              "value": "null"
+            }
+          },
+          "operator": "INEQUAL"
+        }
+      },
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0140"
+                }
+              },
+              "right": {
+                "type": "ConstantExpression",
+                "expressionItem": {
+                  "value": "null"
+                }
+              },
+              "operator": "EQUALITY"
+            }
+          },
+          "right": {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0127"
+                }
+              },
+              "right": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0138"
+                }
+              },
+              "operator": "GREATER_THAN"
+            }
+          },
+          "operator": "OR"
+        }
+      }
+    ],
+    "thenStatements": [
+      {
+        "variable": {
+          "code": "gt0117"
+        },
+        "assignment": {
+          "type": "OrdinalConstant",
+          "expressionItem": {
+            "ordinal": {
+              "value": 1,
+              "symbol": {
+                "definingCode": {
+                  "terminologyId": {
+                    "name": "local",
+                    "value": "local"
+                  },
+                  "codeString": "at0051"
                 },
-                "operator": "EXPONENT"
-              }
+                "value": "Present"
+              },
+              "limitsIndex": -1
             },
-            "operator": "DIVISION"
+            "value": "1|local::at0051|Present|"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "gt0028",
+    "when": [
+      "$gt0118!=1|local::at0051|Present|",
+      "$gt0112!=null",
+      "($gt0143==null)||($gt0129>$gt0138)"
+    ],
+    "then": [
+      "$gt0118=1|local::at0051|Present|"
+    ],
+    "priority": 9,
+    "whenStatements": [
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "Variable",
+            "expressionItem": {
+              "code": "gt0118"
+            }
+          },
+          "right": {
+            "type": "OrdinalConstant",
+            "expressionItem": {
+              "ordinal": {
+                "value": 1,
+                "symbol": {
+                  "definingCode": {
+                    "terminologyId": {
+                      "name": "local",
+                      "value": "local"
+                    },
+                    "codeString": "at0051"
+                  },
+                  "value": "Present"
+                },
+                "limitsIndex": -1
+              },
+              "value": "1|local::at0051|Present|"
+            }
+          },
+          "operator": "INEQUAL"
+        }
+      },
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "Variable",
+            "expressionItem": {
+              "code": "gt0112"
+            }
+          },
+          "right": {
+            "type": "ConstantExpression",
+            "expressionItem": {
+              "value": "null"
+            }
+          },
+          "operator": "INEQUAL"
+        }
+      },
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0143"
+                }
+              },
+              "right": {
+                "type": "ConstantExpression",
+                "expressionItem": {
+                  "value": "null"
+                }
+              },
+              "operator": "EQUALITY"
+            }
+          },
+          "right": {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0129"
+                }
+              },
+              "right": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0138"
+                }
+              },
+              "operator": "GREATER_THAN"
+            }
+          },
+          "operator": "OR"
+        }
+      }
+    ],
+    "thenStatements": [
+      {
+        "variable": {
+          "code": "gt0118"
+        },
+        "assignment": {
+          "type": "OrdinalConstant",
+          "expressionItem": {
+            "ordinal": {
+              "value": 1,
+              "symbol": {
+                "definingCode": {
+                  "terminologyId": {
+                    "name": "local",
+                    "value": "local"
+                  },
+                  "codeString": "at0051"
+                },
+                "value": "Present"
+              },
+              "limitsIndex": -1
+            },
+            "value": "1|local::at0051|Present|"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "gt0121",
+    "when": [
+      "$gt0114!=1|local::at0051|Present|",
+      "$gt0122!=null",
+      "($gt0137==null)||($gt0125>$gt0138)"
+    ],
+    "then": [
+      "$gt0114=1|local::at0051|Present|"
+    ],
+    "priority": 8,
+    "whenStatements": [
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "Variable",
+            "expressionItem": {
+              "code": "gt0114"
+            }
+          },
+          "right": {
+            "type": "OrdinalConstant",
+            "expressionItem": {
+              "ordinal": {
+                "value": 1,
+                "symbol": {
+                  "definingCode": {
+                    "terminologyId": {
+                      "name": "local",
+                      "value": "local"
+                    },
+                    "codeString": "at0051"
+                  },
+                  "value": "Present"
+                },
+                "limitsIndex": -1
+              },
+              "value": "1|local::at0051|Present|"
+            }
+          },
+          "operator": "INEQUAL"
+        }
+      },
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "Variable",
+            "expressionItem": {
+              "code": "gt0122"
+            }
+          },
+          "right": {
+            "type": "ConstantExpression",
+            "expressionItem": {
+              "value": "null"
+            }
+          },
+          "operator": "INEQUAL"
+        }
+      },
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0137"
+                }
+              },
+              "right": {
+                "type": "ConstantExpression",
+                "expressionItem": {
+                  "value": "null"
+                }
+              },
+              "operator": "EQUALITY"
+            }
+          },
+          "right": {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0125"
+                }
+              },
+              "right": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0138"
+                }
+              },
+              "operator": "GREATER_THAN"
+            }
+          },
+          "operator": "OR"
+        }
+      }
+    ],
+    "thenStatements": [
+      {
+        "variable": {
+          "code": "gt0114"
+        },
+        "assignment": {
+          "type": "OrdinalConstant",
+          "expressionItem": {
+            "ordinal": {
+              "value": 1,
+              "symbol": {
+                "definingCode": {
+                  "terminologyId": {
+                    "name": "local",
+                    "value": "local"
+                  },
+                  "codeString": "at0051"
+                },
+                "value": "Present"
+              },
+              "limitsIndex": -1
+            },
+            "value": "1|local::at0051|Present|"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "gt0144",
+    "when": [
+      "$gt0119!=1|local::at0051|Present|",
+      "$gt0139==1|local::at0051|Present|",
+      "($gt0138>$gt0123)||($gt0108==null)"
+    ],
+    "then": [
+      "$gt0119=1|local::at0051|Present|"
+    ],
+    "priority": 7,
+    "whenStatements": [
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "Variable",
+            "expressionItem": {
+              "code": "gt0119"
+            }
+          },
+          "right": {
+            "type": "OrdinalConstant",
+            "expressionItem": {
+              "ordinal": {
+                "value": 1,
+                "symbol": {
+                  "definingCode": {
+                    "terminologyId": {
+                      "name": "local",
+                      "value": "local"
+                    },
+                    "codeString": "at0051"
+                  },
+                  "value": "Present"
+                },
+                "limitsIndex": -1
+              },
+              "value": "1|local::at0051|Present|"
+            }
+          },
+          "operator": "INEQUAL"
+        }
+      },
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "Variable",
+            "expressionItem": {
+              "code": "gt0139"
+            }
+          },
+          "right": {
+            "type": "OrdinalConstant",
+            "expressionItem": {
+              "ordinal": {
+                "value": 1,
+                "symbol": {
+                  "definingCode": {
+                    "terminologyId": {
+                      "name": "local",
+                      "value": "local"
+                    },
+                    "codeString": "at0051"
+                  },
+                  "value": "Present"
+                },
+                "limitsIndex": -1
+              },
+              "value": "1|local::at0051|Present|"
+            }
+          },
+          "operator": "EQUALITY"
+        }
+      },
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0138"
+                }
+              },
+              "right": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0123"
+                }
+              },
+              "operator": "GREATER_THAN"
+            }
+          },
+          "right": {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0108"
+                }
+              },
+              "right": {
+                "type": "ConstantExpression",
+                "expressionItem": {
+                  "value": "null"
+                }
+              },
+              "operator": "EQUALITY"
+            }
+          },
+          "operator": "OR"
+        }
+      }
+    ],
+    "thenStatements": [
+      {
+        "variable": {
+          "code": "gt0119"
+        },
+        "assignment": {
+          "type": "OrdinalConstant",
+          "expressionItem": {
+            "ordinal": {
+              "value": 1,
+              "symbol": {
+                "definingCode": {
+                  "terminologyId": {
+                    "name": "local",
+                    "value": "local"
+                  },
+                  "codeString": "at0051"
+                },
+                "value": "Present"
+              },
+              "limitsIndex": -1
+            },
+            "value": "1|local::at0051|Present|"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "gt0145",
+    "when": [
+      "$gt0117!=1|local::at0051|Present|",
+      "$gt0140==1|local::at0051|Present|",
+      "($gt0138>$gt0127)||($gt0110==null)"
+    ],
+    "then": [
+      "$gt0117=1|local::at0051|Present|"
+    ],
+    "priority": 6,
+    "whenStatements": [
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "Variable",
+            "expressionItem": {
+              "code": "gt0117"
+            }
+          },
+          "right": {
+            "type": "OrdinalConstant",
+            "expressionItem": {
+              "ordinal": {
+                "value": 1,
+                "symbol": {
+                  "definingCode": {
+                    "terminologyId": {
+                      "name": "local",
+                      "value": "local"
+                    },
+                    "codeString": "at0051"
+                  },
+                  "value": "Present"
+                },
+                "limitsIndex": -1
+              },
+              "value": "1|local::at0051|Present|"
+            }
+          },
+          "operator": "INEQUAL"
+        }
+      },
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "Variable",
+            "expressionItem": {
+              "code": "gt0140"
+            }
+          },
+          "right": {
+            "type": "OrdinalConstant",
+            "expressionItem": {
+              "ordinal": {
+                "value": 1,
+                "symbol": {
+                  "definingCode": {
+                    "terminologyId": {
+                      "name": "local",
+                      "value": "local"
+                    },
+                    "codeString": "at0051"
+                  },
+                  "value": "Present"
+                },
+                "limitsIndex": -1
+              },
+              "value": "1|local::at0051|Present|"
+            }
+          },
+          "operator": "EQUALITY"
+        }
+      },
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0138"
+                }
+              },
+              "right": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0127"
+                }
+              },
+              "operator": "GREATER_THAN"
+            }
+          },
+          "right": {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0110"
+                }
+              },
+              "right": {
+                "type": "ConstantExpression",
+                "expressionItem": {
+                  "value": "null"
+                }
+              },
+              "operator": "EQUALITY"
+            }
+          },
+          "operator": "OR"
+        }
+      }
+    ],
+    "thenStatements": [
+      {
+        "variable": {
+          "code": "gt0117"
+        },
+        "assignment": {
+          "type": "OrdinalConstant",
+          "expressionItem": {
+            "ordinal": {
+              "value": 1,
+              "symbol": {
+                "definingCode": {
+                  "terminologyId": {
+                    "name": "local",
+                    "value": "local"
+                  },
+                  "codeString": "at0051"
+                },
+                "value": "Present"
+              },
+              "limitsIndex": -1
+            },
+            "value": "1|local::at0051|Present|"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "gt0156",
+    "when": [
+      "$gt0114==0|local::at0050|Absent|",
+      "$gt0116!=null",
+      "$gt0117!=null",
+      "$gt0118!=null",
+      "$gt0119!=null",
+      "$gt0115!=null"
+    ],
+    "then": [
+      "$gt0117.null_flavor=openehr::271|no information|",
+      "$gt0118.null_flavor=openehr::271|no information|",
+      "$gt0119.null_flavor=openehr::271|no information|",
+      "$gt0116.null_flavor=openehr::271|no information|",
+      "$gt0115.null_flavor=openehr::271|no information|"
+    ],
+    "priority": 1,
+    "whenStatements": [
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "Variable",
+            "expressionItem": {
+              "code": "gt0114"
+            }
+          },
+          "right": {
+            "type": "OrdinalConstant",
+            "expressionItem": {
+              "ordinal": {
+                "value": 0,
+                "symbol": {
+                  "definingCode": {
+                    "terminologyId": {
+                      "name": "local",
+                      "value": "local"
+                    },
+                    "codeString": "at0050"
+                  },
+                  "value": "Absent"
+                },
+                "limitsIndex": -1
+              },
+              "value": "0|local::at0050|Absent|"
+            }
+          },
+          "operator": "EQUALITY"
+        }
+      },
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "Variable",
+            "expressionItem": {
+              "code": "gt0116"
+            }
+          },
+          "right": {
+            "type": "ConstantExpression",
+            "expressionItem": {
+              "value": "null"
+            }
+          },
+          "operator": "INEQUAL"
+        }
+      },
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "Variable",
+            "expressionItem": {
+              "code": "gt0117"
+            }
+          },
+          "right": {
+            "type": "ConstantExpression",
+            "expressionItem": {
+              "value": "null"
+            }
+          },
+          "operator": "INEQUAL"
+        }
+      },
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "Variable",
+            "expressionItem": {
+              "code": "gt0118"
+            }
+          },
+          "right": {
+            "type": "ConstantExpression",
+            "expressionItem": {
+              "value": "null"
+            }
+          },
+          "operator": "INEQUAL"
+        }
+      },
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "Variable",
+            "expressionItem": {
+              "code": "gt0119"
+            }
+          },
+          "right": {
+            "type": "ConstantExpression",
+            "expressionItem": {
+              "value": "null"
+            }
+          },
+          "operator": "INEQUAL"
+        }
+      },
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "Variable",
+            "expressionItem": {
+              "code": "gt0115"
+            }
+          },
+          "right": {
+            "type": "ConstantExpression",
+            "expressionItem": {
+              "value": "null"
+            }
+          },
+          "operator": "INEQUAL"
+        }
+      }
+    ],
+    "thenStatements": [
+      {
+        "variable": {
+          "code": "gt0117",
+          "attribute": "null_flavor"
+        },
+        "assignment": {
+          "type": "CodedTextConstant",
+          "expressionItem": {
+            "codedText": {
+              "definingCode": {
+                "terminologyId": {
+                  "name": "openehr",
+                  "value": "openehr"
+                },
+                "codeString": "271"
+              },
+              "value": "no information"
+            },
+            "value": "openehr::271|no information|"
           }
         }
       },
       {
         "variable": {
-          "code": "gt0011",
-          "attribute": "units"
+          "code": "gt0118",
+          "attribute": "null_flavor"
         },
         "assignment": {
-          "type": "StringConstant",
+          "type": "CodedTextConstant",
           "expressionItem": {
-            "string": "ml/min",
-            "value": "ml/min"
+            "codedText": {
+              "definingCode": {
+                "terminologyId": {
+                  "name": "openehr",
+                  "value": "openehr"
+                },
+                "codeString": "271"
+              },
+              "value": "no information"
+            },
+            "value": "openehr::271|no information|"
           }
         }
       },
       {
         "variable": {
-          "code": "gt0011",
-          "attribute": "precision"
+          "code": "gt0119",
+          "attribute": "null_flavor"
         },
         "assignment": {
-          "type": "ConstantExpression",
+          "type": "CodedTextConstant",
           "expressionItem": {
-            "value": "2"
+            "codedText": {
+              "definingCode": {
+                "terminologyId": {
+                  "name": "openehr",
+                  "value": "openehr"
+                },
+                "codeString": "271"
+              },
+              "value": "no information"
+            },
+            "value": "openehr::271|no information|"
+          }
+        }
+      },
+      {
+        "variable": {
+          "code": "gt0116",
+          "attribute": "null_flavor"
+        },
+        "assignment": {
+          "type": "CodedTextConstant",
+          "expressionItem": {
+            "codedText": {
+              "definingCode": {
+                "terminologyId": {
+                  "name": "openehr",
+                  "value": "openehr"
+                },
+                "codeString": "271"
+              },
+              "value": "no information"
+            },
+            "value": "openehr::271|no information|"
+          }
+        }
+      },
+      {
+        "variable": {
+          "code": "gt0115",
+          "attribute": "null_flavor"
+        },
+        "assignment": {
+          "type": "CodedTextConstant",
+          "expressionItem": {
+            "codedText": {
+              "definingCode": {
+                "terminologyId": {
+                  "name": "openehr",
+                  "value": "openehr"
+                },
+                "codeString": "271"
+              },
+              "value": "no information"
+            },
+            "value": "openehr::271|no information|"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "gt0020",
+    "when": [
+      "$gt0116!=1|local::at0051|Present|",
+      "$gt0111!=null",
+      "($gt0142==null)||($gt0128>$gt0138)"
+    ],
+    "then": [
+      "$gt0116=1|local::at0051|Present|"
+    ],
+    "priority": 10,
+    "whenStatements": [
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "Variable",
+            "expressionItem": {
+              "code": "gt0116"
+            }
+          },
+          "right": {
+            "type": "OrdinalConstant",
+            "expressionItem": {
+              "ordinal": {
+                "value": 1,
+                "symbol": {
+                  "definingCode": {
+                    "terminologyId": {
+                      "name": "local",
+                      "value": "local"
+                    },
+                    "codeString": "at0051"
+                  },
+                  "value": "Present"
+                },
+                "limitsIndex": -1
+              },
+              "value": "1|local::at0051|Present|"
+            }
+          },
+          "operator": "INEQUAL"
+        }
+      },
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "Variable",
+            "expressionItem": {
+              "code": "gt0111"
+            }
+          },
+          "right": {
+            "type": "ConstantExpression",
+            "expressionItem": {
+              "value": "null"
+            }
+          },
+          "operator": "INEQUAL"
+        }
+      },
+      {
+        "type": "BinaryExpression",
+        "expressionItem": {
+          "left": {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0142"
+                }
+              },
+              "right": {
+                "type": "ConstantExpression",
+                "expressionItem": {
+                  "value": "null"
+                }
+              },
+              "operator": "EQUALITY"
+            }
+          },
+          "right": {
+            "type": "BinaryExpression",
+            "expressionItem": {
+              "left": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0128"
+                }
+              },
+              "right": {
+                "type": "Variable",
+                "expressionItem": {
+                  "code": "gt0138"
+                }
+              },
+              "operator": "GREATER_THAN"
+            }
+          },
+          "operator": "OR"
+        }
+      }
+    ],
+    "thenStatements": [
+      {
+        "variable": {
+          "code": "gt0116"
+        },
+        "assignment": {
+          "type": "OrdinalConstant",
+          "expressionItem": {
+            "ordinal": {
+              "value": 1,
+              "symbol": {
+                "definingCode": {
+                  "terminologyId": {
+                    "name": "local",
+                    "value": "local"
+                  },
+                  "codeString": "at0051"
+                },
+                "value": "Present"
+              },
+              "limitsIndex": -1
+            },
+            "value": "1|local::at0051|Present|"
           }
         }
       }

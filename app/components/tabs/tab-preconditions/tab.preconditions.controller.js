@@ -1,10 +1,5 @@
-/**
- * Created by jbarros on 11/05/15.
- */
-
 angular.module('app.controllers')
     .controller('PreconditionsCtrl', PreconditionsCtrl);
-
 
 function PreconditionsCtrl(guidelineFactory, expressionItemFactory, conditionFactory) {
 
@@ -16,12 +11,11 @@ function PreconditionsCtrl(guidelineFactory, expressionItemFactory, conditionFac
   vm.showRightName = showRightName;
   vm.updateConditionLeft = updateConditionLeft;
   vm.updateConditionRight = updateConditionRight;
-
   vm.delete = "../assets/img/del.png";
   vm.add = "../assets/img/add.png";
 
   /**
-   * Variable used to clone the preCondition nodes
+   * Property used to clone the preCondition nodes
    */
   vm.clonePreConditions = expressionItemFactory.getConditions();
 
