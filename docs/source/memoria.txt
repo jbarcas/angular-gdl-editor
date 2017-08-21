@@ -1469,7 +1469,7 @@ reuniones que tienen lugar en esta metodología:
 
 Daily Scrum::
 El principal objetivo de las _Daily Scrum meetings_ es llevar a cabo una actualización y una coordinación entre los
-miembros del Equipo. En estas reuniones son diarias durante el desarrollo de un Sprint, participan obligatoriamente
+miembros del Equipo. Estas reuniones son diarias durante el desarrollo de un Sprint, participan obligatoriamente
 todos los miembros de el Equipo, la presencia de el Propietario del Producto es opcional y el ScrumMaster suele estar
 presente. La duración máxima no debe exceder de los 15 minutos, para mantenerla breve se recomienda que todos estén
 permanezcan de pie, es la oportunidad del equipo para sincronizar su trabajo e informar de cualquier obstáculo que
@@ -1627,19 +1627,22 @@ Aplicación de Scrum en el proyecto
 Como ya se ha comentado al principio de esta sección, se ha utilizado una versión simplificada de la metodología Scrum.
 
 Esta versión simplificada consiste en la realización de iteraciones bien diferenciadas y que permiten ir obteniendo
-un producto de desarrollo operativo al final de cada una. Se han realizado tres iteraciones, en las cuales, al final
+un producto de desarrollo operativo al final de cada una. Se han realizado cuatro iteraciones, en las cuales, al final
 de cada una de ellas, se obtiene un subproducto funcional de la aplicación final. En la primera iteración se obtiene
-una aplicación con la funcionalidad básica, se crea la estructura del proyecto AngularJS y se desarrolla la
-funcionalidad de muestra de las guías clínicas que existen en el sistema. En la segunda iteración se lleva a cabo el
-desarrollo del la edición de las guías, permitiendo la gestión de la descripción de las mismas y de la definición de
-los elementos de las guías, que provienen de los arquetipos clínicos. La iteración 2 complementa a la 1 y permite
-tener un sistema con una funcionalidad mas avanzada. En la última iteración se finaliza la edición de las guías
-aumentando la funcionalidad, es decir, en esta iteración se desarrolla la funcionalidad que permite editar la lista
-de reglas (condiciones y acciones), las precondiciones que se tienen que cumplir para que la regla se ejecute, las
-terminologías clínicas, los enlaces a las diferentes terminologías y las vistas finales tanto del código en formato
-GDL como una vista informativa en formato HTML. En esta última iteración se ha desarrollado también la funcionalidad
-de creación de una nueva guía clínica, obteniéndose de este modo la aplicación global completamente terminada y
-funcional.
+una aplicación con la funcionalidad básica; se crea la estructura del proyecto AngularJS y se desarrolla la
+funcionalidad que muestra las guías clínicas que existen en el sistema, de modo que el usuario pueda seleccionar una
+para su edición. En la segunda iteración se comienza el desarrollo de la edición de las guías, permitiendo la
+gestión de la descripción de las mismas (meta-información) y de  la definición de los elementos de las guías, que
+provienen de los arquetipos clínicos. La iteración 2 complementa a la 1 y permite tener un subsistema con una
+funcionalidad más avanzada. La tercera iteración se ha centrado en la edición de las reglas GDL, posibilitando la
+creación y eliminación de nuevas reglas y la gestión de las condiciones y de las acciones de cada una. En esta misma
+iteración, por similitud funcional también se ha tratado la edición de las precondiciones de las guías. En la última
+iteración se finaliza la edición aumentando la funcionalidad, es decir, en esta iteración se ha abarcado la
+funcionalidad que permite la edición de los términos locales, el agregado de los mismos, la edición de enlaces a
+terminologías externas y la visualización del código GDL generado en un editor de textos, así como una vista en
+formato HTML con información tanto de autoría como clínica de las guías. En esta última iteración se ha desarrollado
+también la funcionalidad de salvado de las guías en el _backend_ y de creación de una nueva guía clínica,
+obteniéndose de este modo la aplicación global completamente terminada y funcional.
 
 Otra particularidad que caracteriza a esta versión simplificada de Scrum es la analogía en cuanto a las reuniones. Se
 han realizado reuniones periódicas entre el ScrumMaster, en este caso el director profesional del proyecto, y el
@@ -2705,7 +2708,7 @@ uso base en casos de uso más simples.
 .Casos de uso de la iteración 4.
 image::use-cases-iter-4.png[scaledwidth="80%"]
 
-Se han refinado los casos de uso _Editar terminologías_ y _Editar enlaces_. El pimero ha dado lugar a un nuevo caso de
+Se han refinado los casos de uso _Editar terminologías_ y _Editar enlaces_. El primero ha dado lugar a un nuevo caso de
 uso denominado _Añadir término local_ y del segundo han surgido los casos de uso _Añadir enlaces nuevos_, _Añadir
 terminologías a los enlaces_ y _Eliminar terminologías de los enlaces_.
 
@@ -2917,8 +2920,132 @@ Texto implantación y seguimiento
 
 Planificación y costes (planificación inicial vs. final) - (Opcional)
 ---------------------------------------------------------------------
-Texto planificación y costes
+En esta sección se expone la planificación temporal y económica relacionada con el desarrollo de este proyecto. Para
+ello se proporciona, en primer lugar, una explicación detallada de cada una de las tareas que serán representadas
+posteriormente de una manera gráfica con un diagrama de Gantt, donde se indica el tiempo dedicado a cada actividad, así
+como las relaciones de precedencia que existen entre ellas. Para la elaboración del diagrama y del cálculo de costes
+se ha utilizado la herramienta de gestión de proyectos Openproj, versión 1.4.
 
+Formación::
+Para la realización de este proyecto ha sido imprescindible recibir una formación básica en las tecnologías y en la
+metodología para la elaboración del mismo. Este período de formación ha durado aproximadamente 4 meses y se ha
+paralelizado con el desarrollo del proyecto.
++
+En este período de formación se han adquirido los conocimientos necesarios en el estado del arte en el que se alberga
+este proyecto, siendo un contexto bastante complejo, pero con bastante proyección. Se trata de conocimientos sobre
+interoperabilidad clínica basada en arquetipos y en sistemas de soporte a la decisión médica. Por otro lado, ha sido
+indispensable la adquisición de nociones referentes al framework MVC AngularJS, cuya curva de aprendizaje es un poco
+dura, pero realmente resulta bastante productivo. También se han tenido que obtener nociones básicas del
+funcionamiento del entorno de ejecución de Node.js, así como de su sistema de gestión de paquetes _npm_.
+
+Reuniones::
+Como se ha visto en la <<_aplicacion_de_scrum_en_el_proyecto>>, se ha utilizado una versión simplificada de la
+metodología Scrum. Se han realizado tres tipos de reuniones en cada iteración; reuniones de planificación de cada
+Sprint (_Sprint Planning_), reuniones de seguimiento que han tenido lugar una vez por semana con una duración
+aproximada de 45 minutos donde se han tomado decisiones a corto plazo de la iteración actual y una _Sprint Review_ a
+la finalización de cada Sprint. En estas reuniones han participado el autor del proyecto realizando funciones de
+analista y el director profesional del proyecto.
+
+Primera iteración::
+La primera iteración se ha centrado en la definición de la arquitectura del proyecto AngularJS, en la especificación
+de requisitos y en la elaboración de los casos de uso que realicen dichos requisitos. La principal funcionalidad a
+abordar ha sido la de permitir la navegación entre las diferentes guías clínicas existentes en el _backend_, para
+ello se han desarrollado los componentes de Angular necesarios y se ha hecho uso del _databinding_ y del contenedor
+de inversión de control de AngularJS. Posteriormente se realizaron los tests unitarios correspondientes para probar
+los controladores y servicios desarrollados.
+
+Segunda iteración::
+La segunda iteración ha abarcado las funcionalidades de la edición de la descripción y de la definición de las guías.
+Se han analizado las funcionalidades requeridas y se han diseñado los diagramas que se han considerado oportunos para
+plasmar dichas funcionalidades y para la documentación del proyecto. Se ha acompañado esta iteración de los tests
+pertinentes que prueban las principales funcionalidades que se acometen en dicho Sprint.
+
+Tercera iteración::
+Esta iteración se centra en el refinamiento de la edición de guías, permitiendo la edición de reglas GDL y la edición
+de las precondiciones. Esta iteración complementa las dos anteriores y tras su finalización ofrecen un subsistema
+funcional que permite la edición de guías clínicas casi en su totalidad. Como en el resto de iteraciones, se realizan
+los tests unitarios pertinentes.
+
+Cuarta iteración::
+La última iteración completa a las tres anteriores y deja el proyecto en un estado funcional que comprende todos los
+casos de uso requeridos. Se describen los casos de uso referentes a esta última iteración y se lleva a cabo un diseño
+de los principales componentes que se pretenden abordar. A partir de este análisis y este diseño se implementan los
+correspondientes componentes que permiten la gestión de los términos locales de las guías, la vinculación con
+terminologías de referencia externas y la visualización del GDL generado como una vista HTML con información de la
+guía.
+
+Realización de la memoria::
+La realización de esta memoria se ha elaborado con _AsciiDoc_, una herramienta para la generación de documentación
+basada en Python. En la memoria se recogen todos los detalles de los métodos y documentación utilizados durante el
+desarrollo de este proyecto. Su elaboración se ha prolongado durante todo el tiempo invertido en la elaboración de
+este Trabajo Fin de Máster.
+
+Diagrama de Gantt::
+A continuación se muestra el diagrama de Gantt con la planificación temporal del proyecto, desglosado por tareas
+indicando la precedencia entre ellas, el comiendo y el fin de cada una y los recursos asociados a las mismas.
+
+[[gantt]]
+.Diagrama de Gantt.
+image::gantt.png[scaledwidth="100%"]
+
+Cálculo de costes::
+En este apartado se muestra una estimación del coste total del proyecto que se ha elaborado teniendo en cuenta los
+costes asociados a recursos humanos y los referentes a recursos materiales.
+
+En cuanto a los recursos humanos, cabe destacar que el alumno asume diferentes roles durante las distintas fases del
+proyecto. El cálculo de los costes se asigna de la siguiente manera: las fases de análisis y diseño las realiza un
+analista, la fase de implementación la realiza un programador y la de pruebas la realizan conjuntamente analista y
+programador con un porcentaje definido. Además del alumno, en las _Scrum meetings_ participa el tutor profesional que
+asume el rol de _director del proyecto_.
+
+El coste por hora de cada rol se ha calculado a partir del salario medio para cada categoría, para ello esta estimación
+se ha basado en un estudio realizado en la propuesta del Grado de Ingeniería Informática de la Universidad de A
+Coruña. Dichos costes hacen mención al salario bruto que recibe el trabajador y los costes de contratación.
+
+Las horas de trabajo se han calculado utilizando el proyecto desarrollado en Openproj, asumiendo una jornada
+laboral de 8 horas diarias de lunes a viernes, teniendo en cuenta las horas dedicadas a las reuniones. Para este
+cálculo se suman las horas dedicadas por parte del director del proyecto durante todo el proceso de desarrollo. Los
+cálculos derivados de recursos humanos se muestra en la siguiente tabla.
+
+.Coste de recursos humanos.
+[cols="25%,^25%,^25%,^25%", options="header"]
+|===
+|Personal           |Coste por hora                 |Horas trabajadas               |Total
+|Analista           |20 €                           |428                            |8.560 €
+|Programador        |12 €                           |505                            |6.060 €
+|Jefe de proyecto   |24 €                           |30                             |720 €
+3+>s|Total: ^|15.340 €
+|===
+
+Como se ha plasmado en el proyecto desarrollado en Openproj, también existe una serie de recursos a parte de los
+humos, estos son los recursos materiales que se deben cuantificar en los costes del proyecto. En la realización de
+este proyecto se utilizaron recursos materiales como un ordenador portátil y un conjunto de herramientas software
+adecuadas, el coste de dichos recursos se ha calculado consultando a los proveedores de los mismos.
+
+.Coste de recursos materiales.
+[cols="75%,^25%", options="header"]
+|===
+|Elemento                               |Coste
+|Ordenador portátil                     |800 €
+|Licencia WebStorm 10.01 (primer año)   |126 €
+|Licencia WebStorm 10.01 (segundo año)  |101 €
+>s|Total:                               |1.027 €
+|===
+
+Finalmente habría que añadir un coste adicional de 20€ por cada reunión en concepto de gastos de desplazamiento y
+dietas. Se han realizado un total de 24 reuniones, por lo que, por este concepto, sumaría un total de 480 €. Para
+obtener el coste total asignado a este proyecto se suman los costes parciales de recursos humanos, recursos
+materiales, dietas y desplazamientos, que se pueden visualizar en la siguiente tabla.
+
+.Coste total de la aplicación.
+[cols="75%,^25%", options="header"]
+|===
+|Tipo de coste                  |Coste
+|Coste de recursos humanos      |15.340 €
+|Coste de recursos materiales   |1.027 €
+|Coste de reuniones             |480 €
+>s|Total:                       |16.847 €
+|===
 
 Resultados y discusión
 ----------------------
