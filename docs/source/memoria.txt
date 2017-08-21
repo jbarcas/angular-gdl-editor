@@ -250,9 +250,9 @@ Como objetivos específicos, se plantean los siguientes:
 
 * La aplicación desarrollada permitirá crear, editar y actualizar ficheros GDL a través de un navegador web.
 
-* La aplicación desarrollada deberá estar preparada para ser integrada con el CKM de __open__EHR (www.openehr.org/ckm).
-La aplicación se diseñará de manera que sus componentes puedan ser fácilmente reutilizados y de forma que resulte
-sencillo incorporar nuevas funcionalidades.
+* La aplicación desarrollada deberá estar preparada para ser integrada con el CKM de __open__EHR
+(http://www.openehr.org/ckm[www.openehr.org/ckm]). La aplicación se diseñará de manera que sus componentes puedan ser
+ fácilmente reutilizados y de forma que resulte sencillo incorporar nuevas funcionalidades.
 
 * Se diseñará una interfaz de usuario sencilla e intuitiva, teniendo en cuenta aspectos de usabilidad, de forma que
 el proceso de gestión de las guías clínicas resulte fácilmente asimilable por los expertos en el dominio clínico y
@@ -2984,6 +2984,10 @@ Diagrama de Gantt::
 A continuación se muestra el diagrama de Gantt con la planificación temporal del proyecto, desglosado por tareas
 indicando la precedencia entre ellas, el comiendo y el fin de cada una y los recursos asociados a las mismas.
 
+[[tasks]]
+.Detalle de tareas del diagrama de Gantt.
+image::tasks.png[scaledwidth="100%"]
+
 [[gantt]]
 .Diagrama de Gantt.
 image::gantt.png[scaledwidth="100%"]
@@ -3003,7 +3007,7 @@ se ha basado en un estudio realizado en la propuesta del Grado de Ingeniería In
 Coruña. Dichos costes hacen mención al salario bruto que recibe el trabajador y los costes de contratación.
 
 Las horas de trabajo se han calculado utilizando el proyecto desarrollado en Openproj, asumiendo una jornada
-laboral de 8 horas diarias de lunes a viernes, teniendo en cuenta las horas dedicadas a las reuniones. Para este
+laboral de 4 horas diarias de lunes a viernes, teniendo en cuenta las horas dedicadas a las reuniones. Para este
 cálculo se suman las horas dedicadas por parte del director del proyecto durante todo el proceso de desarrollo. Los
 cálculos derivados de recursos humanos se muestra en la siguiente tabla.
 
@@ -3011,10 +3015,10 @@ cálculos derivados de recursos humanos se muestra en la siguiente tabla.
 [cols="25%,^25%,^25%,^25%", options="header"]
 |===
 |Personal           |Coste por hora                 |Horas trabajadas               |Total
-|Analista           |20 €                           |428                            |8.560 €
-|Programador        |12 €                           |505                            |6.060 €
-|Jefe de proyecto   |24 €                           |30                             |720 €
-3+>s|Total: ^|15.340 €
+|Analista           |20 €                           |445                            |8.900 €
+|Programador        |12 €                           |528                            |6.336 €
+|Jefe de proyecto   |24 €                           |35                             |840 €
+3+>s|Total: ^|16.076 €
 |===
 
 Como se ha plasmado en el proyecto desarrollado en Openproj, también existe una serie de recursos a parte de los
@@ -3028,8 +3032,7 @@ adecuadas, el coste de dichos recursos se ha calculado consultando a los proveed
 |Elemento                               |Coste
 |Ordenador portátil                     |800 €
 |Licencia WebStorm 10.01 (primer año)   |126 €
-|Licencia WebStorm 10.01 (segundo año)  |101 €
->s|Total:                               |1.027 €
+>s|Total:                               |926 €
 |===
 
 Finalmente habría que añadir un coste adicional de 20€ por cada reunión en concepto de gastos de desplazamiento y
@@ -3041,31 +3044,123 @@ materiales, dietas y desplazamientos, que se pueden visualizar en la siguiente t
 [cols="75%,^25%", options="header"]
 |===
 |Tipo de coste                  |Coste
-|Coste de recursos humanos      |15.340 €
-|Coste de recursos materiales   |1.027 €
+|Coste de recursos humanos      |16.076 €
+|Coste de recursos materiales   |926 €
 |Coste de reuniones             |480 €
->s|Total:                       |16.847 €
+>s|Total:                       |17.482 €
 |===
 
-Resultados y discusión
-----------------------
-Mencionar y discutir los resultados obtenidos, tanto los que se pudieron abordar como los que no.
+Resultados
+----------
+En esta sección se presentan los resultados obtenidos del proyecto, que muestran una mejora general con respecto a lo
+existente, lo cual se consigue permitiendo la edición de guías clínicas GDL a través de Internet utilizando un
+navegador web. A continuación se destacan los aspectos más importantes de dichos resultados, esta aplicación web:
 
-* Internacionalización de la aplicación
-* Permitir diversos lenguajes, hablar del cambio de lenguaje en la pestaña terminología.
-* Soporte para Slots
+* Ha sido desarrollada utilizando una versión simplificada de la metodología Scrum, lo cual ha permitido ir
+obteniendo subproductos funcionales en cada una de las iteraciones en las que se ha dividido el proyecto. En dicho
+desarrollo se han aplicado reconocidos patrones de diseño y se han utilizado tecnologías modernas de desarrollo web
+como el entorno de ejecución multiplataforma para la capa del servidor Node.js y el framework para la creaciones de
+aplicaciones de web de una sola página AngularJS.
 
+* Permite a los profesionales sanitarios la elaboración de nuevas guías clínicas basadas en arquetipos, así como la
+edición y eliminación de las mismas.
+
+* La aplicación está preparada para ser integrada en el CKM de __open__EHR
+(http://www.openehr.org/ckm[www.openehr.org/ckm]) y, en general, en cualquier servidor que soporte el despliegue de
+aplicaciones web.
+
+* Al ser una aplicación web, accesible a todo el mundo a través de Internet, se ha creado un mecanismo que brinda la
+oportunidad a los profesionales sanitarios a que colaboren en la creación de conocimiento clínico y puedan llevar a
+cabo un consenso sobre sus guías clínicas.
+
+* Se ha desarrollado utilizando una aproximación basada en componentes, de forma que cada uno de ellos tiene su
+propia lógica, lo cual facilita tanto la incorporación de nuevas funcionalidades como la eliminación de las mismas.
+La utilización de componentes hace que la ejecución sea más fluida.
+
+* Cuenta con una interfaz gráfica que ha sido diseñada utilizando recomendaciones de diseño, la cual proporciona una
+usabilidad agradable de cara al usuario. La navegación entre las diferentes vistas hace uso del patrón _Composite
+view_ permite la composición de vistas que se renderizan de manera independiente.
 
 Conclusiones
 ------------
-Conclusiones finales sobre el proyecto.
+A continuación se mencionan las principales conclusiones que se han obtenido tras la realización de este proyecto.
 
+* El contexto en el que reside este proyecto se encuentra en auge hoy en día a nivel internacional. En España el
+https://www.msssi.gob.es/profesionales/hcdsns/areaRecursosSem/Rec_mod_clinico_arquetipos.htm[Ministerio de Sanidad]
+está fomentando el uso de arquetipos clínicos en las herramientas de software médico barajándose la posibilidad de
+que, en un futuro, sea obligatorio la comunicación de registros clínicos electrónicos utilizando este tipo de normas.
+La mayoría gobiernos a nivel internacional están trabajando en el mismo sentido apostando por la interoperabilidad
+semántica en la medicina, ya que es evidente la necesidad de que la información sanitaria del ciudadano pueda estar
+accesible desde cualquier lugar y en cualquier momento.
+
+* La curva de aprendizaje de estos estándares para desarrolladores es compleja debido a la dificultad de
+representación de los datos clínicos, algo que es abordable con la normalización. Actualmente en este área se está
+invirtiendo bastante dinero en investigación y están empezando a surgir _startups_ dedicadas exclusivamente al
+desarrollo de herramientas que soporten estándares de interoperabilidad.
+
+* A pesar de ser un ámbito en auge, no existen muchas herramientas para representar el conocimiento médico utilizando
+estándares de  interoperabilidad. Para la edición de arquetipos clínicos
+existe una aplicación de escritorio denominada http://www.linkehr.com/[LinkEHR], aplicación comercial que permite la
+generación de arquetipos de una manera visual, pero también tiene sus limitaciones.
+
+* El framework AngularJS es adecuado para la construcción de aplicaciones web de una sola página como el desarrollado
+en este proyecto, facilitando considerablemente la construcción del software, el mantenimiento y la prueba de
+componentes mediante tests unitarios utilizando _Karma_ y _Jasmine_.
+
+* Ha quedado un objetivo de ejecución de las guías clínicas ha podido llevarse a cabo por cuestiones de tiempo, la
+funcionalidad está soportada en el _backend_, pero la elaboración de formularios para los diferentes tipos de datos
+no ha podido alcanzarse, dejándose como trabajo futuro como se verá a continuación.
+
+* La utilización de guías clínicas basadas en estándares de interoperabilidad van a permitir almacenar información de
+una manera normalizada, por lo que dicha normalización de los datos provocará un impacto positivo en investigación
+sanitaria, farmacéutica, estadística y en general en todas aquellas actividades en las que la información deba
+viajar de una organización a otra.
+
+* La herramienta ha sido probada por profesionales sanitarios y se cree que la formación de los mismos no va a
+ser costosa, debido a la sencillez la interfaz de usuario y a la especial dedicación que se ha mostrado para el
+proceso de definición de las guías utilizando un componente _drag and drop_ que permite la creación de las guías
+arrastrando componentes de una manera muy visual, proporcinando una excelente experiencia de usuario.
 
 Futuros trabajos
 ----------------
-La herramienta supone el punto de partida hacia una serie de nuevas funcionalidades de gran utilidad para la
-comunidad, como la edición colaborativa en tiempo real, la resolución de conflictos, la gestión del historial y de
-versiones de las guías clínicas, etc.
+Una aplicación web de estas características supone el punto de partida hacia una serie de nuevas funcionalidades de
+gran utilidad para la comunidad. A continuación se detallan las más importantes que probablemente serán añadidas a la
+aplicación a corto plazo.
+
+* Edición colaborativa en tiempo real: un caso de uso muy interesante que ofrece la posibilidad de trabajar en el
+documento GDL en colaboración con otros profesionales médicos. Habría que diseñar un mecanismo que permitiese el acceso
+simultáneo a varios usuarios a la guía editada, indicando de alguna manera qué elementos están siendo editados por
+otros usuarios y realizando una sincronización de las modificaciones con un clic de ratón. Como se da en otras
+herramientas de edición colaborativa, quizás sería interesante añadir un chat para compartir ideas respecto a las
+partes de la guía que están siendo modificadas.
+
+* Resolución de conflictos: del punto anterior se desprende esta futura funcionalidad. Al haber varios usuarios
+simultáneamente habría que plantear un medio de resolución de conflictos a la hora de almacenar los cambios de la
+guía cuando dos o más usuarios hayan modificado un mismo elemento.
+
+* Gestión del historial y de versiones: con la modificación de una guía aparece el concepto de versión de una guía
+clínica. La versión de las guías clínicas, al igual que en los arquetipos, se indica en el propio nombre del fichero
+GDL. Con la edición colaborativa habría que diseñar un mecanismo de gestión automática de guías.
+
+* Internacionalización de la aplicación: de momento la aplicación se encuentra en idioma inglés ya que fue unos de
+los requisitos impuestos. Una funcionalidad a corto plazo es la de permitir elegir el idioma de la interfaz gráfica.
+Asimismo, se pretende añadir a corto plazo el soporte de términos locales (pestaña _Terminology_) en cualquier idioma.
+
+* Soporte para Slots: como se ha comentado a lo largo de la memoria, los arquetipos son jerárquicos. Un arquetipo se
+puede reutilizar para definir un nodo de otro arquetipo, esto se llama _slot_. En el arquetipo se puede definir
+explícitamente, o con patrones de expresiones regulares, qué arquetipos acepta (o rechaza) que sean insertados en
+dicho nodo. Es una situación poco común, pero la versión actual del editor GDL no puede resolver dichos _slots_. Se
+pretende resolver esta situación a corto plazo.
+
+* Por último, mencionar el objetivo no alcanzado de la ejecución de guías clínicas. Como se comentó en el
+apartado anterior la funcionalidad de la compilación de guías está disponible en el _backend_. Se trata de una
+utilidad adicional que permite la ejecución de las guías para que puedan probarse. Dicha funcinalidad generará un
+formulario con un conjunto de entradas basado en el contenido definido en la guía. Estos datos se usarán para
+ejecutar las reglas definidas en la guía y presentar el resultado con los valores calculados. Un ejemplo sencillo,
+sobre la guía creada en el Manual de usuario (cálculo del IMC), sería la implementación de un componente gráfico que
+al utilizarlo renderizase un formulario para que se introdujese el peso y la altura del individuo, la ejecución se
+realizaría en el servidor teniendo en cuenta las reglas y las precondiciones y el sistema devolvería los datos
+calculados al usuario.
 
 [appendix]
 Apéndices
