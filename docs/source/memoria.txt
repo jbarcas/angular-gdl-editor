@@ -13,21 +13,20 @@ v0.0.1, Julio 2017
 
 Resumen
 -------
-Expresar y compartir contenido de soporte a la decisión clínica (CDS por sus siglas en inglés) de forma automatizada
-e independiente del idioma y de plataformas técnicas ha sido una tarea compleja durante mucho  tiempo. Los dos
-principales desafíos a abordar para compartir lógica de decisión entre diferentes sistemas son, por un lado, la
-carencia de modelos compartidos de información clínica y, por otro, la escasez de soporte flexible para los diferentes
-recursos terminológicos.
+Expresar y compartir conocimiento informatizado que dé soporte a la decisión clínica independientemente del
+idioma y de plataformas técnicas ha sido gran desafío durante mucho tiempo. Los dos retos principales a
+afrontar para compartir lógica de decisión entre diferentes sistemas son, por un lado, la ausencia de modelos de
+información clínica de uso colectivo y, por otro, la escasez de soporte para los diferentes recursos terminológicos.
 
 Para expresar la lógica que da soporte a la decisión médica se necesita un modelo de representación de guías
-clínicas. Para ello la comunidad __open__EHR, comunidad virtual que trabaja en el desarrollo de
-http://www.openehr.org/programs/specification/workingbaseline[especificaciones] para la interoperabilidad de
-registros clínicos electrónicos entre sistemas sanitarios, ha desarrollado la especificación del lenguaje GDL
-(Guideline Definition Language). GDL es un lenguaje formal diseñado para expresar lógica de soporte a la decisión
-de una forma interoperable, el cual, recientemente, ha pasado a formar parte del núcleo de la plataforma de __open__EHR.
-Ha sido diseñado para ser independiente de lenguajes naturales y de terminologías clínicas haciendo uso, para ello,
-de los diseños del http://www.openehr.org/releases/RM/latest/docs/index[Modelo de Referencia] y del
-http://www.openehr.org/releases/trunk/architecture/am/aom2.pdf[Modelo de Arquetipos] de __open__EHR.
+clínicas. Para que dicha lógica pueda ser interpretada automáticamente entre los sistemas sanitarios tiene que contar
+con la característica de ser semánticamente interoperable. __open__EHR, comunidad virtual que trabaja en
+el desarrollo de especificaciones para la interoperabilidad de registros clínicos electrónicos entre sistemas, ha
+desarrollado la especificación del _Guideline Definition Language_(_GDL_), un lenguaje formal
+diseñado para expresar lógica de soporte a la decisión de forma interoperable, el cual, recientemente, ha pasado
+a formar parte del núcleo de la plataforma __open__EHR. Ha sido diseñado para ser independiente de lenguajes
+naturales y de terminologías clínicas haciendo uso, para ello, de los diseños del Modelo de Referencia y del Modelo
+de Arquetipos de __open__EHR.
 
 El principal objetivo de este proyecto ha sido la elaboración de una herramienta web para la edición de guías
 clínicas expresadas en lenguaje GDL. La comunidad no disponía de una herramienta de gestión de dichas guías con un
@@ -35,97 +34,104 @@ enfoque colaborativo como el que puede ofrecer una aplicación web. Lo que se pr
 profesionales sanitarios--los que tienen el conocimiento necesario--los que elaboren las guías clínicas de una manera
 colaborativa y consensuada, con el fin de poder utilizarlas de manera exitosa en la práctica médica.
 
-El resultado es un software capaz de crear y gestionar guías clínicas en formato GDL, las guías son
-validadas en el _backend_ de la aplicación, denegándose la petición de envío cuando la guía posee algún error de
-elaboración. Se ha desarrollado una aplicación modular en AngularJS, framework JavaScript de Google para el
-desarrollo de _aplicaciones web de una sola página_ basado en el patrón de arquitectura Modelo-Vista-Controlador (MVC).
-AngularJS favorece la reusabilidad de componentes, inyección de dependencias y un testeo unitario y _end-to-end_ de una
-forma sencilla y eficiente. Al estar basado en el patrón MVC hay una clara separación de responsabilidades entre la
-gestión de los datos (modelo), la lógica de la aplicación (controlador) y la presentación de la información (vista). La
-metodología de desarrollo ágil Scrum ha ayudado a reducir considerablemente los ciclos de desarrollo y ha
-asegurado que al final de cada ciclo se hubiesen desarrollado ciertas  funcionalidades operativas de aplicación.
+El resultado de este proyecto es un software capaz de crear, editar y gestionar guías clínicas en formato GDL, las guías
+son validadas en el _backend_ de la aplicación, denegándose la petición de envío cuando la guía posee algún error de
+sintaxis. Se ha desarrollado una aplicación modular en AngularJS, framework JavaScript de Google para el desarrollo
+de _aplicaciones web de una sola página_ basado en el patrón de arquitectura Modelo-vista-controlador, por lo que
+existe una clara separación entre los datos (modelo), la lógica de la aplicación, (controlador) y la presentación de
+la información (vista). AngularJS favorece la reutilización de componentes, inyección de dependencias y un testeo
+unitario y _end-to-end_ de forma sencilla y eficiente. La metodología de desarrollo ágil Scrum ha ayudado a reducir
+considerablemente los ciclos de desarrollo y ha asegurado que al final de cada ciclo se hubiesen desarrollado ciertas
+funcionalidades operativas de aplicación.
 
 *Palabras clave*
-
-Guías clínicas, arquetipos clínicos, sistema de soporte a la decisión, interoperabilidad, AngularJS, REST.
+Guías clínicas, arquetipos clínicos, sistema de soporte a la decisión, interoperabilidad semántica, AngularJS, REST.
 
 Introducción
 ------------
 La toma de decisiones es el proceso mediante el que se realiza la elección de una alternativa para resolver un
-problema. Está presente cotidianamente tanto en la actividad humana como en la de una
-organización. La clave del éxito está en tomar buenas decisiones. Es necesario que se cumplan ciertos requisitos para
- tener éxito tomando decisiones, como son:
+problema. Está presente cotidianamente tanto en la actividad humana como en la de las organizaciones. La clave del
+éxito está en tomar buenas decisiones. Es necesario que se cumplan ciertos requisitos para tener éxito tomando
+decisiones, como son:
 
-* Conocimiento en profundidad el dominio en cuestión
-* Experiencia
+* Conocimiento en profundidad el dominio en cuestión.
+* Experiencia.
 * Información disponible:
-** abarcable por un conjunto de personas
-** no siempre orientable al proceso analítico
-* Uso de metodologías de análisis sencillas e intuitivas
+** abarcable por un conjunto de personas.
+** no siempre orientable al proceso analítico.
+* Uso de metodologías de análisis sencillas e intuitivas.
 
 .Toma de decisiones.
 image::toma-de-decisiones.png[scaledwidth="50%"]
 
-La toma de decisiones utiliza como materias primas la _información_ y el _conocimiento_, ya que sin éstas sería
-imposible evaluar las opciones existentes o el desarrollo de nuevas alternativas. El ámbito de este TFM es el entorno
-médico-sanitario, el cual se encuentra sometido constantemente a la toma de decisiones y donde la representación
-de la información y del conocimiento juega un papel de vital importancia. Para interpretar los datos y poder
-transformarlos en información relevante es necesario un _sistema de información_. De esta información, con su
-respectivo proceso de análisis, obtendremos conocimiento de gran valor para la medicina y, por lo tanto, para la
-sociedad. Además de los sistemas de información, existen sistemas diseñados especialmente para ayudar en el proceso
-de la toma de decisiones, que se conocen como _sistemas de soporte a decisiones_ o _sistemas de apoyo a la decisión_.
-En este TFM se presenta una herramienta que permite crear guías clínicas que serán utilizadas en este tipo de
-sistemas.
+La toma de decisiones utiliza como materias primas la _información_ y el _conocimiento_, ya que sin estas sería
+imposible evaluar las opciones existentes o el desarrollo de nuevas alternativas. El ámbito de este Trabajo Fin de
+Máster (TFM) es el entorno médico-sanitario, el cual se encuentra sometido constantemente a la toma de decisiones y
+donde la representación de la información y del conocimiento juega un papel de vital importancia. Para interpretar
+los datos y poder transformarlos en información relevante es necesario un _sistema de información_. De esta
+información, con su respectivo proceso de análisis, se puede obtener conocimiento de gran valor para la medicina y,
+por lo tanto, para la sociedad. Además de los sistemas de información, existen sistemas diseñados especialmente para
+ayudar en el proceso de la toma de decisiones, que se conocen como _sistemas de soporte a decisiones_ o _sistemas de
+apoyo a la decisión_. En esta memoria de TFM se presenta el proceso de desarrollo de una herramienta para la creación
+y edición de guías clínicas interoperables que serán utilizadas en este tipo de sistemas.
+
+El requisito de que las guías clínicas sean interoperables obliga a que haya que seguir un estándar de
+interoperabilidad. GDL es un lenguaje para la definición de guías basado en arquetipos clínicosfootnote:[Arquetipo
+clínico: estructura de datos para la representación formal de un concepto del ámbito sanitario]. La utilización de
+arquetipos para representar los conceptos de las guías y el uso de terminologías clínicas como vocabulario común
+para la codificación de términos va a permitir alcanzar la interoperabilidad semántica necesaria para el intercambio
+de conocimiento clínico entre sistemas sanitarios.
 
 Contextualización
 ~~~~~~~~~~~~~~~~~
 El concepto de apoyo a las decisiones es muy
-antiguo <<keen>> y ha evolucionado principalmente desde dos áreas de investigación: los estudios teóricos de
+antiguo <<KEEN87>> y ha evolucionado principalmente desde dos áreas de investigación: los estudios teóricos de
 organización de la toma de decisiones, desarrollados en el Carnegie Institute of Technology a principios de los años
 60 y el trabajo técnico sobre sistemas informáticos interactivos, llevados a cabo principalmente en el Instituto
 Tecnológico de Massachusets en la década de los 60. Posteriormente, en la década de los 70, los sistemas de apoyo a
 las decisiones pasan a convertirse en un campo de investigación como tal. Durante la década de los 80 la
-investigación en este campo ganó intensidad, surgiendo así los sistemas de información ejecutiva (EIS), los sistemas de
-apoyo a la decisión en grupo (GDSS) y los sistemas organizacionales de apoyo a la decisión (ODSS). A partir de 1990
-el procesamiento analítico en línea (OLAP) y los almacenes de datos fomentaron la ampliación del ámbito de los SSD.
-Con el cambio de milenio se introdujeron aplicaciones analíticas basadas en web.
+investigación en este campo ganó intensidad, surgiendo así los Sistemas de Información Ejecutiva, los Sistemas de
+Apoyo a la Decisión en Grupo y los Sistemas Organizacionales de Apoyo a la Decisión. A partir de 1990
+el procesamiento analítico en línea (OLAP) y los almacenes de datos fomentaron la ampliación del ámbito de los
+sistemas de soporte a la decisión. Con el cambio de milenio se introdujeron aplicaciones analíticas basadas en web
+enfocadas a la administración y creación de conocimiento sobre el entorno en organizaciones y empresas.
 
 .Breve historia de los Sistemas de Soporte a la Decisión Clínica (SSDC).
 En el ámbito de la salud las decisiones clínicas se toman, por lo general, mediante razonamiento deductivo utilizando
 el conocimiento que tienen los profesionales sanitarios sobre la fisiopatología humana teniendo en cuenta la
-información disponible para cada caso concreto.
+información disponible para cada paciente.
 
 Parece bastante obvio que la experiencia de otros médicos y profesionales de la salud puede ayudar a tomar
 decisiones. A principios de los años 60 ya se  empezaron a  dedicar esfuerzos para crear sistemas de soporte a la
-decisión clínica <<bonis>>. Incluso una década antes, se trabajó con intensidad en la realización de diagnósticos a
+decisión clínica <<BONI04>>. Incluso una década antes, se trabajó con intensidad en la realización de diagnósticos a
 partir de
 la información que los médicos habían almacenado en sus computadoras, se basaban en reglas lógicas básicas. Dos
-ejemplos clásicos son el sistema de diagnóstico de alteraciones electrolíticas de Bleich <<bleich>> y el realizado
-por Warner et al. <<warner>> basado en la realización de razonamientos probabilísticos mediante el uso  intensivo
+ejemplos clásicos son el sistema de diagnóstico de alteraciones electrolíticas de Bleich <<BLEI69>> y el realizado
+por Warner et al. <<WARN61>> basado en la realización de razonamientos probabilísticos mediante el uso  intensivo
 del teorema de Bayes. Hasta ese momento se fundaron lo que fueron las bases teóricas del desarrollo de los SSDC.
 Durante las dos décadas siguientes se desarrollaron los primeros SSDC basados en grandes ordenadores. Sin
 embargo no fue hasta los 80 y 90, con la llegada de los ordenadores personales y el uso generalizado de los mismos,
 cuando se aprovecharon potencialmente este tipo de sistemas. Hoy en día el soporte a la decisión clínica forma parte
 de muchos sistemas sanitarios, se está invirtiendo mucho esfuerzo por parte de las instituciones médicas y compañías
-de software para producir SSDC viables para apoyar en todos los aspectos de las tareas clínicas. A pesar de estos
+de software para producir SSDC viables para apoyar en todos los aspectos de la práctica clínica. A pesar de estos
 esfuerzos por parte de las instituciones para producir y utilizar estos sistemas, todavía no se ha alcanzado la
 adopción y la aceptación generalizada de la mayoría de las ofertas, y esto es debido principalmente a la escasez de
 modelos información clínicos compartidos entre sistemas sanitarios.
 
-.Las TIC en los sistemas sanitarios.
-La utilización de las Tecnologías de la Información y las Comunicaciones en sistemas sanitarios se ha convertido en
+.Las Tecnologías de la Información y las Comunicaciones (TIC) en los sistemas sanitarios.
+La utilización de las TIC en los sistemas sanitarios se ha convertido en
 indispensable en los sistemas actuales. Hoy en día todavía estamos en plena transición de una historia clínica
 convencional a una historia clínica electrónica que introduce una serie de mejoras relacionadas con la inviolabilidad
 de los datos, la privacidad del paciente, accesibilidad, disponibilidad, mejoras contra la pérdida de información,
 durabilidad, legibilidad, identificación del profesional clínico, redundancia, errores en la consignación de datos y
 algo muy importante: la estandarización de datos. Ya en 1990 empieza a surgir la necesidad de representación
-genérica para la comunicación de registros de historia clínica entre sistemas. La HCE puede almacenar, cuanto
-menos, la misma información que podría almacenarse en un archivo médico convencional. En los 15 últimos años se han
-implementado una gran cantidad de proyectos orientados a la eSalud.
+genérica para la comunicación de registros de historia clínica entre sistemas. La Historia Clínica Electrónica (HCE)
+puede almacenar, cuanto menos, la misma información que podría almacenarse en un archivo médico convencional. En los
+15 últimos años se han implementado una gran cantidad de proyectos orientados a la eSalud.
 
 .Interoperabilidad.
 Los sistemas de salud actuales requieren para sí una característica fundamental para garantizar la continuidad
-asistencialfootnote:[*Continuidad asistencial:* concepto que define el proceso, centrado en el paciente, en el cual
+asistencialfootnote:[Continuidad asistencial: concepto que define el proceso, centrado en el paciente, en el cual
 intervienen diferentes profesionales sanitarios en diferentes periodos de tiempo y lugares con el objetivo
 compartido de mejorar la calidad de la asistencia prestada.]. Para conseguir esto es inevitable que la información
 clínica sea representada de una manera interoperable, de modo que diferentes organizaciones puedan hacer uso de dicha
@@ -136,12 +142,14 @@ Las normas o estándares proporcionan la base sobre la que poder crear acuerdos 
 continuidad asistencial. http://www.openehr.org/[__open__EHR] es una comunidad virtual que trabaja en la
 estandarización de la <<X1, Historia Clínica Electrónica>> (HCE), garantizando una interoperabilidad universal entre
 todo tipo de sistemas de información clínicos. Como parte de su trabajo, la Fundación __open__EHR cuenta con una
-plataforma de intercambio de conocimiento clínico denominado http://www.openehr.org/ckm/[Clinical Knowledge Manager]
-(CKM). En estos momentos el
-CKM consiste en un repositorio de arquetipos (modelos formales para la representación de conceptos del dominio
-médico). Recientemente, la comunidad __open__EHR ha decidido que el lenguaje GDL, lenguaje formal diseñado para
-representar conocimiento clínico para soporte a la decisión médica, pase a formar parte del núcleo de especificaciones
- de la plataforma, por lo que las guías clínicas en GDL serán incluidas dentro de la plataforma CKM.
+plataforma internacional de intercambio de conocimiento clínico denominado http://www.openehr.org/ckm/[Clinical
+Knowledge Manager] (CKM), la cual ha reunido a una comunidad Web 2.0 activa de personas motivadas en  promover un
+enfoque abierto e internacional de la informática clínica. En estos momentos el CKM consiste en un repositorio de
+arquetipos clínicos, un repositorio de plantillasfootnote:[Plantilla: arquetipo de alto nivel que agrega a otros
+arquetipos y forma una estructura jerárquica para modelar un concepto más complejo, _e.g._ un informe de alta médica.]
+y cuenta con un proceso de revisión formalizada para conseguir un  consenso y publicación de dichos arquetipos.
+Recientemente, la comunidad __open__EHR ha decidido que el lenguaje GDL pase a formar parte del núcleo de
+especificaciones de la plataforma, por lo que las guías clínicas en GDL serán incluidas dentro de la plataforma CKM.
 
 Conseguir la deseada interoperabilidad en entornos sanitarios es una tarea compleja ya que las organizaciones
 actúan, en cierto modo, como silos de información aislados, es decir, son autónomos a la hora de tomar sus propias
@@ -151,79 +159,27 @@ numerosas ocasiones, utilizan sistemas distintos. Surge, de esta manera, la nece
 nos permita representar el conocimiento médico y, de este modo, poder separarlo de la información clínica existente
 en los sistemas.
 
-.Elementos para el cambio
+.Elementos para el cambio.
 Lo que diferencia a la medicina de otros entornos es la complejidad del conocimiento clínico y la velocidad con la
-que éste varía. Esto ocasionó durante mucho tiempo que no tuviésemos un mecanismo para representar el conocimiento ni
-para gestionarlo correctamente, por lo tanto, lo lógico fue buscar una estrategia que permita gestionar la
-información clínica con sus características intrínsecas. La mayoría de sistemas actuales se desarrollan de tal forma
-que los conceptos del dominio médico se encuentran _hardcodeados_ al software y a los modelos de bases de datos
-utilizados lo que impide que dicha información pueda ser compartida con otros sistemas. Es en este punto donde
-surge la _estrategia del doble modelo_, una estrategia que maneja de manera separada ambos tipos de conceptos:
-información y conocimiento, de tal manera que ambos puedan coexistir de manera independiente. Con esto se pretende
-proteger a los sistemas de información ante futuros cambios y delega la gestión del conocimiento a los expertos del
-dominio. Esta aproximación es utilizada por __open__EHR  y por la norma UNE-EN ISO 13606 para la gestión de la
-información.
+que este varía. Esto ocasionó durante mucho tiempo que no existiese un mecanismo para representar el conocimiento ni
+para gestionarlo correctamente, por lo tanto, lo lógico fue buscar una estrategia que permitiese gestionar la
+información clínica con sus características intrínsecas de forma adecuada. La mayoría de sistemas actuales se
+desarrollan de tal forma que los conceptos del dominio médico se encuentran _hardcodeados_ al software y a los
+modelos de bases de datos utilizados lo que impide que dicha información pueda ser compartida con otros sistemas.
 
-[[doble-modelo]]
-.Estrategia de doble modelo.
-image::doble-modelo.png[scaledwidth="50%"]
+Para solventar esta situación han surgido recientemente los estándares de interoperabilidad basados en modelos
+duales (se verán en detalle en la <<_estado_del_arte>>). Lo que diferencia a estos estándares de otras normas es que
+permiten separar la _información_ existente en los sistemas del _conocimiento_ médico, de manera que este último
+pueda evolucionar sin alterar al primero, a la información almacenada en la base de datos. El modelo dual consta de
+dos modelos de datos, uno para representar el conocimiento (Modelo de Arquetipos) y otro para representar la
+información (Modelo de Referencia).
 
-Este modelo dual permite un acceso multinacional o multiempresarial teniendo en cuenta la necesidad de interacción con
-otros sistemas:
-
-* Sistemas de soporte a la decisión.
-* Sistemas de terminología clínica.
-* Sistemas de conocimiento médico (bases de datos conceptuales).
-* Sistemas demográficos
-* Sistemas de seguridad
-
-Pero el principal aporte es que permite una gestión separada e independiente de dos conceptos fundamentales que son la
-_información_ y el _conocimiento_. La _información_ entendida como los datos que no van a variar con el tipo y el
-_conocimiento_ clínico que sí puede, y suele, variar con el tiempo, por lo tanto ofrece una característica importante
-como es la capacidad de adaptación a nuevos avances en la medicina. Este modelo permite representar la HCE de un
-paciente, o parte de ella, de manera consistente.
-
-En la <<doble-modelo, Figura 2>> se muestra una representación del modelo dual, que permite que los sistemas se
-adapten a los cambios que se producen en el dominio clínico conservando intacta la información almacenada en los
-sistemas y favoreciendo su mantenimiento. Ya que la _información_ y el _conocimiento_ tienen naturalezas diferentes,
-cualquier cambio producido en el conocimiento afectaría en gran medida a la información, que no debe cambiar, por lo
-que este modelo hace una clara separación de ambos niveles. Las principales ventajas de esta aproximación son:
-
-* Interoperabilidad a nivel de conocimiento: la evolución del conocimiento puede ser compartida.
-* Consulta y recuperación de la información eficaces: debido al conocimiento a priori de la estructura de almacenada.
-* Separación de tareas y responsabilidades: los modelos técnicos son desarrollados por ingenieros de software mientras
-que el dominio clínico lo elaboran los médicos, los verdaderos conocedores del mismo.
-* Los sistemas pueden evolucionar y cambiar con naturalidad, lo que facilita el mantenimiento a largo plazo.
-
-En la parte de la izquierda de la <<doble-modelo, Figura 2>> se representa la _información_ clínica, hechos u opiniones
-de o referidos a entidades específicas y que no varían con el paso del tiempo (_e.g._ El día 1 de enero el paciente X
-tenía una presión arterial de 120/80 mmHg.). El _conocimiento_, representado en la parte derecha, comprende hechos
-acumulados a lo largo del tiempo, procedente de muchas fuentes, que son verdad para todas las instancias de las
-entidades del dominio y que pueden variar con el paso del tiempo (_e.g._ La medida de la presión arterial consta de dos
-valores: la presión arterial sistólica y la presión arterial diastólica). Para cada uno de estos dos niveles se
-tiene un modelo de datos. La _información_, los datos que se almacenan en el sistema, se componen a partir de los
-elementos y la organización del Modelo de Referencia (MR). Este modelo necesita reflejar la estructura y la
-organización jerárquica de la HCE con el fin de ser fiel al contexto clínico original. El MR representa el conjunto
-de clases que forman los componentes básicos de cualquier HCE, además de la información jerarquizada de estas clases.
-Cada parte proporciona significado semántico claro a la hora de intercambiar HCE entre distintos sistemas
-heterogéneos. El objeto de información por antonomasia en este tipo de estándares es el extracto clínico. El
-_conocimiento_ representa los conceptos del dominio clínico, de manera que permita representar los datos y se
-representa mediante el Modelo de Arquetipos. Un arquetipo clínico es una estructura de datos utilizada para
-representar conceptos del dominio clínico.
-
-Los pilares básicos de este tipo de estándares son 3:
-
-* Un vocabulario común para codificar términos: terminologías clínicas.
-* Un mecanismo para representar las estructuras de datos: arquetipos.
-* Un mecanismo para representar el contexto: modelo de referencia.
-
-El modelo de arquetipos define el modelo que permite expresar arquetipos para cualquier MR, restringiéndolo (fijando
-nombres, tipos de datos, valores por defecto, cardinalidades, etc.) para modelar formalmente conceptos de un dominio
-del conocimiento. Los arquetipos son acordados en una comunidad con el objetivo de garantizar la interoperabilidad
-semántica, la consistencia de la información y la calidad de los datos. Este modelo consta de una serie da paquetes
-que se verán en el <<_estado_del_arte, capitulo 3>>. Los arquetipos son elementos jerárquicos formados por una serie
-de nodos utilizando el patrón de diseño Composite, de manera que un nodo pueda contener de manera recursiva otros nodos.
-
+Por lo tanto, se necesita una representación correcta del conocimiento médico que permita comunicar la información
+con su contexto de forma adecuada, sin que se permitan ambigüedades ni alteraciones de su significado durante el proceso
+de transferencia. Un primer paso para esto es el uso de terminologías clínicas que aportan un vocabulario
+común para codificar términos, pero el uso de terminologías no es suficiente. Se necesita también un mecanismo que
+permita representar las estructuras de datos, esto se consigue mediante los arquetipos clínicos y finalmente es
+necesario un sistema que permita representar el contexto, para ello utilizaremos el Modelo de Referencia.
 
 Objetivos
 ~~~~~~~~~
@@ -269,7 +225,7 @@ embargo un acuerdo efectivo solamente es posible cunado el negocio es capaz de c
 necesarios y tener un medio que permita el procesamiento de dicha información y la presentación de los resultados al
 usuario.
 
-En la ingeniería de software se denomina aplicación web <<web-app>> a aquellas herramientas que los usuarios
+En la ingeniería de software se denomina aplicación web <<WEBA17>> a aquellas herramientas que los usuarios
 pueden utilizar accediendo a un servidor web a través de Internet o de una intranet mediante un
 navegador. Las aplicaciones web son populares debido a lo práctico del navegador web como
 cliente ligero, a la independencia del sistema operativo, así como a la facilidad para actualizar y
@@ -325,16 +281,16 @@ permitan el funcionamiento offline.
 Node.js
 ~~~~~~~
 Node.js es un entorno de ejecución multiplataforma, de código abierto, para JavaScript construido con el motor de
-JavaScript V8 de Chrome <<node>>. Node.js usa un modelo de operaciones E/S sin bloqueo y orientado a eventos, que lo
+JavaScript V8 de Chrome <<NODE17>>. Node.js usa un modelo de operaciones E/S sin bloqueo y orientado a eventos, que lo
 hace liviano y eficiente. El ecosistema de paquetes de Node.js, _npm_, es el ecosistema más grande de librerías de
 código abierto en el mundo en estos momentos.
 
-Para bien o para mal, JavaScript es el lenguaje de programación más popular para la Web y, debido al alcance de ésta,
+Para bien o para mal, JavaScript es el lenguaje de programación más popular para la Web y, debido al alcance de esta,
 JavaScript ha cumplido con el sueño de "escribir una vez, ejecutar en cualquier parte" que tenía Java en la década de
 los noventa.
 
 Desde el lanzamiento de Google Chrome a finales de 2008, el rendimiento de JavaScript ha mejorado a un ritmo
-increíblemente rápido debido<<cantelon>> a la fuerte competencia entre los proveedores de navegadores (Mozilla,
+increíblemente rápido debido<<CANT04>> a la fuerte competencia entre los proveedores de navegadores (Mozilla,
 Microsoft, Apple, Opera y Google). El rendimiento de estas modernas máquinas virtuales JavaScript literalmente está
 cambiando los tipos de aplicaciones que puede crear en la webfootnote:[Ver la página _Chrome Experiments_ para ver
 algunos ejemplos: http://www.chromeexperiments.com/.]. Un ejemplo convincente y francamente alucinante de esto es
@@ -398,12 +354,12 @@ extender, mantener y probar.
 
 Módulos en AngularJS
 ^^^^^^^^^^^^^^^^^^^^
-Un _módulo_<<module>> en AngularJS es un contenedor para las diferentes partes de una aplicación, como controladores,
+Un _módulo_<<MODU17>> en AngularJS es un contenedor para las diferentes partes de una aplicación, como controladores,
 servicios, filtros, directivas, información sobre configuración, etc. Es una manera de agrupar funcionalidades. La
 mayoría de aplicaciones en otros lenguajes de programación como Java o incluso Python tienen un método _main_ que
 instancia y vincula todas las partes de la aplicación. Las aplicaciones Angular no tienen dicho método. En vez de
 ello, tiene el concepto de módulos, que especifican de forma declarativa las dependencias de la aplicación y cómo
-ésta debe ser inicializada. Esta aproximación tiene varias ventajas:
+esta debe ser inicializada. Esta aproximación tiene varias ventajas:
 
 * El proceso es declarativo. Esto significa que está escrito de tal manera es que más sencillo de escribir y de
 entender.
@@ -558,7 +514,7 @@ el cual se encarga de contener los datos y de transferirlos de la vista al contr
 
 Directivas
 ^^^^^^^^^^
-Las directivas<<directive>> son, desde un punto de vista de alto nivel, _marcadores_ en un elemento del DOM (_i.e._
+Las directivas<<DIRE17>> son, desde un punto de vista de alto nivel, _marcadores_ en un elemento del DOM (_i.e._
 un atributo, un nombre de elemento, un comentario o una clase CSS) que le informan al compilador de Angular
 (`$compile`) que vincule un comportamiento especial a dicho elemento del DOM (_e.g._ a través de escuchadores de
 eventos), o incluso que transforme el elemento del DOM y sus elementos hijos.
@@ -711,7 +667,7 @@ aísla el controlador de la directiva y del DOM.
 
 Two-way databinding
 ^^^^^^^^^^^^^^^^^^^
-La vinculación de datos <<twdb>> en las aplicaciones AngularJS es la sincronización automática de datos entre los
+La vinculación de datos <<DATA17>> en las aplicaciones AngularJS es la sincronización automática de datos entre los
 componentes del modelo y de la vista. La forma en que AngularJS implementa la vinculación de datos permite tratar
 el modelo como la única fuente de datos en la aplicación. La vista es una proyección del modelo en todo momento.
 Cuando el modelo cambia, la vista refleja dicho cambio y viceversa.
@@ -955,13 +911,109 @@ en Wikipedia, http://martinfowler.com/articles/injection.html[Inversión de Cont
 
 Estado del arte
 ---------------
-Estado de la cuestión relacionado con la interoperabilidad clínica. Normas UNE EN ISO-13606 y __open__EHR: Modelos de
-referencia y arquetipos, modelo de guías clínicas GDL. Arquetipos clínicos. Terminologías clínicas: SNOMED-CT,
-ICD10, LOINC, ICPC...
+Hoy en día los ciudadanos, por motivos profesionales, de ocio o de cualquier otra índole, estamos viajando
+constantemente. Cuando viajamos lo hacemos con la información necesaria para para realizar transacciones económicas
+entre diferentes sistemas bancarios, para la realización de una reserva de un viaje o para la comunicación a través
+del teléfono móvil. De esta manera queda reflejado cómo en otros ámbitos sí existe una interoperabilidad
+entre sistemas.
+
+Sin embargo en el ámbito sanitario no es así. Actualmente existe una clara necesidad en nuestra sociedad de que
+nuestra información sanitaria pueda también viajar con nosotros para que esté disponible dónde y cuándo la
+necesitemos. Para todas aquellas actividades en las que la información tenga que comunicarse entre organizaciones es
+necesaria un estándar que permita la interoperabilidad en todo el proceso. Tener esta información disponible de una
+manera normalizada no sólo es favorable para la asistencia continuada del paciente, sino que dicha información puede
+ser utilizada para la investigación y la estadística, proporcionando un impacto positivo en la Sanidad en general.
 
 Estándares de interoperabilidad
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Estándares de interoperabilidad
+La interoperabilidadfootnote:[Definición de interoperabilidad según la _Wikipedia_: https://es.wikipedia.org/wiki/Interoperabilidad]
+es la habilidad de dos o más sistemas o componentes para intercambiar información y utilizar la información
+intercambiada. Hoy en día, en el ámbito sanitario prácticamente todos los sistemas reclaman para sí la
+característica de que sean interoperables<<MUNO13>>, pero se podría decir que casi ninguno la cumple en la práctica.
+Hay profesionales, tanto sanitarios como técnicos, que piensan que sus sistemas son semánticamente interoperables
+porque utilizan terminologías, como SNOMED-CT, o un determinado estándar; pero tampoco es así, pues éstos son
+pasos necesarios pero no suficientes, ya que la transferencia de información clínica que se busca con la
+interoperabilidad semántica es algo más que la comunicación de palabras sueltas.
+
+Para los sistemas sanitarios no es suficiente que los sistemas implicados puedan transferirse información, se debe ir
+más allá y diferenciar diferentes tipos de interoperabilidad que pueden existir:
+
+* Interoperabildad técnica: define la conexión entre los sistemas permitiendo que las entidades que forman parte de la
+comunicación puedan llevar a cabo dicha comunicación usando estándares y protocolos como 802.11, TCP/IP, HTTP, etc.
+Este tipo de interoperabilidad es  la que permite el envío de información físicamente--en forma de bytes-- entre
+sistemas, la cual obviamente está muy avanzada ya que no es exclusiva de los sistemas sanitarios.
+* Interoperabilidad sintáctica: es la que permite la comunicación de mensajes o documentos garantizando la recepción
+adecuada de los mismos. Las normas que pertenecen a este tipo de interoperabilidad son XML, la ISO 21090footnote:[ISO
+21090: especificación de tipo de datos para entornos sanitarios.], modelos de referencia de __open__EHR e ISO 13606,
+etc.
+* Interoperabilidad semántica: es la interoperabilidad buscada en prácticamente todos los sistemas sanitarios, se da
+cuando un sistema acepta información de otro y puede hacer uso de dicha información, sin intervención humana,
+manteniendo el significado que se le ha dado en origen. Este tipo de interoperabilidad es la que va a permitir la
+deseada continuidad asistencial del ciudadano.
+* Interoperabilidad organizativa: se sostiene en las reglas de negocio de las organizaciones. Para que dos
+instituciones puedan cooperar deben compartir un contexto común en sus procedimientos y flujos de trabajo. En muchos
+casos estas reglas dependen de las políticas de salud definidos por las administraciones.
+
+No existen unos límites claros en dónde termina un tipo de interoperabilidad y dónde comienza el siguiente, pero se
+podría
+hacer una aproximación representando los diferentes niveles según los cinco puntos que define el modelo de referencia
+OSI para los sistemas distribuidos (técnico, ingeniería, computación, información y negocio) vinculados con cada tipo
+de interoperabilidad de los que se acaban de definir.
+
+[[interoperability-types]]
+.Tipos de interoperabilidad.
+image::interoperability-types[scaledwidth="50%"]
+
+La gestión del conocimiento semántico es tratado en los puntos de vista _Información_ y _Computación_, son los que
+van a posibilitar la interoperabilidad semántica y, por lo tanto, que ambos sistemas puedan intercambiarse
+información manteniendo el significado que se le hubiese dado en origen y hacer uso de la misma sin intervención humana.
+
+* Hablar de la estrategia del doble modelo
+
+[[doble-modelo]]
+.Estrategia de doble modelo.
+image::doble-modelo.png[scaledwidth="50%"]
+
+
+El principal aporte es que permite una gestión separada e independiente de dos conceptos fundamentales que son la
+_información_ y el _conocimiento_. La _información_ entendida como los datos que no van a variar con el tiempo y el
+_conocimiento_ clínico que sí puede, y suele, variar con el tiempo, por lo tanto ofrece una característica importante
+como es la capacidad de adaptación a nuevos avances en la medicina. Este modelo permite representar cualquier tipo
+concebible de estructura de datos de historia clínica, o parte de ella, de forma consistente.
+
+En la <<doble-modelo>> se muestra una representación del modelo dual, que permite que los sistemas se
+adapten a los cambios que se producen en el dominio clínico conservando intacta la información almacenada en los
+sistemas y favoreciendo su mantenimiento. Las principales ventajas de esta aproximación son:
+
+* Interoperabilidad a nivel de conocimiento: la evolución del conocimiento puede ser compartida.
+* Consulta y recuperación de la información eficaces: debido al conocimiento a priori de la estructura de la
+información almacenada.
+* Separación de tareas y responsabilidades: los modelos técnicos son desarrollados por ingenieros de software mientras
+que el dominio clínico lo elaboran los médicos, los verdaderos conocedores del mismo.
+* Los sistemas pueden evolucionar y cambiar con naturalidad, lo que facilita el mantenimiento a largo plazo.
+
+En la parte de la izquierda de la <<doble-modelo>> se representa la _información_ clínica, hechos u opiniones
+de o referidos a entidades específicas y que no varían con el paso del tiempo (_e.g._ El día 1 de enero el paciente X
+tenía una presión arterial de 120/80 mmHg.). El _conocimiento_, representado en la parte derecha, comprende hechos
+acumulados a lo largo del tiempo, procedente de muchas fuentes, que son verdad para todas las instancias de las
+entidades del dominio y que pueden variar con el paso del tiempo (_e.g._ La medida de la presión arterial consta de dos
+valores: la presión arterial sistólica y la presión arterial diastólica). Para cada uno de estos dos niveles se
+tiene un modelo de datos. La _información_, los datos que se almacenan en el sistema, se componen a partir de los
+elementos y la organización del Modelo de Referencia (MR). Este modelo necesita reflejar la estructura y la
+organización jerárquica de la HCE con el fin de ser fiel al contexto clínico original. El MR representa el conjunto
+de clases que forman los componentes básicos de cualquier HCE, además de la información jerarquizada de estas clases.
+Cada parte proporciona significado semántico claro a la hora de intercambiar HCE entre distintos sistemas
+heterogéneos. El objeto de información por antonomasia en este tipo de estándares es el extracto clínico. El
+_conocimiento_ representa los conceptos del dominio clínico, de manera que permita representar los datos y se
+representa mediante el Modelo de Arquetipos. Un arquetipo clínico es una estructura de datos utilizada para
+representar conceptos del dominio clínico.
+
+El modelo de arquetipos define el modelo que permite expresar arquetipos para cualquier MR, restringiéndolo (fijando
+nombres, tipos de datos, valores por defecto, cardinalidades, etc.) para modelar formalmente conceptos de un dominio
+del conocimiento. Los arquetipos son acordados en una comunidad con el objetivo de garantizar la interoperabilidad
+semántica, la consistencia de la información y la calidad de los datos. Este modelo consta de una serie da paquetes
+que se verán en el <<_estado_del_arte, capitulo 3>>. Los arquetipos son elementos jerárquicos formados por una serie
+de nodos utilizando el patrón de diseño Composite, de manera que un nodo pueda contener de manera recursiva otros nodos.
 
 __open__EHR: Modelo de Referencia y Modelo de arquetipos
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1026,7 +1078,7 @@ Teniendo en cuenta los requisitos mencionados anteriormente, se han tomado las s
 Esto se consigue mediante la creación de enlaces entre los elementos de los datos definidos por los arquetipos y las
 variables utilizadas por las reglas del CDS. Cada variable de regla CDS se identifica de forma unívoca en el contexto
 de una guía y se enlaza con un elemento específico definido por un arquetipo utilizando su "Archetype ID" y
-su _path_ footnote:[El _path_ de un elemento de un arquetipo es la ruta unívoca que identifica dicho elemento dentro
+su __path__footnote:[El _path_ de un elemento de un arquetipo es la ruta unívoca que identifica dicho elemento dentro
 del arquetipo.]. Una vez definida, la variable se puede usar dentro de las sentencias _when_ y _then_ como entrada o
 como salida durante la ejecución de la regla.
 
@@ -1063,7 +1115,7 @@ de la clase _RESOURCE_DESCRIPTION_ del diseño __open__EHR.
 Modelo de Objetos de Guías Clínicas
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Los fundamentos del diseño de GDL son los arquetipos __open__EHR, tanto como entrada como salida de las reglas CDS.
-Ésta es la clave para conseguir la independencia lingüística y de las terminologías de referencia. Debido a esta
+Esta es la clave para conseguir la independencia lingüística y de las terminologías de referencia. Debido a esta
 elección de diseño, la especificación __open__EHR juega un papel importante en el diseño GDL. En otras palabras, el
 diseño GDL tiene como objetivo hacer una reutilización sustancial de las especificaciones __open__EHR existentes. En
 áreas donde el diseño __open__EHR existente no es suficiente, se introducen diseños adicionales.
@@ -1265,7 +1317,7 @@ Metodología de desarrollo
 
 Metodología Scrum
 ^^^^^^^^^^^^^^^^^
-Scrum es un _framework_ de desarrollo<<scrum>> en el que los equipos multifuncionales desarrollan productos o
+Scrum es un _framework_ de desarrollo<<SCRU12>> en el que los equipos multifuncionales desarrollan productos o
 proyectos de forma iterativa e incremental. Scrum estructura el desarrollo en ciclos de trabajo  llamados _Sprints_.
 Estas iteraciones no duran más de cuatro semanas cada una (lo más común son iteraciones de dos semanas), y tienen
 lugar una tras otra sin pausa. Los Sprints tienen una duración determinada, terminan en una fecha específica si el
@@ -1274,10 +1326,10 @@ y la utilizan para todos sus Sprints hasta que mejoren y puedan utilizar un cicl
 Sprint, un equipo multifuncional (de aproximadamente siete personas) selecciona los elementos (requisitos del
 cliente) de una lista de prioridades. El Equipo acuerda un objetivo colectivo de lo que ellos creen que pueden
 entregar al final del Sprint, algo que es tangible y que será verdaderamente "hecho". Durante el Sprint, no se pueden
-agregar nuevos elementos, éstos quedarían para el siguiente Sprint, ya que el Sprint corto actual está destinado a
+agregar nuevos elementos, estos quedarían para el siguiente Sprint, ya que el Sprint corto actual está destinado a
 centrarse en un objetivo pequeño, claro y relativamente estable. Todos los días el equipo se reúne brevemente para
 inspeccionar su progreso, y ajustar los pasos siguientes necesarios para completar el trabajo restante. Al final del
-Sprint, el equipo revisa el Sprint con los _stakeholders_ footnote:[_stakeholder_: cualquier parte interesada que es
+Sprint, el equipo revisa el Sprint con los __stakeholders__footnote:[_stakeholder_: cualquier parte interesada que es
 afectado o puede ser afectado por el desarrollo del producto], y demuestra lo que ha construido. La gente obtiene
 retroalimentación que se puede incorporar en el próximo Sprint. Scrum hace hincapié en que el producto tiene que ser
 funcional al final del Sprint. En el caso del software, esto significa un sistema integrado, completamente probado,
@@ -1521,7 +1573,7 @@ Tienen lugar cuando termina el Sprint y es el momento en el que la gente hace un
 principal es que esta reunión permita inspeccionar y adaptar el producto, se revisa qué trabajo fue completado y cuál
 no lo ha sido. Se hace una presentación del trabajo completado a todos los interesados, no permitiéndose mostrar el
 trabajo no completado. Un elemento crítico de esta revisión se centra en una _conversación_ en profundidad entre el
-Equipo y el Propietario del Producto para que éste último conozca la situación, reciba consejos, etc.
+Equipo y el Propietario del Producto para que este último conozca la situación, reciba consejos, etc.
 
 Sprint Retrospective::
 Esta reunión es la que sigue a la _Sprint Review Meeting_, la cual se centraba en la inspección y adaptación del
@@ -1566,13 +1618,13 @@ Scrum proporciona una serie de ventajas al proyecto. Debido a la filosofía de l
 características descritas anteriormente, dichas ventajas se pueden resumir en:
 
 * Gestión regular de las expectativas del cliente: el cliente establece sus expectativas indicando el valor que le
-aporta cada requisito del proyecto y cuándo espera que esté completado. Éste puede comprobar de manera regular si se
+aporta cada requisito del proyecto y cuándo espera que esté completado. Este puede comprobar de manera regular si se
 van cumpliendo sus expectativas, y puede proporcionar _feedback_. Y es desde el inicio del proyecto cuando puede tomar
 decisiones a partir de resultados objetivos y dirigirlos iteración a iteración hacia su meta. Se ahorran esfuerzos y
 tiempo al evitar las posibles hipótesis.
 
 * Resultados anticipados (_time to market_): el cliente puede empezar a utilizar los resultados más importantes del
-proyecto antes de que éste haya finalizado por completo. Siguiendo la ley de Pareto (el 20% del esfuerzo proporciona
+proyecto antes de que este haya finalizado por completo. Siguiendo la ley de Pareto (el 20% del esfuerzo proporciona
 el 80% del valor), el cliente puede empezar antes a recuperar su inversión (y/o autofinanciarse) comenzando a
 utilizar un producto al que sólo le faltan características poco relevantes, puede sacar al mercado un producto antes
 que su competidor, puede hacer frente a urgencias o nuevas peticiones de clientes, etc.
@@ -1810,7 +1862,7 @@ manera de inyectar valores constantes en cualquier controlador o servicio que lo
 servicios para formatear los datos a mostrar en la vista. En esta aplicación web no se han utilizado en los
 servicios, motivo por el cual no existe una dependencia en el diagrama de la <<architecture>>.
 
-* `ui`: módulo que actúa como contenedor de los 4 siguientes. Se han agrupado en éste debido a la relación de sus
+* `ui`: módulo que actúa como contenedor de los 4 siguientes. Se han agrupado en este debido a la relación de sus
 funcionalidades con la interfaz de usuario.
 
 * `ui.tree`: componente de _drag and drop_ que permite anidación en forma de árbol, utilizado en la definición de los
@@ -2187,7 +2239,7 @@ el tipo de datofootnote:[Cada elemento del arquetipo tiene un tipo de datos. Tip
 http://www.openehr.org/releases/RM/latest/docs/data_types/data_types.html] del operador izquierdo, de tal manera que,
  si el operador es un operador jerárquico (IS_A) lo que se tiene que mostrar al editar el lado derecho es un árbol
  con las variables locales de la guía, se trata de que el predicado restrinja el valor de un elemento manifestando
- que éste _es un_ elemento de la parte derecha. Si el operador no es  un operador jerárquico, entonces hay que tener
+ que este _es un_ elemento de la parte derecha. Si el operador no es  un operador jerárquico, entonces hay que tener
  en cuenta el tipo de dato del operando izquierdo. Los atributos de un DataValue vienen definidos por el
  <<_modelo_de_referencia, Modelo de Referencia>>, de tal modo que para cada tipo de dato hay que renderizar el
  formulario correspondiente para poder establecer la restricción, _e.g._ el tipo de dato _DV_QUANTITY_ tiene dos
@@ -2263,7 +2315,7 @@ defecto que pueden ser sobreescritas con los parámetros que queramos mostrar en
 de uso _Editar definiciones_ utiliza el servicio `GuidelineFactory` que proporcionará los arquetipos con los que
 está vinculados la guía actual, permite obtener loas descripciones de los términos utilizados en la guía, obtener la
 ontología, etc. Utiliza el `modalService` para proporcionar los diálogos que facilitan la comunicación con el usuario
-permitiendo seleccionar arquetipos y elementos de éstos. la gestión de las expresiones (utilizadas en los predicados)
+permitiendo seleccionar arquetipos y elementos de estos. la gestión de las expresiones (utilizadas en los predicados)
 se delegan en el servicio `expressionItemFactory` y la gestión de los conceptos terminológicos en `terminologyFactory`.
 
 Implementación
@@ -3354,7 +3406,7 @@ Binding
 ^^^^^^^
 El enlace terminológico se gestiona desde la pestaña _Binding_. La tabla que se muestra aparecen los términos locales
 que tenemos vinculados con terminologías externas. Un término puede estar vinculado con varias terminologías por lo
-que éstas aparecen como pestañas en la interfaz. Un término puede estar vinculado con varios códigos dentro de una
+que estas aparecen como pestañas en la interfaz. Un término puede estar vinculado con varios códigos dentro de una
 misma terminología.
 
 Cuando se ejecuta la guía, cualquier código contenido aquí y referenciado con un operador _is_a_ será traducido a sus
@@ -3553,22 +3605,25 @@ Bibliografía
 The bibliography list is a style of AsciiDoc bulleted list.
 
 [bibliography]
-- [[[keen]]] Keen, P. G. W. 'Decision support systems: an organizational perspective'. Addison-Wesley. ISBN 0-201-03667-3.
-- [[[node]]] Web oficial de Node.js. URL: https://nodejs.org/es/. Último acceso agosto 2017.
-- [[[cantelon]]] Cantelon M, Harter M, Holowaychuk TJ, Rajlich N. 'Node.js in Action'. Manning. ISBN 9781617290572
-- [[[bonis]]] Bonis Julio, Sancho Juan J., Sanz Ferrán. 'Computer-assisted Clinical Decision Support Systems'.
+- [[[KEEN87]]] Keen, P. G. W. 'Decision support systems: an organizational perspective'. Addison-Wesley. ISBN
+0-201-03667-3.
+- [[[BONI04]]] Bonis Julio, Sancho Juan J., Sanz Ferrán. 'Computer-assisted Clinical Decision Support Systems'.
+- [[[BLEI69]]] Bleich HL. 'Computer evaluation of acid-base disorders'. J Clin Invest, 48 (1969), pp. 1689-96 http://dx.doi.org/10.1172/JCI106134
+- [[[WARN61]]] Warner HR,Toronto AF,Veasey LG,Stephenson RA.'Mathematical approach to medical diagnosis.' JAMA, 177
+- [[[NODE17]]] Web oficial de Node.js. URL: https://nodejs.org/es/. Último acceso agosto 2017.
+- [[[MUNO13]]] Muñoz A _et al._ 'Manual práctico de interoperabilidad semántica para entornos sanitarios basada en
+arquetipos'. Unidad de investigación en Telemedicina y e-Salud - Instituto de Salud Carlos III, julio de 2013.
+- [[[CANT04]]] Cantelon M, Harter M, Holowaychuk TJ, Rajlich N. 'Node.js in Action'. Manning. ISBN 9781617290572
 Clinical Medicine, Elsevier Ed. 2004;122 Supl 1:39-44.
-- [[[bleich]]] Bleich HL. 'Computer evaluation of acid-base disorders'. J Clin Invest, 48 (1969), pp. 1689-96 http://dx.doi.org/10.1172/JCI106134
-- [[[warner]]] Warner HR,Toronto AF,Veasey LG,Stephenson RA.'Mathematical approach to medical diagnosis.' JAMA, 177
 (1961), pp. 75-81.
-- [[[web-app]]] Wikipedia en español. URL: https://es.wikipedia.org/wiki/Aplicaci%C3%B3n_web. Último acceso: junio 2017.
-- [[[module]]] Documentación oficial de AngularJS. URL: https://docs.angularjs.org/guide/module. Último acceso: junio
+- [[[WEBA17]]] Wikipedia en español. URL: https://es.wikipedia.org/wiki/Aplicaci%C3%B3n_web. Último acceso: junio 2017.
+- [[[MODU17]]] Documentación oficial de AngularJS. URL: https://docs.angularjs.org/guide/module. Último acceso: junio
 2017.
-- [[[directive]]] Documentación oficial de AngularJS. URL: https://docs.angularjs.org/guide/directive. Último acceso: junio
+- [[[DIRE17]]] Documentación oficial de AngularJS. URL: https://docs.angularjs.org/guide/directive. Último acceso: junio
 2017.
-- [[[twdb]]] Documentación oficial de AngularJS. URL: https://docs.angularjs.org/guide/databinding. Último acceso:
+- [[[DATA17]]] Documentación oficial de AngularJS. URL: https://docs.angularjs.org/guide/databinding. Último acceso:
 junio 2017.
-- [[[scrum]]] Deemer P, Benefield G, Larman C, Vodde B. 'The Scrum Primer'. 2012.
+- [[[SCRU12]]] Deemer P, Benefield G, Larman C, Vodde B. 'The Scrum Primer'. 2012.
 
 [glossary]
 Glosario
