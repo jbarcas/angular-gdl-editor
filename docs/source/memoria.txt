@@ -931,7 +931,7 @@ es la habilidad de dos o más sistemas o componentes para intercambiar informaci
 intercambiada. Hoy en día, en el ámbito sanitario prácticamente todos los sistemas reclaman para sí la
 característica de que sean interoperables<<MUNO13>>, pero se podría decir que casi ninguno la cumple en la práctica.
 Hay profesionales, tanto sanitarios como técnicos, que piensan que sus sistemas son semánticamente interoperables
-porque utilizan terminologías clínicas, como SNOMED-CT, o un determinado estándar; pero tampoco es así, pues éstos son
+porque utilizan terminologías clínicas, como SNOMED CT, o un determinado estándar; pero tampoco es así, pues éstos son
 requisitos necesarios pero no suficientes, ya que la transferencia de información clínica que se busca con la
 interoperabilidad semántica es algo más que la comunicación de palabras sueltas.
 
@@ -1218,20 +1218,174 @@ Terminologías clínicas
 ~~~~~~~~~~~~~~~~~~~~~~
 La normalización y la comunicación de términos con una precisión aceptable ya se ha conseguido hace muchos años con
 la introducción de sistemas de clasificación y codificación. Existen otros recursos como los diccionarios o los
-tesauros que han facilitado una normalización de significados de palabras y expresiones a través de enlaces de
-significado. Este tipo de recursos facilita la interpretación no ambigua de las palabras, pero no trabaja con
+tesauros que han facilitado la normalización de significados de palabras y expresiones a través de enlaces de
+significado. Este tipo de recursos permite la interpretación no ambigua de las palabras, pero no trabaja con
 conceptos, sino que lo hacen con palabras aisladas.
 
-Las terminologías clínicas tratan de preservar la precisión en la expresión de conceptos pero intentan representar
-los conceptos de tal forma que su formulación, su recuperación, su tratamiento automatizado, su comunicación y su
-comprensión y utilización se hagan sin ambigüedad.
+Las terminologías clínicas tratan de preservar la precisión en la expresión de conceptos, pero intentan representarlos
+de tal forma que su formulación, su recuperación, su tratamiento automatizado, su comunicación, su comprensión y
+utilización se hagan sin ambigüedad.
 
 A continuación se describen tres de las terminologías más utilizadas actualmente en la sanidad:
 
-* Sistematic NOmenclature of MEDicine – Clinical Terms (SNOMED-CT): Terminología clínica integral, multilingüe y
-codificada de mayor amplitud, precisión e importancia actualmente, mantenida y distribuida por el IHTSDO<<IHTS17>>.
+SNOMED CT
+^^^^^^^^^
+Sistematic NOmenclature of MEDicine – Clinical Terms (SNOMED CT) está considerada como la terminología clínica
+integral, multilingüe y codificada de mayor amplitud, precisión e importancia desarrollada en el mundo
+actualmente<<MSAN17>>, mantenida y distribuida por el IHTSDO<<IHTS17>>.
 
- TERMINAR ESTA SECCIÓN
+SNOMED CT proporciona un intercambio de información consistente y es fundamental para un registro electrónica de salud
+interoperable. Proporciona un medio consistente para indexar, almacenar, recuperar y agregar datos clínicos a través
+de especialidades y lugares de atención sanitarias. También ayuda a organizar el contenido de los sistemas
+de HCE reduciendo la variabilidad en la forma en que se capturan, codifican y utilizan los  datos para la
+atención clínica de los pacientes y la investigación<<RUCH12>>.
+
+Se trata de una terminología orientada a conceptos y esto es la clave de la potencia y la flexibilidad de SNOMED CT.
+La variabilidad en el lenguaje puede responder a factores culturales o patrones de uso local difíciles de cambiar,
+pero las distintas descripciones de un concepto quedan asociadas a un identificador unificado de dicho concepto.
+
+Como las descripciones equivalentes señalan a un mismo concepto, es relativamente sencillo establecer las relaciones
+entre conceptos sin necesidad de crearlas para cada posible descripción. Al asociar conceptos mediante relaciones de
+acuerdo a un esquema conceptual prediseñado, podemos dotar a la terminología de algunas (no todas) las
+características clave de las ontologías: permiten representar conocimiento de manera formal y no ambigua, de forma
+interpretable por un componente de software.
+
+En SNOMED CT se encuentran conceptos que pertenecen a una amplia variedad de ejes semánticos. En el nivel superior se
+encuentra el concepto raíz de la terminología, un concepto único que actúa como origen de todos los significados,
+denominado _Concept_. Por debajo del concepto raíz, se encuentran 19 jerarquías principales. Bajo cada uno de los
+conceptos de jerarquía principal se agrupan los restantes conceptos.
+
+[[snomed-ct-hierarchy]]
+.Jerarquía de conceptos en SNOMED CT.
+image::snomed-ct-hierarchy.png[scaledwidth="50%"]
+
+SNOMED CT puede utilizarse directamente para registrar los datos clínicos de los pacientes en la HCE. También
+proporciona al usuario una serie de relaciones a las guías de atención clínica, planes de cuidado compartidos y otros
+recursos de conocimiento, con el fin de facilitar la toma de decisiones y apoyar la atención sanitaria del paciente
+a largo plazo. La disponibilidad de herramientas y servicios de codificación automática gratuitosfootnote:[Navegador
+SNOMED CT: http://browser.ihtsdotools.org/], que pueden devolver una lista clasificada de descriptores SNOMED CT para
+codificar cualquier informe clínico, podría ayudar a los profesionales de la salud a navegar por la terminología.
+
+SNOMED CT consta de cuatro componentes principales:
+
+* Códigos de concepto: códigos numéricos que identifican términos clínicos, primitivos o definidos, organizados
+jerárquicamente.
+* Descripciones: descripciones textuales de los códigos de concepto mencionados anteriormente.
+* Relaciones: relaciones entre códigos de conceptos que estén vinculados de alguna manera.
+* Conjuntos de referencia: se utilizan para agrupar conceptos o descripciones en conjuntos, incluidos conjuntos de
+referencias y referencias cruzados con otras clasificaciones y normas, como CIE-10.
+
+Los conceptos de SNOMED CT son unidades representativas que categorizan todas las cosas que caracterizan los procesos de
+atención sanitaria y necesitan ser registradas en la HCE. En 2011, SNOMED CT incluía más de 311.000 conceptos, que
+los cuales estaban unívocamente identificados por un ID de concepto, _e.g._ el concepto 22298006 se refiere a _Infarto
+de miocardio_. Todos los conceptos SNOMED CT se organizan en jerarquías taxonómicas (_IS_A_) acíclicas; por ejemplo,
+_Neumonía viral_ IS_A _Neumonía infecciosa_ IS-A _Neumonía_ IS-A _Enfermedad pulmonar_. Los conceptos pueden tener
+múltiples padres, por ejemplo, la _Neumonía infecciosa_ es también un concepto hijo de _Enfermedad infecciosa_. La
+estructura taxonómica permite registrar los datos y para que posteriormente sean accesibles en diferentes niveles de
+agregación.
+
+CIE-10
+^^^^^^
+La CIE-10 es el acrónimo de la Clasificación internacional de enfermedades, décima versión correspondiente a la
+versión en español de la (en inglés) ICD, siglas de International Statistical Classification of Diseases and Related
+Health Problems y determina una clasificación y codificación de las enfermedades y una amplia variedad de signos,
+síntomas, hallazgos anormales, denuncias, circunstancias sociales y causas externas de daños y/o enfermedades.
+publicada y gestionada por la Organización Mundial de la Salud (OMS).
+
+El conjunto de códigos contiene más de 14.400 códigos diferentes y permite el seguimiento de muchos nuevos
+diagnósticos. Los códigos pueden ampliarse a más de 16.000 códigos mediante subclasificaciones opcionales<<CIEM17>>.
+
+La CIE fue publicada por la Organización Mundial de la Salud. Se utiliza a nivel internacional para fines
+estadísticos relacionados con morbilidad y mortalidad, los sistemas de reintegro y soportes de decisión automática en
+medicina. Este sistema está diseñado para promover la comparación internacional de la recolección, procesamiento,
+clasificación y presentación de estas estadísticas.
+
+La OMS proporciona información _on-line_ detallada sobre la CIE y pone a disposición un conjunto de materiales
+_on-line_, como un navegador en línea de la CIE-10footnote:[http://apps.who.int/classifications/icd10/browse/2016/en#/: última versión disponible en el momento de escribir este documento],
+cursos de formación de la CIE-10footnote:[http://apps.who.int/classifications/apps/icd/icd10training/], ayuda a la
+formación _on-line de CIE-10footnote:[http://sites.google.com/site/icd10onlinetraining] y materiales de estudio para
+su descarga.
+
+Cada condición de salud puede ser asignada a una categoría y recibir un código de hasta seis caracteres de longitud
+(en formato de X00.00). Cada una de tales categorías puede incluir un grupo de enfermedades similares. Los siguientes
+códigos se utilizan por la Clasificación Estadística Internacional de Enfermedades y Problemas Relacionados con la
+Salud.
+
+En el <<cie10-table>> se pueden observar las categorías en las que se agrupan los códigos CIE-10.
+
+[[cie10-table]]
+.Capítulos de CIE-10.
+[cols="^10%,10%,80%", options="header"]
+|===
+|Capítulo   |Códigos    |Títulos
+|I          |A00-B99    |Ciertas enfermedades infecciosas y parasitarias
+|II         |C00-D48    |Neoplasias
+|III        |D50-D89    |Enfermedades de la sangre y de los órganos hematopoyéticos y otros trastornos que afectan el mecanismo de la inmunidad
+|IV         |E00-E90    |Enfermedades endocrinas, nutricionales y metabólicas
+|V          |F00-F99    |Trastornos mentales y del comportamiento
+|VI         |G00-G99    |Enfermedades del sistema nervioso
+|VII        |H00-H59    |Enfermedades del ojo y sus anexos
+|VIII       |H60-H95    |Enfermedades del oído y de la apófisis mastoides
+|IX         |I00-I99    |Enfermedades del sistema circulatorio
+|X          |J00-J99    |Enfermedades del sistema respiratorio
+|XI         |K00-K93    |Enfermedades del aparato digestivo
+|XII        |L00-L99    |Enfermedades de la piel y el tejido subcutáneo
+|XIII       |M00-M99    |Enfermedades del sistema osteomuscular y del tejido conectivo
+|XIV        |N00-N99    |Enfermedades del aparato genitourinario
+|XV         |O00-O99    |Embarazo, parto y puerperio
+|XVI        |P00-P96    |Ciertas afecciones originadas en el periodo perinatal
+|XVII       |Q00-Q99    |Malformaciones congénitas, deformidades y anomalías cromosómicas
+|XVIII      |R00-R99    |Síntomas, signos y hallazgos anormales clínicos y de laboratorio, no clasificados en otra parte
+|XIX        |S00-T98    |Traumatismos, envenenamientos y algunas otras consecuencias de causa externa
+|XX         |V01-Y98    |Causas externas de morbilidad y de mortalidad
+|XXI        |Z00-Z99    |Factores que influyen en el estado de salud y contacto con los servicios de salud
+|XXII       |U00-U99    |Códigos para situaciones especiales
+|===
+
+CIAP 2
+^^^^^^
+Son las siglas de Clasificación Internacional de la Atención Primaria, versión 2, esta terminología permite la
+recogida y análisis de tres importantes componentes de la consulta médico-paciente: la razón de la consulta, el
+problema atendido y el proceso de atención. La estructura de esta clasificación está diseñada para ordenar, investigar y
+entender mejor el contenido de la Medicina de Familia y de la Atención Primaria.
+
+Desarrollada la primera edición por la WONCA ("Organización Mundial de los Médicos Generales / de Familia") en 1987 y
+la segunda edición en 1998. Se tradujeron al español en 1988 y 1999 respectivamente. Actualmente está traducida a más
+de 20 idiomas.
+
+Tiene una estructura biaxial: capítulos y componentes, por un lado consta de 17 capítulos organizados en aparatos
+físicos y sistemas orgánicos, cada entrada tiene su código alfanumérico de tres caracteres, ampliables si se
+considera necesario. El primer carácter representa cada uno de los aparatos y el segundo y tercer carácter son
+dígitos que forman los componentes del otro eje, que se relacionan con: signos o síntomas; procedimientos
+administrativos diagnósticos, preventivos o terapéuticos; resultados de pruebas complementarias; derivaciones,
+seguimiento y otras razones de consulta; o enfermedades y problemas de salud.
+
+La CIAP-2 (ver <<ciap2-table>>) contiene 17 capítulos, diferenciados por una letra, que corresponden a un código nemotécnico en
+inglés:
+
+[[ciap2-table]]
+.Capítulos de CIAP-2.
+[cols="^10%,90%", options="header"]
+|===
+|Capítulo   |Descripción
+|A          |Problemas generales e inespecíficos
+|B          |Sangre, órganos hematopoyéticos y sistema inmunitario (linfáticos, bazo y médula ósea)
+|D          |Aparato digestivo
+|F          |Ojo y anejos
+|H          |Aparato auditivo (H de Hearing)
+|K          |Aparato circulatorio
+|L          |Aparato locomotor
+|N          |Sistema nervioso
+|P          |Problemas psicológicos
+|R          |Aparato respiratorio
+|S          |Piel y faneras (S de Skin)
+|T          |Aparato endocrino, metabolismo y nutrición
+|U          |Aparato urinario
+|W          |Planificación familiar, embarazo, parto y puerperio (W de _Women_, referido a la reproducción)
+|X          |Aparato genital femenino y mamas (X, de cromosoma X)
+|Y          |Aparato genital masculino y mamas (Y, de cromosoma Y)
+|Z          |Problemas sociales
+|===
 
 Especificación GDL
 ~~~~~~~~~~~~~~~~~~
@@ -3087,11 +3241,11 @@ siguiente.
 <3> Los enlaces de la terminología ICD10.
 <4> Término local que se quiere vincular con un terminología externa.
 <5> El código (o códigos) de la terminología asociados al término local.
-<6> Otra terminología, en este caso SNOMED-CT.
+<6> Otra terminología, en este caso SNOMED CT.
 
 En el ejemplo anterior vemos como se enlazan dos conceptos locales, _gt0100_ que se corresponde con "Insuficiencia
 cardíaca" y _gt0101_ que se corresponde con "Hipertensión". El primero de ellos se enlaza con dos códigos de IDC10 y
-el segundo con un código de SNOMED-CT. Dentro de la tabla se hace uso de la directiva `ngRepeat` que recorre los
+el segundo con un código de SNOMED CT. Dentro de la tabla se hace uso de la directiva `ngRepeat` que recorre los
 enlaces (ver propiedad `bindings` en el fragmento anterior) y renderiza sus campos asignándoles ciertos eventos y
 manejadores que se definen en el controlador `BindingsCtrl` que no se mostrará explícitamente por cuestiones de
 espacio, pero puede consultarse en el repositorio de código del proyecto.
@@ -3169,21 +3323,207 @@ y foros a los que acudir en caso de que surja algún problema. Como entorno de e
 por defecto, _Unity_ (interfaz de usuario desarrollada por Canonical, patrocinador de Ubuntu) por GNOME 3 por
 considerar que posee un gestor de ventanas más intuitivo, más simple, con una mejor facilidad de uso y más eficiente.
 
-* IDE JetBrain WebStorm.
-* ¿UML? Mostrar cómo se utiliza UML para un proyecto AngularJS
-* NodeJS como entorno de ejecución de la aplicación cliente.
-* SGBD PostgreSQL.
-* Servidor de aplicaciones JBoss Server EAP 6.2.
-* Astah Community Edition como herramienta de modelado UML.
-* AsciiDoc como herramienta de generación de documentos.
-* Git/Github como sistema de control de versiones y repositorio remoto de código.
-* Open Project como software de gestión de proyectos.
-* Travis CI como herramienta de integración continua.
+IDE JetBrain WebStorm
+~~~~~~~~~~~~~~~~~~~~~
+Se ha utilizado el entorno de desarrollo integrado (IDE) _JetBrains WebStorm_ versión 10.01, antes denominado _Jetbrains
+IntelliJ WebStorm_. Se trata de un IDE orientado al ecosistema JavaScript moderno. Ofrece finalización de código
+inteligente, detección de errores al vuelo, potente navegación y refactorización para JavaScript, TypeScript,
+lenguajes de estilos y los _frameworks_ más populares. Se trata de una herramienta comercial. Se ha elegido este IDE
+porque se integra perfectamente con AngularJS. Esta integración supone:
 
-Implantación y seguimiento (si corresponde)
--------------------------------------------
-Texto implantación y seguimiento
+* _WebStorm_ conoce el código de AngularJS, ofrece completitud de código para derectivas `ng` (también para directivas
+personalizadas), para nombres de controladores y de aplicaciones y es consciente del código para la vinculación de
+datos dentro de las expresiones dentro de las dobles llaves `{{}}`.
+* Ofrece navegación específica de AngularJS
+** Entre el nombre de un controlador en las vistas y su definición en JavaScript.
+** Entre la directiva `ngView` o el _provider_ `$routeProvider` y la plantilla HTML
+* Navegación 'Go to the symbol' para entidades.
+* Incorpora una colección de plantillas predefinidas.
+* Búsqueda rápida de documentación pulsando `Ctrl + Q`. Ver https://www.jetbrains
+.com/help/webstorm/viewing-inline-documentation.html[documentación on-line] para más detalles.
+* Soporte para diagramas `ui-router` de AngularJS.
+* Cuenta con un depurador de aplicaciones cliente y Node.js muy sencillo de utilizar que permite la colocación de
+puntos de interrupción en el código, explorar la pila de llamadas y variables, el uso de _timers_ y ofrece una consola
+interactiva para la depuración.
+* Permite la ejecución y depuración de tests unitarios con Karma, Mocha, Protractor y Jest. Permite observar
+inmediatamente los resultados de las pruebas en el editor, o en una vista de árbol práctica desde la que puede saltar
+rápidamente al test.
+* Integración con sistemas de control de versiones: ofrece una interfaz de usuario amigable que se integra
+perfectamente con Git y Github. Permite la realización sencilla de _commits_, revisión de cambios y resolución de
+conflictos con una herramienta visual para hacer operaciones de `diff` y `merge` desde el propio IDE.
 
+SGBD PostgreSQL
+~~~~~~~~~~~~~~~
+Como Sistema de Gestión de Bases de Datos (SGBD) se ha utilizado _PostgreSQL_, se trata de un SGBD relacional orientado
+a objetos y libre, publicado bajo la licencia _PostgreSQL_,​ similar a la BSD o la MIT. Como muchos otros proyectos de
+código abierto, el desarrollo de _PostgreSQL_ no es gestionado por una empresa o persona, sino que es dirigido por una
+comunidad de desarrolladores que trabajan de forma desinteresada, altruista, libre o apoyados por organizaciones
+comerciales. Dicha comunidad se denomina PGDG (_PostgreSQL_ Global Development Group). Se ha elegido este SGBD por
+diferentes motivos: proporciona ahorros considerables de costes de operación, se trata de un sistema estable y
+confiable ya que no se han presentado caídas importantes de la base de datos, es extensible, multiplataforma y
+diseñado para contextos con altos volúmenes de datos. Además posee una herramienta gráfica de administración bastante
+potente y sencilla de utilizar denominado https://www.pgadmin.org/[pgAdmin]. Proporciona una buena escalabilidad y un
+buen sistema de seguridad.
+
+Servidor de aplicaciones JBoss Server EAP 6.2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+En este proyecto se ha utilizado el servidor de aplicaciones _JBoss Enterprise Application Platform_, versión 6.2
+para el despliegue de la aplicación servidora (`km-server.war`). Se trata de un servidor de aplicaciones compatible
+con Java EE, de código libre y, al estar basado en Java es multiplataforma, por lo que es posible su utilización en
+cualquier sistema operativo que soporte Java. _JBoss EAP_ fue desarrollado por JBoss, ahora una división de Red Hat.
+
+Han sido varios los motivos por los que se ha elegido _JBoss Server_ como servidor de aplicaciones y servicios ya que
+soporta una serie de características como que soporta la especificación Java EE y los principales estándares de
+servicios web, soporta Enterprise JavaBeas (EJBs), persistencia de entidades utilizando Hibernate, servicios web e
+interoperabilidad incluyendo JAX-RPC, JAX-WS y JAX-RS entre otros. Se puede consultar un listado completo de las
+funcionalidades que ofrece este servidor de aplicaciones en el apartado correspondiente de la página web oficial de
+Red Hat JBossfootnote:[https://access.redhat.com/articles/112673].
+
+
+Astah Community Edition como herramienta de modelado UML
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Se ha utilizado la versión _Community Edition_ de _Astah_ como herramienta de modelado UML para el diseño de
+diagramas durante el desarrollo de la herramienta objeto de este TFM. _Astah Community_ permite la elaboración de
+diagramas UML 2.x, esta versión ofrece unas funcionalidades gratuitas suficientes para la elaboración de diagramas de
+en la fase de diseño. Permite la realización de:
+
+* Diagramas de clases (objetos y paquetes).
+* Diagrama de casos de uso:
+* Diagrama de secuencias.
+* Diagrama de comunicaciones.
+* Diagrama de máquinas de estados.
+* Diagrama de actividades.
+* Diagrama de componentes.
+* Diagrama de despliegue.
+* Diagrama de estructuras compuestas.
+
+Las siguientes funcionalidades son de pago:
+
+* Organigramas.
+* Diagramas de flujo de datos.
+* Diagramas de Entidad-Relación.
+* Diagramas CRUD.
+* _Mindmaps_.
+
+Además de ser una herramienta muy sencilla de utilizar, ofrece una serie de características que lo muy interesante,
+como la ayuda a la alineación de componentes, permite búsquedas en los diagramas, generación de informes de
+definición de entidades, etc.
+
+AsciiDoc como herramienta de generación de documentación
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Esta memoria ha sido utilizando _AsciiDoc_ (ver https://github.com/jbarcas/angular-gdl-editor/blob/master/docs/source/memoria.txt[código fuente]),
+se trata tanto del propio formato del fichero fuente como de la herramienta que compila dicho fichero a un documento
+de salida. AsciiDoc es un lenguaje de marcado ligero para la creación de notas, artículos, documentación, libros,
+páginas web, diapositivas y manual en texto plano. Los archivos de AsciiDoc se pueden traducir a muchos formatos
+incluyendo HTML, PDF, EPUB, página de man.
+
+AsciiDoc es altamente configurable: la sintaxis del fichero fuente _AsciiDoc_ y el marcado que se quiere como salida
+del backend (que pueden ser casi cualquier tipo de marcado SGML/XML) puede ser personalizado y ampliado por el
+usuario. _AsciiDoc_ es un software libre y está bajo los términos de la Licencia Pública General GNU versión 2
+(GPLv2).
+
+un documento _AsciiDoc_ se escribe de la misma manera que escribiría un documento de texto normal, no hay etiquetas de
+marcado o notación de formato extraño. Los archivos _AsciiDoc_ están diseñados para ser vistos, editados e impresos
+directamente o traducidos a otros formatos de presentación usando el comando
+http://www.methods.co.nz/asciidoc/manpage.html[asciidoc].
+
+El comando `asciidoc` traduce archivos _AsciiDoc_ a marcado HTML, XHTML y DocBook. DocBook puede ser post-procesado a
+formatos de presentación como HTML, PDF, EPUB, DVI, LaTeX, roff y Postscript utilizando herramientas Open Source
+disponibles fácilmente.
+
+Git/Github como sistema de control de versiones y repositorio remoto de código
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+El control de versiones es un sistema que registra los cambios realizados sobre un archivo o conjunto de archivos a
+lo largo del tiempo, de modo que puedas recuperar versiones específicas más adelante. Se ha utilizado el sistema de
+control de versiones _Git_ para la gestión del código, esta herramienta gratuita, rápida y que se integra
+perfectamente con la plataforma de alojamiento _Github_. _Git_ ofrece algunas ventajas sobre otros
+SCVfootnote:[https://www.atlassian.com/git/tutorials/why-git]. En SVN por ejemplo, cada desarrollador obtiene una
+copia de trabajo que apunta a un único repositorio central. _Git_, sin embargo, es un SCV distribuido. En lugar de una
+copia de trabajo, cada desarrollador obtiene su propio repositorio local, con un historial completo de confirmaciones.
+
+[[git]]
+.Desarrollo distribuido de _Git_.
+image::git.png[scaledwidth="60%"]
+
+Tener una historia local completa hace que _Git_ sea rápido, ya que significa que no necesita una conexión de red para
+crear _commits_, inspeccionar versiones anteriores de un archivo o realizar _diffs_ entre _commits_. Aunque no aplica al
+desarrollo de este proyecto en particular, sí que podría afectar al futuro del proyecto el hecho de que el desarrollo
+distribuido facilita la escalabilidad de su equipo de ingeniería. Si alguien rompe la rama de producción en SVN,
+otros desarrolladores no pueden comprobar sus cambios hasta que se arreglen. Con _Git_, este tipo de bloqueo no existe.
+Todo el mundo puede continuar con su trabajo en sus propios repositorios locales. El desarrollo distribuido crea un
+ambiente más confiable. Incluso si un desarrollador borra su propio repositorio, simplemente puede clonar el de otra
+persona y comenzar de nuevo.
+
+_Github_ es una plataforma de desarrollo colaborativo, en este proyecto se ha utilizado
+como repositorio para el alojamiento del código fuente y de los recursos necesarios para el desarrollo de la
+aplicación. El proyecto con sus fuentes ha sido alojado en el repositorio http://www.github
+.com/jbarcas/angular-gdl-editor/[github.com/jbarcas/angular-gdl-editor/].
+Se ha utilizado por ser una plataforma de alojamiento que permite la creación de cuentas de usuario y de repositorios
+de código de manera gratuita y por tener una excelente integración con el sistema de control de versiones _Git_ y con
+ el servicio de Integración Continua distribuido _Travis CI_.
+
+ProjectLibre como software de gestión de proyectos
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+_ProjectLibre_, anteriormente denominda _OpenProj_ es un software de administración de proyectos diseñado como sustituto
+de completo para Microsoft Project, capaz de abrir archivos de proyecto nativos de dicho programa. ProjectLibre fue
+desarrollado por Projity en 2007. Se ejecuta en la máquina virtual de Java, lo que permite ejecutarlo en una variedad
+de sistema operativos.
+
+OpenProj dejó de estar en fase beta con el lanzamiento de la versión 1.0, el 10 de enero de 2008. Actualmente es
+mantenido por https://www.projectlibre.com[ProjectLibre]. Es una versión gratuita y soporta las siguientes
+características:
+
+* Costos de valor acumulado.
+* Diagramas de Gantt.
+* Gráficos PERT.
+* Estructuras de descomposición del recurso gráfico (EDR).
+* Informes de uso de tareas.
+* Diagramas de Estructura de Descomposición del Trabajo (EDT).
+* Diagramas de red.
+* Compatibilidad con Microsoft Project.
+
+ProjectLibre es la principal alternativa de código abierto a Microsoft Project. Se ha descargado más de 3.000.000
+de veces en más de 200 países y ha ganado el premio "Best of Open Source". ProjectLibre es compatible con
+los archivos de Microsoft Project 2003, 2007 y 2010.
+
+El objetivo de _ProjectLibre_ es proporcionar un software de gestión de proyectos libre y de código abierto en todo el
+mundo. Cuenta con funciones de administración de proyectos completas. ProjectLibre ha sido traducido a
+más de veinte idiomas.
+
+[[travis-ci]]
+Travis CI como herramienta de integración continua
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Se ha una metodología ágil para el desarrollo de esta aplicación. Como es usual en este tipo de
+metodologías se ha utilizado una herramienta de integración continua (IC), https://travis-ci.org/[_Travis CI_], Se
+trata de un servicio de IC alojado, distribuido utilizado para construir y probar proyectos de software alojados en
+GitHub.
+
+Al ser una herramienta de código libre la desarrollada en este proyecto, se puede usar _Travis CI_ sin costes. Todos
+los proyectos _open source_ pueden ser probados sin cargo a través de travis-ci.org. Los proyectos privados pueden ser
+probados en travis-ci.com con un coste asociado. También existe un versión profesional _TravisPro_ que proporciona
+implementaciones personalizadas de una versión propietaria en el propio hardware del cliente.
+
+[[travis]]
+.Consola de _Travis CI_.
+image::travis.png[scaledwidth="60%"]
+
+Travis CI se configura añadiendo un archivo denominado `.travis.yml`, que es un archivo de texto en formato
+https://en.wikipedia.org/wiki/YAML[YAML], al directorio raíz del proyecto. Este archivo especifica el lenguaje
+de programación utilizado, el entorno de construcción y pruebas deseado (incluidas las dependencias que deben
+instalarse antes de que el software pueda ser construido y probado), además de otros parámetros de configuración.
+
+A continuación se muestra el contenido del fichero `.travis.yml` utilizado en este proyecto.
+
+----
+include::../../../.travis.yml[]
+----
+
+La elección de _travis CI_ frente a otras opciones como _Jenkins_, _Shippable_, _drone.io_ porque es un servicio
+hospedado de modo que no hay que instalar ni configurar el servicio (sí requiere una pequeña configuración
+del proyecto como se acaba de mostrar en el fichero `.travis.yml`). Otra razón ha sido que se trata de una herramienta
+gratuita para proyectos _open source_ y además cuenta con una perfecta integración con _GitHub_, de manera que,
+cuando se hace un _commit_ en _GitHub_ automáticamente construye el proyecto de nuevo y ejecuta todos sus tests,
+enviándose una notificación en caso de que algún test hubiese fallado.
 
 Planificación y costes (planificación inicial vs. final) - (Opcional)
 ---------------------------------------------------------------------
@@ -3386,7 +3726,7 @@ viajar de una organización a otra.
 * La herramienta ha sido probada por profesionales sanitarios y se cree que la formación de los mismos no va a
 ser costosa, debido a la sencillez la interfaz de usuario y a la especial dedicación que se ha mostrado para el
 proceso de definición de las guías utilizando un componente _drag and drop_ que permite la creación de las guías
-arrastrando componentes de una manera muy visual, proporcinando una excelente experiencia de usuario.
+arrastrando componentes de una manera muy visual, proporcionando una excelente experiencia de usuario.
 
 Futuros trabajos
 ----------------
@@ -3421,7 +3761,7 @@ pretende resolver esta situación a corto plazo.
 
 * Por último, mencionar el objetivo no alcanzado de la ejecución de guías clínicas. Como se comentó en el
 apartado anterior la funcionalidad de la compilación de guías está disponible en el _backend_. Se trata de una
-utilidad adicional que permite la ejecución de las guías para que puedan probarse. Dicha funcinalidad generará un
+utilidad adicional que permite la ejecución de las guías para que puedan probarse. Dicha funcionalidad generará un
 formulario con un conjunto de entradas basado en el contenido definido en la guía. Estos datos se usarán para
 ejecutar las reglas definidas en la guía y presentar el resultado con los valores calculados. Un ejemplo sencillo,
 sobre la guía creada en el Manual de usuario (cálculo del IMC), sería la implementación de un componente gráfico que
@@ -3785,7 +4125,7 @@ image::calculateBMI-10.png[scaledwidth="80%"]
 
 A continuación, se pueden establecer enlaces con terminologías externas desde la pestaña _Binding_. Para ello, se
 añade la terminología con la queremos enlazar, en este caso hemos añadido _SNOMED-CT_ y _ICD10_. Para _SNOMED-CT_
-hemos enlazado los conceptos Índice de Masa Corporal (IMC) y Peso, utilizados en la guía, con sus códigos SNOMED-CT
+hemos enlazado los conceptos Índice de Masa Corporal (IMC) y Peso, utilizados en la guía, con sus códigos SNOMED CT
 correspondientes. Si queremos enlazar más conceptos lo hacemos utilizando el botón _New binding_, si lo que se quiere
 es añadir una nueva terminología, la añadimos con _New terminology_ y si lo que queremos es eliminarla, lo hacemos
 con el botón _Remove terminology_.
@@ -3825,22 +4165,26 @@ The bibliography list is a style of AsciiDoc bulleted list.
 - [[[BONI04]]] Bonis Julio, Sancho Juan J., Sanz Ferrán. 'Computer-assisted Clinical Decision Support Systems'.
 - [[[BLEI69]]] Bleich HL. 'Computer evaluation of acid-base disorders'. J Clin Invest, 48 (1969), pp. 1689-96 http://dx.doi.org/10.1172/JCI106134
 - [[[IHTS17]]] International Health Terminology Standards Development Organisation. URL: http://www.snomed.org/. Último acceso: junio 2017.
+- [[[MSAN17]]] Benson, Tim. 'Principles of Health Interoperability HL7 and SNOMED'. London: Springer, 2012. ISBN:
+  978-1-4471-2800-7.
+- [[[RUCH12]]] Ruch, Patrick; Gobeill, Julien; Lovis, Christian; Geissbühler, Antoine. 'Automatic medical encoding with SNOMED categories'. 2008. BMC Medical Informatics and Decision Making. doi:https://bmcmedinformdecismak.biomedcentral.com/articles/10.1186/1472-6947-8-S1-S6[10.1186/1472-6947-8-S1-S6] Último acceso: junio 2007.
+- [[[CIEM17]]] Organización Mundial de la Salud. 'ICD-10 Second Edition Volume 2 – World Health Organization', mayo de 2017. URL: http://www.who.int/classifications/icd/ICD-10_2nd_ed_volume2.pdf. Último acceso: agosto de 2017.
 - [[[WARN61]]] Warner HR,Toronto AF,Veasey LG,Stephenson RA.'Mathematical approach to medical diagnosis.' JAMA, 177
 - [[[NODE17]]] Web oficial de Node.js. URL: https://nodejs.org/es/. Último acceso: agosto 2017.
 - [[[MUNO13]]] Muñoz A _et al._ 'Manual práctico de interoperabilidad semántica para entornos sanitarios basada en
-arquetipos'. Unidad de investigación en Telemedicina y e-Salud - Instituto de Salud Carlos III, julio de 2013.
-- [[[AOM15]]] The __open__EHR Foundation. 'The __open__EHR Archetype Model. Archetype Object Model'.  URL: http://www
-.openehr.org/releases/trunk/architecture/am/aom2.pdf. 4 de enero de 2015. Último acceso: agosto 2017.
+  arquetipos'. Unidad de investigación en Telemedicina y e-Salud - Instituto de Salud Carlos III, julio de 2013.
+- [[[AOM15]]] The __open__EHR Foundation. 'The __open__EHR Archetype Model. Archetype Object Model'.  URL:
+  http://www.openehr.org/releases/trunk/architecture/am/aom2.pdf. 4 de enero de 2015. Último acceso: agosto 2017.
 - [[[BEAL07]]] Beale T, Heard S. Archetype Definition Language. The __openEHR__ Foundation, 2007
 - [[[CANT04]]] Cantelon M, Harter M, Holowaychuk TJ, Rajlich N. 'Node.js in Action'. Manning. ISBN 9781617290572
-Clinical Medicine, Elsevier Ed. 2004;122 Supl 1:39-44. (1961), pp. 75-81.
+  Clinical Medicine, Elsevier Ed. 2004;122 Supl 1:39-44. (1961), pp. 75-81.
 - [[[WEBA17]]] Wikipedia en español. URL: https://es.wikipedia.org/wiki/Aplicaci%C3%B3n_web. Último acceso: junio 2017.
 - [[[MODU17]]] Documentación oficial de AngularJS. URL: https://docs.angularjs.org/guide/module. Último acceso: junio
-2017.
+  2017.
 - [[[DIRE17]]] Documentación oficial de AngularJS. URL: https://docs.angularjs.org/guide/directive. Último acceso: junio
-2017.
+  2017.
 - [[[DATA17]]] Documentación oficial de AngularJS. URL: https://docs.angularjs.org/guide/databinding. Último acceso:
-junio 2017.
+  junio 2017.
 - [[[SCRU12]]] Deemer P, Benefield G, Larman C, Vodde B. 'The Scrum Primer'. 2012.
 
 [glossary]
