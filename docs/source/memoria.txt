@@ -912,17 +912,17 @@ en Wikipedia, http://martinfowler.com/articles/injection.html[Inversión de Cont
 Estado del arte
 ---------------
 Hoy en día los ciudadanos, por motivos profesionales, de ocio o de cualquier otra índole, estamos viajando
-constantemente. Cuando viajamos lo hacemos con la información necesaria para para realizar transacciones económicas
-entre diferentes sistemas bancarios, para la realización de una reserva de un viaje o para la comunicación a través
-del teléfono móvil. De esta manera queda reflejado cómo en otros ámbitos sí existe una interoperabilidad
-entre sistemas.
+constantemente. Cuando viajamos lo hacemos, entre otras cosas, con la información necesaria para para realizar
+transacciones económicas entre diferentes sistemas bancarios, para la realización de una reserva de un viaje
+utilizando sistemas de reservas de viajes o para la comunicación a través del teléfono móvil usando los sistemas de
+telefonía móvil. De esta manera queda reflejado cómo en otros ámbitos sí existe una interoperabilidad entre sistemas.
 
-Sin embargo en el ámbito sanitario no es así. Actualmente existe una clara necesidad en nuestra sociedad de que
+Sin embargo, en el ámbito sanitario no es así. Actualmente existe una clara necesidad en nuestra sociedad de que
 nuestra información sanitaria pueda también viajar con nosotros para que esté disponible dónde y cuándo la
-necesitemos. Para todas aquellas actividades en las que la información tenga que comunicarse entre organizaciones es
-necesaria un estándar que permita la interoperabilidad en todo el proceso. Tener esta información disponible de una
+necesitemos. Para todas aquellas actividades en las que la información tenga que comunicarse entre organizaciones se
+necesita un estándar que permita la interoperabilidad en todo el proceso. Tener esta información disponible de una
 manera normalizada no sólo es favorable para la asistencia continuada del paciente, sino que dicha información puede
-ser utilizada para la investigación y la estadística, proporcionando un impacto positivo en la Sanidad en general.
+ser utilizada para la investigación y la estadística, proporcionando un impacto positivo en la Medicina en general.
 
 Estándares de interoperabilidad
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -931,22 +931,22 @@ es la habilidad de dos o más sistemas o componentes para intercambiar informaci
 intercambiada. Hoy en día, en el ámbito sanitario prácticamente todos los sistemas reclaman para sí la
 característica de que sean interoperables<<MUNO13>>, pero se podría decir que casi ninguno la cumple en la práctica.
 Hay profesionales, tanto sanitarios como técnicos, que piensan que sus sistemas son semánticamente interoperables
-porque utilizan terminologías, como SNOMED-CT, o un determinado estándar; pero tampoco es así, pues éstos son
-pasos necesarios pero no suficientes, ya que la transferencia de información clínica que se busca con la
+porque utilizan terminologías clínicas, como SNOMED-CT, o un determinado estándar; pero tampoco es así, pues éstos son
+requisitos necesarios pero no suficientes, ya que la transferencia de información clínica que se busca con la
 interoperabilidad semántica es algo más que la comunicación de palabras sueltas.
 
 Para los sistemas sanitarios no es suficiente que los sistemas implicados puedan transferirse información, se debe ir
-más allá y diferenciar diferentes tipos de interoperabilidad que pueden existir:
+más allá. Se diferencian varios tipos de interoperabilidad:
 
-* Interoperabildad técnica: define la conexión entre los sistemas permitiendo que las entidades que forman parte de la
-comunicación puedan llevar a cabo dicha comunicación usando estándares y protocolos como 802.11, TCP/IP, HTTP, etc.
-Este tipo de interoperabilidad es  la que permite el envío de información físicamente--en forma de bytes-- entre
+* Interoperabilidad técnica: define la conexión entre los sistemas permitiendo que las entidades que forman parte de la
+comunicación puedan llevar a cabo dicha conexión usando estándares y protocolos como 802.11, TCP/IP, HTTP, etc.
+Este tipo de interoperabilidad es  la que permite el envío de información físicamente--en forma de bytes--entre
 sistemas, la cual obviamente está muy avanzada ya que no es exclusiva de los sistemas sanitarios.
 * Interoperabilidad sintáctica: es la que permite la comunicación de mensajes o documentos garantizando la recepción
-adecuada de los mismos. Las normas que pertenecen a este tipo de interoperabilidad son XML, la ISO 21090footnote:[ISO
-21090: especificación de tipo de datos para entornos sanitarios.], modelos de referencia de __open__EHR e ISO 13606,
-etc.
-* Interoperabilidad semántica: es la interoperabilidad buscada en prácticamente todos los sistemas sanitarios, se da
+adecuada de los mismos. Ejemplos de normas que pertenecen a este tipo de interoperabilidad son XML, la ISO
+21090footnote:[ISO 21090: especificación de tipos de datos para entornos sanitarios.], modelos de referencia de
+__open__EHR e UNE-EN ISO 13606, etc.
+* Interoperabilidad semántica: es la interoperabilidad buscada en prácticamente todos los sistemas sanitarios. Se da
 cuando un sistema acepta información de otro y puede hacer uso de dicha información, sin intervención humana,
 manteniendo el significado que se le ha dado en origen. Este tipo de interoperabilidad es la que va a permitir la
 deseada continuidad asistencial del ciudadano.
@@ -955,10 +955,9 @@ instituciones puedan cooperar deben compartir un contexto común en sus procedim
 casos estas reglas dependen de las políticas de salud definidos por las administraciones.
 
 No existen unos límites claros en dónde termina un tipo de interoperabilidad y dónde comienza el siguiente, pero se
-podría
-hacer una aproximación representando los diferentes niveles según los cinco puntos que define el modelo de referencia
-OSI para los sistemas distribuidos (técnico, ingeniería, computación, información y negocio) vinculados con cada tipo
-de interoperabilidad de los que se acaban de definir.
+podría hacer una aproximación representando los diferentes niveles según los cinco puntos que define el modelo de
+referencia OSI para los sistemas distribuidos (técnico, ingeniería, computación, información y negocio) vinculados
+con cada tipo de interoperabilidad de los que se acaban de definir.
 
 [[interoperability-types]]
 .Tipos de interoperabilidad.
@@ -968,22 +967,17 @@ La gestión del conocimiento semántico es tratado en los puntos de vista _Infor
 van a posibilitar la interoperabilidad semántica y, por lo tanto, que ambos sistemas puedan intercambiarse
 información manteniendo el significado que se le hubiese dado en origen y hacer uso de la misma sin intervención humana.
 
-* Hablar de la estrategia del doble modelo
+Como ya se ha adelantado en la <<_contextualizacion>>, los estándares de normalización recientes presentan un modelo
+de datos dual centrado en el paciente, en el que se tiene consideración de la constante evolución del conocimiento
+médico. Esto lo consigue manteniendo separada la _información_ en los sistemas, que es estática, del _conocimiento_
+médico, que evoluciona con el tiempo.
 
 [[doble-modelo]]
 .Estrategia de doble modelo.
-image::doble-modelo.png[scaledwidth="50%"]
+image::doble-modelo.png[scaledwidth="70%"]
 
-
-El principal aporte es que permite una gestión separada e independiente de dos conceptos fundamentales que son la
-_información_ y el _conocimiento_. La _información_ entendida como los datos que no van a variar con el tiempo y el
-_conocimiento_ clínico que sí puede, y suele, variar con el tiempo, por lo tanto ofrece una característica importante
-como es la capacidad de adaptación a nuevos avances en la medicina. Este modelo permite representar cualquier tipo
-concebible de estructura de datos de historia clínica, o parte de ella, de forma consistente.
-
-En la <<doble-modelo>> se muestra una representación del modelo dual, que permite que los sistemas se
-adapten a los cambios que se producen en el dominio clínico conservando intacta la información almacenada en los
-sistemas y favoreciendo su mantenimiento. Las principales ventajas de esta aproximación son:
+Este modelo permite representar cualquier tipo concebible de estructura de datos de historia clínica, o parte de
+ella, de forma consistente. Las principales ventajas de esta aproximación son:
 
 * Interoperabilidad a nivel de conocimiento: la evolución del conocimiento puede ser compartida.
 * Consulta y recuperación de la información eficaces: debido al conocimiento a priori de la estructura de la
@@ -992,44 +986,252 @@ información almacenada.
 que el dominio clínico lo elaboran los médicos, los verdaderos conocedores del mismo.
 * Los sistemas pueden evolucionar y cambiar con naturalidad, lo que facilita el mantenimiento a largo plazo.
 
-En la parte de la izquierda de la <<doble-modelo>> se representa la _información_ clínica, hechos u opiniones
-de o referidos a entidades específicas y que no varían con el paso del tiempo (_e.g._ El día 1 de enero el paciente X
+En la parte de la izquierda de la <<doble-modelo>> se representa la _información_ clínica; hechos u opiniones
+de o referidos a entidades específicas y que no varían con el paso del tiempo (_e.g._ el día 1 de enero el paciente X
 tenía una presión arterial de 120/80 mmHg.). El _conocimiento_, representado en la parte derecha, comprende hechos
 acumulados a lo largo del tiempo, procedente de muchas fuentes, que son verdad para todas las instancias de las
-entidades del dominio y que pueden variar con el paso del tiempo (_e.g._ La medida de la presión arterial consta de dos
+entidades del dominio y que pueden variar con el paso del tiempo (_e.g._ la medida de la presión arterial consta de dos
 valores: la presión arterial sistólica y la presión arterial diastólica). Para cada uno de estos dos niveles se
 tiene un modelo de datos. La _información_, los datos que se almacenan en el sistema, se componen a partir de los
-elementos y la organización del Modelo de Referencia (MR). Este modelo necesita reflejar la estructura y la
-organización jerárquica de la HCE con el fin de ser fiel al contexto clínico original. El MR representa el conjunto
-de clases que forman los componentes básicos de cualquier HCE, además de la información jerarquizada de estas clases.
-Cada parte proporciona significado semántico claro a la hora de intercambiar HCE entre distintos sistemas
-heterogéneos. El objeto de información por antonomasia en este tipo de estándares es el extracto clínico. El
-_conocimiento_ representa los conceptos del dominio clínico, de manera que permita representar los datos y se
-representa mediante el Modelo de Arquetipos. Un arquetipo clínico es una estructura de datos utilizada para
-representar conceptos del dominio clínico.
+elementos y la organización del <<_modelo_de_referencia, Modelo de Referencia>> (MR). Este modelo necesita reflejar la
+estructura y la organización jerárquica de la HCE con el fin de ser fiel al contexto clínico original. El MR
+representa el conjunto de clases que forman los componentes básicos de cualquier HCE, además de la información
+jerarquizada de estas clases. Cada parte proporciona significado semántico claro a la hora de intercambiar HCE entre
+distintos sistemas heterogéneos. El objeto de información por antonomasia en este tipo de estándares es el extracto
+clínico. El _conocimiento_ representa los conceptos del dominio clínico, de manera que permita representar los datos
+y se define mediante el <<_modelo_de_arquetipos, Modelo de Arquetipos>> (MA).
 
-El modelo de arquetipos define el modelo que permite expresar arquetipos para cualquier MR, restringiéndolo (fijando
-nombres, tipos de datos, valores por defecto, cardinalidades, etc.) para modelar formalmente conceptos de un dominio
+El Modelo de Arquetipos define el modelo que permite expresar arquetipos para cualquier MR, restringiéndolo (fijando
+nombres, tipos de datos, valores por defecto, cardinalidades, etc.) para modelar formalmente conceptos del dominio
 del conocimiento. Los arquetipos son acordados en una comunidad con el objetivo de garantizar la interoperabilidad
 semántica, la consistencia de la información y la calidad de los datos. Este modelo consta de una serie da paquetes
-que se verán en el <<_estado_del_arte, capitulo 3>>. Los arquetipos son elementos jerárquicos formados por una serie
-de nodos utilizando el patrón de diseño Composite, de manera que un nodo pueda contener de manera recursiva otros nodos.
+que se verán en la <<_modelo_de_arquetipos>>. Los arquetipos son elementos jerárquicos formados por una serie
+de nodos utilizando el patrón de diseño _Composite_, de manera que un nodo pueda contener de manera recursiva otros
+nodos.
 
 __open__EHR: Modelo de Referencia y Modelo de arquetipos
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-__open__EHR: Modelo de Referencia y Modelo de arquetipos
+En el modelo dual, el MR representa las características intrínsecas de cualquier de los componentes de registro de
+la HCE, su organización y la información de contexto para satisfacer los requisitos ético-legales del registro. Para
+conseguir la interoperabilidad, un modelo como este debe complementarse en el dominio del _conocimiento_ con una
+metodología formal para definir conceptos del dominio clínico. Un arquetipo es combinación jerárquica de componentes
+del MR con una serie de restricciones. Estas restricciones son las que permite definir el MA.
 
 Modelo de Referencia
 ^^^^^^^^^^^^^^^^^^^^
-Modelo de Referencia
+El http://www.openehr.org/releases/RM/latest/docs/index[Modelo de Referencia] de __open__EHR es una representación de
+los atributos genéricos de la información de la HCE, de su organización y de cómo se agregan, es decir define el
+conjunto de clases que forman los componentes básicos de cualquier HCE, además de la organización de estas clases.
+
+[[high_level_ehr_structure.png]]
+.Estructura de alto nivel de registro de HCE.
+image::high_level_ehr_structure[scaledwidth="60%"]
+
+El registro de HCE de __open__EHR se estructura de acuerdo con un modelo relativamente sencillo. Un objeto EHR central
+con un identificador único indica referencias a una serie de tipos de información estructurada y
+versionada, además de una lista de objetos _Contribution_ que actúan como auditorías de conjuntos de cambios hechos a
+la HCE.
+
+En la figura anterior, las partes de la HCE que se muestran son las siguientes:
+
+* _EHR_: el objeto raíz, con un identificador unívoco globalmente.
+* _EHR_access (versioned)_: un objeto que contiene la configuración de control de acceso para el registro;
+* _EHR_status (versioned)_: un objeto que contiene diferentes estados e información de control, incluyendo
+opcionalmente el identificador del paciente asociado con el registro;
+* _Directory (versioned)_: una estructura jerárquica opcional de _Carpetas_ que se puede utilizar para organizar de
+forma lógica _Composiciones_;
+* _Compositions (versión)_: los contenedores de todo el contenido clínico y administrativo del registro;
+* _Contributions_: registro de cambios realizados en la HCE. Cada
+_Contribution_ hace referencia a un conjunto de una o más _Versiones_ de cualquiera de los elementos versionados o
+modificados en el registro de HCE.
+
+La información clínica se estructura en _Compositions_. La _Composition_ es la unidad de información correspondiente al
+resultado de un encuentro clínico o una sesión de registro de documentación en la HCE de un paciente. A continuación
+se describe brevemente cómo es el paquete que contiene la información clínica que se inserta en dichas _Compositions_.
+
+[[reference-model]]
+.Paquete de información clínica de __open__EHR.
+image::reference-model.png[scaledwidth="90%"]
+
+El paquete `rm.data_structures` que se muestra a continuación contiene dos paquetes de importancia: el paquete
+`item_structure` y el paquete `history`. El primero describe estructuras de datos genéricas, localizables mediante un
+_path_, mientras que la segunda describe una noción genérica de historia lineal, para registrar eventos del pasado.
+El paquete _representation_ contiene las clases para una representación jerárquica simple de cualquier estructura de
+datos. Estas clases son compatibles con las clases UNE-EN ISO 13606 de los mismos nombres, y las instancias pueden
+generarse sin pérdidas desde y hacia estructuras de instancias de la norma UNE-EN ISO 13606.
+
+El paquete `data_structures` contiene una sola clase, `DATA_STRUCTURE`, que es la clase padre de todas las
+estructuras de datos __open__EHR. Sólo tiene un método llamado `as_hierarchy`, que es implementado por cada subtipo de
+`DATA_STRUCTURE` para generar una representación física de la estructura basada en la norma UNE-EN ISO 13606.
+
+Las clases de paquete `item_structure` son una formalización de la necesidad de estructuras de datos genéricas y
+arquetípicas, y son utilizadas por todos los modelos de referencia __open__EHR.
+
+Los subtipos de la clase ITEM_STRUCTURE modelan explícitamente los tipos de datos de la estructura lógica que
+normalmente se producen en los datos de registros de salud. Incluyen `ITEM_SINGLE` (para valores individuales como el
+peso de un paciente), `ITEM_LIST` (para listas como partes de una dirección) ITEM_TREE (para datos estructurados de
+forma jerárquica como un informe de microbiología) e `ITEM_TABLE` (para datos tabulares como la agudeza visual o los
+resultados de las pruebas auditivas). Cada una de estas clases define una interfaz funcional, tiene una representación
+física óptima utilizando los tipos básicos `CLUSTER` y `ELEMENT` del paquete de representación y puede generar una
+representación jerárquica de sus datos compatible con UNE-EN ISO 13606. Cualquier sistema que implemente
+estos tipos garantiza que generen datos que representen las estructuras lógicas de listas, tablas y árboles de
+la misma manera.
+
+Un objeto _Element_ tiene un único `DATA_VALUE` que contiene el valor, a menos que se indique como ausente mediante el
+atributo `null_flavour`.
 
 Modelo de arquetipos
 ^^^^^^^^^^^^^^^^^^^^
-Modelo de arquetipos
+El Modelo de arquetipos<<AOM15>> define un modelo de objetos que permite expresar arquetipos (capa del
+_conocimiento_). El modelo de arquetipos es independiente del MR, es decir, no sólo se utiliza para el MR de
+__open__EHR, sino que hay otros estándares, como UNE-EN ISO 13606, que también lo utilizan.
+
+Un arquetipo es la definición de una combinación jerarquizada de componentes del MR, al cual restringe (estableciendo
+nombres, rangos permitidos, tipos de datos posibles, valores por defecto, cardinalidad, etc.), para modelar
+conceptos clínicos del dominio del _conocimiento_. Estas estructuras, aunque suficientemente estables, pueden
+modificarse o sustituirse por otras a medida que la práctica clínica evolucione. Los arquetipos son instancias del
+modelo de arquetipos, que restringen el MR para que las instancias de este sean representaciones de los conceptos
+modelados del dominio.
+
+[[aom]]
+.Estructura de paquetes del modelo de arquetipos.
+image::aom.png[scaledwidth="70%"]
+
+A continuación se muestra la estructura del paquete _archetype_ (<<archetype-package-aom>>) y del paquete de
+restricciones _constraint_model_ (<<constraint-model>>)
+
+[[archetype-package-aom]]
+.Paquete _archetype_ del MA.
+image::archetype-package-aom.png[scaledwidth="60%"]
+
+[[constraint-model]]
+.Paquete _constraint_ del MA.
+image::constraint-model.png[scaledwidth="60%"]
+
+La formación de nodos de arquetipos se realiza imponiendo restricciones al MR utilizando el paquete _constraint_ del
+MA. Un nodo de un arquetipo se representa por un objeto de la clase _C_Complex_Object_, que puede tener por
+composición varios objetos clase _C_Attribute_, que tiene subclases _C_Single_Attribute_ y _C_Multiple_Attribute_. A su
+vez, un objeto _C_Attribute_ puede tener por composición varios objetos clase _C_Object_, que es superclase de
+_C_Complex_Object_ y de _C_Primitive_Object_. Esta estructura hace que un nodo pueda tener como atributos los nombres de
+otros nodos, cuyas clases (_C_Complex_Object_) tienen atributos con el tipo de nodo que es (es decir, Composition,
+Entry, Element, etc.), y a su vez otros atributos apuntando a sus nodos descendientes, formando un árbol cuyas hojas
+son objetos de la clase _C_Primitive_Object_.
+
+Cada clase del MA tiene, además de sus atributos, atributos derivados de asociaciones y métodos, una serie de
+restricciones expresadas como invariantes sobre sus atributos. Estas invariantes son cláusulas lógicas que deben
+cumplir siempre y en todo momento los atributos de cualquier implementación de la clase que siga la especificación de
+la norma.
+
+Los arquetipos, al igual que las guías clínicas con el GDL, se definen mediante un lenguaje formal, denominado
+Archetype Definition Language<<BEAL07>> (ADL), que proporciona una sintaxis abstracta para la definición de estos
+arquetipos. Esta sintaxis es semánticamente equivalente al MA, por lo que se puede traducir entre ambos utilizando
+un _parser_ de ADL. El lenguaje ADL usa una combinación de dos sintaxis: _dADL_ (ADL de definición) y
+_cADL_ (ADL de restricciones).
+
+[[adl]]
+.Definición de arquetipos con lenguaje ADL.
+image::adl.png[scaledwidth="50%"]
+
+_dADL_, el lenguaje de definición de datos, proporciona una sintaxis para definir instancias de objetos basadas en un
+MR subyacente y que puede ser leído por humanos y por máquinas. A continuación se muestra un fragmento de un
+arquetipo escrito en dADL.
+
+image::dadl-example.png[scaledwidth="50%"]
+----
+description
+  original_author = <
+    ["organisation"] = <“Universidade de A Coruña">
+    ["name"] = <“Jesús Barros">
+    ["date"] = <"20170612">
+  >
+  lifecycle_state = <"Draft">
+  details = <
+    ["es"] = <
+      language = <[ISO_639-1::es]>
+      copyright = <“">
+    >
+  >
+----
+
+_cADL_, la sintaxis para expresar restricciones permite restringir datos definidos por modelos de información
+orientados a objetos u otros formalismos de definición de conocimiento. Se utiliza para la sección _definition_ de
+los arquetipos, donde se definen los conceptos clínicos utilizando restricciones sobre el MR. A continuación se
+muestra un fragmento de la sección _definition_ de un arquetipo de _Presión arterial_, definido por expertos en el
+dominio.
+
+----
+definition
+  OBSERVATION[at0000] matches {	-- Blood Pressure
+    data matches {
+      HISTORY[at0001] matches {	-- history
+	    events cardinality matches {1..*; unordered} matches {
+		  EVENT[at0006] occurrences matches {0..*} matches {	-- Any event
+		    data matches {
+			  ITEM_TREE[at0003] matches {	-- blood pressure
+			    items cardinality matches {0..*; unordered} matches {
+				  ELEMENT[at0004] occurrences matches {0..1} matches {	-- Systolic
+				    value matches {
+					  C_DV_QUANTITY <
+					    property = <[openehr::125]>
+						list = <
+						  ["1"] = <
+						    units = <"mm[Hg]">
+							magnitude = <|0.0..<1000.0|>
+							precision = <|0|>
+						  >
+						>
+					  >
+					}
+				  }
+				  ELEMENT[at0005] occurrences matches {0..1} matches {	-- Diastolic
+				    value matches {
+					  C_DV_QUANTITY <
+					    property = <[openehr::125]>
+						list = <
+						  ["1"] = <
+						    units = <"mm[Hg]">
+							magnitude = <|0.0..<1000.0|>
+							precision = <|0|>
+						  >
+						>
+				      >
+					}
+				  }
+	.........
+  }
+----
+
+En el ejemplo anterior se restringe el MR de __open__EHR para definir dos nodos dentro del concepto _Presión
+arterial_. Como se puede apreciar es una estructura jerárquica donde cada nodo es accesible por medio de un _path_,
+así se puede referenciar al valor de la presión arterial sistólica mediante el path:
+`data/[at0001]/events/[at006]/data/[at0003]/items[at0004]/value/magnitude`. Estos son los _paths_ unívocos que se
+utilizan desde GDL para referenciar elementos o atributos de arquetipos. Resumiendo un poco, en el anterior
+fragmento, se puede observar cómo se define la presión arterial, con un _elemento_ `ITEM_TREE` del MR, cuyo atributo
+_items_ se restrinja para que tenga una lista de elementos, en este caso con una cardinalidad de cero a infinito. Se
+define un `ELEMENT` que representa la presión arterial sistólica, a este nodo se le aplica una restricción de
+ocurrencia, indicando que puede existir cero o una instancia de este nodo. A continuación se indica que su atributo
+value es de tipo `C_DV_QUANTITY` definido en el MR. Se restringe el tipo de dato obligándole a que las unidades se
+midan en mm. de Hg., se le aplica un rango obligándole a que el valor esté entre 0 y 1.000 y se indica la precisión,
+el número de decimales que debe tener el valor, que en este caso es de cero.
 
 Terminologías clínicas
 ~~~~~~~~~~~~~~~~~~~~~~
-Terminologías clínicas
+La normalización y la comunicación de términos con una precisión aceptable ya se ha conseguido hace muchos años con
+la introducción de sistemas de clasificación y codificación. Existen otros recursos como los diccionarios o los
+tesauros que han facilitado una normalización de significados de palabras y expresiones a través de enlaces de
+significado. Este tipo de recursos facilita la interpretación no ambigua de las palabras, pero no trabaja con
+conceptos, sino que lo hacen con palabras aisladas.
+
+Las terminologías clínicas tratan de preservar la precisión en la expresión de conceptos pero intentan representar
+los conceptos de tal forma que su formulación, su recuperación, su tratamiento automatizado, su comunicación y su
+comprensión y utilización se hagan sin ambigüedad.
+
+A continuación se describen tres de las terminologías más utilizadas actualmente en la sanidad:
+
+* Sistematic NOmenclature of MEDicine – Clinical Terms (SNOMED-CT): Terminología clínica integral, multilingüe y
+codificada de mayor amplitud, precisión e importancia actualmente, mantenida y distribuida por el IHTSDO<<IHTS17>>.
+
+ TERMINAR ESTA SECCIÓN
 
 Especificación GDL
 ~~~~~~~~~~~~~~~~~~
@@ -2936,7 +3138,6 @@ importantes para la realización de su cometido.
 
 Testing
 -------
-
 Jasmine Framework
 ~~~~~~~~~~~~~~~~~~~
 hablar del framework Jasmine (utilizado en los dos siguientes testrunners)
@@ -2953,7 +3154,21 @@ proyecto. El escenario _Editar reglas_
 Material utilizado
 ------------------
 
-* Sistema operativo Ubuntu 14.04, GNOME 3.
+Sistema operativo Ubuntu 14.04 LTS
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+El sistema operativo utilizado en el desarrollo de este proyecto es Ubuntu, versión 14.04 _Long Term Support_ de 64
+bits, un sistema operativo basado en GNU/Linux y que se distribuye como software libre. Se ha elegido este sistema
+operativo por la sencillez que presenta a la hora de instalar, integrar y trabajar con el resto de herramientas
+utilizadas en el proyecto. Hay estadísticas webfootnote:[_Operating System Version Usage_ (en inglés): http://statowl.com/operating_system_market_share_by_os_version.php?1=1&timeframe=last_6&interval=month&chart_id=4&fltr_br=&fltr_os=&fltr_se=&fltr_cn=&limit%5B%5D=linux[statowl.com]]
+que sugieren que la cuota de mercado de Ubuntu es del 49% dentro de las distribuciones de Linux, esto se debe a la
+seguridad y estabilidad que ofrece.
+
+Esta versión del sistema operativo fue lanzada en abril del 2014 y ofrece soporte de cinco años, hasta abril del 2019.
+Cuenta con una comunidad de usuarios y de desarrolladores muy amplia y activa, por lo que existe mucha documentación
+y foros a los que acudir en caso de que surja algún problema. Como entorno de escritorio se ha cambiado el que trae
+por defecto, _Unity_ (interfaz de usuario desarrollada por Canonical, patrocinador de Ubuntu) por GNOME 3 por
+considerar que posee un gestor de ventanas más intuitivo, más simple, con una mejor facilidad de uso y más eficiente.
+
 * IDE JetBrain WebStorm.
 * ¿UML? Mostrar cómo se utiliza UML para un proyecto AngularJS
 * NodeJS como entorno de ejecución de la aplicación cliente.
@@ -3609,13 +3824,16 @@ The bibliography list is a style of AsciiDoc bulleted list.
 0-201-03667-3.
 - [[[BONI04]]] Bonis Julio, Sancho Juan J., Sanz Ferrán. 'Computer-assisted Clinical Decision Support Systems'.
 - [[[BLEI69]]] Bleich HL. 'Computer evaluation of acid-base disorders'. J Clin Invest, 48 (1969), pp. 1689-96 http://dx.doi.org/10.1172/JCI106134
+- [[[IHTS17]]] International Health Terminology Standards Development Organisation. URL: http://www.snomed.org/. Último acceso: junio 2017.
 - [[[WARN61]]] Warner HR,Toronto AF,Veasey LG,Stephenson RA.'Mathematical approach to medical diagnosis.' JAMA, 177
-- [[[NODE17]]] Web oficial de Node.js. URL: https://nodejs.org/es/. Último acceso agosto 2017.
+- [[[NODE17]]] Web oficial de Node.js. URL: https://nodejs.org/es/. Último acceso: agosto 2017.
 - [[[MUNO13]]] Muñoz A _et al._ 'Manual práctico de interoperabilidad semántica para entornos sanitarios basada en
 arquetipos'. Unidad de investigación en Telemedicina y e-Salud - Instituto de Salud Carlos III, julio de 2013.
+- [[[AOM15]]] The __open__EHR Foundation. 'The __open__EHR Archetype Model. Archetype Object Model'.  URL: http://www
+.openehr.org/releases/trunk/architecture/am/aom2.pdf. 4 de enero de 2015. Último acceso: agosto 2017.
+- [[[BEAL07]]] Beale T, Heard S. Archetype Definition Language. The __openEHR__ Foundation, 2007
 - [[[CANT04]]] Cantelon M, Harter M, Holowaychuk TJ, Rajlich N. 'Node.js in Action'. Manning. ISBN 9781617290572
-Clinical Medicine, Elsevier Ed. 2004;122 Supl 1:39-44.
-(1961), pp. 75-81.
+Clinical Medicine, Elsevier Ed. 2004;122 Supl 1:39-44. (1961), pp. 75-81.
 - [[[WEBA17]]] Wikipedia en español. URL: https://es.wikipedia.org/wiki/Aplicaci%C3%B3n_web. Último acceso: junio 2017.
 - [[[MODU17]]] Documentación oficial de AngularJS. URL: https://docs.angularjs.org/guide/module. Último acceso: junio
 2017.
