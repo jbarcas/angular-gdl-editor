@@ -1,5 +1,5 @@
-Editor de guías clínicas (GDL) basadas en arquetipos
-====================================================
+Desarrollo de un editor de guías clínicas (GDL) basadas en arquetipos utilizando tecnologías web
+================================================================================================
 Jesús Barros Castro <j.barros@udc.es>
 v0.0.1, Julio 2017
 :revremark: Primera versión de la memoria
@@ -11,10 +11,10 @@ v0.0.1, Julio 2017
 :grid: all
 :frame: topbot
 
-Resumen
--------
+[abstract]
+--
 Expresar y compartir conocimiento informatizado que dé soporte a la decisión clínica independientemente del
-idioma y de plataformas técnicas ha sido gran desafío durante mucho tiempo. Los dos retos principales a
+idioma y de plataformas técnicas ha sido un gran desafío durante mucho tiempo. Los dos retos principales a
 afrontar para compartir lógica de decisión entre diferentes sistemas son, por un lado, la ausencia de modelos de
 información clínica de uso colectivo y, por otro, la escasez de soporte para los diferentes recursos terminológicos.
 
@@ -35,26 +35,28 @@ profesionales sanitarios--los que tienen el conocimiento necesario--los que elab
 colaborativa y consensuada, con el fin de poder utilizarlas de manera exitosa en la práctica médica.
 
 El resultado de este proyecto es un software capaz de crear, editar y gestionar guías clínicas en formato GDL, las guías
-son validadas en el _backend_ de la aplicación, denegándose la petición de envío cuando la guía posee algún error de
-sintaxis. Se ha desarrollado una aplicación modular en AngularJS, framework JavaScript de Google para el desarrollo
-de _aplicaciones web de una sola página_ basado en el patrón de arquitectura Modelo-vista-controlador, por lo que
-existe una clara separación entre los datos (modelo), la lógica de la aplicación, (controlador) y la presentación de
-la información (vista). AngularJS favorece la reutilización de componentes, inyección de dependencias y un testeo
-unitario y _end-to-end_ de forma sencilla y eficiente. La metodología de desarrollo ágil Scrum ha ayudado a reducir
-considerablemente los ciclos de desarrollo y ha asegurado que al final de cada ciclo se hubiesen desarrollado ciertas
-funcionalidades operativas de aplicación.
+son validadas en el _backend_ de la aplicación (denominado _Knowledge Manager Server_, o _KM server_), denegándose la
+petición de envío cuando la guía posee algún error de sintaxis. Se ha desarrollado una aplicación modular en
+AngularJS, framework JavaScript de Google para el desarrollo de _aplicaciones web de una sola página_ basado en el
+patrón de arquitectura Modelo-vista-controlador, por lo que existe una clara separación entre los datos (modelo), la
+lógica de la aplicación, (controlador) y la presentación de la información (vista). AngularJS favorece la
+reutilización de componentes, inyección de dependencias y un testeo unitario y _end-to-end_ de forma sencilla y
+eficiente. La metodología de desarrollo ágil Scrum ha ayudado a reducir considerablemente los ciclos de desarrollo y
+ha asegurado que al final de cada ciclo se hubiesen desarrollado ciertas funcionalidades operativas de aplicación.
 
 *Palabras clave*
 Guías clínicas, arquetipos clínicos, sistema de soporte a la decisión, interoperabilidad semántica, AngularJS, REST.
+--
 
 Introducción
 ------------
 La toma de decisiones es el proceso mediante el que se realiza la elección de una alternativa para resolver un
-problema. Está presente cotidianamente tanto en la actividad humana como en la de las organizaciones. La clave del
+problema<<TURB11>>. Está presente cotidianamente tanto en la actividad humana como en la de las organizaciones. La clave
+ del
 éxito está en tomar buenas decisiones. Es necesario que se cumplan ciertos requisitos para tener éxito tomando
 decisiones, como son:
 
-* Conocimiento en profundidad el dominio en cuestión.
+* Conocimiento en profundidad del dominio en cuestión.
 * Experiencia.
 * Información disponible:
 ** abarcable por un conjunto de personas.
@@ -64,8 +66,9 @@ decisiones, como son:
 .Toma de decisiones.
 image::toma-de-decisiones.png[scaledwidth="50%"]
 
-La toma de decisiones utiliza como materias primas la _información_ y el _conocimiento_, ya que sin estas sería
-imposible evaluar las opciones existentes o el desarrollo de nuevas alternativas. El ámbito de este Trabajo Fin de
+La toma de decisiones utiliza como materias primas la _información_ y el _conocimiento_<<VERC09>>, ya que sin estas
+sería
+imposible evaluar las opciones existentes o el desarrollo de nuevas alternativas. El contexto de este Trabajo Fin de
 Máster (TFM) es el entorno médico-sanitario, el cual se encuentra sometido constantemente a la toma de decisiones y
 donde la representación de la información y del conocimiento juega un papel de vital importancia. Para interpretar
 los datos y poder transformarlos en información relevante es necesario un _sistema de información_. De esta
@@ -78,12 +81,10 @@ y edición de guías clínicas interoperables que serán utilizadas en este tipo
 El requisito de que las guías clínicas sean interoperables obliga a que haya que seguir un estándar de
 interoperabilidad. GDL es un lenguaje para la definición de guías basado en arquetipos clínicosfootnote:[Arquetipo
 clínico: estructura de datos para la representación formal de un concepto del ámbito sanitario]. La utilización de
-arquetipos para representar los conceptos de las guías y el uso de terminologías clínicas como vocabulario común
+arquetipos para representar los conceptos de las guías, y el uso de terminologías clínicas como vocabulario común
 para la codificación de términos va a permitir alcanzar la interoperabilidad semántica necesaria para el intercambio
 de conocimiento clínico entre sistemas sanitarios.
 
-Contextualización
-~~~~~~~~~~~~~~~~~
 El concepto de apoyo a las decisiones es muy
 antiguo <<KEEN87>> y ha evolucionado principalmente desde dos áreas de investigación: los estudios teóricos de
 organización de la toma de decisiones, desarrollados en el Carnegie Institute of Technology a principios de los años
@@ -96,40 +97,39 @@ el procesamiento analítico en línea (OLAP) y los almacenes de datos fomentaron
 sistemas de soporte a la decisión. Con el cambio de milenio se introdujeron aplicaciones analíticas basadas en web
 enfocadas a la administración y creación de conocimiento sobre el entorno en organizaciones y empresas.
 
-.Breve historia de los Sistemas de Soporte a la Decisión Clínica (SSDC).
-En el ámbito de la salud las decisiones clínicas se toman, por lo general, mediante razonamiento deductivo utilizando
+*Breve historia de los Sistemas de Soporte a la Decisión Clínica (SSDC)* +
+En el ámbito de la salud, las decisiones clínicas se toman, por lo general, mediante razonamiento deductivo, utilizando
 el conocimiento que tienen los profesionales sanitarios sobre la fisiopatología humana teniendo en cuenta la
 información disponible para cada paciente.
 
 Parece bastante obvio que la experiencia de otros médicos y profesionales de la salud puede ayudar a tomar
 decisiones. A principios de los años 60 ya se  empezaron a  dedicar esfuerzos para crear sistemas de soporte a la
 decisión clínica <<BONI04>>. Incluso una década antes, se trabajó con intensidad en la realización de diagnósticos a
-partir de
-la información que los médicos habían almacenado en sus computadoras, se basaban en reglas lógicas básicas. Dos
-ejemplos clásicos son el sistema de diagnóstico de alteraciones electrolíticas de Bleich <<BLEI69>> y el realizado
-por Warner et al. <<WARN61>> basado en la realización de razonamientos probabilísticos mediante el uso  intensivo
+partir de la información que los médicos habían almacenado en sus computadoras, se basaban en reglas lógicas básicas.
+Dos ejemplos clásicos son el sistema de diagnóstico de alteraciones electrolíticas de Bleich <<BLEI69>> y el realizado
+por Warner _et al_. <<WARN61>> basado en la realización de razonamientos probabilísticos mediante el uso  intensivo
 del teorema de Bayes. Hasta ese momento se fundaron lo que fueron las bases teóricas del desarrollo de los SSDC.
 Durante las dos décadas siguientes se desarrollaron los primeros SSDC basados en grandes ordenadores. Sin
-embargo no fue hasta los 80 y 90, con la llegada de los ordenadores personales y el uso generalizado de los mismos,
+embargo, no fue hasta los 80 y 90, con la llegada de los ordenadores personales y el uso generalizado de los mismos,
 cuando se aprovecharon potencialmente este tipo de sistemas. Hoy en día el soporte a la decisión clínica forma parte
 de muchos sistemas sanitarios, se está invirtiendo mucho esfuerzo por parte de las instituciones médicas y compañías
 de software para producir SSDC viables para apoyar en todos los aspectos de la práctica clínica. A pesar de estos
 esfuerzos por parte de las instituciones para producir y utilizar estos sistemas, todavía no se ha alcanzado la
 adopción y la aceptación generalizada de la mayoría de las ofertas, y esto es debido principalmente a la escasez de
-modelos información clínicos compartidos entre sistemas sanitarios.
+modelos de información clínicos compartidos entre sistemas sanitarios.
 
-.Las Tecnologías de la Información y las Comunicaciones (TIC) en los sistemas sanitarios.
-La utilización de las TIC en los sistemas sanitarios se ha convertido en
-indispensable en los sistemas actuales. Hoy en día todavía estamos en plena transición de una historia clínica
-convencional a una historia clínica electrónica que introduce una serie de mejoras relacionadas con la inviolabilidad
-de los datos, la privacidad del paciente, accesibilidad, disponibilidad, mejoras contra la pérdida de información,
-durabilidad, legibilidad, identificación del profesional clínico, redundancia, errores en la consignación de datos y
-algo muy importante: la estandarización de datos. Ya en 1990 empieza a surgir la necesidad de representación
-genérica para la comunicación de registros de historia clínica entre sistemas. La Historia Clínica Electrónica (HCE)
-puede almacenar, cuanto menos, la misma información que podría almacenarse en un archivo médico convencional. En los
-15 últimos años se han implementado una gran cantidad de proyectos orientados a la eSalud.
+*Las Tecnologías de la Información y las Comunicaciones (TIC) en los sistemas sanitarios* +
+Actualmente la utilización de las TIC en los sistemas sanitarios se ha convertido en indispensable. Hoy en día todavía
+estamos en plena transición de una historia clínica convencional a una historia clínica electrónica que introduce una
+serie de mejoras relacionadas con la inviolabilidad de los datos, la privacidad del paciente, accesibilidad,
+disponibilidad, mejoras contra la pérdida de información, durabilidad, legibilidad, identificación del profesional
+clínico, redundancia, errores en la consignación de datos y algo muy importante: la estandarización de datos. Ya en
+1990 empieza a surgir la necesidad de representación genérica para la comunicación de registros de historia clínica
+entre sistemas. La Historia Clínica Electrónica (HCE) puede almacenar, cuanto menos, la misma información que podría
+almacenarse en un archivo médico convencional. En los 15 últimos años se han implementado una gran cantidad de
+proyectos orientados a la eSalud.
 
-.Interoperabilidad.
+*Interoperabilidad* +
 Los sistemas de salud actuales requieren para sí una característica fundamental para garantizar la continuidad
 asistencialfootnote:[Continuidad asistencial: concepto que define el proceso, centrado en el paciente, en el cual
 intervienen diferentes profesionales sanitarios en diferentes periodos de tiempo y lugares con el objetivo
@@ -168,7 +168,8 @@ desarrollan de tal forma que los conceptos del dominio médico se encuentran _ha
 modelos de bases de datos utilizados lo que impide que dicha información pueda ser compartida con otros sistemas.
 
 Para solventar esta situación han surgido recientemente los estándares de interoperabilidad basados en modelos
-duales (se verán en detalle en la <<_estado_del_arte>>). Lo que diferencia a estos estándares de otras normas es que
+duales (se verán en detalle en la <<_estado_de_la_cuestion>>). Lo que diferencia a estos estándares de otras normas es
+ que
 permiten separar la _información_ existente en los sistemas del _conocimiento_ médico, de manera que este último
 pueda evolucionar sin alterar al primero, a la información almacenada en la base de datos. El modelo dual consta de
 dos modelos de datos, uno para representar el conocimiento (Modelo de Arquetipos) y otro para representar la
@@ -183,32 +184,41 @@ necesario un sistema que permita representar el contexto, para ello utilizaremos
 
 Objetivos
 ~~~~~~~~~
-El objetivo principal de este proyecto ha consistido en el desarrollo de una aplicación web para la gestión de
-guías clínicas basadas en arquetipos y expresadas en lenguaje GDL. Al estar GDL basado en una norma de
-interoperabilidad, esta herramienta permitirá a los profesionales sanitarios generar conocimiento clínico
-interoperable. Además, al hacer uso de las tecnologías web y al ser integrada en el CKM de __open__EHR, permitirá
+El objetivo principal de este proyecto consiste en el desarrollo de una aplicación web para la gestión de guías
+clínicas basadas en arquetipos y expresadas en lenguaje GDL. Al estar GDL basado en una norma de interoperabilidad
+semántica, esta herramienta permitirá a los profesionales sanitarios generar conocimiento clínico interoperable
+semánticamente. Además, al hacer uso de tecnologías web y al ser integrada en el CKM de __open__EHR, permitirá
 hacerlo de una manera colaborativa y consensuada.
 
-Hasta el desarrollo de la aplicación objeto de este Trabajo Fin de Máster, se disponía de una herramienta basada en
-tecnología Java Swing que permite editar y ejecutar guías clínicas en GDL. Se trata de un software de escritorio
-independiente
-de la plataforma CKM, que permite editar las guías de manera off-line. Por tratarse de un software _stand-alone_ que no
-se encuentra integrado en CKM, representa una limitación en la colaboración e intercambio de conocimiento clínico
-entre diferentes usuarios. Por estos motivos, se demanda una herramienta de gestión de guías clínicas con un enfoque
-colaborativo, además de proporcionar una usabilidad más adecuada, accesible y modular que la existente actualmente.
-Esta herramienta estará preparada para ser integrada en la plataforma CKM y supondrá el punto de partida hacia una
-serie de nuevas funcionalidades de gran utilidad para la comunidad, como la edición colaborativa en tiempo real, la
-resolución de conflictos, la gestión de historial y de versiones, etc. La aplicación se desarrollará siguiendo un
-enfoque de metodología ágil, adaptado a las características y requerimientos de un Trabajo de Fin de Máster.
+Desde la fundación __open__EHR se demanda una herramienta de gestión de guías clínicas con un enfoque colaborativo,
+que proporcione una usabilidad adecuada, con una interfaz sencilla, accesible y que sea modular, de manera que sea
+sencillo añadir, modificar y eliminar funcionalidades. Esta herramienta estará preparada para ser integrada en la
+plataforma CKM y supondrá el punto de partida hacia una serie de nuevas funcionalidades de gran utilidad para la
+comunidad, como la edición colaborativa en tiempo real, la resolución de conflictos, la gestión de historial y de
+versiones, etc. La aplicación se desarrollará siguiendo un enfoque de metodología ágil, adaptado a las
+características y requerimientos de un Trabajo Fin de Máster (TFM).
 
-.Objetivos específicos.
+Hasta el desarrollo de la aplicación objeto de este TFM, se disponía de una herramienta basada en tecnología Java
+Swing que permite editar y ejecutar guías clínicas en GDL. Se trata de un software de escritorio independiente de la
+plataforma CKM, que permite editar las guías de manera off-line. Por tratarse de un software _stand-alone_ que no se
+encuentra integrado en CKM, representa una limitación en la colaboración e intercambio de conocimiento clínico entre
+diferentes usuarios.
+
+*Objetivos específicos* +
 Como objetivos específicos, se plantean los siguientes:
 
 * La aplicación desarrollada permitirá crear, editar y actualizar ficheros GDL a través de un navegador web.
 
+* El software a construir se integrará con un sistema existente (KM server), dicho sistema se está utilizando
+actualmente en producción en 12 hospitales en Suecia.
+
+* Se desarrollará siguiendo un _framework_ Modelo-vista-controlador (MVC), de manera que haya una separación clara de
+la lógica de negocio, del modelo y de la vista de la aplicación, fomentando de esta manera la mantenibilidad y la
+escalabilidad de la misma.
+
 * La aplicación desarrollada deberá estar preparada para ser integrada con el CKM de __open__EHR
 (http://www.openehr.org/ckm[www.openehr.org/ckm]). La aplicación se diseñará de manera que sus componentes puedan ser
- fácilmente reutilizados y de forma que resulte sencillo incorporar nuevas funcionalidades.
+fácilmente reutilizados y de forma que resulte sencillo incorporar nuevas funcionalidades.
 
 * Se diseñará una interfaz de usuario sencilla e intuitiva, teniendo en cuenta aspectos de usabilidad, de forma que
 el proceso de gestión de las guías clínicas resulte fácilmente asimilable por los expertos en el dominio clínico y
@@ -277,428 +287,6 @@ navegadores web totalmente compatibles para funcionar, aunque normalmente esto s
 los navegadores. En numerosas ocasiones requieren que exista una conexión a Internet, que si es interrumpida, puede
 que la aplicación no funcione. Esto, dependiendo de la aplicación, se podría abordar implementando soluciones que
 permitan el funcionamiento offline.
-
-Node.js
-~~~~~~~
-Node.js es un entorno de ejecución multiplataforma, de código abierto, para JavaScript construido con el motor de
-JavaScript V8 de Chrome <<NODE17>>. Node.js usa un modelo de operaciones E/S sin bloqueo y orientado a eventos, que lo
-hace liviano y eficiente. El ecosistema de paquetes de Node.js, _npm_, es el ecosistema más grande de librerías de
-código abierto en el mundo en estos momentos.
-
-Para bien o para mal, JavaScript es el lenguaje de programación más popular para la Web y, debido al alcance de esta,
-JavaScript ha cumplido con el sueño de "escribir una vez, ejecutar en cualquier parte" que tenía Java en la década de
-los noventa.
-
-Desde el lanzamiento de Google Chrome a finales de 2008, el rendimiento de JavaScript ha mejorado a un ritmo
-increíblemente rápido debido<<CANT04>> a la fuerte competencia entre los proveedores de navegadores (Mozilla,
-Microsoft, Apple, Opera y Google). El rendimiento de estas modernas máquinas virtuales JavaScript literalmente está
-cambiando los tipos de aplicaciones que puede crear en la webfootnote:[Ver la página _Chrome Experiments_ para ver
-algunos ejemplos: http://www.chromeexperiments.com/.]. Un ejemplo convincente y francamente alucinante de esto es
-jslinuxfootnote:[Jslinux, un emulador JavaScript para PC: http://bellard.org/jslinux/.], un emulador de PC que se
-ejecuta en JavaScript donde puede cargar un kernel de Linux, interactuar con la sesión de terminal y compilar un
-programa C, todo en su navegador.
-
-Node usa V8, la máquina virtual que utiliza Google Chrome, para la programación del lado del servidor. V8 da a Node un
-gran impulso en el rendimiento, ya que elimina a los intermediarios, prefiriendo la compilación directa a código nativo
-sobre la ejecución de _bytecode_ o el uso de un intérprete. Dado que Node utiliza JavaScript en el servidor, también
-hay otros beneficios:
-
-* Los desarrolladores pueden escribir aplicaciones web en un solo lenguaje, lo que ayuda al reducir el cambio de
-contexto entre el desarrollo del cliente y del servidor y permitir el intercambio de código entre ambos,
-reutilizar el mismo código para la validación de formularios o cualquier lógica de negocio.
-* JSON es un formato de intercambio de datos muy popular hoy en día y es nativo de JavaScript.
-* JavaScript es el lenguaje utilizado en varias bases de datos NoSQL (como CouchDB y MongoDB), por lo que la
-integración con ellos se realiza de forma natural (por ejemplo, el shell y el lenguaje de consulta de MongoDB es
-JavaScript, el paradigma _map/reduce_ de CouchDB es JavaScript).
-* JavaScript es un lenguaje _target_, en el sentido de que ya hay una serie de lenguajes que se compilar a
-Javascriptfootnote:[Ver la _Lista de lenguajes que se compilan a JavaScript_: https://github.com/jashkenas/coffee-script/wiki/List-of-languages-that-compile-to-JS.].
-* Node usa una máquina virtual (V8) que se mantiene actualizada con el estándar ECMAScriptfootnote:[Para más
-información sobre el estándar ECMAScript, ver Wikipedia: http://en.wikipedia.org/wiki/ECMAScript]. En otras
-palabras, no se tiene que esperar a que todos los navegadores se pongan al día para usar las nuevas características
-de lenguaje JavaScript en Node.js.
-
-¿Quién diría que JavaScript terminaría siendo un lenguaje convincente para escribir aplicaciones del lado del servidor?
-Sin embargo, debido a su alcance, rendimiento y otras características mencionadas anteriormente, Node ha ganado mucho
-terreno. Aunque JavaScript es sólo una pieza del rompecabezas, la manera en la que Node utiliza JavaScript es
-aún más convincente.
-
-AngularJS y patrón de arquitectura Model-View-Controller
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-AngularJS es un framework basado en JavaScript de código abierto, mantenido por Google y por una
-amplia comunidad de individuos y organizaciones para la solución de muchos de los desafíos encontrados en el
-desarrollo de _aplicaciones web de una sola página_. Lo que se pretende con este framework es simplificar el
-desarrollo y las pruebas de este tipo de aplicaciones proporcionando un framework Model-View-Controller (MVC) y
-Model-View-Viewmodel (MVVM) para las arquitecturas del lado cliente.
-
-La principal idea detrás del patrón MVC es que se tiene una separación clara en el código entre la gestión de los
-datos (modelo), la lógica de la aplicación (controlador) y la presentación de datos al usuario (vista). Las
-aplicaciones MVC surgieron ya en los años 70 de la mano de Smalltalk. A partir de entonces se fueron convirtiendo
-cada vez más populares en casi todos los entornos de desarrollo donde estuvieran involucradas las interfaces de
-usuario. Hasta hace relativamente poco tiempo, era prácticamente ajeno al desarrollo web.
-
-[[mvc]]
-.Patrón Model-View-Controller.
-image::mvc.png[scaledwidth="40%"]
-
-En este patrón de arquitectura, la vista obtiene los datos del modelo para ser mostrados al usuario. Cuando un
-usuario interactúa con la aplicación haciendo clic con el ratón o escribiendo un _input_, el controlador responde
-cambiando los datos en el modelo Finalmente, el modelo notifica a la vista que se ha producido un cambio para que
-pueda actualizar lo que se está mostrando. En las aplicaciones Angular, la vista es el <<X2, Document Object Model>>
-(DOM)footnote:[Especificación técnica de w3c: https://www.w3.org/DOM/DOMTR], los controladores son clases
-JavaScript y los datos del modelo se almacenan en propiedades de objetos. MVC es apropiado por varios motivos.. En
-primer lugar ofrece un modelo mental que indica dónde colocar las cosas, de tal manera que no hay que reinventar la
-rueda continuamente. Los colegas que colaboran en un mismo proyecto tendrán una ventaja de antemano al entender lo
-que ya se hubiese escrito, ya que ellos sabrán que se está utilizando la estructura MVC para organizar el código. Y
-quizás lo que es más importante, ofrece grandes beneficios ya que hace que las aplicaciones sean más fáciles de
-extender, mantener y probar.
-
-Módulos en AngularJS
-^^^^^^^^^^^^^^^^^^^^
-Un _módulo_<<MODU17>> en AngularJS es un contenedor para las diferentes partes de una aplicación, como controladores,
-servicios, filtros, directivas, información sobre configuración, etc. Es una manera de agrupar funcionalidades. La
-mayoría de aplicaciones en otros lenguajes de programación como Java o incluso Python tienen un método _main_ que
-instancia y vincula todas las partes de la aplicación. Las aplicaciones Angular no tienen dicho método. En vez de
-ello, tiene el concepto de módulos, que especifican de forma declarativa las dependencias de la aplicación y cómo
-esta debe ser inicializada. Esta aproximación tiene varias ventajas:
-
-* El proceso es declarativo. Esto significa que está escrito de tal manera es que más sencillo de escribir y de
-entender.
-* Es modular. Ello fuerza a que se piense en cómo se van a definir los componentes y dependencias de la aplicación. Se
-puede empaquetar código como módulos reutilizables.
-* Dichos módulos pueden ser cargados en cualquier orden--incluso en paralelo--ya que los módulos pueden diferir la
-ejecución.
-* Facilitan las pruebas, ya que los tests unitarios sólo tienen que cargar los módulos necesarios, lo cual hace que
-dichos tests sean muy rápidos.
-* Los tests _end-to-end_ pueden usar módulos para sobreescribir la configuración.
-
-En AngularJS un módulo se declara de una manera muy sencilla.
-
-[source, python]
-----------------------------------------------------
-// declare a module
-var myAppModule = angular.module('myApp', []);
-
-// configure the module.
-// in this example we will create a greeting filter
-myAppModule.filter('greet', function() {
- return function(name) {
-    return 'Hello, ' + name + '!';
-  };
-});
-----------------------------------------------------
-
-Dicho módulo se utilizaría en la vista declarándolo con la _directiva_ `ng-app`. Esta _directiva_ le dice a Angular que
-inicie la aplicación usando el módulo _myApp_.
-
-[source, html]
--------------------------
-<div ng-app="myApp">
-  <div>
-    {{ 'World' | greet }}
-  </div>
-</div>
--------------------------
-
-Estos módulos se deben de definir de una manera organizada. Es recomendable tener módulos separados para los
-controladores, servicios, filtros, directivas, etc. Para el desarrollo de esta aplicación se ha tenido en cuenta una
-https://github.com/johnpapa/angular-styleguide/tree/master/a1[guía de buenas prácticas] muy utilizada en la comunidad
-de desarrollo de AngularJS. Em módulo principal podría entonces simplemente declarar el resto de módulos como
-dependencias, tal como se ha hecho en el desarrollo de esta aplicación. Esto hace que sea más sencilla la gestión de
-nuestros módulos, ya que se convierten en piezas aisladas de código, teniendo cada uno de ellos una, y sólo una
-responsabilidad. Esto también permite que los tests carguen el módulo (o módulos) que interesen, haciendo que sean
-más rápidos y que se focalicen en la funcionalidad a ser probada.
-
-
-Templates
-^^^^^^^^^
-Las _aplicaciones web multi-página_ generan su HTML ensamblándolo y uniéndolo con datos del servidor y, una vez hecho
-esto, se envían las páginas al navegador. Muchas _aplicaciones web de una sola página_ también hacen esto de alguna
-manera. Angular es diferente en este sentido ya que la plantilla (el HTML) y los datos se envían al navegador para
-ser ensamblados allí. El servidor sólo sirve recursos estáticos: las plantillas y los datos requeridos por dichas
-plantillas para que se puedan mostrar de forma apropiada. Una vez recibida la plantilla en el navegador web, Angular
-expande dichas plantillas en la aplicación poblando la plantilla con los datos pertinentes.
-
-El flujo básico de este procedimiento es el siguiente:
-
-. Un usuario pide la primera página de la aplicación.
-. El navegador del usuario hace una conexión HTTP al servidor y carga la página `index.html` que contiene la plantilla.
-. Angular se carga en la página, espera a que la página esté totalmente cargada y busca una directiva `ng-app` para
-definir su alcance.
-. Angular recorre la plantilla buscando directivas y vinculaciones (two-way databinding). El resultado de este
-proceso es que se registran los _listeners_ y se hacen las manipulaciones del DOM necesarias, además de la recuperación
-de los datos iniciales desde el servidor. El resultado final es que se inicializa la aplicación y la plantilla se
-convierte en una vista como un DOM.
-. A partir de este punto, el usuario se conectará con el servidor para cargar la información adicional necesaria a
-medida que la vaya requiriendo el usuario.
-
-Estructurar una aplicación con Angular permite que las plantillas se mantengan separadas de los datos que las
-pueblan, por lo tanto las plantillas son cacheables. Después de la primera carga, sólo se necesita que se envíen los
-nuevos datos del servidor al cliente, con lo que resulta en un mejor rendimiento de la aplicación.
-
-
-
-Controladores
-^^^^^^^^^^^^^
-Los controladores, en AngularJS, son objetos que permiten desarrollar la lógica de negocio de la aplicación. Enlazan
-el ámbito `$scope` con la vista y permite tener un control total de los datos. Este enlace con la vista se realiza a
-través de una directiva `ng-controller`. Un módulo necesita como mínimo un
-controlador para funcionar. Un controlador es una parte
-funcional de un módulo, con
- sus propios atributos, modelos y métodos. Para declarar un controlador se utiliza el método `controller()` del
- objeto `module` visto anteriormente. Este método acepta, como mínimo, un parámetro llamado `$scope`, que representa
- el alcance de variables, modelos y métodos del controlador.
-
-[source, python]
-----------------------------------------------------
-var app = angular.module("MyApp", []);
-app.controller("mainController", function($scope) {
-   // contenido del controlador
-});
-----------------------------------------------------
-
-Tanto el método `angular.module()` como el método `controller()` devuelven una referencial al módulo, es posible
-concatenar métodos. Como se puede observar, en el _snippet_ anterior, declarar un controlador es bastante sencillo, tan
-solo basta con asignarle un nombre e inyectar las dependencias necesarias, podemos inyectar otros componentes dentro
-del controlador, sean nativos de AngularJS u otros componentes creados por nosotros.
-
-Angular hace uso intensivo de la inyección de dependencias en todos sus componentes, para inyectar nuevas
-dependencias simplemente se le pasan como parámetros al controlador separados por comas.
-
-[source, python]
-----------------------------------------------------------------------
-app.controller('mainController', function($scope, servicio, factoria) {
-   //contenido
-});
-----------------------------------------------------------------------
-
-Tal como se ha comentado anteriormente, en la vista se usa la directiva `ng-controller` para asociar el controlador
-definido a la vista. El controlador debemos añadirlo en el nivel de anidamiento adecuado en el cual se quiere que
-tenga alcance.
-
-[source, html]
--------------------------
-<body>
-   <div ng-controller="mainController">
-      <h1>Hola AngularJS</h1>
-   <div/>
-</body>
--------------------------
-
-Dentro del alcance donde se haya declarado el controlador se tiene un objeto `$scope` que permite controlar los datos.
-A continuación se muestra un sencillo ejemplo de cómo se pueden mostrar los datos del controlador en la vista.
-
-[source, python]
----------------------------------------------------
-app.controller('mainController', function($scope) {
-   $scope.saludo = "AngularJS";
-});
----------------------------------------------------
-
-[source, html]
--------------------------
-<body>
-   <div ng-controller="mainController">
-      <h1>Hola {{saludo}}</h1>
-   <div/>
-</body>
--------------------------
-
-Se puede observar como en el controlador se ha creado la variable `saludo` dentro del `$scope`, al cual se le ha
-asignado un valor. Por otra parte en la vista podemos ver cómo se accede y se muestra la variable. Para hacer
-referencia a las variables del `$scope` se utiliza el _double_curly_ "{{}}" que trae incorporado Angular en su propio
-motor de plantillas.
-
-En resumen, se puede decir que los módulos y controladores en AngularJS son componentes que nos permiten desacoplar el
-código, englobar funcionalidades y tener un código más limpio. Los controladores extienden o construyen el `$scope`,
-el cual se encarga de contener los datos y de transferirlos de la vista al controlador y viceversa.
-
-Directivas
-^^^^^^^^^^
-Las directivas<<DIRE17>> son, desde un punto de vista de alto nivel, _marcadores_ en un elemento del DOM (_i.e._
-un atributo, un nombre de elemento, un comentario o una clase CSS) que le informan al compilador de Angular
-(`$compile`) que vincule un comportamiento especial a dicho elemento del DOM (_e.g._ a través de escuchadores de
-eventos), o incluso que transforme el elemento del DOM y sus elementos hijos.
-
-Angular vienen incorporado con un conjunto de directivas, como `ngBind`, `ngModel` o `ngClass`. Del mismo modo que
-es posible crear controladores o servicios propios, también se pueden crear directivas. Cuando AngularJS inicializa
-una aplicación, el compilador HTML recorre el DOM emparejando directivas con elementos del DOM.
-
-Para poder crear directivas es importante saber cómo el compilador de AngularJS determina cuándo usar una directiva.
-Similar a la terminología usada cuando un https://developer.mozilla.org/en-US/docs/Web/API/Element.matches[elemento
-*se corresponde con* un selector], se puede decir que un elemento *se corresponde con* una directiva cuando la
-directiva es parte de su declaración. En el siguiente ejemplo se puede decir que el elemento `<input>` se corresponde
-con la directiva `ngModel`.
-
-[source, html]
--------------------------
-<input ng-model="foo">
--------------------------
-
-El elemento `<input>` de a continuación también encaja con `ngModel`.
-
-[source, html]
--------------------------
-<input data-ng-model="foo">
--------------------------
-
-Y el siguiente elemento `<person>` se corresponde con la directiva `person`.
-
-[source, html]
--------------------------
-<person>{{name}}</person>
--------------------------
-
-.Normalización.
-AngularJS normaliza el _tag_ de un elemento y los nombres de atributos para determinar qué elementos
-encajan con qué
-directivas. En terminología AngularJS, se suele hacer referencia a las directivas por su nombre normalizado usando
-notación _camelCase_ (_e.g._ `ngModel`). Sin embargo, ya que HTML no es _case-sensitive_, se suele
-hacer referencia a las directivas en el DOM usando notación _lower-case_, normalmente usando atributos
-https://en.wikipedia.org/wiki/Letter_case#Special_case_styles[_dash-delimited_] en los elementos del DOM (_e.g._
-`ng-model`). El proceso de normalización es el siguiente:
-
-. Eliminar `x-` y `data-` del inicio de los elementos/atributos.
-. Convertir el `:`, `-` o los nombres delimitados por `_` a _camelCalse_.
-
-Por ejemplo, las siguientes formas son equivalentes y todas ellas se corresponden con la directiva `ngBind`.
-
-[source, html]
--------------------------
-<div ng-controller="Controller">
-  Hello <input ng-model='name'> <hr/>
-  <span ng-bind="name"></span> <br/>
-  <span ng:bind="name"></span> <br/>
-  <span ng_bind="name"></span> <br/>
-  <span data-ng-bind="name"></span> <br/>
-  <span x-ng-bind="name"></span> <br/>
-</div>
--------------------------
-
-.Tipos de directivas.
-`$compile` puede emparejar directivas basadas en nombres de elementos (E), atributos (A),
-nombres de clases \(C) y comentarios (M). Las directivas nativas de Angular muestran en su documentación qué tipo de
-emparejamiento soportan. A continuación se muestran las diferentes maneras en las que una directiva (`myDir` en este
-caso) que cumple los cuatro tipos mencionados puede ser referenciada desde una plantilla. Una directiva puede
-especificar qué tipos soporta en su propiedad `restrict` de su definición. Si no se indica ninguno, por defecto
-soporta los tipos `EA`.
-
-[source, html]
--------------------------
-<my-dir></my-dir>
-<span my-dir="exp"></span>
-<!-- directive: my-dir exp -->
-<span class="my-dir: exp;"></span>
--------------------------
-
-.Crear directivas propias.
-Al igual que los controladores, las directivas se registran en los módulos. Para registrar
-un directiva se usa la APU `module.directive`, que recibe el nombre de la directiva normalizada seguida de una
-_función factoría_. Esta _función factoría_ debería de devolver un objeto con las opciones que le digan a `$compile`
-cómo se debería de comportar la directiva cuando esté activa. La _función factoría_ se invoca sólo una vez cuando el
-compilador encuentra la directiva por primera vez. Se puede realizar cualquier trabajo de inicialización en este
-momento. La función se invoca usando https://docs.angularjs.org/api/auto/service/$injector#invoke[$injector.invoke]
-lo cual la hace inyectable como si de un controlador se tratase. De manera análoga a la declaración de un
-controlador, una directiva se declara de la siguiente manera:
-
-[source, python]
----------------------------------------------------
-var app = angular.module("myApp", []);
-app.directive("myDirective", function() {
-    return {
-        template : "<h1>Made by a directive!</h1>"
-    };
-});
----------------------------------------------------
-
-Tal como se ha descrito con anterioridad, una vez creada la directiva se puede invocar mediante el nombre de un
-elemento, a través de un atributo, usando una clase y mediante un comentario. Los siguientes 4 _snippets_ producirían
-el mismo resultado.
-
-Nombre de un elemento:
-[source, html]
-----
-<my-directive></my-directive>
-----
-
-Atributo:
-[source, html]
-----
-<div my-directive></div>
-----
-
-Clase:
-[source, html]
-----
-<div class="my-directive"></div>
-----
-
-Comentario:
-[source, html]
-----
-<!-- directive: my-directive -->
-----
-
-Objeto `$scope` de AngularJS
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-El objeto https://docs.angularjs.org/api/ng/type/$rootScope.Scope[scope] es un objeto que hace referencia al modelo
-de la aplicación. Se trata de un contexto de ejecución para https://docs.angularjs.org/guide/expression[expresiones].
-Tienen una estructura jerarquizada que imita a la estructura del DOM de la aplicación. Los _scopes_ pueden
-observar expresiones y propagar eventos.
-
-.Características del scope.
-Los _scopes_ proporcionan APIs (https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$watch[`$watch`]) para
-observar cambios en el modelo. También proporcionan APIs (https://docs.angularjs.org/api/ng/type/$rootScope
-.Scope#$apply[`$apply`]) para propagar cualquier cambio en el modelo de la aplicación en la vista desde fuera del
-ámbito de AngularJS (controladores, servicios, controladores de eventos de Angulars, etc.).
-
-Los _scopes_ se pueden anidar para limitar el acceso a las propiedades de los componentes de la aplicación mientras
-se proporciona acceso a propiedades compartidas del modelo. Los _scopes_ anidados son o bien "_scopes_ hijos" o
-"_scopes_ a aislados". Los primeros heredan las propiedades de su _scope_ padre mientras que los segundos no lo hacen.
-Los _scopes_ proporcionan un contexto contra el que se evalúan las expresiones (_i.e._ la expresión `{{username}}` no
-tiene ningún significado a no ser que se evalúe contra in _scope_ específico donde se defina el valor de la
-propiedad `username`).
-
-.El _scope_ como modelo de datos.
-El _scope_ es el nexo de unión entre el controlador y la vista de la aplicación. Durante la fase de https://docs.angularjs.org/guide/compiler[linkado]
-las directivas establecen expresiones `$watch` en el _scope_. El `$watch` permite que las directivas sean notificadas
-cuando se produce algún cambio en una propiedad, lo que permite a la directiva renderizar el valor actualizado en el
-DOM. Tanto los controladores como las directivas hacen referencias al _scope_, pero no entre ellas. Este acuerdo
-aísla el controlador de la directiva y del DOM.
-
-Two-way databinding
-^^^^^^^^^^^^^^^^^^^
-La vinculación de datos <<DATA17>> en las aplicaciones AngularJS es la sincronización automática de datos entre los
-componentes del modelo y de la vista. La forma en que AngularJS implementa la vinculación de datos permite tratar
-el modelo como la única fuente de datos en la aplicación. La vista es una proyección del modelo en todo momento.
-Cuando el modelo cambia, la vista refleja dicho cambio y viceversa.
-
-._Databinding_ en sistemas de plantillas clásicos.
-La mayoría de los sistemas de plantillas enlazan datos en una sola dirección: incorporan los componentes de plantilla y
-de modelo juntos en una vista. Después de que se produzca esta fusión, los cambios del modelo o de las secciones
-relacionadas de la vista no se reflejan automáticamente en la vista. Peor aún, los cambios que el usuario hace a la
-vista no se reflejan en el modelo. Esto significa que el desarrollador tiene que escribir código que sincroniza
-constantemente la vista con el modelo y el modelo con la vista.
-
-[[One_Way_Data_Binding]]
-.One Way Data Binding.
-image::One_Way_Data_Binding.png[scaledwidth="50%"]
-
-._Databinding_ en el sistema de plantillas de AngularJS.
-Las plantillas de AngularJS funcionan de manera diferente. En primer lugar, la plantilla (que es el HTML sin compilar
-junto con cualquier marcado adicional o directivas) se compila en el navegador. El proceso de compilación produce una
-vista en vivo. Cualquier cambio en la vista se refleja inmediatamente en el modelo y cualquier cambio en el modelo se
-propaga a la vista. El modelo es una representación fiel de los datos para el estado de aplicación, simplificando
-enormemente el modelo de programación para el desarrollador. Se puede pensar en la vista como una simple
-proyección instantánea del modelo.
-
-Debido a que la vista es sólo una proyección del modelo, el controlador está completamente separado de la vista y no
-tiene conocimiento de ello. Esto hace que la prueba sea un complemento porque es fácil probar su controlador de forma
-aislada sin la vista y la dependencia DOM / navegador relacionada.
-
-[[Two_Way_Data_Binding]]
-.Two Way Data Binding.
-image::Two_Way_Data_Binding.png[scaledwidth="50%"]
-
 
 Patrones de diseño
 ~~~~~~~~~~~~~~~~~~
@@ -909,10 +497,429 @@ dependencias. No se pueden inyectar componentes _service_ o _value_ en la config
 Para una discusión más en profundidad sobre _DI_, puede consultarse http://en.wikipedia.org/wiki/Dependency_injection[Inyección de Dependencia]
 en Wikipedia, http://martinfowler.com/articles/injection.html[Inversión de Control] de Martin Fowler.
 
-Estado del arte
----------------
+Node.js
+~~~~~~~
+Node.js es un entorno de ejecución multiplataforma, de código abierto, para JavaScript construido con el motor de
+JavaScript V8 de Chrome <<NODE17>>. Node.js usa un modelo de operaciones E/S sin bloqueo y orientado a eventos, que lo
+hace liviano y eficiente. El ecosistema de paquetes de Node.js, _npm_, es el ecosistema más grande de librerías de
+código abierto en el mundo en estos momentos.
+
+Para bien o para mal, JavaScript es el lenguaje de programación más popular para la Web y, debido al alcance de esta,
+JavaScript ha cumplido con el sueño de ``escribir una vez, ejecutar en cualquier parte'' que tenía Java en la década de
+los noventa.
+
+Desde el lanzamiento de Google Chrome a finales de 2008, el rendimiento de JavaScript ha mejorado a un ritmo
+increíblemente rápido debido<<CANT04>> a la fuerte competencia entre los proveedores de navegadores (Mozilla,
+Microsoft, Apple, Opera y Google). El rendimiento de estas modernas máquinas virtuales JavaScript literalmente está
+cambiando los tipos de aplicaciones que puede crear en la webfootnote:[Ver la página _Chrome Experiments_ para ver
+algunos ejemplos: http://www.chromeexperiments.com/.]. Un ejemplo convincente y francamente alucinante de esto es
+jslinuxfootnote:[Jslinux, un emulador JavaScript para PC: http://bellard.org/jslinux/.], un emulador de PC que se
+ejecuta en JavaScript donde puede cargar un kernel de Linux, interactuar con la sesión de terminal y compilar un
+programa C, todo en su navegador.
+
+Node usa V8, la máquina virtual que utiliza Google Chrome, para la programación del lado del servidor. V8 da a Node un
+gran impulso en el rendimiento, ya que elimina a los intermediarios, prefiriendo la compilación directa a código nativo
+sobre la ejecución de _bytecode_ o el uso de un intérprete. Dado que Node utiliza JavaScript en el servidor, también
+hay otros beneficios:
+
+* Los desarrolladores pueden escribir aplicaciones web en un solo lenguaje, lo que ayuda al reducir el cambio de
+contexto entre el desarrollo del cliente y del servidor y permitir el intercambio de código entre ambos,
+reutilizar el mismo código para la validación de formularios o cualquier lógica de negocio.
+* JSON es un formato de intercambio de datos muy popular hoy en día y es nativo de JavaScript.
+* JavaScript es el lenguaje utilizado en varias bases de datos NoSQL (como CouchDB y MongoDB), por lo que la
+integración con ellos se realiza de forma natural (por ejemplo, el shell y el lenguaje de consulta de MongoDB es
+JavaScript, el paradigma _map/reduce_ de CouchDB es JavaScript).
+* JavaScript es un lenguaje _target_, en el sentido de que ya hay una serie de lenguajes que se compilar a
+Javascriptfootnote:[Ver la _Lista de lenguajes que se compilan a JavaScript_: https://github.com/jashkenas/coffee-script/wiki/List-of-languages-that-compile-to-JS.].
+* Node usa una máquina virtual (V8) que se mantiene actualizada con el estándar ECMAScriptfootnote:[Para más
+información sobre el estándar ECMAScript, ver Wikipedia: http://en.wikipedia.org/wiki/ECMAScript]. En otras
+palabras, no se tiene que esperar a que todos los navegadores se pongan al día para usar las nuevas características
+de lenguaje JavaScript en Node.js.
+
+¿Quién diría que JavaScript terminaría siendo un lenguaje convincente para escribir aplicaciones del lado del servidor?
+Sin embargo, debido a su alcance, rendimiento y otras características mencionadas anteriormente, Node ha ganado mucho
+terreno. Aunque JavaScript es sólo una pieza del rompecabezas, la manera en la que Node utiliza JavaScript es
+aún más convincente.
+
+AngularJS y patrón de arquitectura Model-View-Controller
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+AngularJS es un framework basado en JavaScript de código abierto, mantenido por Google y por una
+amplia comunidad de individuos y organizaciones para la solución de muchos de los desafíos encontrados en el
+desarrollo de _aplicaciones web de una sola página_. Lo que se pretende con este framework es simplificar el
+desarrollo y las pruebas de este tipo de aplicaciones proporcionando un framework Model-View-Controller (MVC) y
+Model-View-Viewmodel (MVVM) para las arquitecturas del lado cliente.
+
+La principal idea detrás del patrón MVC es que se tiene una separación clara en el código entre la gestión de los
+datos (modelo), la lógica de la aplicación (controlador) y la presentación de datos al usuario (vista). Las
+aplicaciones MVC surgieron ya en los años 70 de la mano de Smalltalk. A partir de entonces se fueron convirtiendo
+cada vez más populares en casi todos los entornos de desarrollo donde estuvieran involucradas las interfaces de
+usuario. Hasta hace relativamente poco tiempo, era prácticamente ajeno al desarrollo web.
+
+[[mvc]]
+.Patrón Model-View-Controller.
+image::mvc.png[scaledwidth="40%"]
+
+En este patrón de arquitectura, la vista obtiene los datos del modelo para ser mostrados al usuario. Cuando un
+usuario interactúa con la aplicación haciendo clic con el ratón o escribiendo un _input_, el controlador responde
+cambiando los datos en el modelo Finalmente, el modelo notifica a la vista que se ha producido un cambio para que
+pueda actualizar lo que se está mostrando. En las aplicaciones Angular, la vista es el <<X2, Document Object Model>>
+(DOM)footnote:[Especificación técnica de w3c: https://www.w3.org/DOM/DOMTR], los controladores son clases
+JavaScript y los datos del modelo se almacenan en propiedades de objetos. MVC es apropiado por varios motivos.. En
+primer lugar ofrece un modelo mental que indica dónde colocar las cosas, de tal manera que no hay que reinventar la
+rueda continuamente. Los colegas que colaboran en un mismo proyecto tendrán una ventaja de antemano al entender lo
+que ya se hubiese escrito, ya que ellos sabrán que se está utilizando la estructura MVC para organizar el código. Y
+quizás lo que es más importante, ofrece grandes beneficios ya que hace que las aplicaciones sean más fáciles de
+extender, mantener y probar.
+
+Módulos en AngularJS
+^^^^^^^^^^^^^^^^^^^^
+Un _módulo_<<MODU17>> en AngularJS es un contenedor para las diferentes partes de una aplicación, como controladores,
+servicios, filtros, directivas, información sobre configuración, etc. Es una manera de agrupar funcionalidades. La
+mayoría de aplicaciones en otros lenguajes de programación como Java o incluso Python tienen un método _main_ que
+instancia y vincula todas las partes de la aplicación. Las aplicaciones Angular no tienen dicho método. En vez de
+ello, tiene el concepto de módulos, que especifican de forma declarativa las dependencias de la aplicación y cómo
+esta debe ser inicializada. Esta aproximación tiene varias ventajas:
+
+* El proceso es declarativo. Esto significa que está escrito de tal manera es que más sencillo de escribir y de
+entender.
+* Es modular. Ello fuerza a que se piense en cómo se van a definir los componentes y dependencias de la aplicación. Se
+puede empaquetar código como módulos reutilizables.
+* Dichos módulos pueden ser cargados en cualquier orden--incluso en paralelo--ya que los módulos pueden diferir la
+ejecución.
+* Facilitan las pruebas, ya que los tests unitarios sólo tienen que cargar los módulos necesarios, lo cual hace que
+dichos tests sean muy rápidos.
+* Los tests _end-to-end_ pueden usar módulos para sobreescribir la configuración.
+
+En AngularJS un módulo se declara de una manera muy sencilla.
+
+[source, python]
+----------------------------------------------------
+// declare a module
+var myAppModule = angular.module('myApp', []);
+
+// configure the module.
+// in this example we will create a greeting filter
+myAppModule.filter('greet', function() {
+ return function(name) {
+    return 'Hello, ' + name + '!';
+  };
+});
+----------------------------------------------------
+
+Dicho módulo se utilizaría en la vista declarándolo con la _directiva_ `ng-app`. Esta _directiva_ le dice a Angular que
+inicie la aplicación usando el módulo _myApp_.
+
+[source, html]
+-------------------------
+<div ng-app="myApp">
+  <div>
+    {{ 'World' | greet }}
+  </div>
+</div>
+-------------------------
+
+Estos módulos se deben de definir de una manera organizada. Es recomendable tener módulos separados para los
+controladores, servicios, filtros, directivas, etc. Para el desarrollo de esta aplicación se ha tenido en cuenta una
+https://github.com/johnpapa/angular-styleguide/tree/master/a1[guía de buenas prácticas] muy utilizada en la comunidad
+de desarrollo de AngularJS. Em módulo principal podría entonces simplemente declarar el resto de módulos como
+dependencias, tal como se ha hecho en el desarrollo de esta aplicación. Esto hace que sea más sencilla la gestión de
+nuestros módulos, ya que se convierten en piezas aisladas de código, teniendo cada uno de ellos una, y sólo una
+responsabilidad. Esto también permite que los tests carguen el módulo (o módulos) que interesen, haciendo que sean
+más rápidos y que se focalicen en la funcionalidad a ser probada.
+
+
+Templates
+^^^^^^^^^
+Las _aplicaciones web multi-página_ generan su HTML ensamblándolo y uniéndolo con datos del servidor y, una vez hecho
+esto, se envían las páginas al navegador. Muchas _aplicaciones web de una sola página_ también hacen esto de alguna
+manera. Angular es diferente en este sentido ya que la plantilla (el HTML) y los datos se envían al navegador para
+ser ensamblados allí. El servidor sólo sirve recursos estáticos: las plantillas y los datos requeridos por dichas
+plantillas para que se puedan mostrar de forma apropiada. Una vez recibida la plantilla en el navegador web, Angular
+expande dichas plantillas en la aplicación poblando la plantilla con los datos pertinentes.
+
+El flujo básico de este procedimiento es el siguiente:
+
+. Un usuario pide la primera página de la aplicación.
+. El navegador del usuario hace una conexión HTTP al servidor y carga la página `index.html` que contiene la plantilla.
+. Angular se carga en la página, espera a que la página esté totalmente cargada y busca una directiva `ng-app` para
+definir su alcance.
+. Angular recorre la plantilla buscando directivas y vinculaciones (two-way databinding). El resultado de este
+proceso es que se registran los _listeners_ y se hacen las manipulaciones del DOM necesarias, además de la recuperación
+de los datos iniciales desde el servidor. El resultado final es que se inicializa la aplicación y la plantilla se
+convierte en una vista como un DOM.
+. A partir de este punto, el usuario se conectará con el servidor para cargar la información adicional necesaria a
+medida que la vaya requiriendo el usuario.
+
+Estructurar una aplicación con Angular permite que las plantillas se mantengan separadas de los datos que las
+pueblan, por lo tanto las plantillas son cacheables. Después de la primera carga, sólo se necesita que se envíen los
+nuevos datos del servidor al cliente, con lo que resulta en un mejor rendimiento de la aplicación.
+
+Controladores
+^^^^^^^^^^^^^
+Los controladores, en AngularJS, son objetos que permiten desarrollar la lógica de negocio de la aplicación. Enlazan
+el ámbito `$scope` con la vista y permite tener un control total de los datos. Este enlace con la vista se realiza a
+través de una directiva `ng-controller`. Un módulo necesita como mínimo un
+controlador para funcionar. Un controlador es una parte
+funcional de un módulo, con
+ sus propios atributos, modelos y métodos. Para declarar un controlador se utiliza el método `controller()` del
+ objeto `module` visto anteriormente. Este método acepta, como mínimo, un parámetro llamado `$scope`, que representa
+ el alcance de variables, modelos y métodos del controlador.
+
+[source, python]
+----------------------------------------------------
+var app = angular.module("MyApp", []);
+app.controller("mainController", function($scope) {
+   // contenido del controlador
+});
+----------------------------------------------------
+
+Tanto el método `angular.module()` como el método `controller()` devuelven una referencial al módulo, es posible
+concatenar métodos. Como se puede observar, en el _snippet_ anterior, declarar un controlador es bastante sencillo, tan
+solo basta con asignarle un nombre e inyectar las dependencias necesarias, podemos inyectar otros componentes dentro
+del controlador, sean nativos de AngularJS u otros componentes creados por nosotros.
+
+Angular hace uso intensivo de la inyección de dependencias en todos sus componentes, para inyectar nuevas
+dependencias simplemente se le pasan como parámetros al controlador separados por comas.
+
+[source, python]
+----------------------------------------------------------------------
+app.controller('mainController', function($scope, servicio, factoria) {
+   //contenido
+});
+----------------------------------------------------------------------
+
+Tal como se ha comentado anteriormente, en la vista se usa la directiva `ng-controller` para asociar el controlador
+definido a la vista. El controlador debemos añadirlo en el nivel de anidamiento adecuado en el cual se quiere que
+tenga alcance.
+
+[source, html]
+-------------------------
+<body>
+   <div ng-controller="mainController">
+      <h1>Hola AngularJS</h1>
+   <div/>
+</body>
+-------------------------
+
+Dentro del alcance donde se haya declarado el controlador se tiene un objeto `$scope` que permite controlar los datos.
+A continuación se muestra un sencillo ejemplo de cómo se pueden mostrar los datos del controlador en la vista.
+
+[source, python]
+---------------------------------------------------
+app.controller('mainController', function($scope) {
+   $scope.saludo = "AngularJS";
+});
+---------------------------------------------------
+
+[source, html]
+-------------------------
+<body>
+   <div ng-controller="mainController">
+      <h1>Hola {{saludo}}</h1>
+   <div/>
+</body>
+-------------------------
+
+Se puede observar como en el controlador se ha creado la variable `saludo` dentro del `$scope`, al cual se le ha
+asignado un valor. Por otra parte en la vista podemos ver cómo se accede y se muestra la variable. Para hacer
+referencia a las variables del `$scope` se utiliza el _double_curly_ ``{{}}'' que trae incorporado Angular en su propio
+motor de plantillas.
+
+En resumen, se puede decir que los módulos y controladores en AngularJS son componentes que nos permiten desacoplar el
+código, englobar funcionalidades y tener un código más limpio. Los controladores extienden o construyen el `$scope`,
+el cual se encarga de contener los datos y de transferirlos de la vista al controlador y viceversa.
+
+Directivas
+^^^^^^^^^^
+Las directivas<<DIRE17>> son, desde un punto de vista de alto nivel, _marcadores_ en un elemento del DOM (_i.e._
+un atributo, un nombre de elemento, un comentario o una clase CSS) que le informan al compilador de Angular
+(`$compile`) que vincule un comportamiento especial a dicho elemento del DOM (_e.g._ a través de escuchadores de
+eventos), o incluso que transforme el elemento del DOM y sus elementos hijos.
+
+Angular vienen incorporado con un conjunto de directivas, como `ngBind`, `ngModel` o `ngClass`. Del mismo modo que
+es posible crear controladores o servicios propios, también se pueden crear directivas. Cuando AngularJS inicializa
+una aplicación, el compilador HTML recorre el DOM emparejando directivas con elementos del DOM.
+
+Para poder crear directivas es importante saber cómo el compilador de AngularJS determina cuándo usar una directiva.
+Similar a la terminología usada cuando un https://developer.mozilla.org/en-US/docs/Web/API/Element.matches[elemento
+*se corresponde con* un selector], se puede decir que un elemento *se corresponde con* una directiva cuando la
+directiva es parte de su declaración. En el siguiente ejemplo se puede decir que el elemento `<input>` se corresponde
+con la directiva `ngModel`.
+
+[source, html]
+-------------------------
+<input ng-model="foo">
+-------------------------
+
+El elemento `<input>` de a continuación también encaja con `ngModel`.
+
+[source, html]
+-------------------------
+<input data-ng-model="foo">
+-------------------------
+
+Y el siguiente elemento `<person>` se corresponde con la directiva `person`.
+
+[source, html]
+-------------------------
+<person>{{name}}</person>
+-------------------------
+
+.Normalización.
+AngularJS normaliza el _tag_ de un elemento y los nombres de atributos para determinar qué elementos
+encajan con qué
+directivas. En terminología AngularJS, se suele hacer referencia a las directivas por su nombre normalizado usando
+notación _camelCase_ (_e.g._ `ngModel`). Sin embargo, ya que HTML no es _case-sensitive_, se suele
+hacer referencia a las directivas en el DOM usando notación _lower-case_, normalmente usando atributos
+https://en.wikipedia.org/wiki/Letter_case#Special_case_styles[_dash-delimited_] en los elementos del DOM (_e.g._
+`ng-model`). El proceso de normalización es el siguiente:
+
+. Eliminar `x-` y `data-` del inicio de los elementos/atributos.
+. Convertir el `:`, `-` o los nombres delimitados por `_` a _camelCalse_.
+
+Por ejemplo, las siguientes formas son equivalentes y todas ellas se corresponden con la directiva `ngBind`.
+
+[source, html]
+-------------------------
+<div ng-controller="Controller">
+  Hello <input ng-model='name'> <hr/>
+  <span ng-bind="name"></span> <br/>
+  <span ng:bind="name"></span> <br/>
+  <span ng_bind="name"></span> <br/>
+  <span data-ng-bind="name"></span> <br/>
+  <span x-ng-bind="name"></span> <br/>
+</div>
+-------------------------
+
+.Tipos de directivas.
+`$compile` puede emparejar directivas basadas en nombres de elementos (E), atributos (A),
+nombres de clases \(C) y comentarios (M). Las directivas nativas de Angular muestran en su documentación qué tipo de
+emparejamiento soportan. A continuación se muestran las diferentes maneras en las que una directiva (`myDir` en este
+caso) que cumple los cuatro tipos mencionados puede ser referenciada desde una plantilla. Una directiva puede
+especificar qué tipos soporta en su propiedad `restrict` de su definición. Si no se indica ninguno, por defecto
+soporta los tipos `EA`.
+
+[source, html]
+-------------------------
+<my-dir></my-dir>
+<span my-dir="exp"></span>
+<!-- directive: my-dir exp -->
+<span class="my-dir: exp;"></span>
+-------------------------
+
+.Crear directivas propias.
+Al igual que los controladores, las directivas se registran en los módulos. Para registrar
+un directiva se usa la APU `module.directive`, que recibe el nombre de la directiva normalizada seguida de una
+_función factoría_. Esta _función factoría_ debería de devolver un objeto con las opciones que le digan a `$compile`
+cómo se debería de comportar la directiva cuando esté activa. La _función factoría_ se invoca sólo una vez cuando el
+compilador encuentra la directiva por primera vez. Se puede realizar cualquier trabajo de inicialización en este
+momento. La función se invoca usando https://docs.angularjs.org/api/auto/service/$injector#invoke[$injector.invoke]
+lo cual la hace inyectable como si de un controlador se tratase. De manera análoga a la declaración de un
+controlador, una directiva se declara de la siguiente manera:
+
+[source, python]
+---------------------------------------------------
+var app = angular.module("myApp", []);
+app.directive("myDirective", function() {
+    return {
+        template : "<h1>Made by a directive!</h1>"
+    };
+});
+---------------------------------------------------
+
+Tal como se ha descrito con anterioridad, una vez creada la directiva se puede invocar mediante el nombre de un
+elemento, a través de un atributo, usando una clase y mediante un comentario. Los siguientes 4 _snippets_ producirían
+el mismo resultado.
+
+Nombre de un elemento:
+[source, html]
+----
+<my-directive></my-directive>
+----
+
+Atributo:
+[source, html]
+----
+<div my-directive></div>
+----
+
+Clase:
+[source, html]
+----
+<div class="my-directive"></div>
+----
+
+Comentario:
+[source, html]
+----
+<!-- directive: my-directive -->
+----
+
+Objeto `$scope` de AngularJS
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+El objeto https://docs.angularjs.org/api/ng/type/$rootScope.Scope[scope] es un objeto que hace referencia al modelo
+de la aplicación. Se trata de un contexto de ejecución para https://docs.angularjs.org/guide/expression[expresiones].
+Tienen una estructura jerarquizada que imita a la estructura del DOM de la aplicación. Los _scopes_ pueden
+observar expresiones y propagar eventos.
+
+.Características del scope.
+Los _scopes_ proporcionan APIs (https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$watch[`$watch`]) para
+observar cambios en el modelo. También proporcionan APIs (https://docs.angularjs.org/api/ng/type/$rootScope
+.Scope#$apply[`$apply`]) para propagar cualquier cambio en el modelo de la aplicación en la vista desde fuera del
+ámbito de AngularJS (controladores, servicios, controladores de eventos de Angulars, etc.).
+
+Los _scopes_ se pueden anidar para limitar el acceso a las propiedades de los componentes de la aplicación mientras
+se proporciona acceso a propiedades compartidas del modelo. Los _scopes_ anidados son o bien ``_scopes_ hijos'' o
+``_scopes_ a aislados''. Los primeros heredan las propiedades de su _scope_ padre mientras que los segundos no lo hacen.
+Los _scopes_ proporcionan un contexto contra el que se evalúan las expresiones (_i.e._ la expresión `{{username}}` no
+tiene ningún significado a no ser que se evalúe contra in _scope_ específico donde se defina el valor de la
+propiedad `username`).
+
+.El _scope_ como modelo de datos.
+El _scope_ es el nexo de unión entre el controlador y la vista de la aplicación. Durante la fase de https://docs.angularjs.org/guide/compiler[linkado]
+las directivas establecen expresiones `$watch` en el _scope_. El `$watch` permite que las directivas sean notificadas
+cuando se produce algún cambio en una propiedad, lo que permite a la directiva renderizar el valor actualizado en el
+DOM. Tanto los controladores como las directivas hacen referencias al _scope_, pero no entre ellas. Este acuerdo
+aísla el controlador de la directiva y del DOM.
+
+Two-way databinding
+^^^^^^^^^^^^^^^^^^^
+La vinculación de datos <<DATA17>> en las aplicaciones AngularJS es la sincronización automática de datos entre los
+componentes del modelo y de la vista. La forma en que AngularJS implementa la vinculación de datos permite tratar
+el modelo como la única fuente de datos en la aplicación. La vista es una proyección del modelo en todo momento.
+Cuando el modelo cambia, la vista refleja dicho cambio y viceversa.
+
+._Databinding_ en sistemas de plantillas clásicos.
+La mayoría de los sistemas de plantillas enlazan datos en una sola dirección: incorporan los componentes de plantilla y
+de modelo juntos en una vista. Después de que se produzca esta fusión, los cambios del modelo o de las secciones
+relacionadas de la vista no se reflejan automáticamente en la vista. Peor aún, los cambios que el usuario hace a la
+vista no se reflejan en el modelo. Esto significa que el desarrollador tiene que escribir código que sincroniza
+constantemente la vista con el modelo y el modelo con la vista.
+
+[[One_Way_Data_Binding]]
+.One Way Data Binding.
+image::One_Way_Data_Binding.png[scaledwidth="50%"]
+
+._Databinding_ en el sistema de plantillas de AngularJS.
+Las plantillas de AngularJS funcionan de manera diferente. En primer lugar, la plantilla (que es el HTML sin compilar
+junto con cualquier marcado adicional o directivas) se compila en el navegador. El proceso de compilación produce una
+vista en vivo. Cualquier cambio en la vista se refleja inmediatamente en el modelo y cualquier cambio en el modelo se
+propaga a la vista. El modelo es una representación fiel de los datos para el estado de aplicación, simplificando
+enormemente el modelo de programación para el desarrollador. Se puede pensar en la vista como una simple
+proyección instantánea del modelo.
+
+Debido a que la vista es sólo una proyección del modelo, el controlador está completamente separado de la vista y no
+tiene conocimiento de ello. Esto hace que la prueba sea un complemento porque es fácil probar su controlador de forma
+aislada sin la vista y la dependencia DOM / navegador relacionada.
+
+[[Two_Way_Data_Binding]]
+.Two Way Data Binding.
+image::Two_Way_Data_Binding.png[scaledwidth="50%"]
+
+Estado de la cuestión
+---------------------
 Hoy en día los ciudadanos, por motivos profesionales, de ocio o de cualquier otra índole, estamos viajando
-constantemente. Cuando viajamos lo hacemos, entre otras cosas, con la información necesaria para para realizar
+constantemente. Cuando viajamos lo hacemos, entre otras cosas, con la información necesaria para realizar
 transacciones económicas entre diferentes sistemas bancarios, para la realización de una reserva de un viaje
 utilizando sistemas de reservas de viajes o para la comunicación a través del teléfono móvil usando los sistemas de
 telefonía móvil. De esta manera queda reflejado cómo en otros ámbitos sí existe una interoperabilidad entre sistemas.
@@ -967,7 +974,7 @@ La gestión del conocimiento semántico es tratado en los puntos de vista _Infor
 van a posibilitar la interoperabilidad semántica y, por lo tanto, que ambos sistemas puedan intercambiarse
 información manteniendo el significado que se le hubiese dado en origen y hacer uso de la misma sin intervención humana.
 
-Como ya se ha adelantado en la <<_contextualizacion>>, los estándares de normalización recientes presentan un modelo
+Como ya se ha adelantado en la <<_introduccion>>, los estándares de normalización recientes presentan un modelo
 de datos dual centrado en el paciente, en el que se tiene consideración de la constante evolución del conocimiento
 médico. Esto lo consigue manteniendo separada la _información_ en los sistemas, que es estática, del _conocimiento_
 médico, que evoluciona con el tiempo.
@@ -1349,7 +1356,7 @@ recogida y análisis de tres importantes componentes de la consulta médico-paci
 problema atendido y el proceso de atención. La estructura de esta clasificación está diseñada para ordenar, investigar y
 entender mejor el contenido de la Medicina de Familia y de la Atención Primaria.
 
-Desarrollada la primera edición por la WONCA ("Organización Mundial de los Médicos Generales / de Familia") en 1987 y
+Desarrollada la primera edición por la WONCA (Organización Mundial de los Médicos Generales/de Familia) en 1987 y
 la segunda edición en 1998. Se tradujeron al español en 1988 y 1999 respectivamente. Actualmente está traducida a más
 de 20 idiomas.
 
@@ -1433,7 +1440,7 @@ Teniendo en cuenta los requisitos mencionados anteriormente, se han tomado las s
 .Arquetipos tanto como entradas como salidas de las reglas.
 Esto se consigue mediante la creación de enlaces entre los elementos de los datos definidos por los arquetipos y las
 variables utilizadas por las reglas del CDS. Cada variable de regla CDS se identifica de forma unívoca en el contexto
-de una guía y se enlaza con un elemento específico definido por un arquetipo utilizando su "Archetype ID" y
+de una guía y se enlaza con un elemento específico definido por un arquetipo utilizando su _Archetype ID_ y
 su __path__footnote:[El _path_ de un elemento de un arquetipo es la ruta unívoca que identifica dicho elemento dentro
 del arquetipo.]. Una vez definida, la variable se puede usar dentro de las sentencias _when_ y _then_ como entrada o
 como salida durante la ejecución de la regla.
@@ -1485,7 +1492,7 @@ La vista general del _paquete guía_ se ilustra en la <<gom>>. Las clases en col
 en el diseño original de las especificaciones __open__EHR.
 
 [[gom]]
-.Paquete "guía clínica".
+.Paquete ``guía clínica''.
 image::gdl-relational-model.png[scaledwidth="80%"]
 
 .GUIDE.
@@ -1507,6 +1514,7 @@ Clase principal de una guía discreta que define enlaces a arquetipos, reglas y 
 .GUIDE_DEFINITION.
 La definición de la guía incluye una lista de enlaces de arquetipos y una lista de definiciones de reglas.
 
+[[table-guide-definition]]
 .Clase _GuideDefinition_
 [cols="10%,40%,50%", options="header"]
 |===
@@ -1655,6 +1663,99 @@ Tipos de funciones permitidas
 |max    |Se utiliza para obtener el valor máximo de un elemento.
 |min    |Se utiliza para obtener el valor mínimo de un elemento.
 |===
+
+Ejemplo de guía GDL
+^^^^^^^^^^^^^^^^^^^
+A continuación se muestra un ejemplo sencillo del código fuente de una guía en formato GDL que nos permite calcular el
+https://es.wikipedia.org/wiki/Escala_CHA2DS2-VASc[CHA2DS2VASc Score], un instrumento clínico para la
+determinación del riesgo de accidente cerebrovascular en pacientes con fibrilación auricular. Las definiciones para
+las palabras reservadas de GDL usadas aquí se han visto en los capítulos anteriores. Los metadatos en el
+encabezado GDL se basan en la sección _description_ de ADL de __open__EHRfootnote:[Ver sección 8.3.6 (_description_) de
+la especificación ADL: http://www.openehr.org/releases/1.0.1/architecture/am/adl.pdf], es análoga a la definición de
+la descripción de arquetipos.
+
+En lo sucesivo de este documento, en ocasiones, se utilizará el término ``guía'' un nombre abreviado para referirse a
+un documento GDL.
+
+----
+include::samples/CHA2DS2VASc-header.v1.gdl[]
+----
+
+<1> Versión actual de la guía.
+<2> Identificador unívoco.
+<3> Representación del concepto principal de la guía. Siempre con un código local para posibilitar traducciones.
+<4> Lenguaje original y lenguajes soportados.
+<5> Descripción de la guía.
+<6> Estado del ciclo de vida.
+<7> Autor original.
+<8> Otros colaboradores.
+
+La correspondencia con la vista del editor puede verse en la <<_description>>.
+
+El siguiente bloque muestra la sección `archetype_binding` dentro de la sección `guide_definition`, la cual vincula
+elementos de los arquetipos clínicos con variables usadas en las reglas GDL. Por cuestiones de espacio sólo se
+mostrará uno de ellos.
+
+----
+include::samples/gdl-definition-1.gdl[]
+----
+
+<1> Sección _definition_: contenedor de enlaces con arquetipos, precondiciones y reglas.
+<2> Identificador unívoco del arquetipo que contiene los elementos que se enlazan con términos locales.
+<3> Dominio: puede ser _EHR_, _CDS_ o _ANY_. Ver <<table-guide-definition>>.
+<4> Contenedor de elementos vinculados.
+<5> Vinculación: al término local cuyo código es _gt0107_ se le hace corresponder con el elemento del arquetipo
+_openEHR-EHR-EVALUATION.problem-diagnosis.v1_ cuyo _path_ dentro del arquetipo es `/data[at0001]/items[at0002.1]`.
+
+Dentro de la `guide_definition`, se puede definir un conjunto de condiciones que deben cumplirse para que
+puedan ejecutar las reglas de de la guía. En el caso del cálculo de la puntuación CHA2DS2-VASc, la guía no se
+ejecutará a menos que el paciente haya sido diagnosticado con _fibrilación auricular_. En el ejemplo siguiente, una
+precondición verifica la existencia de _fibrilación auricular_ en el diagnóstico del paciente (gt0107).
+Utilizando el predicado de la sección _definition_, se establece la precondición para comprobar contra un
+código local (gt0105) que representa el significado de _fibrilación auricular_. Este código puede estar ligado a un
+concepto definido formalmente por terminologías externas, _e.g._ SNOMED CT, en la sección _term_bindings_.
+
+----
+include::samples/gdl-definition-2.gdl[]
+----
+
+<1> Predicado donde se define la condición de de que el diagnóstico (`gt0107`) sea de _fibrilación auricular (gt0105)_.
+<2> Precondición que verifica la presencia o ausencia de _fibrilación auricular_ en el diagnóstico del paciente.
+
+La sección _rules_ hace uso exclusivo de las variables definidas localmente para expresar la lógica clínica. Cada
+regla tiene un nombre codificado por un _código gt_ definido localmente, cuyo nombre y descripción, que dependen del
+lenguaje natural, se indexan en la sección _term_definitions_. También se puede asignar una prioridad para asegurar
+el orden de ejecución de las reglas. Este ejemplo ilustra las reglas que inspeccionan diferentes diagnósticos
+relevantes para la puntuación CHA2DS2-VASc y establecen los valores correspondientes a los DV_ORDINALsfootnote:[Tipo
+de dato de __open__EHR, definido en el MR:
+http://www.openehr.org/releases/RM/latest/docs/data_types/data_types.html#_dv_ordinal_class] existentes en
+el arquetipo correspondiente, en este caso el arquetipo CHA2DS2-VASc. La regla `gt0026`, (``Calcular puntuación total'')
+suma todos los valores y asigna la puntuación total.
+
+----
+include::samples/gdl-rules.gdl[]
+----
+
+En la sección _ontology_ de la guía, todos los términos se enlazan a con un texto, normalmente para etiquetas de
+interfaces de usuario y una descripción--para cualquier otro uso--de los términos en los lenguajes naturales soportados.
+
+----
+include::samples/gdl-terminology.gdl[]
+----
+
+Además, los términos locales, en la sección _term_bindings_, se pueden enlazar con conceptos definidos por terminologías
+de referencia externas.
+
+----
+include::samples/gdl-bindings.gdl[]
+----
+
+<1> Enlace del código local _gt0036 (Puntuación CHA2DS2-VASc)_ con terminología SNOMED-CT.
+<2> Enlace del código local _gt0104 (Trastorno vascular)_ con terminología SNOMED-CT.
+<3> Enlace del código local _gt0121 (Fibrilación auricular)_ con terminología SNOMED-CT.
+<4> Enlace del código local _gt0036 (Puntuación CHA2DS2-VASc)_ con terminología CIE-10.
+<5> Enlace del código local _gt0104 (Trastorno vascular)_ con terminología CIE-10.
+<6> Enlace del código local _gt0121 (Fibrilación auricular)_ con terminología CIE-10.
 
 Métodos
 -------
@@ -2031,7 +2132,7 @@ cuando pueden decidir organizar su trabajo. Las personas se sienten más satisfe
 que consiguen.
 
 Aplicación de Scrum en el proyecto
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Como ya se ha comentado al principio de esta sección, se ha utilizado una versión simplificada de la metodología Scrum.
 
 Esta versión simplificada consiste en la realización de iteraciones bien diferenciadas y que permiten ir obteniendo
@@ -2264,7 +2365,7 @@ y en gris está representado el _backend_. Cuando se selecciona la pestaña _Gui
 manual de usuario>>), el enrutador de Angular automáticamente carga el controlador correspondiente (_GuidelinesCtrl_),
 al cual se le inyecta el servicio _guidelinesFactory_. Este controlador cuenta con un método _activate()_ que es
 invocado al iniciarse y que llama al método _getGuidelines()_ del servicio inyectado, el cual hace uso del servicio
-nativo de AngularJS `$http`, que hace una petición GET a la API del <<X3, Clinical Knowledge Manager>> (CKM), el cual
+nativo de AngularJS `$http`, que hace una petición GET a la API del <<X4, Knowledge Manager>> (KM), el cual
 gestiona dicha petición y devuelve una promesa, que se renderizará cuando dicha petición se haya completado.
 
 Implementación
@@ -2450,8 +2551,8 @@ include::../../app/components/tabs/tab-guidelines/tab.guidelines.controller.js[]
 En este controlador es donde definimos las propiedades que estarán enlazadas con la vista, en este caso `vm
 .guidelines` que contendrá las guías almacenadas en el _backend_. Para hacer la petición de las guías, a este
 controlador se le inyecta un servicio (`guidelinesFactory`), que se ha definido _a priori_, que es el encargado de
-realizar la petición correspondiente a la API REST proporcionada por el CKM. Como vemos a continuación, este servicio
-cuenta con un método `getGuidelines()` que recupera las guías clínicas.
+realizar la petición correspondiente a la API REST proporcionada por el Knowledge Manager (KM). Como vemos a
+continuación, este servicio cuenta con un método `getGuidelines()` que recupera las guías clínicas.
 
 [source,python]
 ----
@@ -2794,7 +2895,7 @@ vm.treeDefinitions = {
 
 Como puede verse en el fragmento anterior, se utiliza un servicio denominado `definitionsFactory` que genera la
 instanciación correspondiente dependiendo del nodo del panel derecho que se haya seleccionado. El panel principal
-renderiza los `archetypeBindings` la guía. En el modelo, un `archetypeBinding` se representa mediante un objeto JSON
+renderiza los `archetypeBindings` de la guía. En el modelo, un `archetypeBinding` se representa mediante un objeto JSON
 con la siguiente estructura:
 
 ----
@@ -3292,18 +3393,170 @@ importantes para la realización de su cometido.
 
 Testing
 -------
+El software se prueba contra una _especificación_, la cual hace referencia a una descripción precisa y detallada de la
+funcionalidad y las restricciones que se quieren obtener de un sistema, pensadas para la comunicación a los
+desarrolladores de lo que se requiere y sirve como base de un contrato. JavaScript es un lenguaje de tipos de
+datos dinámicos que cuenta con gran poder de expresión, pero realmente no se cuenta con muy pocas ayudas por parte
+del compilador. Por esta razón, cualquier código escrito en JavaScript debe venir con un conjunto de tests que
+prueben las principales funcionalidades. AngularJS ha sido diseñado enfocado a la las pruebas. Existen multitud de
+herramientas para probar el código AngularJS.
+
+Las pruebas unitarias, como su propio nombre indica, consisten en probar unidades funcionales individuales de código.
+Tratan de responder preguntas del tipo ``¿se ha pensado en la lógica correctamente?'' o ``¿La función de ordenación
+ordena la lista en el orden correcto?''
+
+Para responder a este tipo de preguntas es muy importante que podamos aislar unidad funcional de código que se va a
+probar. Esto se debe a que cuando se quiere probar la función de ordenación no queremos ser forzados a crear partes
+relacionadas como los elementos DOM o hacer llamadas XHR para buscar los datos para ordenarlos.
+
+AngularJS trata de hacer que sea fácil para el desarrollador hacer lo correcto. Para las solicitudes de XHR, se
+proporciona inyección de dependencias para que estas solicitudes puedan ser simuladas. Para el DOM, este se abstrae,
+para que se pueda probar el modelo sin tener que manipular el DOM directamente. Los tests podrían entonces asegurar
+que los datos se han ordenado sin tener que crear u observar el estado del DOM o esperar a que cualquier solicitud de
+XHR devuelva datos. La función de ordenación individual se puede probar de forma aislada.
+
+AngularJS viene con inyección de dependencia incorporada, lo que hace que los componentes sean mucho más fáciles de
+probar, ya que se pueden pasar las dependencias de un componente y hacer un _mock_ de los mimos como desee.
+
+Los componentes que tienen sus dependencias inyectadas permiten que sean fácilmente simuladas en un test, sin tener
+que ensuciar con cualquier variable global que podría afectar inadvertidamente otros tests. Para probar aplicaciones
+Angular existen ciertas herramientas que deberían ser usadas que hacen que la fase de pruebas sea mucho mas sencilla
+de configurar y ejecutar
+
+Para probar las aplicaciones de AngularJS hay ciertas herramientas que debe usar que harán que las pruebas sean mucho
+más fáciles de configurar y ejecutar. A continuación se verán el _framework_ de pruebas Jasmine, los _test runners_
+_Karma_ y _Protractor_.
+
 Jasmine Framework
 ~~~~~~~~~~~~~~~~~~~
-hablar del framework Jasmine (utilizado en los dos siguientes testrunners)
+Jasmine es un _framework_ de desarrollo https://en.wikipedia.org/wiki/Behavior-driven_development[dirigido por
+comportamiento] para probar código JavaScript. No depende de ningún otro framework de JavaScript, ni de un DOM. Y
+tiene una sintaxis clara y obvia para que los tests se puedan escribir fácilmente.
 
-Tests unitarios con Karma
-~~~~~~~~~~~~~~~~~~~~~~~~~
-Utilización de Karma test runner para probar nuestros servicios y controladores.
+Antes de empezar a escribir el código, teniendo en cuenta la especificación formal de requisitos, se debe saber cómo
+se tiene que comportar el sistema. Se pueden escribir estas especificaciones en el código, en Angular, por
+convención, a cada fichero de test se le llama igual que el fichero que contiene la funcionalidad que se quiere
+probar, pero añadiéndole `.spec.js` al final. Cuando se ejecutan las pruebas se obtiene un éxito (si todo funciona
+según la especificación) o un error (si no lo hace). Si se obtiene un éxito para todos los test, se puede garantizar
+que el sistema funciona conforma a la especificación, de lo contrario se sabe qué funcionalidades están fallando y
+que el sistema no está funcionando como se espera.
 
-Tests end-to-end con Protractor
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Hablar del framework de tests Protractor y mencionar cómo lo hemos aplicado para realizar pruebas end-to-end en nuestro
-proyecto. El escenario _Editar reglas_
+Las pruebas son útiles por varios motivos. Primero, pueden evaluar la corrección de un programa después
+de un cambio. Un ejemplo podría ser aquel en el que todas las pruebas pasan y, posteriormente, se decide que se
+quiere realizar una mejora para que un método sea más rápido. Se pueden hacer los cambios y observar que dicho método
+efectivamente es más rápido, pero si en la siguiente ejecución de las pruebas se observa que algunos tests están
+fallando, se descubre rápidamente que el cambio ha roto parte del código. Las pruebas automatizadas permiten ver
+esos errores antes de que sucedan en el ``mundo real''. Estas pruebas también sirven como buenos ejemplos para otros
+desarrolladores. Si un desarrollador está tratando de averiguar cómo usar alguna parte indocumentada del código, una
+prueba bien escrita puede ayudarle a ver cómo funciona dicha parte.
+
+Hay muchas herramientas que ayudan a la automatización de este tipos de pruebas, _Jasmine_ es una de ellas. A
+continuación se muestra un ejemplo de un test básico que explica los fundamentos básicos de este _framework_, se
+muestra en el siguiente fragmento la definición del test usando _Jasmine_.
+
+[source, python]
+----
+describe("Hello world", function() {                <1>
+  it("says hello", function() {                     <2>
+    expect(holaMundo()).toEqual("¡Hola mundo!");    <3>
+  });
+});
+----
+
+<1> Bloque _describe_: define una _suite_. Básicamente, se trata de un componente de la aplicación.
+<2> Bloque _it_.: define un _spec_. Cada una de las funcionalidades que se quieren probar.
+<3> Bloque _expect_: funcionalidad a testear.
+
+En el ejemplo anterior se está comprobando si `holaMundo()` realmente devuelve el valor esperado ``¡Hola mundo!''.
+Esta comprobación se denomina _matcher_. Jasmine incluye gran cantidad de _matchers_ predefinidosfootnote:[Para la
+versión 2.4.1 de _Jasmine_, que es la utilizada en este proyecto, se incluyen de forma nativa los siguientes
+_matchers_: https://jasmine.github.io/2.4/introduction], aunque el usuario puede definir los suyos propios.
+
+Pruebas unitarias con _Karma_
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+_Karma_ es una herramienta que permite ejecutar código fuente, _i.e._ JavaScript, en navegadores reales. El hecho
+de que se ejecute contra navegadores reales en lugar de navegadores simulados, con un DOM virtual, lo hace muy potente.
+Las implementaciones de DOM varían entre los diferentes navegadores, por lo tanto la idea de _Karma_ es utilizar los
+navegadores reales para la realización de las pruebas unitarias de una forma más real y para asegurarse de que la
+aplicación funcione correctamente en todos los navegadores que necesite soportar. _Karma_ se ejecuta en la línea de
+comandos y mostrará los resultados de sus pruebas en la línea de comandos una vez que se hayan ejecutado en el
+navegador.
+
+Entre otras funcionalidades, Karma permite:
+
+* Hacer pruebas de código en navegadores reales.
+* Hacer pruebas de código en diferentes tipos de navegadores (escritorio, móviles, tablets, etc.).
+* Ejecutar las pruebas en local durante el desarrollo.
+* Ejecutar las pruebas en un servidor de integración continua, como se ha hecho en este proyecto, usando
+https://travis-ci.org/[Travis CI] y https://github.com/[GitHub].
+* Ejecutar las pruebas cada vez que se guarde un fichero.
+* Hacer la vida más cómoda a los desarrolladores que realizan las pruebas.
+* Utilizar https://github.com/gotwarlost/istanbul[Estambul] para la generación automática de informes.
+* Utilizar http://requirejs.org/[RequireJS] para la gestión de los ficheros de la aplicación.
+
+_Karma_ no es un _framework_ de pruebas, ni una librería de aserciones. _Karma_ es un _test runner_, simplemente lanza
+un servidor HTTP, y genera el fichero HTML a ser utilizado por el _framework_ de pruebas que se quiera utilizar,
+entre ellos https://github.com/karma-runner/karma-jasmine[Jasmine],
+https://github.com/karma-runner/karma-mocha[Mocha], https://github.com/karma-runner/karma-qunit[QUnit], y
+https://www.npmjs.org/browse/keyword/karma-adapter[muchos otros]. _Karma_ soporta la mayoría de navegadores
+disponiblesfootnote:[Navegadores soportados por _Karma_: https://karma-runner.github.io/latest/config/browsers.html].
+Las instrucciones completas de instalaciónfootnote:[Documentación sobre la instalación de _Karma_:
+https://karma-runner.github.io/latest/intro/installation.html] y configuraciónfootnote:[Documentación sobre la
+configuración de _Karma_: https://karma-runner.github.io/latest/intro/configuration.html]
+estás disponibles en la página web oficial de _Karma_.
+
+Pruebas end-to-end con _Protractor_
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A medida que las aplicaciones crecen en tamaño y complejidad, se vuelve poco realista confiar en las pruebas hechas a
+mano para verificar la corrección de nuevas funcionalidades y detectar errores. Las pruebas unitarias son la primera
+línea de defensa para la detección de errores, pero a veces los problemas surgen con la integración entre los
+componentes y no pueden ser detectados en las pruebas unitarias. Es necesario, entonces, la realización de las
+pruebas de extremo a extremo para detectar este tipo de problemas.
+
+Protractor es un _testrunner_ de pruebas _end-to-end_ que simula las interacciones del usuario que ayudan a verificar
+la salud de una aplicación AngularJS.
+
+Protractor es una aplicación Node.js y ejecuta pruebas end-to-end escritas en JavaScript y se ejecutan en Node.
+Utiliza https://code.google.com/p/selenium/wiki/GettingStarted[WebDriver] para controlar los navegadores y simular
+las acciones de los usuarios.
+
+Protractor utiliza Jasmine como su sintaxis para las pruebas. Al igual que en las pruebas unitarias, un archivo de
+pruebas consta de uno o más bloques `it` que describen las funcionalidades que se quieren probar de la aplicación
+aplicación. Los bloques `it` se componen de _commands_ y _expectations_. Los _commands_ le indican a Protractor
+realice alguna acción con la aplicación, como navegar a una página o hacer clic en un botón. Las _expectations_ le
+indican que verifique algo sobre el estado de la aplicación, _e.g._ el valor de un campo o la URL actual.
+
+Si alguna expectativa dentro de un bloque `it` falla, el _testrunner_ lo marca como fallido y continúa con el
+siguiente bloque.
+
+Los archivos de test también pueden tener bloques `beforeEach` y `afterEach`, que se ejecutarán antes o después de
+cada bloque `it`, independientemente de si el bloque pasa o falla.
+
+protractor]]
+.Bloques en un fichero de pruebas _Protractor_.
+image::sequence-editBinding.png[scaledwidth="60%"]
+
+Además de los elementos anteriores, las pruebas también pueden contener funciones auxiliares para evitar la duplicidad de código en los bloques. A continuación se muestra un ejemplo simple de pruebas con _Protractor_:
+
+[source, python]
+----
+describe('La lista de tareas', function() {
+  it('debería filtrar resultados', function() {
+    // Buscar el elemento ng-model="usuario" e introducir "froome" en él
+    element(by.model('usuario')).sendKeys('froome');
+    // Buscar el primer (y único) botón de la página y hacer clic sobre él
+    element(by.css(':button')).click();
+    // Verificar que hay 10 tareas
+    expect(element.all(by.repeater('tarea in tareas')).count()).toEqual(10);
+    // Introducir 'bicicletas' en el elemento con ng-model="filterText"
+    element(by.model('filterText')).sendKeys('bicicletas');
+    // Verificar que ahora sólo existe un elemento en la lista de tareas
+    expect(element.all(by.repeater('tarea in tareas')).count()).toEqual(1);
+  });
+});
+----
+Este ejemplo describe los requisitos de una lista de tareas, en forma de especificaciones, que debería ser capaz de
+filtrar una lista de elementos.
 
 Material utilizado
 ------------------
@@ -3325,13 +3578,13 @@ considerar que posee un gestor de ventanas más intuitivo, más simple, con una 
 
 IDE JetBrain WebStorm
 ~~~~~~~~~~~~~~~~~~~~~
-Se ha utilizado el entorno de desarrollo integrado (IDE) _JetBrains WebStorm_ versión 10.01, antes denominado _Jetbrains
+Se ha utilizado el entorno de desarrollo integrado (IDE) _JetBrains WebStorm_ versión 10.01, antes denominado _JetBrains
 IntelliJ WebStorm_. Se trata de un IDE orientado al ecosistema JavaScript moderno. Ofrece finalización de código
 inteligente, detección de errores al vuelo, potente navegación y refactorización para JavaScript, TypeScript,
 lenguajes de estilos y los _frameworks_ más populares. Se trata de una herramienta comercial. Se ha elegido este IDE
 porque se integra perfectamente con AngularJS. Esta integración supone:
 
-* _WebStorm_ conoce el código de AngularJS, ofrece completitud de código para derectivas `ng` (también para directivas
+* _WebStorm_ conoce el código de AngularJS, ofrece completitud de código para directivas `ng` (también para directivas
 personalizadas), para nombres de controladores y de aplicaciones y es consciente del código para la vinculación de
 datos dentro de las expresiones dentro de las dobles llaves `{{}}`.
 * Ofrece navegación específica de AngularJS
@@ -3339,8 +3592,8 @@ datos dentro de las expresiones dentro de las dobles llaves `{{}}`.
 ** Entre la directiva `ngView` o el _provider_ `$routeProvider` y la plantilla HTML
 * Navegación 'Go to the symbol' para entidades.
 * Incorpora una colección de plantillas predefinidas.
-* Búsqueda rápida de documentación pulsando `Ctrl + Q`. Ver https://www.jetbrains
-.com/help/webstorm/viewing-inline-documentation.html[documentación on-line] para más detalles.
+* Búsqueda rápida de documentación pulsando `Ctrl + Q`. Ver
+https://www.jetbrains.com/help/webstorm/viewing-inline-documentation.html[documentación on-line] para más detalles.
 * Soporte para diagramas `ui-router` de AngularJS.
 * Cuenta con un depurador de aplicaciones cliente y Node.js muy sencillo de utilizar que permite la colocación de
 puntos de interrupción en el código, explorar la pila de llamadas y variables, el uso de _timers_ y ofrece una consola
@@ -3374,7 +3627,7 @@ cualquier sistema operativo que soporte Java. _JBoss EAP_ fue desarrollado por J
 
 Han sido varios los motivos por los que se ha elegido _JBoss Server_ como servidor de aplicaciones y servicios ya que
 soporta una serie de características como que soporta la especificación Java EE y los principales estándares de
-servicios web, soporta Enterprise JavaBeas (EJBs), persistencia de entidades utilizando Hibernate, servicios web e
+servicios web, soporta Enterprise JavaBeans (EJBs), persistencia de entidades utilizando Hibernate, servicios web e
 interoperabilidad incluyendo JAX-RPC, JAX-WS y JAX-RS entre otros. Se puede consultar un listado completo de las
 funcionalidades que ofrece este servidor de aplicaciones en el apartado correspondiente de la página web oficial de
 Red Hat JBossfootnote:[https://access.redhat.com/articles/112673].
@@ -3431,6 +3684,7 @@ El comando `asciidoc` traduce archivos _AsciiDoc_ a marcado HTML, XHTML y DocBoo
 formatos de presentación como HTML, PDF, EPUB, DVI, LaTeX, roff y Postscript utilizando herramientas Open Source
 disponibles fácilmente.
 
+[[git-github]]
 Git/Github como sistema de control de versiones y repositorio remoto de código
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 El control de versiones es un sistema que registra los cambios realizados sobre un archivo o conjunto de archivos a
@@ -3456,18 +3710,18 @@ persona y comenzar de nuevo.
 
 _Github_ es una plataforma de desarrollo colaborativo, en este proyecto se ha utilizado
 como repositorio para el alojamiento del código fuente y de los recursos necesarios para el desarrollo de la
-aplicación. El proyecto con sus fuentes ha sido alojado en el repositorio http://www.github
-.com/jbarcas/angular-gdl-editor/[github.com/jbarcas/angular-gdl-editor/].
+aplicación. El proyecto con sus fuentes ha sido alojado en el repositorio
+http://www.github.com/jbarcas/angular-gdl-editor/[github.com/jbarcas/angular-gdl-editor/].
 Se ha utilizado por ser una plataforma de alojamiento que permite la creación de cuentas de usuario y de repositorios
 de código de manera gratuita y por tener una excelente integración con el sistema de control de versiones _Git_ y con
- el servicio de Integración Continua distribuido _Travis CI_.
+el servicio de Integración Continua distribuido _Travis CI_.
 
 ProjectLibre como software de gestión de proyectos
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-_ProjectLibre_, anteriormente denominda _OpenProj_ es un software de administración de proyectos diseñado como sustituto
-de completo para Microsoft Project, capaz de abrir archivos de proyecto nativos de dicho programa. ProjectLibre fue
-desarrollado por Projity en 2007. Se ejecuta en la máquina virtual de Java, lo que permite ejecutarlo en una variedad
-de sistema operativos.
+_ProjectLibre_, anteriormente denominada _OpenProj_ es un software de administración de proyectos diseñado como
+sustituto de completo para Microsoft Project, capaz de abrir archivos de proyecto nativos de dicho programa.
+ProjectLibre fue desarrollado por Projity en 2007. Se ejecuta en la máquina virtual de Java, lo que permite
+ejecutarlo en una variedad de sistema operativos.
 
 OpenProj dejó de estar en fase beta con el lanzamiento de la versión 1.0, el 10 de enero de 2008. Actualmente es
 mantenido por https://www.projectlibre.com[ProjectLibre]. Es una versión gratuita y soporta las siguientes
@@ -3483,7 +3737,7 @@ características:
 * Compatibilidad con Microsoft Project.
 
 ProjectLibre es la principal alternativa de código abierto a Microsoft Project. Se ha descargado más de 3.000.000
-de veces en más de 200 países y ha ganado el premio "Best of Open Source". ProjectLibre es compatible con
+de veces en más de 200 países y ha ganado el premio _Best of Open Source_. ProjectLibre es compatible con
 los archivos de Microsoft Project 2003, 2007 y 2010.
 
 El objetivo de _ProjectLibre_ es proporcionar un software de gestión de proyectos libre y de código abierto en todo el
@@ -3538,7 +3792,8 @@ Para la realización de este proyecto ha sido imprescindible recibir una formaci
 metodología para la elaboración del mismo. Este período de formación ha durado aproximadamente 4 meses y se ha
 paralelizado con el desarrollo del proyecto.
 +
-En este período de formación se han adquirido los conocimientos necesarios en el estado del arte en el que se alberga
+En este período de formación se han adquirido los conocimientos necesarios en el estado de la cuestión en el que se
+alberga
 este proyecto, siendo un contexto bastante complejo, pero con bastante proyección. Se trata de conocimientos sobre
 interoperabilidad clínica basada en arquetipos y en sistemas de soporte a la decisión médica. Por otro lado, ha sido
 indispensable la adquisición de nociones referentes al framework MVC AngularJS, cuya curva de aprendizaje es un poco
@@ -3668,6 +3923,10 @@ obteniendo subproductos funcionales en cada una de las iteraciones en las que se
 desarrollo se han aplicado reconocidos patrones de diseño y se han utilizado tecnologías modernas de desarrollo web
 como el entorno de ejecución multiplataforma para la capa del servidor Node.js y el framework para la creaciones de
 aplicaciones de web de una sola página AngularJS.
+
+* Es un producto de código libre, de utilidad para la empresa _Cambio Healthcare Systems_ y, en general, para cualquier
+organización del sector sanitario que desee elaborar y trabajar con guías clínicas basadas en GDL, de modo que estas
+guías permitan el intercambio de conocimiento médico de una manera consensuada y semánticamente interoperable.
 
 * Permite a los profesionales sanitarios la elaboración de nuevas guías clínicas basadas en arquetipos, así como la
 edición y eliminación de las mismas.
@@ -3813,7 +4072,7 @@ y la fecha en la que se realizó dicha guía con este status de publicación. Po
 pueden indicar referencias relevantes para la guía.
 
 .Description: meta-información de la guía clínica.
-image::description.png[scaledwidth="80%"]
+image::description.png[scaledwidth="100%"]
 
 Definitions
 ^^^^^^^^^^^
@@ -3966,6 +4225,7 @@ misma terminología.
 
 Cuando se ejecuta la guía, cualquier código contenido aquí y referenciado con un operador _is_a_ será traducido a sus
 terminologías vinculadas para su resolución. Cada fila en la tabla contiene tres columnas:
+
 * Términos locales: los códigos definidos en la terminología local de la guía (ver TERMINOLOGÍA). Pueden
 seleccionarse haciendo clic en el campo.
 * Códigos terminológicos: los códigos de la terminología a la que estamos vinculados, separados por coma. Se puede
@@ -4157,27 +4417,27 @@ include::javacc/expression.jj[]
 [bibliography]
 Bibliografía
 ------------
-The bibliography list is a style of AsciiDoc bulleted list.
 
 [bibliography]
-- [[[KEEN87]]] Keen, P. G. W. 'Decision support systems: an organizational perspective'. Addison-Wesley. ISBN
-0-201-03667-3.
-- [[[BONI04]]] Bonis Julio, Sancho Juan J., Sanz Ferrán. 'Computer-assisted Clinical Decision Support Systems'.
-- [[[BLEI69]]] Bleich HL. 'Computer evaluation of acid-base disorders'. J Clin Invest, 48 (1969), pp. 1689-96 http://dx.doi.org/10.1172/JCI106134
-- [[[IHTS17]]] International Health Terminology Standards Development Organisation. URL: http://www.snomed.org/. Último acceso: junio 2017.
-- [[[MSAN17]]] Benson, Tim. 'Principles of Health Interoperability HL7 and SNOMED'. London: Springer, 2012. ISBN:
-  978-1-4471-2800-7.
-- [[[RUCH12]]] Ruch, Patrick; Gobeill, Julien; Lovis, Christian; Geissbühler, Antoine. 'Automatic medical encoding with SNOMED categories'. 2008. BMC Medical Informatics and Decision Making. doi:https://bmcmedinformdecismak.biomedcentral.com/articles/10.1186/1472-6947-8-S1-S6[10.1186/1472-6947-8-S1-S6] Último acceso: junio 2007.
-- [[[CIEM17]]] Organización Mundial de la Salud. 'ICD-10 Second Edition Volume 2 – World Health Organization', mayo de 2017. URL: http://www.who.int/classifications/icd/ICD-10_2nd_ed_volume2.pdf. Último acceso: agosto de 2017.
-- [[[WARN61]]] Warner HR,Toronto AF,Veasey LG,Stephenson RA.'Mathematical approach to medical diagnosis.' JAMA, 177
+- [[[TURB11]]] E. Turban, R. Sharda, D. Delen, ``Decision Support and Business Intelligence Systems, 9^th^ ed.''. Pearson, 2011.
+- [[[VERC09]]] C. Vercellis, ``Business Intelligence: Data Mining and Optimization for Decision Making''. Wiley Ltd, 2009. ISBN: 978-0-470-51138-1.
+- [[[KEEN87]]] P. Keen, M. Scott Morton, ``Decision support systems: an organizational perspective''. Addison-Wesley. ISBN: 0-201-03667-3.
+- [[[BONI04]]] J. Bonis, J. Sancho, F. Sanz, ``Computer-assisted Clinical Decision Support Systems''. Clinical Medicine, Elsevier Ed. 2004;122 Supl 1:39-44. (2004), pp. 75-81.DOI: https://doi.org/10.1157/13057545[10.1157/13057545], 2004.
+- [[[BLEI69]]] HL. Bleich HL, ``Computer evaluation of acid-base disorders''. J Clin Invest, 48 (1969), pp. 1689-96. DOI: http://dx.doi.org/10.1172/JCI106134
+- [[[IHTS17]]] ``International Health Terminology Standards Development Organisation''. URL: http://www.snomed.org/. Último acceso: junio 2017.
+- [[[MSAN17]]] T. Benson, ``Principles of Health Interoperability HL7 and SNOMED''. London: Springer, 2012. ISBN: 978-1-4471-2800-7.
+- [[[RUCH12]]] P. Ruch, J. Gobeill, C. Lovis, A. Geissbühler, ``Automatic medical encoding with SNOMED categories''. 2008. _BMC Medical Informatics and Decision Making_. DOI:https://bmcmedinformdecismak.biomedcentral.com/articles/10.1186/1472-6947-8-S1-S6[10.1186/1472-6947-8-S1-S6].
+- [[[CIEM17]]] ``ICD-10 Second Edition, Volume 2'', World Health Organization, mayo de 2017. URL: http://www.who.int/classifications/icd/ICD-10_2nd_ed_volume2.pdf. Último acceso: agosto de 2017.
+- [[[WARN61]]] H. Warner, A. Toronto, L. Veasey, R. Stephenson, ``Mathematical approach to medical diagnosis'' MD Comput, 1992.
 - [[[NODE17]]] Web oficial de Node.js. URL: https://nodejs.org/es/. Último acceso: agosto 2017.
-- [[[MUNO13]]] Muñoz A _et al._ 'Manual práctico de interoperabilidad semántica para entornos sanitarios basada en
-  arquetipos'. Unidad de investigación en Telemedicina y e-Salud - Instituto de Salud Carlos III, julio de 2013.
-- [[[AOM15]]] The __open__EHR Foundation. 'The __open__EHR Archetype Model. Archetype Object Model'.  URL:
-  http://www.openehr.org/releases/trunk/architecture/am/aom2.pdf. 4 de enero de 2015. Último acceso: agosto 2017.
-- [[[BEAL07]]] Beale T, Heard S. Archetype Definition Language. The __openEHR__ Foundation, 2007
-- [[[CANT04]]] Cantelon M, Harter M, Holowaychuk TJ, Rajlich N. 'Node.js in Action'. Manning. ISBN 9781617290572
-  Clinical Medicine, Elsevier Ed. 2004;122 Supl 1:39-44. (1961), pp. 75-81.
+- [[[MUNO13]]] A. Muñoz _et al._ ``Manual práctico de interoperabilidad semántica para entornos sanitarios basada en
+arquetipos''. Unidad de investigación en Telemedicina y e-Salud, Instituto de Salud Carlos III, julio de 2013.
+- [[[AOM15]]] The __open__EHR Foundation. ``The __open__EHR Archetype Model. Archetype Object Model''.
+URL: http://www.openehr.org/releases/trunk/architecture/am/aom2.pdf. The __open__EHR Foundation, 2015. Último acceso:
+agosto 2017.
+- [[[BEAL07]]] T. Beale, S. Heard, ``Archetype Definition Language''. The __openEHR__ Foundation, 2015.
+- [[[CANT04]]] M. Cantelon, M. Harter, TJ. Holowaychuk, N. Rajlich, ``Node.js in Action''. Manning, 2013. ISBN:
+9781617290572.
 - [[[WEBA17]]] Wikipedia en español. URL: https://es.wikipedia.org/wiki/Aplicaci%C3%B3n_web. Último acceso: junio 2017.
 - [[[MODU17]]] Documentación oficial de AngularJS. URL: https://docs.angularjs.org/guide/module. Último acceso: junio
   2017.
@@ -4185,12 +4445,11 @@ The bibliography list is a style of AsciiDoc bulleted list.
   2017.
 - [[[DATA17]]] Documentación oficial de AngularJS. URL: https://docs.angularjs.org/guide/databinding. Último acceso:
   junio 2017.
-- [[[SCRU12]]] Deemer P, Benefield G, Larman C, Vodde B. 'The Scrum Primer'. 2012.
+- [[[SCRU12]]] P. Deemer, G. Benefield, C. Larman, B. Vodde. ``The Scrum Primer''. 2012.
 
 [glossary]
 Glosario
 --------
-Glosario utilizado en el documento, con respectivos significados
 
 [glossary]
 [[X1]] Historia Clínica Electrónica::
@@ -4201,8 +4460,14 @@ Glosario utilizado en el documento, con respectivos significados
   actualizar el contenido, estructura y estilos de documentos HTML, XHTML y XML.
 
 [[X3]] Clinical Knowledge Manager::
-  Gestor de Conocimiento Clínico. Backend con una API bien definida donde se gestiona el conocimiento clínico del
-  sistema: arquetipos clínicos, guías médicas, terminologías, etc.
+  Plataforma de desarrollo colaborativo, gestión y publicación de una amplia gama de recursos de conocimiento
+  clínico de __open__EHR. Los recursos incluyen arquetipos, plantillas, subconjuntos terminológicos, metadatos
+  relacionados con modelos clínicos y otros recursos relacionados.
+
+[[X4]] Knowledge Manager::
+  Servicio gestor de Conocimiento Clínico de la aplicación. Backend que proporciona una API bien definida que
+  proporciona funcionalidades básicas como la persistencia, compilación/ejecución de reglas y servidor de
+  terminologías.
 
 [index]
 Índice
