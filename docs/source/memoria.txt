@@ -35,9 +35,9 @@ profesionales sanitarios--los que tienen el conocimiento necesario--los que elab
 colaborativa y consensuada, con el fin de poder utilizarlas de manera exitosa en la práctica médica.
 
 El resultado de este proyecto es un software capaz de crear, editar y gestionar guías clínicas en formato GDL, las guías
-son validadas en el _backend_ de la aplicación (denominado _Knowledge Manager Server_, o _KM server_), denegándose la
+son validadas en el servidor de la aplicación (denominado _Knowledge Manager Server_, o _KM server_), denegándose la
 petición de envío cuando la guía posee algún error de sintaxis. Se ha desarrollado una aplicación modular en
-AngularJS, framework JavaScript de Google para el desarrollo de _aplicaciones web de una sola página_ basado en el
+AngularJS, herramienta para el desarrollo de _aplicaciones web de una sola página_ basado en el
 patrón de arquitectura Modelo-vista-controlador, por lo que existe una clara separación entre los datos (modelo), la
 lógica de la aplicación, (controlador) y la presentación de la información (vista). AngularJS favorece la
 reutilización de componentes, inyección de dependencias y un testeo unitario y _end-to-end_ de forma sencilla y
@@ -52,8 +52,7 @@ Introducción
 ------------
 La toma de decisiones es el proceso mediante el que se realiza la elección de una alternativa para resolver un
 problema<<TURB11>>. Está presente cotidianamente tanto en la actividad humana como en la de las organizaciones. La clave
- del
-éxito está en tomar buenas decisiones. Es necesario que se cumplan ciertos requisitos para tener éxito tomando
+del éxito está en tomar buenas decisiones. Es necesario que se cumplan ciertos requisitos para tener éxito tomando
 decisiones, como son:
 
 * Conocimiento en profundidad del dominio en cuestión.
@@ -168,7 +167,7 @@ desarrollan de tal forma que los conceptos del dominio médico se encuentran _ha
 modelos de bases de datos utilizados lo que impide que dicha información pueda ser compartida con otros sistemas.
 
 Para solventar esta situación han surgido recientemente los estándares de interoperabilidad basados en modelos
-duales (se verán en detalle en la <<_estado_de_la_cuestion>>). Lo que diferencia a estos estándares de otras normas es
+duales (se verán en detalle en la <<modelos-duales>>). Lo que diferencia a estos estándares de otras normas es
  que
 permiten separar la _información_ existente en los sistemas del _conocimiento_ médico, de manera que este último
 pueda evolucionar sin alterar al primero, a la información almacenada en la base de datos. El modelo dual consta de
@@ -224,8 +223,8 @@ fácilmente reutilizados y de forma que resulte sencillo incorporar nuevas funci
 el proceso de gestión de las guías clínicas resulte fácilmente asimilable por los expertos en el dominio clínico y
 disfruten de una experiencia agradable durante el uso de la herramienta.
 
-Fundamentos tecnológicos
-------------------------
+Fundamentos
+-----------
 
 Aplicaciones web
 ~~~~~~~~~~~~~~~~
@@ -495,7 +494,175 @@ dependencias. No se pueden inyectar _providers_ en bloques de ejecución.
 dependencias. No se pueden inyectar componentes _service_ o _value_ en la configuración.
 
 Para una discusión más en profundidad sobre _DI_, puede consultarse http://en.wikipedia.org/wiki/Dependency_injection[Inyección de Dependencia]
-en Wikipedia, http://martinfowler.com/articles/injection.html[Inversión de Control] de Martin Fowler.
+en Wikipedia, o un excelente http://martinfowler.com/articles/injection.html[artículo] al respecto, de Martin Fowler.
+
+[[testing]]
+Pruebas
+~~~~~~~
+El software se prueba contra una _especificación_, la cual hace referencia a una descripción precisa y detallada de la
+funcionalidad y las restricciones que se quieren obtener de un sistema, pensadas para la comunicación a los
+desarrolladores de lo que se requiere y sirve como base de un contrato. JavaScript es un lenguaje de tipos de
+datos dinámicos que cuenta con gran poder de expresión, pero realmente no se cuenta con muy pocas ayudas por parte
+del compilador. Por esta razón, cualquier código escrito en JavaScript debe venir con un conjunto de tests que
+prueben las principales funcionalidades. AngularJS ha sido diseñado enfocado a la las pruebas. Existen multitud de
+herramientas para probar el código AngularJS.
+
+Las pruebas unitarias, como su propio nombre indica, consisten en probar unidades funcionales individuales de código.
+Tratan de responder preguntas del tipo ``¿se ha pensado en la lógica correctamente?'' o ``¿La función de ordenación
+ordena la lista en el orden correcto?''
+
+Para responder a este tipo de preguntas es muy importante que podamos aislar unidad funcional de código que se va a
+probar. Esto se debe a que cuando se quiere probar la función de ordenación no queremos ser forzados a crear partes
+relacionadas como los elementos DOM o hacer llamadas XHR para buscar los datos para ordenarlos.
+
+AngularJS trata de hacer que sea fácil para el desarrollador hacer lo correcto. Para las solicitudes de XHR, se
+proporciona inyección de dependencias para que estas solicitudes puedan ser simuladas. Para el DOM, este se abstrae,
+para que se pueda probar el modelo sin tener que manipular el DOM directamente. Los tests podrían entonces asegurar
+que los datos se han ordenado sin tener que crear u observar el estado del DOM o esperar a que cualquier solicitud de
+XHR devuelva datos. La función de ordenación individual se puede probar de forma aislada.
+
+AngularJS viene con inyección de dependencia incorporada, lo que hace que los componentes sean mucho más fáciles de
+probar, ya que se pueden pasar las dependencias de un componente y hacer un _mock_ de los mimos como desee.
+
+Los componentes que tienen sus dependencias inyectadas permiten que sean fácilmente simuladas en un test, sin tener
+que ensuciar con cualquier variable global que podría afectar inadvertidamente otros tests. Para probar aplicaciones
+Angular existen ciertas herramientas que deberían ser usadas que hacen que la fase de pruebas sea mucho mas sencilla
+de configurar y ejecutar
+
+Para probar las aplicaciones de AngularJS hay ciertas herramientas que debe usar que harán que las pruebas sean mucho
+más fáciles de configurar y ejecutar. A continuación se verán el _framework_ de pruebas Jasmine, los _test runners_
+_Karma_ y _Protractor_.
+
+Jasmine Framework
+^^^^^^^^^^^^^^^^^
+Jasmine es un _framework_ de desarrollo https://en.wikipedia.org/wiki/Behavior-driven_development[dirigido por
+comportamiento] para probar código JavaScript. No depende de ningún otro framework de JavaScript, ni de un DOM. Y
+tiene una sintaxis clara y obvia para que los tests se puedan escribir fácilmente.
+
+Antes de empezar a escribir el código, teniendo en cuenta la especificación formal de requisitos, se debe saber cómo
+se tiene que comportar el sistema. Se pueden escribir estas especificaciones en el código, en Angular, por
+convención, a cada fichero de test se le llama igual que el fichero que contiene la funcionalidad que se quiere
+probar, pero añadiéndole `.spec.js` al final. Cuando se ejecutan las pruebas se obtiene un éxito (si todo funciona
+según la especificación) o un error (si no lo hace). Si se obtiene un éxito para todos los test, se puede garantizar
+que el sistema funciona conforma a la especificación, de lo contrario se sabe qué funcionalidades están fallando y
+que el sistema no está funcionando como se espera.
+
+Las pruebas son útiles por varios motivos. Primero, pueden evaluar la corrección de un programa después
+de un cambio. Un ejemplo podría ser aquel en el que todas las pruebas pasan y, posteriormente, se decide que se
+quiere realizar una mejora para que un método sea más rápido. Se pueden hacer los cambios y observar que dicho método
+efectivamente es más rápido, pero si en la siguiente ejecución de las pruebas se observa que algunos tests están
+fallando, se descubre rápidamente que el cambio ha roto parte del código. Las pruebas automatizadas permiten ver
+esos errores antes de que sucedan en el ``mundo real''. Estas pruebas también sirven como buenos ejemplos para otros
+desarrolladores. Si un desarrollador está tratando de averiguar cómo usar alguna parte indocumentada del código, una
+prueba bien escrita puede ayudarle a ver cómo funciona dicha parte.
+
+Hay muchas herramientas que ayudan a la automatización de este tipos de pruebas, _Jasmine_ es una de ellas. A
+continuación se muestra un ejemplo de un test básico que explica los fundamentos básicos de este _framework_, se
+muestra en el siguiente fragmento la definición del test usando _Jasmine_.
+
+[source, python]
+----
+describe("Hello world", function() {                <1>
+  it("says hello", function() {                     <2>
+    expect(holaMundo()).toEqual("¡Hola mundo!");    <3>
+  });
+});
+----
+
+<1> Bloque _describe_: define una _suite_. Básicamente, se trata de un componente de la aplicación.
+<2> Bloque _it_.: define un _spec_. Cada una de las funcionalidades que se quieren probar.
+<3> Bloque _expect_: funcionalidad a testear.
+
+En el ejemplo anterior se está comprobando si `holaMundo()` realmente devuelve el valor esperado ``¡Hola mundo!''.
+Esta comprobación se denomina _matcher_. Jasmine incluye gran cantidad de _matchers_ predefinidosfootnote:[Para la
+versión 2.4.1 de _Jasmine_, que es la utilizada en este proyecto, se incluyen de forma nativa los siguientes
+_matchers_: https://jasmine.github.io/2.4/introduction], aunque el usuario puede definir los suyos propios.
+
+Pruebas unitarias con _Karma_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_Karma_ es una herramienta que permite ejecutar código fuente, _i.e._ JavaScript, en navegadores reales. El hecho
+de que se ejecute contra navegadores reales en lugar de navegadores simulados, con un DOM virtual, lo hace muy potente.
+Las implementaciones de DOM varían entre los diferentes navegadores, por lo tanto la idea de _Karma_ es utilizar los
+navegadores reales para la realización de las pruebas unitarias de una forma más real y para asegurarse de que la
+aplicación funcione correctamente en todos los navegadores que necesite soportar. _Karma_ se ejecuta en la línea de
+comandos y mostrará los resultados de sus pruebas en la línea de comandos una vez que se hayan ejecutado en el
+navegador.
+
+Entre otras funcionalidades, Karma permite:
+
+* Hacer pruebas de código en navegadores reales.
+* Hacer pruebas de código en diferentes tipos de navegadores (escritorio, móviles, tablets, etc.).
+* Ejecutar las pruebas en local durante el desarrollo.
+* Ejecutar las pruebas en un servidor de integración continua, como se ha hecho en este proyecto, usando
+https://travis-ci.org/[Travis CI] y https://github.com/[GitHub].
+* Ejecutar las pruebas cada vez que se guarde un fichero.
+* Hacer la vida más cómoda a los desarrolladores que realizan las pruebas.
+* Utilizar https://github.com/gotwarlost/istanbul[Estambul] para la generación automática de informes.
+* Utilizar http://requirejs.org/[RequireJS] para la gestión de los ficheros de la aplicación.
+
+_Karma_ no es un _framework_ de pruebas, ni una librería de aserciones. _Karma_ es un _test runner_, simplemente lanza
+un servidor HTTP, y genera el fichero HTML a ser utilizado por el _framework_ de pruebas que se quiera utilizar,
+entre ellos https://github.com/karma-runner/karma-jasmine[Jasmine],
+https://github.com/karma-runner/karma-mocha[Mocha], https://github.com/karma-runner/karma-qunit[QUnit], y
+https://www.npmjs.org/browse/keyword/karma-adapter[muchos otros]. _Karma_ soporta la mayoría de navegadores
+disponiblesfootnote:[Navegadores soportados por _Karma_: https://karma-runner.github.io/latest/config/browsers.html].
+Las instrucciones completas de instalaciónfootnote:[Documentación sobre la instalación de _Karma_:
+https://karma-runner.github.io/latest/intro/installation.html] y configuraciónfootnote:[Documentación sobre la
+configuración de _Karma_: https://karma-runner.github.io/latest/intro/configuration.html]
+estás disponibles en la página web oficial de _Karma_.
+
+Pruebas end-to-end con _Protractor_
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+A medida que las aplicaciones crecen en tamaño y complejidad, se vuelve poco realista confiar en las pruebas hechas a
+mano para verificar la corrección de nuevas funcionalidades y detectar errores. Las pruebas unitarias son la primera
+línea de defensa para la detección de errores, pero a veces los problemas surgen con la integración entre los
+componentes y no pueden ser detectados en las pruebas unitarias. Es necesario, entonces, la realización de las
+pruebas de extremo a extremo para detectar este tipo de problemas.
+
+Protractor es un _testrunner_ de pruebas _end-to-end_ que simula las interacciones del usuario que ayudan a verificar
+la salud de una aplicación AngularJS.
+
+Protractor es una aplicación Node.js y ejecuta pruebas end-to-end escritas en JavaScript y se ejecutan en Node.
+Utiliza https://code.google.com/p/selenium/wiki/GettingStarted[WebDriver] para controlar los navegadores y simular
+las acciones de los usuarios.
+
+Protractor utiliza Jasmine como su sintaxis para las pruebas. Al igual que en las pruebas unitarias, un archivo de
+pruebas consta de uno o más bloques `it` que describen las funcionalidades que se quieren probar de la aplicación
+aplicación. Los bloques `it` se componen de _commands_ y _expectations_. Los _commands_ le indican a Protractor
+realice alguna acción con la aplicación, como navegar a una página o hacer clic en un botón. Las _expectations_ le
+indican que verifique algo sobre el estado de la aplicación, _e.g._ el valor de un campo o la URL actual.
+
+Si alguna expectativa dentro de un bloque `it` falla, el _testrunner_ lo marca como fallido y continúa con el
+siguiente bloque.
+
+Los archivos de test también pueden tener bloques `beforeEach` y `afterEach`, que se ejecutarán antes o después de
+cada bloque `it`, independientemente de si el bloque pasa o falla.
+
+protractor]]
+.Bloques en un fichero de pruebas _Protractor_.
+image::sequence-editBinding.png[scaledwidth="60%"]
+
+Además de los elementos anteriores, las pruebas también pueden contener funciones auxiliares para evitar la duplicidad de código en los bloques. A continuación se muestra un ejemplo simple de pruebas con _Protractor_:
+
+[source, python]
+----
+describe('La lista de tareas', function() {
+  it('debería filtrar resultados', function() {
+    // Buscar el elemento ng-model="usuario" e introducir "froome" en él
+    element(by.model('usuario')).sendKeys('froome');
+    // Buscar el primer (y único) botón de la página y hacer clic sobre él
+    element(by.css(':button')).click();
+    // Verificar que hay 10 tareas
+    expect(element.all(by.repeater('tarea in tareas')).count()).toEqual(10);
+    // Introducir 'bicicletas' en el elemento con ng-model="filterText"
+    element(by.model('filterText')).sendKeys('bicicletas');
+    // Verificar que ahora sólo existe un elemento en la lista de tareas
+    expect(element.all(by.repeater('tarea in tareas')).count()).toEqual(1);
+  });
+});
+----
+Este ejemplo describe los requisitos de una lista de tareas, en forma de especificaciones, que debería ser capaz de
+filtrar una lista de elementos.
 
 Node.js
 ~~~~~~~
@@ -627,9 +794,8 @@ nuestros módulos, ya que se convierten en piezas aisladas de código, teniendo 
 responsabilidad. Esto también permite que los tests carguen el módulo (o módulos) que interesen, haciendo que sean
 más rápidos y que se focalicen en la funcionalidad a ser probada.
 
-
-Templates
-^^^^^^^^^
+Plantillas
+^^^^^^^^^^
 Las _aplicaciones web multi-página_ generan su HTML ensamblándolo y uniéndolo con datos del servidor y, una vez hecho
 esto, se envían las páginas al navegador. Muchas _aplicaciones web de una sola página_ también hacen esto de alguna
 manera. Angular es diferente en este sentido ya que la plantilla (el HTML) y los datos se envían al navegador para
@@ -916,8 +1082,8 @@ aislada sin la vista y la dependencia DOM / navegador relacionada.
 .Two Way Data Binding.
 image::Two_Way_Data_Binding.png[scaledwidth="50%"]
 
-Estado de la cuestión
----------------------
+Estándares de interoperabilidad
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Hoy en día los ciudadanos, por motivos profesionales, de ocio o de cualquier otra índole, estamos viajando
 constantemente. Cuando viajamos lo hacemos, entre otras cosas, con la información necesaria para realizar
 transacciones económicas entre diferentes sistemas bancarios, para la realización de una reserva de un viaje
@@ -931,8 +1097,6 @@ necesita un estándar que permita la interoperabilidad en todo el proceso. Tener
 manera normalizada no sólo es favorable para la asistencia continuada del paciente, sino que dicha información puede
 ser utilizada para la investigación y la estadística, proporcionando un impacto positivo en la Medicina en general.
 
-Estándares de interoperabilidad
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 La interoperabilidadfootnote:[Definición de interoperabilidad según la _Wikipedia_: https://es.wikipedia.org/wiki/Interoperabilidad]
 es la habilidad de dos o más sistemas o componentes para intercambiar información y utilizar la información
 intercambiada. Hoy en día, en el ámbito sanitario prácticamente todos los sistemas reclaman para sí la
@@ -1016,6 +1180,7 @@ que se verán en la <<_modelo_de_arquetipos>>. Los arquetipos son elementos jer�
 de nodos utilizando el patrón de diseño _Composite_, de manera que un nodo pueda contener de manera recursiva otros
 nodos.
 
+[[modelos-duales]]
 __open__EHR: Modelo de Referencia y Modelo de arquetipos
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 En el modelo dual, el MR representa las características intrínsecas de cualquier de los componentes de registro de
@@ -1493,7 +1658,7 @@ en el diseño original de las especificaciones __open__EHR.
 
 [[gom]]
 .Paquete ``guía clínica''.
-image::gdl-relational-model.png[scaledwidth="80%"]
+image::gdl-relational-model.png[]
 
 .GUIDE.
 Clase principal de una guía discreta que define enlaces a arquetipos, reglas y meta-información.
@@ -1567,7 +1732,7 @@ El paquete de expresiones se muestra en la <<paquete-expresiones>>.
 
 [[paquete-expresiones]]
 .Paquete de Expresiones.
-image::expression-relational-model.png[scaledwidth="80%"]
+image::expression-relational-model.png[]
 
 .EXPRESSION_ITEM.
 Modelo abstracto de un ítem de expresión en una regla.
@@ -2285,7 +2450,7 @@ dejar su significado absolutamente claro, se ha estereotipado el paquete como _\
 
 [[architecture]]
 .Arquitectura de alto nivel.
-image::architecture.png[scaledwidth="80%"]
+image::architecture.png[]
 
 Las flechas son asociaciones de dependencia y se corresponden con las dependencias definidas en el código bien en el
 método `module` del objeto `angular` o bien en los propios objetos definidos en cada uno de los módulos. A
@@ -2357,7 +2522,7 @@ diagrama de secuencias muestra la forma en la que diferentes componentes se comu
 
 [[sequence-guidelines]]
 .Diagrama de actividades: listado guías clínicas.
-image::sequence-guidelines.png[scaledwidth="80%"]
+image::sequence-guidelines.png[]
 
 Se diferencian 3 colores en los componentes implicados en las diferentes líneas de vida del diagrama de la
 <<sequence-guidelines>>: amarillo para los desarrollados para la aplicación, azul para los que son nativos de AngularJS
@@ -2570,12 +2735,12 @@ omitirán capturas de código de servicios y controladores. Después de esta ite
 de visualizar las guías contenidas en el servidor.
 
 .Iteración 1: funcionalidad visualización guías clínicas.
-image::iteration-1.png[scaledwidth="80%"]
+image::iteration-1.png[]
 
 Pruebas
 ^^^^^^^
 Una explicación más general sobre las tecnologías que se han utilizado para los tests de este proyecto se pueden ver
-en la <<_testing>>.
+en la <<testing>>.
 
 Es esta sección nos centraremos en los tests de cada una de las iteraciones, comenzando por la
 configuración necesaria para la ejecución de los tests. Como se ha mencionado, para los tests unitarios se ha
@@ -2741,7 +2906,7 @@ va a producir siempre cuando se empiece a editar una guía):
 
 [[sequence-guideline]]
 .Diagrama de actividades: seleccionando una guía.
-image::sequence-guideline.png[scaledwidth="80%"]
+image::sequence-guideline.png[]
 
 Se verá con más detalle en la siguiente sección. Básicamente el usuario cuando selecciona una guía se obtiene un
 objeto JSON enlazado con el `$scope` de AngularJS que representa dicha guía. Una vez seleccionada una guía
@@ -2751,7 +2916,7 @@ ocurre por detrás cuando se instancia un arquetipo y un elemento de arquetipo.
 
 [[sequence-elementInst]]
 .Diagrama de actividades: instanciar un elemento de arquetipo.
-image::sequence-elementInst.png[scaledwidth="80%"]
+image::sequence-elementInst.png[]
 
 Para _Instanciar un predicado_, el procedimiento es similar, la instanciación de arquetipo es idéntica. Se arrastra
 el predicado--de los cuatro disponibles--que se quiera instanciar y se suelta dentro de la instanciación de arquetipo
@@ -2842,7 +3007,7 @@ lateral derecho donde se muestran los diferentes elementos que podemos arrastrar
 
 [[implementation-iter-2]]
 .Editar las definiciones de una guía.
-image::implementation-iter-2.png[scaledwidth="90%"]
+image::implementation-iter-2.png[]
 
 Para realizar nuevas instanciaciones se utiliza el panel derecho que cuenta con la directiva uiTree del módulo
 `ui-tree` y se le pasa un objeto de configuración definido en el controlador (`treeDefinitions`) donde se le indica
@@ -3226,7 +3391,7 @@ edición de un enlace terminológico.
 
 [[sequence-editBinding]]
 .Diagrama de secuencia para "Editar enlace".
-image::sequence-editBinding.png[scaledwidth="80%"]
+image::sequence-editBinding.png[]
 
 La edición de enlaces se hace en la pestaña _Binding_. En el momento que se activa dicha pestaña, automáticamente se
 ejecuta el controlador que gestiona su vista (`tab-binding.html`) que, viendo el fichero `routes.js`, se trata de
@@ -3389,174 +3554,6 @@ es el correcto comparándolo con la guía clínica de pruebas.
 Para la escenario relacionada con la gestión de los términos locales, se ha definido otra batería de tests en el
 fichero `tab.terminology.controller.spec` en el que se han probado las funcionalidades que se han considerado más
 importantes para la realización de su cometido.
-
-
-Testing
--------
-El software se prueba contra una _especificación_, la cual hace referencia a una descripción precisa y detallada de la
-funcionalidad y las restricciones que se quieren obtener de un sistema, pensadas para la comunicación a los
-desarrolladores de lo que se requiere y sirve como base de un contrato. JavaScript es un lenguaje de tipos de
-datos dinámicos que cuenta con gran poder de expresión, pero realmente no se cuenta con muy pocas ayudas por parte
-del compilador. Por esta razón, cualquier código escrito en JavaScript debe venir con un conjunto de tests que
-prueben las principales funcionalidades. AngularJS ha sido diseñado enfocado a la las pruebas. Existen multitud de
-herramientas para probar el código AngularJS.
-
-Las pruebas unitarias, como su propio nombre indica, consisten en probar unidades funcionales individuales de código.
-Tratan de responder preguntas del tipo ``¿se ha pensado en la lógica correctamente?'' o ``¿La función de ordenación
-ordena la lista en el orden correcto?''
-
-Para responder a este tipo de preguntas es muy importante que podamos aislar unidad funcional de código que se va a
-probar. Esto se debe a que cuando se quiere probar la función de ordenación no queremos ser forzados a crear partes
-relacionadas como los elementos DOM o hacer llamadas XHR para buscar los datos para ordenarlos.
-
-AngularJS trata de hacer que sea fácil para el desarrollador hacer lo correcto. Para las solicitudes de XHR, se
-proporciona inyección de dependencias para que estas solicitudes puedan ser simuladas. Para el DOM, este se abstrae,
-para que se pueda probar el modelo sin tener que manipular el DOM directamente. Los tests podrían entonces asegurar
-que los datos se han ordenado sin tener que crear u observar el estado del DOM o esperar a que cualquier solicitud de
-XHR devuelva datos. La función de ordenación individual se puede probar de forma aislada.
-
-AngularJS viene con inyección de dependencia incorporada, lo que hace que los componentes sean mucho más fáciles de
-probar, ya que se pueden pasar las dependencias de un componente y hacer un _mock_ de los mimos como desee.
-
-Los componentes que tienen sus dependencias inyectadas permiten que sean fácilmente simuladas en un test, sin tener
-que ensuciar con cualquier variable global que podría afectar inadvertidamente otros tests. Para probar aplicaciones
-Angular existen ciertas herramientas que deberían ser usadas que hacen que la fase de pruebas sea mucho mas sencilla
-de configurar y ejecutar
-
-Para probar las aplicaciones de AngularJS hay ciertas herramientas que debe usar que harán que las pruebas sean mucho
-más fáciles de configurar y ejecutar. A continuación se verán el _framework_ de pruebas Jasmine, los _test runners_
-_Karma_ y _Protractor_.
-
-Jasmine Framework
-~~~~~~~~~~~~~~~~~~~
-Jasmine es un _framework_ de desarrollo https://en.wikipedia.org/wiki/Behavior-driven_development[dirigido por
-comportamiento] para probar código JavaScript. No depende de ningún otro framework de JavaScript, ni de un DOM. Y
-tiene una sintaxis clara y obvia para que los tests se puedan escribir fácilmente.
-
-Antes de empezar a escribir el código, teniendo en cuenta la especificación formal de requisitos, se debe saber cómo
-se tiene que comportar el sistema. Se pueden escribir estas especificaciones en el código, en Angular, por
-convención, a cada fichero de test se le llama igual que el fichero que contiene la funcionalidad que se quiere
-probar, pero añadiéndole `.spec.js` al final. Cuando se ejecutan las pruebas se obtiene un éxito (si todo funciona
-según la especificación) o un error (si no lo hace). Si se obtiene un éxito para todos los test, se puede garantizar
-que el sistema funciona conforma a la especificación, de lo contrario se sabe qué funcionalidades están fallando y
-que el sistema no está funcionando como se espera.
-
-Las pruebas son útiles por varios motivos. Primero, pueden evaluar la corrección de un programa después
-de un cambio. Un ejemplo podría ser aquel en el que todas las pruebas pasan y, posteriormente, se decide que se
-quiere realizar una mejora para que un método sea más rápido. Se pueden hacer los cambios y observar que dicho método
-efectivamente es más rápido, pero si en la siguiente ejecución de las pruebas se observa que algunos tests están
-fallando, se descubre rápidamente que el cambio ha roto parte del código. Las pruebas automatizadas permiten ver
-esos errores antes de que sucedan en el ``mundo real''. Estas pruebas también sirven como buenos ejemplos para otros
-desarrolladores. Si un desarrollador está tratando de averiguar cómo usar alguna parte indocumentada del código, una
-prueba bien escrita puede ayudarle a ver cómo funciona dicha parte.
-
-Hay muchas herramientas que ayudan a la automatización de este tipos de pruebas, _Jasmine_ es una de ellas. A
-continuación se muestra un ejemplo de un test básico que explica los fundamentos básicos de este _framework_, se
-muestra en el siguiente fragmento la definición del test usando _Jasmine_.
-
-[source, python]
-----
-describe("Hello world", function() {                <1>
-  it("says hello", function() {                     <2>
-    expect(holaMundo()).toEqual("¡Hola mundo!");    <3>
-  });
-});
-----
-
-<1> Bloque _describe_: define una _suite_. Básicamente, se trata de un componente de la aplicación.
-<2> Bloque _it_.: define un _spec_. Cada una de las funcionalidades que se quieren probar.
-<3> Bloque _expect_: funcionalidad a testear.
-
-En el ejemplo anterior se está comprobando si `holaMundo()` realmente devuelve el valor esperado ``¡Hola mundo!''.
-Esta comprobación se denomina _matcher_. Jasmine incluye gran cantidad de _matchers_ predefinidosfootnote:[Para la
-versión 2.4.1 de _Jasmine_, que es la utilizada en este proyecto, se incluyen de forma nativa los siguientes
-_matchers_: https://jasmine.github.io/2.4/introduction], aunque el usuario puede definir los suyos propios.
-
-Pruebas unitarias con _Karma_
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-_Karma_ es una herramienta que permite ejecutar código fuente, _i.e._ JavaScript, en navegadores reales. El hecho
-de que se ejecute contra navegadores reales en lugar de navegadores simulados, con un DOM virtual, lo hace muy potente.
-Las implementaciones de DOM varían entre los diferentes navegadores, por lo tanto la idea de _Karma_ es utilizar los
-navegadores reales para la realización de las pruebas unitarias de una forma más real y para asegurarse de que la
-aplicación funcione correctamente en todos los navegadores que necesite soportar. _Karma_ se ejecuta en la línea de
-comandos y mostrará los resultados de sus pruebas en la línea de comandos una vez que se hayan ejecutado en el
-navegador.
-
-Entre otras funcionalidades, Karma permite:
-
-* Hacer pruebas de código en navegadores reales.
-* Hacer pruebas de código en diferentes tipos de navegadores (escritorio, móviles, tablets, etc.).
-* Ejecutar las pruebas en local durante el desarrollo.
-* Ejecutar las pruebas en un servidor de integración continua, como se ha hecho en este proyecto, usando
-https://travis-ci.org/[Travis CI] y https://github.com/[GitHub].
-* Ejecutar las pruebas cada vez que se guarde un fichero.
-* Hacer la vida más cómoda a los desarrolladores que realizan las pruebas.
-* Utilizar https://github.com/gotwarlost/istanbul[Estambul] para la generación automática de informes.
-* Utilizar http://requirejs.org/[RequireJS] para la gestión de los ficheros de la aplicación.
-
-_Karma_ no es un _framework_ de pruebas, ni una librería de aserciones. _Karma_ es un _test runner_, simplemente lanza
-un servidor HTTP, y genera el fichero HTML a ser utilizado por el _framework_ de pruebas que se quiera utilizar,
-entre ellos https://github.com/karma-runner/karma-jasmine[Jasmine],
-https://github.com/karma-runner/karma-mocha[Mocha], https://github.com/karma-runner/karma-qunit[QUnit], y
-https://www.npmjs.org/browse/keyword/karma-adapter[muchos otros]. _Karma_ soporta la mayoría de navegadores
-disponiblesfootnote:[Navegadores soportados por _Karma_: https://karma-runner.github.io/latest/config/browsers.html].
-Las instrucciones completas de instalaciónfootnote:[Documentación sobre la instalación de _Karma_:
-https://karma-runner.github.io/latest/intro/installation.html] y configuraciónfootnote:[Documentación sobre la
-configuración de _Karma_: https://karma-runner.github.io/latest/intro/configuration.html]
-estás disponibles en la página web oficial de _Karma_.
-
-Pruebas end-to-end con _Protractor_
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-A medida que las aplicaciones crecen en tamaño y complejidad, se vuelve poco realista confiar en las pruebas hechas a
-mano para verificar la corrección de nuevas funcionalidades y detectar errores. Las pruebas unitarias son la primera
-línea de defensa para la detección de errores, pero a veces los problemas surgen con la integración entre los
-componentes y no pueden ser detectados en las pruebas unitarias. Es necesario, entonces, la realización de las
-pruebas de extremo a extremo para detectar este tipo de problemas.
-
-Protractor es un _testrunner_ de pruebas _end-to-end_ que simula las interacciones del usuario que ayudan a verificar
-la salud de una aplicación AngularJS.
-
-Protractor es una aplicación Node.js y ejecuta pruebas end-to-end escritas en JavaScript y se ejecutan en Node.
-Utiliza https://code.google.com/p/selenium/wiki/GettingStarted[WebDriver] para controlar los navegadores y simular
-las acciones de los usuarios.
-
-Protractor utiliza Jasmine como su sintaxis para las pruebas. Al igual que en las pruebas unitarias, un archivo de
-pruebas consta de uno o más bloques `it` que describen las funcionalidades que se quieren probar de la aplicación
-aplicación. Los bloques `it` se componen de _commands_ y _expectations_. Los _commands_ le indican a Protractor
-realice alguna acción con la aplicación, como navegar a una página o hacer clic en un botón. Las _expectations_ le
-indican que verifique algo sobre el estado de la aplicación, _e.g._ el valor de un campo o la URL actual.
-
-Si alguna expectativa dentro de un bloque `it` falla, el _testrunner_ lo marca como fallido y continúa con el
-siguiente bloque.
-
-Los archivos de test también pueden tener bloques `beforeEach` y `afterEach`, que se ejecutarán antes o después de
-cada bloque `it`, independientemente de si el bloque pasa o falla.
-
-protractor]]
-.Bloques en un fichero de pruebas _Protractor_.
-image::sequence-editBinding.png[scaledwidth="60%"]
-
-Además de los elementos anteriores, las pruebas también pueden contener funciones auxiliares para evitar la duplicidad de código en los bloques. A continuación se muestra un ejemplo simple de pruebas con _Protractor_:
-
-[source, python]
-----
-describe('La lista de tareas', function() {
-  it('debería filtrar resultados', function() {
-    // Buscar el elemento ng-model="usuario" e introducir "froome" en él
-    element(by.model('usuario')).sendKeys('froome');
-    // Buscar el primer (y único) botón de la página y hacer clic sobre él
-    element(by.css(':button')).click();
-    // Verificar que hay 10 tareas
-    expect(element.all(by.repeater('tarea in tareas')).count()).toEqual(10);
-    // Introducir 'bicicletas' en el elemento con ng-model="filterText"
-    element(by.model('filterText')).sendKeys('bicicletas');
-    // Verificar que ahora sólo existe un elemento en la lista de tareas
-    expect(element.all(by.repeater('tarea in tareas')).count()).toEqual(1);
-  });
-});
-----
-Este ejemplo describe los requisitos de una lista de tareas, en forma de especificaciones, que debería ser capaz de
-filtrar una lista de elementos.
 
 Material utilizado
 ------------------
@@ -3759,7 +3756,7 @@ implementaciones personalizadas de una versión propietaria en el propio hardwar
 
 [[travis]]
 .Consola de _Travis CI_.
-image::travis.png[scaledwidth="60%"]
+image::travis.png[scaledwidth="85%"]
 
 Travis CI se configura añadiendo un archivo denominado `.travis.yml`, que es un archivo de texto en formato
 https://en.wikipedia.org/wiki/YAML[YAML], al directorio raíz del proyecto. Este archivo especifica el lenguaje
@@ -4053,7 +4050,7 @@ Se trata de la vista donde se muestra un listado con todas las guías clínicas,
 editada, para ello el usuario se debe mover por las pestañas que se muestran a continuación.
 
 .Guidelines: visualización de las guías disponibles.
-image::iteration-1.png[scaledwidth="80%"]
+image::iteration-1.png[]
 
 Description
 ^^^^^^^^^^^
@@ -4072,7 +4069,7 @@ y la fecha en la que se realizó dicha guía con este status de publicación. Po
 pueden indicar referencias relevantes para la guía.
 
 .Description: meta-información de la guía clínica.
-image::description.png[scaledwidth="100%"]
+image::description.png[]
 
 Definitions
 ^^^^^^^^^^^
@@ -4087,7 +4084,7 @@ haga clic en el segundo botón (rojo).
 
 [[definitions]]
 .Definitions: definiciones de la guía.
-image::definitions.png[scaledwidth="80%"]
+image::definitions.png[]
 
 Actualmente, GDL soporta cuatro tipos de definiciones:
 
@@ -4100,14 +4097,14 @@ sobre cada una de ellas.
 
 [[definitions-2]]
 .Definitions: elección de arquetipo.
-image::definitions-2.png[scaledwidth="80%"]
+image::definitions-2.png[]
 
 * _Element instantiation_: crea una referencia a un elemento dentro del arquetipo o plantilla. Tiene que ser colocado
 dentro de una instanciación de arquetipo.
 
 [[definitions-3]]
 .Definitions: elección de una instancia de elemento.
-image::definitions-3.png[scaledwidth="80%"]
+image::definitions-3.png[]
 
 * _Predicate (DataValue)_: define una restricción para la instancia del arquetipo. Tiene que ser colocado dentro de
 una instancia de arquetipo.
@@ -4115,7 +4112,7 @@ una instancia de arquetipo.
 
 [[definitions-4]]
 .Definitions: Funciones predicado.
-image::definitions-4.png[scaledwidth="80%"]
+image::definitions-4.png[]
 
 Rule List
 ^^^^^^^^^
@@ -4128,7 +4125,7 @@ regla haga clic sobre el botón rojo situado a la derecha del lápiz.
 
 [[rule-list]]
 .Lista de reglas.
-image::rule-list.png[scaledwidth="80%"]
+image::rule-list.png[]
 
 Edición de reglas
 ^^^^^^^^^^^^^^^^^
@@ -4144,7 +4141,7 @@ instancia de arquetipo (3).
 
 [[rule-editing-1]]
 .Edición de reglas: Seleccionar instancia de elemento.
-image::rule-editing-1.png[scaledwidth="80%"]
+image::rule-editing-1.png[]
 
 La edición de condiciones y acciones es muy similar a la de las definiciones. La versión actual de GDL soporta seis
 tipos de condiciones:
@@ -4167,7 +4164,7 @@ Actualmente se soportan cuatro tipos de acciones:
 
 [[rule-editing-2]]
 .Editor de reglas.
-image::rule-editing-2.png[scaledwidth="80%"]
+image::rule-editing-2.png[]
 
 Es importante tener en cuenta que sólo podremos realizar acciones en las instancias de elementos que correspondan a
 una instancia de arquetipo en el dominio CDS. Esto significa que el motor de reglas no puede realizar cambios
@@ -4184,7 +4181,7 @@ manualmente o usar el asistente (lado derecho).
 
 [[expression-editor]]
 .Editor de expresiones.
-image::expression-editor.png[scaledwidth="80%"]
+image::expression-editor.png[]
 
 Preconditions
 ^^^^^^^^^^^^^
@@ -4193,7 +4190,7 @@ Esta sección define los hechos que se deben de cumplir antes de que la guía pu
 
 [[preconditions]]
 .Precondiciones.
-image::preconditions.png[scaledwidth="80%"]
+image::preconditions.png[]
 
 En el ejemplo anterior, la guía sólo podrá ser ejecutada en el caso de que el paciente haya tenido fibrilación
 auricular con anterioridad.
@@ -4206,7 +4203,7 @@ manualmente las vinculaciones a terminologías externas.
 
 [[terminology-1]]
 .Edición de la terminología.
-image::terminology-1.png[scaledwidth="80%"]
+image::terminology-1.png[]
 
 Si se quiere añadir un nuevo término local, se hará haciendo clic en el botón _Add local term_, lo que creará un nuevo
 término con el código gt local con un identificador cuyo valor sea el siguiente correlativo al último que haya en la
@@ -4214,7 +4211,7 @@ guía. A partir de aquí podremos editar su texto y su descripción.
 
 [[terminology-2]]
 .Edición de un término.
-image::terminology-2.png[scaledwidth="80%"]
+image::terminology-2.png[]
 
 Binding
 ^^^^^^^
@@ -4234,14 +4231,14 @@ insertar manualmente o mediante el visor de terminología haciendo doble clic en
 
 [[binding-1]]
 .Enlaces con terminologías.
-image::binding-1.png[scaledwidth="80%"]
+image::binding-1.png[]
 
 Al hacer clic en el botón 'Añadir terminología' podremos añadir una nueva pestaña con la terminología seleccionada
 (las terminologías son recursos disponibles en el _backend_).
 
 [[binding-2]]
 .Añadir una nueva terminología.
-image::binding-2.png[scaledwidth="80%"]
+image::binding-2.png[]
 
 Para añadir un nuevo enlace, se debe hacer clic en el botón _New binding_. Esto abrirá un diálogo que nos pedirá el
 nombre del nuevo código local, le creará un nuevo código _gt_ (el siguiente correlativo al último definido en la
@@ -4249,7 +4246,7 @@ guía) y nos permitirá vincularle el código que queramos de la terminología e
 
 [[binding-3]]
 .Asignar un código terminológico a una variable local a la guía.
-image::binding-3.png[scaledwidth="80%"]
+image::binding-3.png[]
 
 Código GDL
 ^^^^^^^^^^
@@ -4258,7 +4255,7 @@ convertirán en lenguaje formal. Este es el mismo formato utilizado al guardar l
 
 [[gdl-code]]
 .Código GDL.
-image::gdl-code.png[scaledwidth="80%"]
+image::gdl-code.png[]
 
 Vista HTML
 ^^^^^^^^^^
@@ -4267,7 +4264,7 @@ información de la guía de una amanera más amigable de cara ala usuario.
 
 [[html-view]]
 .Vista HTML.
-image::html-view.png[scaledwidth="80%"]
+image::html-view.png[]
 
 
 Ejemplo de creación de una guía clínica
@@ -4284,20 +4281,20 @@ _OK_.
 
 [[calculateBMI-1]]
 .Creando una guía nueva.
-image::calculateBMI-1.png[scaledwidth="80%"]
+image::calculateBMI-1.png[]
 
 Después de completar este paso, debemos añadir cierta meta-información requerida para la guía. Esto se hace a través
 de la pestaña _Description_.
 
 [[calculateBMI-2]]
 .Añadiendo meta-información relevante para la guía.
-image::calculateBMI-2.png[scaledwidth="80%"]
+image::calculateBMI-2.png[]
 
 En el siguiente paso, definimos los elementos de los arquetipos necesarios para la guía.
 
 [[calculateBMI-3]]
 .Definiendo elementos de arquetipos.
-image::calculateBMI-3.png[scaledwidth="80%"]
+image::calculateBMI-3.png[]
 
 Estos elementos, para el caso del _Cálculo del Índice de Masa Corporal_, se definen de la siguiente manera:
 
@@ -4328,7 +4325,7 @@ _Add rule_. Insertamos el nombre de la regla y hacemos clic en _OK_.
 
 [[calculateBMI-4]]
 .Creando una nueva regla.
-image::calculateBMI-4.png[scaledwidth="80%"]
+image::calculateBMI-4.png[]
 
 Llegados a este punto, en la <<_rule_list, lista de reglas>> nos habrá aparecido la regla que acabamos de crear,
 hacemos clic sobre ella para entrar en dicha regla, se abre el <<_edicion_de_reglas, Editor de reglas>>. Debemos
@@ -4338,7 +4335,7 @@ condiciones vacías a la regla.
 
 [[calculateBMI-5]]
 .Añadiendo condiciones para especificar las unidades.
-image::calculateBMI-5.png[scaledwidth="80%"]
+image::calculateBMI-5.png[]
 
 Ahora podemos especificar las unidades para ambos elementos que vamos a obtener del EHR (peso y altura). Al hacer
 clic en el enlace Elemento, podemos seleccionar el atributo que vamos a utilizar, tendremos los arquetipos que hemos
@@ -4346,11 +4343,11 @@ definido en la pestaña _Definitions_, de los cuales podremos obtener sus elemen
 
 [[calculateBMI-6]]
 .Seleccionando un elemento del arquetipo.
-image::calculateBMI-6.png[scaledwidth="80%"]
+image::calculateBMI-6.png[]
 
 [[calculateBMI-7]]
 .Estableciendo las condiciones.
-image::calculateBMI-7.png[scaledwidth="80%"]
+image::calculateBMI-7.png[]
 
 A continuación tendremos que añadir una acción que actualizará el atributo _magnitude_ del elemento _Body Mass Index_
 del arquetipo _openEHR-EHR-OBSERVATION.body_mass_index.v1_. Arrastramos la acción _Set (Attribute)_, ubicado en el
@@ -4359,7 +4356,7 @@ seleccionamos el atributo _magnitude_. Por ahora, la regla debe ser similar a la
 
 [[calculateBMI-8]]
 .Seleccionada la magnitud del IMC.
-image::calculateBMI-8.png[scaledwidth="80%"]
+image::calculateBMI-8.png[]
 
 La última parte requiere definir la expresión para calcular el IMC. Hacemos clic en el enlace de Expresión para abrir
 el editor de expresiones e introducimos la ecuación latexmath:[ (peso / (altura/100))^2]. Hacemos clic en el botón _OK_
@@ -4368,7 +4365,7 @@ agregar la expresión a la acción.
 
 [[calculateBMI-9]]
 .Expresión para el cálculo del IMC.
-image::calculateBMI-9.png[scaledwidth="80%"]
+image::calculateBMI-9.png[]
 
 Llegados a este punto se debería repetir la tarea para establecer las unidades y la precisión del elemento calculado.
 
@@ -4381,7 +4378,7 @@ definiciones de términos para el resto de variables locales de la guía, hacien
 
 [[calculateBMI-10]]
 .Descripciones terminológicas para la guía.
-image::calculateBMI-10.png[scaledwidth="80%"]
+image::calculateBMI-10.png[]
 
 A continuación, se pueden establecer enlaces con terminologías externas desde la pestaña _Binding_. Para ello, se
 añade la terminología con la queremos enlazar, en este caso hemos añadido _SNOMED-CT_ y _ICD10_. Para _SNOMED-CT_
@@ -4392,7 +4389,7 @@ con el botón _Remove terminology_.
 
 [[calculateBMI-11]]
 .Añadiendo enlaces a terminologías externas.
-image::calculateBMI-11.png[scaledwidth="80%"]
+image::calculateBMI-11.png[]
 
 Las pestañas _GDL_ y _HTML_, tal como se comentó en <<_codigo_gdl>> y <<_vista_html>> respectivamente muestran una
 visualización del código GDL y una vista con formato más amigable en HTML de la guía que estamos definiendo.

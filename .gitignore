@@ -1,6 +1,8 @@
+.gitignore~
 *.iml
 *.log
 *.bak
+*.gdl~
 node_modules/
 bower_components/
 

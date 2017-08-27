@@ -1,0 +1,55 @@
+ontology = (GUIDE_ONTOLOGY) <
+  term_definitions = <
+    ["en"] = (TERM_DEFINITION) <
+      terms = <
+	["gt0036"] = (TERM) <
+	  text = <"CHA2DS2-VASc Score">
+	  description = <"CHA2DS2-VASc Score for estimation stroke risks in atrial fibrillation">
+	>
+	["gt0104"] = (TERM) <
+	  text = <"Vascular disease">
+	  description = <"Prior myocardial infarction, Peripheral artery disease, Aortic plaque">
+	>
+	["gt0121"] = (TERM) <
+	  text = <"Atrial fibrillation">
+	  description = <"*">
+	>
+	...
+      >
+    >
+    ["es"] = (TERM_DEFINITION) <
+      terms = <
+	["gt0036"] = (TERM) <
+	  text = <"Puntuación CHA2DS2-VASc">
+	  description = <"Puntuación CHA2DS2-VASc para la estimación de los riesgos de accidente cerebrovascular en pacientes con fibrilación auricular">
+	>
+	["gt0104"] = (TERM) <
+	  text = <"Trastorno vascular">
+	  description = <"Infarto de miocardio previo, Enfermedad arterial periférica, placa aórtica">
+	>
+	["gt0121"] = (TERM) <
+	  text = <"Fibrilación auricular">
+	  description = <"*">
+	>
+	...
+      >
+    >
+    ["sv"] = (TERM_DEFINITION) <
+      terms = <
+	["gt0036"] = (TERM) <
+	  text = <"CHA2DS2-VASc Poäng">
+	  description = <"CHA2DS2-VASc resultat för uppskattning av strokerisker vid förmaksflimmer">
+	>>
+	["gt0104"] = (TERM) <
+	  text = <"Vaskulär sjukdom">
+	  description = <"Förort hjärtinfarkt, Periferartärsjukdom, Aortisk plack">
+	>
+	["gt0121"] = (TERM) <
+	  text = <"Förmaksflimmer">
+	  description = <"*">
+	>
+	...
+      >
+    >
+    ...
+  >

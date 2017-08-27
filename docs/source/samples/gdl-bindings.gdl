@@ -1,0 +1,34 @@
+term_definitions = <
+  ["SNOMED-CT"] = (TERM_BINDING) <
+    bindings = <
+      ["gt0036"] = (BINDING) <					<1>
+        codes = <[SNOMED-CT::438367009],...>
+        uri = <"">
+      >
+      ["gt0104"] = (BINDING) <					<2>
+        codes = <[SNOMED-CT::27550009],...>
+        uri = <"">
+      >
+      ["gt0121"] = (BINDING) <	
+        codes = <[SNOMED-CT::49436004],...>			<3>
+        uri = <"">
+      >
+    >
+  >
+  ["ICD10"] = (TERM_BINDING) <
+    bindings = <
+      ["gt0036"] = (BINDING) <					<4>
+        codes = <>
+        uri = <"">
+      >
+      ["gt0104"] = (BINDING) <					<5>
+        codes = <[ICD10::I249], [ICD10::I29], [ICD10::I250], [ICD10::I272],...>
+        uri = <"">
+      >
+      ["gt0121"] = (BINDING) <					<6>
+        codes = <[ICD10::I48],...>
+        uri = <"">
+      >
+    >
+  >
+>

@@ -1,0 +1,39 @@
+GUIDE) <
+  gdl_version = <"0.1">							<1>
+  id = <"CHA2DS2VASc_Score_calculation.v1.1">				<2>
+  concept = <"gt0036">							<3>
+  language = (LANGUAGE) <						<4>
+    original_language = <[ISO_639-1::en]>
+    translations = <
+      [“de”] = <
+        language = <[iso_639-1::de]>
+        author = <
+          [“name”] = <"Frederik Tyler">
+          [“email”] = <"freddy@something.somewhere.co.uk">
+        >
+        accreditation = <"British Medical Translator id 00400595”>
+      >
+    >
+  >
+  description = (RESOURCE_DESCRIPTION) <				<5>
+    details = <
+      ["en"] = (RESOURCE_DESCRIPTION_ITEM) < 
+        copyright = <"">
+        keywords = <"Atrial Fibrillation", "Stroke", "CHA2DS2-VASc">
+        misuse = <"">
+        purpose = <"Calculates stroke risk for patients with atrial fibrillation, possibly better than the CHADS2 score.">
+        use = <"Calculates stroke risk for patients with atrial fibrillation, possibly better than the CHADS2 score.">
+     >
+  >
+  lifecycle_state = <"Author draft">					<6>
+  original_author = <							<7>
+    ["date"] = <"2017/02/03">
+    ["email"] = <"rong.chen@cambio.se">
+    ["name"] = <"Rong Chen">
+    ["organisation"] = <"Cambio Healthcare Systems">
+  >
+  other_contributors = <"Dr Carlos Valladares",...>			<8>
+
+  ...
+
+>

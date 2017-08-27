@@ -1,0 +1,16 @@
+rules = <
+  ["gt0018"] = (RULE) <
+    when = <"$gt0108!=null",...>							
+    then = <"$gt0014=1|local::at0031|Present|",...>
+    priority = \<1>
+  >
+  ["gt0019"] = (RULE) <
+    when = <"$gt0109!=null",...>
+    then = <"$gt0010=1|local::at0034|Present|",...>
+    priority = \<2>
+  >
+  ["gt0026"] = (RULE) <
+    then = <"$gt0016.magnitude=( ( ( ( ( (gt0009.value+$gt0010.value)+$gt0011.value)+$gt0015.value)+$gt0012.value)+$gt0013.value)+$gt0014.value)",...>
+    priority = \<3>
+  >
+>
