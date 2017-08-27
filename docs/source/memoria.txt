@@ -119,36 +119,45 @@ modelos de información clínicos compartidos entre sistemas sanitarios.
 
 *Las Tecnologías de la Información y las Comunicaciones (TIC) en los sistemas sanitarios* +
 Actualmente la utilización de las TIC en los sistemas sanitarios se ha convertido en indispensable. Hoy en día todavía
-estamos en plena transición de una historia clínica convencional a una historia clínica electrónica que introduce una
-serie de mejoras relacionadas con la inviolabilidad de los datos, la privacidad del paciente, accesibilidad,
+estamos en plena transición de una historia clínica convencional a una <<X1, Historia Clínica Electrónica>> (HCE) que introduce
+una serie de mejoras relacionadas con la inviolabilidad de los datos, la privacidad del paciente, accesibilidad,
 disponibilidad, mejoras contra la pérdida de información, durabilidad, legibilidad, identificación del profesional
 clínico, redundancia, errores en la consignación de datos y algo muy importante: la estandarización de datos. Ya en
 1990 empieza a surgir la necesidad de representación genérica para la comunicación de registros de historia clínica
-entre sistemas. La Historia Clínica Electrónica (HCE) puede almacenar, cuanto menos, la misma información que podría
-almacenarse en un archivo médico convencional. En los 15 últimos años se han implementado una gran cantidad de
-proyectos orientados a la eSalud.
+entre sistemas. La HCE puede almacenar, cuanto menos, la misma información que podría
+almacenarse en un archivo médico convencional. En los últimos 20 años los sistemas de HCE han sufrido una gran
+evolución <<LEHM06>> y se han implementado una gran cantidad de proyectos orientados a la eSalud.
 
 *Interoperabilidad* +
 Los sistemas de salud actuales requieren para sí una característica fundamental para garantizar la continuidad
 asistencialfootnote:[Continuidad asistencial: concepto que define el proceso, centrado en el paciente, en el cual
 intervienen diferentes profesionales sanitarios en diferentes periodos de tiempo y lugares con el objetivo
-compartido de mejorar la calidad de la asistencia prestada.]. Para conseguir esto es inevitable que la información
-clínica sea representada de una manera interoperable, de modo que diferentes organizaciones puedan hacer uso de dicha
-información independientemente de quién, cómo y cuándo se haya generado. La continuidad asistencial del paciente es
-indispensable en multitud de situaciones como cambios de residencia de los pacientes, cambios organizativos, cambios
-de niveles asistenciales, etc. La manera de conseguir la deseada interoperabilidad es aplicando la normalización.
-Las normas o estándares proporcionan la base sobre la que poder crear acuerdos con un objetivo en común, en este caso la
-continuidad asistencial. http://www.openehr.org/[__open__EHR] es una comunidad virtual que trabaja en la
-estandarización de la <<X1, Historia Clínica Electrónica>> (HCE), garantizando una interoperabilidad universal entre
-todo tipo de sistemas de información clínicos. Como parte de su trabajo, la Fundación __open__EHR cuenta con una
-plataforma internacional de intercambio de conocimiento clínico denominado http://www.openehr.org/ckm/[Clinical
-Knowledge Manager] (CKM), la cual ha reunido a una comunidad Web 2.0 activa de personas motivadas en  promover un
-enfoque abierto e internacional de la informática clínica. En estos momentos el CKM consiste en un repositorio de
-arquetipos clínicos, un repositorio de plantillasfootnote:[Plantilla: arquetipo de alto nivel que agrega a otros
-arquetipos y forma una estructura jerárquica para modelar un concepto más complejo, _e.g._ un informe de alta médica.]
-y cuenta con un proceso de revisión formalizada para conseguir un  consenso y publicación de dichos arquetipos.
-Recientemente, la comunidad __open__EHR ha decidido que el lenguaje GDL pase a formar parte del núcleo de
-especificaciones de la plataforma, por lo que las guías clínicas en GDL serán incluidas dentro de la plataforma CKM.
+compartido de mejorar la calidad de la asistencia prestada.], se requiere que la informaciónclínica sea representada
+de una manera interoperable, de modo que diferentes organizaciones puedan hacer uso de dicha información
+independientemente de quién, cómo y cuándo se haya generado. La continuidad asistencial del paciente es indispensable
+en multitud de situaciones como cambios de residencia de los pacientes, cambios organizativos, cambios de niveles
+asistenciales, etc. La manera de conseguir la deseada interoperabilidad es aplicando la normalización. Las normas o
+estándares proporcionan la base sobre la que poder crear acuerdos con un objetivo en común, en este caso la
+continuidad asistencial. http://www.openehr.org/[__open__EHR]footnote:[EHR son las siglas de Electronic Health
+Record: Historia Clínica Electrónica en español.] es una comunidad virtual que trabaja en la estandarización de la
+HCE, garantizando una interoperabilidad universal entre todo tipo de sistemas de información clínicos. Actualmente se
+está utilizando en multitud de organizaciones:
+
+* Soluciones ya implantadasfootnote:[http://www.openehr.org/who_is_using_openehr/healthcare_providers_and_authorities]
+* Proyectos de investigación financiadosfootnote:[http://www.openehr.org/who_is_using_openehr/funded_research_projects]
+* Organizaciones sin ánimo de lucro y de código abiertofootnote:[http://www.openehr.org/who_is_using_openehr/nonprofit_and_open_source_organisation]
+* Gobiernosfootnote:[http://www.openehr.org/who_is_using_openehr/governments]
+* Investigación académicafootnote:[http://www.openehr.org/who_is_using_openehr/academic_research]
+
+Como parte de su trabajo, la Fundación __open__EHR cuenta con una plataforma internacional de intercambio de
+conocimiento clínico denominado http://www.openehr.org/ckm/[Clinical Knowledge Manager] (CKM), la cual ha reunido a
+una comunidad Web 2.0 activa de personas motivadas en  promover un enfoque abierto e internacional de la informática
+sanitaria. En estos momentos el CKM consiste en un repositorio de arquetipos clínicos, un repositorio de
+plantillasfootnote:[Plantilla: arquetipo de alto nivel que agrega a otros arquetipos y forma una estructura
+jerárquica para modelar un concepto más complejo, _e.g._ un informe de alta médica.] y cuenta con un proceso de
+revisión formalizada para conseguir un  consenso y publicación de dichos arquetipos. Recientemente, la comunidad
+__open__EHR ha decidido que el lenguaje GDL pase a formar parte del núcleo de especificaciones de la plataforma, por
+lo que las guías clínicas en GDL serán incluidas dentro de la plataforma CKM.
 
 Conseguir la deseada interoperabilidad en entornos sanitarios es una tarea compleja ya que las organizaciones
 actúan, en cierto modo, como silos de información aislados, es decir, son autónomos a la hora de tomar sus propias
@@ -158,7 +167,7 @@ numerosas ocasiones, utilizan sistemas distintos. Surge, de esta manera, la nece
 nos permita representar el conocimiento médico y, de este modo, poder separarlo de la información clínica existente
 en los sistemas.
 
-.Elementos para el cambio.
+*Elementos para el cambio* +
 Lo que diferencia a la medicina de otros entornos es la complejidad del conocimiento clínico y la velocidad con la
 que este varía. Esto ocasionó durante mucho tiempo que no existiese un mecanismo para representar el conocimiento ni
 para gestionarlo correctamente, por lo tanto, lo lógico fue buscar una estrategia que permitiese gestionar la
@@ -168,8 +177,7 @@ modelos de bases de datos utilizados lo que impide que dicha información pueda 
 
 Para solventar esta situación han surgido recientemente los estándares de interoperabilidad basados en modelos
 duales (se verán en detalle en la <<modelos-duales>>). Lo que diferencia a estos estándares de otras normas es
- que
-permiten separar la _información_ existente en los sistemas del _conocimiento_ médico, de manera que este último
+que permiten separar la _información_ existente en los sistemas del _conocimiento_ médico, de manera que este último
 pueda evolucionar sin alterar al primero, a la información almacenada en la base de datos. El modelo dual consta de
 dos modelos de datos, uno para representar el conocimiento (Modelo de Arquetipos) y otro para representar la
 información (Modelo de Referencia).
@@ -177,7 +185,7 @@ información (Modelo de Referencia).
 Por lo tanto, se necesita una representación correcta del conocimiento médico que permita comunicar la información
 con su contexto de forma adecuada, sin que se permitan ambigüedades ni alteraciones de su significado durante el proceso
 de transferencia. Un primer paso para esto es el uso de terminologías clínicas que aportan un vocabulario
-común para codificar términos, pero el uso de terminologías no es suficiente. Se necesita también un mecanismo que
+común para codificar términos, pero el uso de terminologías no es suficiente, se necesita también un mecanismo que
 permita representar las estructuras de datos, esto se consigue mediante los arquetipos clínicos y finalmente es
 necesario un sistema que permita representar el contexto, para ello utilizaremos el Modelo de Referencia.
 
@@ -208,11 +216,12 @@ Como objetivos específicos, se plantean los siguientes:
 
 * La aplicación desarrollada permitirá crear, editar y actualizar ficheros GDL a través de un navegador web.
 
-* El software a construir se integrará con un sistema existente (KM server), dicho sistema se está utilizando
-actualmente en producción en 12 hospitales en Suecia.
+* El software a construir se integrará con un sistema existente
+(<<X4, Knowledge Manager>>)footnote:[http://www.cambiohealthcare.co.uk/wp-content/uploads/2016/02/C_CDS-Knowledge-manager.pdf],
+dicho sistema se está utilizando actualmente en producción en 12 hospitales en Suecia.
 
-* Se desarrollará siguiendo un _framework_ Modelo-vista-controlador (MVC), de manera que haya una separación clara de
-la lógica de negocio, del modelo y de la vista de la aplicación, fomentando de esta manera la mantenibilidad y la
+* Se desarrollará siguiendo un _framework_ Modelo-vista-controlador (MVC), de manera que haya una separación clara entre
+la lógica de negocio, el modelo y la vista de la aplicación, fomentando de esta manera la mantenibilidad y la
 escalabilidad de la misma.
 
 * La aplicación desarrollada deberá estar preparada para ser integrada con el CKM de __open__EHR
@@ -230,11 +239,11 @@ Aplicaciones web
 ~~~~~~~~~~~~~~~~
 En la actualidad millones de negocios usan Internet como canal de comunicaciones de bajo coste. Internet les permite
 intercambiar información con su mercado objetivo y realizar transacciones de una manera rápida y sencilla. Sin
-embargo un acuerdo efectivo solamente es posible cunado el negocio es capaz de capturar y almacenar todos los datos
+embargo, un acuerdo efectivo solamente es posible cuando el negocio es capaz de capturar y almacenar todos los datos
 necesarios y tener un medio que permita el procesamiento de dicha información y la presentación de los resultados al
 usuario.
 
-En la ingeniería de software se denomina aplicación web <<WEBA17>> a aquellas herramientas que los usuarios
+En ingeniería del software se denomina aplicación web <<WEBA17>> a aquellas herramientas que los usuarios
 pueden utilizar accediendo a un servidor web a través de Internet o de una intranet mediante un
 navegador. Las aplicaciones web son populares debido a lo práctico del navegador web como
 cliente ligero, a la independencia del sistema operativo, así como a la facilidad para actualizar y
@@ -246,16 +255,16 @@ Es importante mencionar que una página web puede contener elementos que permite
 comunicación activa entre el usuario y la información. Esto permite que el usuario acceda a los
 datos de modo interactivo, gracias a que la página responderá a cada una de sus acciones, como
 por ejemplo rellenar y enviar formularios, participar en juegos diversos y acceder a gestores de
-base de datos de todo tipo. Las aplicaciones web usan una combinación de scripts de servidor (PHP, ASP o cualquier
-backend desarrollado en otros lenguajes de programación) para gestionar el almacenamiento y la recuperación de la
-información, y scripts del lado de cliente (Javascript, CSS y HTML) para presentar la información al usuario. Esto
-permite a los usuarios la interacción con el backend por medio de formularios, sistemas de gestión de contenidos,
-carritos de la compra, etc. Además de permitir la creación de documentos, la compartición de información colaboración
-en proyectos y trabajar en documentos compartidos independientemente de la localización y de los dispositivos de los
-usuarios.
+bases de datos de todo tipo. Las aplicaciones web usan una combinación de _scripts_ de servidor (PHP, ASP o cualquier
+_backend_ desarrollado en otros lenguajes de programación) para gestionar el almacenamiento y la recuperación de la
+información, y _scripts_ del lado de cliente (Javascript, CSS y HTML) para presentar la información al usuario. Esto
+permite a los usuarios la interacción con el _backend_ por medio de formularios, sistemas de gestión de contenidos,
+carritos de la compra, etc. Además de permitir la creación de documentos, la compartición de información, la
+colaboración en proyectos y el trabajo en documentos compartidos independientemente de la localización y de los
+dispositivos de los usuarios.
 
 Las aplicaciones web encajan dentro de las aplicaciones cliente-servidor, que siguen un modelo de aplicación
-distribuida. Las aplicaciones web se caracterizan por estar alojada en un servidor web en una URL determinada.
+distribuida. Se caracterizan por estar alojada en un servidor web en una URL determinada.
 
 [[cliente_servidor]]
 .Arquitectura cliente-servidor.
@@ -285,14 +294,14 @@ Sin embargo también tiene algunas desventajas que, como se verá, tiene soluci�
 navegadores web totalmente compatibles para funcionar, aunque normalmente esto se resuelve actualizando la versión de
 los navegadores. En numerosas ocasiones requieren que exista una conexión a Internet, que si es interrumpida, puede
 que la aplicación no funcione. Esto, dependiendo de la aplicación, se podría abordar implementando soluciones que
-permitan el funcionamiento offline.
+permitan el funcionamiento _off-line_.
 
 Patrones de diseño
 ~~~~~~~~~~~~~~~~~~
 
 Patrón _Singleton_
 ^^^^^^^^^^^^^^^^^^
-El patrón singleton es un patrón de diseño que restringe la instanciación de una clase a un único objeto y
+El patrón _singleton_ es un patrón de diseño que restringe la instanciación de una clase a un único objeto y
 proporciona un punto de acceso global a dicha instancia. Esto es útil cuando se necesita exactamente un objeto para
 coordinar acciones en todo el sistema. El concepto a veces se generaliza a sistemas que operan más eficientemente
 cuando sólo existe un objeto, o que restringen la instanciación a un cierto número de objetos. A continuación se
@@ -341,9 +350,9 @@ function getService(serviceName) {
 }
 ----
 
-Los _servicios_ y las _factorías_ en Angular son singletons, ya que no se instancian más de una vez. Se puede
+Los _servicios_ y las _factorías_ en Angular son _singletons_, ya que no se instancian más de una vez. Se puede
 considerar la memoria caché como un gestor de _singleton_. Existe una ligera variación con el diagrama mostrado
-anteriormente ya que, en lugar de mantener la referencia privada estática al singleton dentro de su constructor, se
+anteriormente ya que, en lugar de mantener la referencia privada estática al _singleton_ dentro de su constructor, se
 mantiene dentro del gestor de _singleton_ (indicado en el _snippet_ anterior como `cache`).
 
 Patrón Fachada
@@ -355,12 +364,14 @@ comunicaciones y dependencias entre subsistemas y desacopla un sistema de sus cl
 independiente, portable y reutilizable.
 
 Es una buena práctica en AngularJS, y en el desarrollo de software en general, situar la lógica de negocio fuera de
-los controladores, en servicios separados. Esto permite que el código sea mas sencillo de probar y más proporciona
-una maneras más sencilla para el desarrollador de averiguar qué está sucediendo.
+los controladores, en servicios separados. Esto permite que el código sea mas sencillo de probar y proporciona
+una manera más sencilla para el desarrollador de averiguar qué está sucediendo.
 
 El patrón fachada se ha utilizado con frecuencia en este proyecto con el fin de mantener el código lo más limpio
 posible y buscando una reutilización de las funcionalidades más utilizadas, como por ejemplo el acceso a cada una de
-las partes de una guía clínica o para la interacción con el servidor. En este último caso se ha utilizado el patrón
+las partes de una guía clínica o para la interacción con el servidor. En el primer caso, cuando se ejecuta un método
+del servicio _GuidelineFactory_, en numerosas ocasiones interactúa con otros servicios y controladores ejecutando
+lógica de negocio que está oculta para el cliente que invocó dicho método. En el segundo caso se ha utilizado el patrón
 fachada para ocultar los detalles de la implementación de comunicación con el servidor.
 
 [[Facade]]
@@ -416,25 +427,27 @@ $http.post('/someUrl', data)
 ----
 
 La segunda opción proporciona una versión preconfigurada, la cual crea una petición HTTP a la URL dada. Incluso se ha
-creado una mayor abstracción utilizando el servicio `$resource`, el cual se construye sobre el servicio `$http`.
+creado una mayor abstracción utilizando el servicio
+`$resource` footnote:[https://docs.angularjs.org/api/ngResource/service/$resource], el cual se construye sobre el
+servicio `$http`.
 
 Patrón _Proxy_.
 ^^^^^^^^^^^^^^^
-Un proxy, en su sentido más general, es una clase que funciona como una interfaz de otra cosa. El proxy podría hacer
-de _interface_ a cualquier cosa: una conexión de red, un objeto grande en memoria, un archivo o algún otro recurso que
-sea costoso o imposible de duplicar.
+Un _proxy_, en su sentido más abstracto, es una clase que funciona como una interfaz de otra cosa. El _proxy_ podría
+hacer de _interface_ a cualquier cosa: una conexión de red, un objeto grande en memoria, un archivo o algún otro
+recurso que sea costoso o imposible de duplicar.
 
 [[Proxy]]
 .Patrón proxy.
-image::proxy.png[scaledwidth="50%"]
+image::proxy.png[scaledwidth="65%"]
 
-Se pueden distinguir 3 tipos de proxies:
+Se pueden distinguir 3 tipos de _proxies_:
 
 * Proxy virtual
 * Proxy remoto
 * Proxy protector
 
-Se mencionará la implementación que AngularJS tiene del proxy virtual. A continuación se muestra una llamada al
+Se mencionará la implementación que AngularJS tiene del _proxy_ virtual. A continuación se muestra una llamada al
 método `get` de la instancia `$resource`, llamada `User`:
 
 [source, python]
@@ -444,10 +457,10 @@ var User = $resource('/users/:id'),
 console.log(user); //{}
 ----
 
-En el _snippet_ anterior, `console.log` generaría un objeto vacío. Dado que la petición AJAX que ocurre por detrás,
+En el _snippet_ anterior, `console.log` generaría un objeto vacío. Dado que la petición AJAX que tiene lugar por detrás,
 cuando se invoca `User.get`, es asíncrona, no se tiene el usuario real cuando se llama a `console.log`. Justo después
-de que `User.get` haga la petición GET, devuelve un objeto vacío y mantenga una referencia a él. Se puede pensar en
-este objeto como proxy virtual (un simple _placeholder_), que se rellenaría con los datos reales una vez que el
+de que `User.get` haga la petición GET, devuelve un objeto vacío y mantiene una referencia a él. Se puede pensar en
+este objeto como _proxy_ virtual (un simple _placeholder_), que se rellenaría con los datos reales una vez que el
 cliente reciba la respuesta del servidor. Esto en Angular funciona de la siguiente manera, consideremos el siguiente
 _snippet_:
 
@@ -466,7 +479,7 @@ function MainCtrl($scope, $resource) {
 
 Cuando se ejecuta el código anterior, la propiedad `user` del objeto `$scope` tendrá un valor de un objeto vacío
 (`{}`), lo que significa que `user.name` será indefinido y no se renderizará nada en la vista. Internamente AngularJS
-mantendrá la referencia a este objeto vacío. Una vez que el servidor devuelva la respuesta para la petición GET,
+mantendrá la referencia a este objeto vacío. Una vez que el servidor devuelva la respuesta de la petición GET,
 AngularJS rellenará el objeto con los datos recibidos del servidor. Durante el siguiente bucle de `$digest`, AngularJS
 detectará el cambio en `$scope.user`, lo que llevará a la actualización de la vista.
 
@@ -483,26 +496,27 @@ ejecución y configuración para un módulo (ver los métodos `run` y `config` d
 inyectable o mediante un constructor. A estos componentes se les puede inyectar un _service_ o un _value_ como
 dependencias.
 
-* Los controladores se definen mediante una función constructor, a la que se le puede inyectar cualquiera de los
+* Los controladores se definen mediante una función constructora, a la que se le puede inyectar cualquiera de los
 componentes _service_ y _value_ como dependencias, pero también pueden proporcionarse con dependencias especiales
 (`$scope`).
 
-* El método `run` acepta una función, a la que se le puede inyectar componentes _service_, _value_ y _constant_ como
-dependencias. No se pueden inyectar _providers_ en bloques de ejecución.
+* El método `run` acepta una función como parámetro, a la que se le puede inyectar componentes _service_, _value_ y
+_constant_ como dependencias. No se pueden inyectar _providers_ en los bloques de ejecución.
 
-* El método `config` acepta una función, a la que se le puede inyectar componentes _provider_ y _constant_ como
-dependencias. No se pueden inyectar componentes _service_ o _value_ en la configuración.
+* El método `config` acepta una función como parámetro, a la que se le puede inyectar componentes _provider_ y
+_constant_ como dependencias. No se pueden inyectar componentes _service_ o _value_ en la configuración.
 
-Para una discusión más en profundidad sobre _DI_, puede consultarse http://en.wikipedia.org/wiki/Dependency_injection[Inyección de Dependencia]
+Para una comprensión más en profundidad sobre _DI_, puede consultarse
+http://en.wikipedia.org/wiki/Dependency_injection[Inyección de Dependencia]
 en Wikipedia, o un excelente http://martinfowler.com/articles/injection.html[artículo] al respecto, de Martin Fowler.
 
 [[testing]]
 Pruebas
 ~~~~~~~
 El software se prueba contra una _especificación_, la cual hace referencia a una descripción precisa y detallada de la
-funcionalidad y las restricciones que se quieren obtener de un sistema, pensadas para la comunicación a los
+funcionalidad y a las restricciones que se quieren obtener de un sistema, pensadas para la comunicación a los
 desarrolladores de lo que se requiere y sirve como base de un contrato. JavaScript es un lenguaje de tipos de
-datos dinámicos que cuenta con gran poder de expresión, pero realmente no se cuenta con muy pocas ayudas por parte
+datos dinámicos que cuenta con gran poder de expresión, pero realmente se cuenta con muy pocas ayudas por parte
 del compilador. Por esta razón, cualquier código escrito en JavaScript debe venir con un conjunto de tests que
 prueben las principales funcionalidades. AngularJS ha sido diseñado enfocado a la las pruebas. Existen multitud de
 herramientas para probar el código AngularJS.
@@ -3766,7 +3780,7 @@ instalarse antes de que el software pueda ser construido y probado), además de 
 A continuación se muestra el contenido del fichero `.travis.yml` utilizado en este proyecto.
 
 ----
-include::../../../.travis.yml[]
+include::../../.travis.yml[]
 ----
 
 La elección de _travis CI_ frente a otras opciones como _Jenkins_, _Shippable_, _drone.io_ porque es un servicio
@@ -4419,6 +4433,7 @@ Bibliografía
 - [[[TURB11]]] E. Turban, R. Sharda, D. Delen, ``Decision Support and Business Intelligence Systems, 9^th^ ed.''. Pearson, 2011.
 - [[[VERC09]]] C. Vercellis, ``Business Intelligence: Data Mining and Optimization for Decision Making''. Wiley Ltd, 2009. ISBN: 978-0-470-51138-1.
 - [[[KEEN87]]] P. Keen, M. Scott Morton, ``Decision support systems: an organizational perspective''. Addison-Wesley. ISBN: 0-201-03667-3.
+- [[[LEHM06]]] H. Lehman, P. Abbott, N. Roderer, A. Rothschild, _et al._ ``Aspects of electronic Health Record Systems''. Springer, 2006.
 - [[[BONI04]]] J. Bonis, J. Sancho, F. Sanz, ``Computer-assisted Clinical Decision Support Systems''. Clinical Medicine, Elsevier Ed. 2004;122 Supl 1:39-44. (2004), pp. 75-81.DOI: https://doi.org/10.1157/13057545[10.1157/13057545], 2004.
 - [[[BLEI69]]] HL. Bleich HL, ``Computer evaluation of acid-base disorders''. J Clin Invest, 48 (1969), pp. 1689-96. DOI: http://dx.doi.org/10.1172/JCI106134
 - [[[IHTS17]]] ``International Health Terminology Standards Development Organisation''. URL: http://www.snomed.org/. Último acceso: junio 2017.
@@ -4462,9 +4477,12 @@ Glosario
   relacionados con modelos clínicos y otros recursos relacionados.
 
 [[X4]] Knowledge Manager::
-  Servicio gestor de Conocimiento Clínico de la aplicación. Backend que proporciona una API bien definida que
-  proporciona funcionalidades básicas como la persistencia, compilación/ejecución de reglas y servidor de
-  terminologías.
+  COSMIC CDS Knowledge Manager es una base de datos de conocimiento y un motor de reglas para la gestión de
+  normalización médica y modelos de información clínica. El conocimiento clínico se desglosa en reglas interpretables
+  por las máquinas basadas en estándares internacionales y terminologías de referencia, de modo que las reglas de
+  soporte a la decisión pueden ser compartidas de forma sencilla entre diferentes aplicaciones de soporte a la
+  decisión, independientemente del proveedor. Las reglas pueden ser usadas para construir un poderoso y flexible
+  sistema de apoyo a la toma de decisiones clínicas.
 
 [index]
 Índice
