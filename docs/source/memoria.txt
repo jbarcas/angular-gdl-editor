@@ -218,7 +218,7 @@ Como objetivos específicos, se plantean los siguientes:
 
 * El software a construir se integrará con un sistema existente
 (<<X4, Knowledge Manager>>)footnote:[http://www.cambiohealthcare.co.uk/wp-content/uploads/2016/02/C_CDS-Knowledge-manager.pdf],
-dicho sistema se está utilizando actualmente en producción en 12 hospitales en Suecia.
+dicho sistema se está utilizando actualmente en producción en varios hospitales en Suecia.
 
 * Se desarrollará siguiendo un _framework_ Modelo-vista-controlador (MVC), de manera que haya una separación clara entre
 la lógica de negocio, el modelo y la vista de la aplicación, fomentando de esta manera la mantenibilidad y la
@@ -364,7 +364,7 @@ comunicaciones y dependencias entre subsistemas y desacopla un sistema de sus cl
 independiente, portable y reutilizable.
 
 Es una buena práctica en AngularJS, y en el desarrollo de software en general, situar la lógica de negocio fuera de
-los controladores, en servicios separados. Esto permite que el código sea mas sencillo de probar y proporciona
+los controladores, en servicios separados. Esto permite que el código sea más sencillo de probar y proporciona
 una manera más sencilla para el desarrollador de averiguar qué está sucediendo.
 
 El patrón fachada se ha utilizado con frecuencia en este proyecto con el fin de mantener el código lo más limpio
@@ -522,29 +522,29 @@ prueben las principales funcionalidades. AngularJS ha sido diseñado enfocado a 
 herramientas para probar el código AngularJS.
 
 Las pruebas unitarias, como su propio nombre indica, consisten en probar unidades funcionales individuales de código.
-Tratan de responder preguntas del tipo ``¿se ha pensado en la lógica correctamente?'' o ``¿La función de ordenación
+Tratan de responder preguntas del tipo ``¿se ha pensado en la lógica correctamente?'' o ``¿la función de ordenación
 ordena la lista en el orden correcto?''
 
 Para responder a este tipo de preguntas es muy importante que podamos aislar unidad funcional de código que se va a
 probar. Esto se debe a que cuando se quiere probar la función de ordenación no queremos ser forzados a crear partes
-relacionadas como los elementos DOM o hacer llamadas XHR para buscar los datos para ordenarlos.
+relacionadas como los elementos del
+<<X2, Document Object Model>>footnote:[Especificación técnica de w3c: https://www.w3.org/DOM/DOMTR] o hacer llamadas XMLHttpRequest (XHR) para
+buscar los datos para ordenarlos.
 
-AngularJS trata de hacer que sea fácil para el desarrollador hacer lo correcto. Para las solicitudes de XHR, se
+AngularJS trata de hacer que sea fácil para el desarrollador hacer lo correcto. Para las peticiones XHR, se
 proporciona inyección de dependencias para que estas solicitudes puedan ser simuladas. Para el DOM, este se abstrae,
 para que se pueda probar el modelo sin tener que manipular el DOM directamente. Los tests podrían entonces asegurar
-que los datos se han ordenado sin tener que crear u observar el estado del DOM o esperar a que cualquier solicitud de
+que los datos se han ordenado sin tener que crear u observar el estado del DOM o esperar a que cualquier solicitud
 XHR devuelva datos. La función de ordenación individual se puede probar de forma aislada.
 
 AngularJS viene con inyección de dependencia incorporada, lo que hace que los componentes sean mucho más fáciles de
 probar, ya que se pueden pasar las dependencias de un componente y hacer un _mock_ de los mimos como desee.
 
 Los componentes que tienen sus dependencias inyectadas permiten que sean fácilmente simuladas en un test, sin tener
-que ensuciar con cualquier variable global que podría afectar inadvertidamente otros tests. Para probar aplicaciones
-Angular existen ciertas herramientas que deberían ser usadas que hacen que la fase de pruebas sea mucho mas sencilla
-de configurar y ejecutar
+que ensuciar con cualquier variable global que podría afectar inadvertidamente otros tests.
 
-Para probar las aplicaciones de AngularJS hay ciertas herramientas que debe usar que harán que las pruebas sean mucho
-más fáciles de configurar y ejecutar. A continuación se verán el _framework_ de pruebas Jasmine, los _test runners_
+Para probar las aplicaciones AngularJS existen ciertas herramientas disponibles que harán que las pruebas sean mucho
+más fáciles de configurar y ejecutar. A continuación se verán el _framework_ de pruebas _Jasmine_, los _test runners_
 _Karma_ y _Protractor_.
 
 Jasmine Framework
@@ -554,15 +554,15 @@ comportamiento] para probar código JavaScript. No depende de ningún otro frame
 tiene una sintaxis clara y obvia para que los tests se puedan escribir fácilmente.
 
 Antes de empezar a escribir el código, teniendo en cuenta la especificación formal de requisitos, se debe saber cómo
-se tiene que comportar el sistema. Se pueden escribir estas especificaciones en el código, en Angular, por
+se tiene que comportar el sistema. Se pueden escribir estas especificaciones en el código. En Angular, por
 convención, a cada fichero de test se le llama igual que el fichero que contiene la funcionalidad que se quiere
 probar, pero añadiéndole `.spec.js` al final. Cuando se ejecutan las pruebas se obtiene un éxito (si todo funciona
 según la especificación) o un error (si no lo hace). Si se obtiene un éxito para todos los test, se puede garantizar
-que el sistema funciona conforma a la especificación, de lo contrario se sabe qué funcionalidades están fallando y
+que el sistema funciona conforme a la especificación, de lo contrario se sabe qué funcionalidades están fallando y
 que el sistema no está funcionando como se espera.
 
 Las pruebas son útiles por varios motivos. Primero, pueden evaluar la corrección de un programa después
-de un cambio. Un ejemplo podría ser aquel en el que todas las pruebas pasan y, posteriormente, se decide que se
+de un cambio. Un claro ejemplo podría ser aquel en el que todas las pruebas pasan y, posteriormente, se decide que se
 quiere realizar una mejora para que un método sea más rápido. Se pueden hacer los cambios y observar que dicho método
 efectivamente es más rápido, pero si en la siguiente ejecución de las pruebas se observa que algunos tests están
 fallando, se descubre rápidamente que el cambio ha roto parte del código. Las pruebas automatizadas permiten ver
@@ -584,7 +584,7 @@ describe("Hello world", function() {                <1>
 ----
 
 <1> Bloque _describe_: define una _suite_. Básicamente, se trata de un componente de la aplicación.
-<2> Bloque _it_.: define un _spec_. Cada una de las funcionalidades que se quieren probar.
+<2> Bloque _it_: define un _spec_. Cada una de las funcionalidades que se quieren probar.
 <3> Bloque _expect_: funcionalidad a testear.
 
 En el ejemplo anterior se está comprobando si `holaMundo()` realmente devuelve el valor esperado ``¡Hola mundo!''.
@@ -610,7 +610,7 @@ Entre otras funcionalidades, Karma permite:
 * Ejecutar las pruebas en un servidor de integración continua, como se ha hecho en este proyecto, usando
 https://travis-ci.org/[Travis CI] y https://github.com/[GitHub].
 * Ejecutar las pruebas cada vez que se guarde un fichero.
-* Hacer la vida más cómoda a los desarrolladores que realizan las pruebas.
+* Hacer la vida más cómoda a los desarrolladores que prueban el software.
 * Utilizar https://github.com/gotwarlost/istanbul[Estambul] para la generación automática de informes.
 * Utilizar http://requirejs.org/[RequireJS] para la gestión de los ficheros de la aplicación.
 
@@ -634,16 +634,14 @@ componentes y no pueden ser detectados en las pruebas unitarias. Es necesario, e
 pruebas de extremo a extremo para detectar este tipo de problemas.
 
 Protractor es un _testrunner_ de pruebas _end-to-end_ que simula las interacciones del usuario que ayudan a verificar
-la salud de una aplicación AngularJS.
-
-Protractor es una aplicación Node.js y ejecuta pruebas end-to-end escritas en JavaScript y se ejecutan en Node.
-Utiliza https://code.google.com/p/selenium/wiki/GettingStarted[WebDriver] para controlar los navegadores y simular
-las acciones de los usuarios.
+la salud de una aplicación AngularJS. Es una aplicación Node.js y ejecuta las pruebas en Node. Utiliza
+https://code.google.com/p/selenium/wiki/GettingStarted[WebDriver] para controlar los navegadores y simular las
+acciones de los usuarios.
 
 Protractor utiliza Jasmine como su sintaxis para las pruebas. Al igual que en las pruebas unitarias, un archivo de
 pruebas consta de uno o más bloques `it` que describen las funcionalidades que se quieren probar de la aplicación
 aplicación. Los bloques `it` se componen de _commands_ y _expectations_. Los _commands_ le indican a Protractor
-realice alguna acción con la aplicación, como navegar a una página o hacer clic en un botón. Las _expectations_ le
+que realice alguna acción con la aplicación, como navegar a una página o hacer clic en un botón. Las _expectations_ le
 indican que verifique algo sobre el estado de la aplicación, _e.g._ el valor de un campo o la URL actual.
 
 Si alguna expectativa dentro de un bloque `it` falla, el _testrunner_ lo marca como fallido y continúa con el
@@ -652,9 +650,9 @@ siguiente bloque.
 Los archivos de test también pueden tener bloques `beforeEach` y `afterEach`, que se ejecutarán antes o después de
 cada bloque `it`, independientemente de si el bloque pasa o falla.
 
-protractor]]
+[[protractor]]
 .Bloques en un fichero de pruebas _Protractor_.
-image::sequence-editBinding.png[scaledwidth="60%"]
+image::protractor.png[scaledwidth="20%"]
 
 Además de los elementos anteriores, las pruebas también pueden contener funciones auxiliares para evitar la duplicidad de código en los bloques. A continuación se muestra un ejemplo simple de pruebas con _Protractor_:
 
@@ -682,17 +680,17 @@ Node.js
 ~~~~~~~
 Node.js es un entorno de ejecución multiplataforma, de código abierto, para JavaScript construido con el motor de
 JavaScript V8 de Chrome <<NODE17>>. Node.js usa un modelo de operaciones E/S sin bloqueo y orientado a eventos, que lo
-hace liviano y eficiente. El ecosistema de paquetes de Node.js, _npm_, es el ecosistema más grande de librerías de
-código abierto en el mundo en estos momentos.
+hace liviano y eficiente. El sistema gestor de paquetes de Node.js, _npm_, es el ecosistema más grande de librerías de
+código abierto en estos momentos a nivel mundial.
 
 Para bien o para mal, JavaScript es el lenguaje de programación más popular para la Web y, debido al alcance de esta,
 JavaScript ha cumplido con el sueño de ``escribir una vez, ejecutar en cualquier parte'' que tenía Java en la década de
 los noventa.
 
 Desde el lanzamiento de Google Chrome a finales de 2008, el rendimiento de JavaScript ha mejorado a un ritmo
-increíblemente rápido debido<<CANT04>> a la fuerte competencia entre los proveedores de navegadores (Mozilla,
+increíblemente rápido<<CANT04>> debido a la fuerte competencia entre los fabricantes de navegadores (Mozilla,
 Microsoft, Apple, Opera y Google). El rendimiento de estas modernas máquinas virtuales JavaScript literalmente está
-cambiando los tipos de aplicaciones que puede crear en la webfootnote:[Ver la página _Chrome Experiments_ para ver
+cambiando los tipos de aplicaciones que se pueden crear en la webfootnote:[Ver la página _Chrome Experiments_ para ver
 algunos ejemplos: http://www.chromeexperiments.com/.]. Un ejemplo convincente y francamente alucinante de esto es
 jslinuxfootnote:[Jslinux, un emulador JavaScript para PC: http://bellard.org/jslinux/.], un emulador de PC que se
 ejecuta en JavaScript donde puede cargar un kernel de Linux, interactuar con la sesión de terminal y compilar un
@@ -718,13 +716,13 @@ palabras, no se tiene que esperar a que todos los navegadores se pongan al día 
 de lenguaje JavaScript en Node.js.
 
 ¿Quién diría que JavaScript terminaría siendo un lenguaje convincente para escribir aplicaciones del lado del servidor?
-Sin embargo, debido a su alcance, rendimiento y otras características mencionadas anteriormente, Node ha ganado mucho
-terreno. Aunque JavaScript es sólo una pieza del rompecabezas, la manera en la que Node utiliza JavaScript es
-aún más convincente.
+No cabe duda que, debido a su alcance, rendimiento y otras características mencionadas anteriormente, Node ha ganado
+mucho terreno. Aunque JavaScript es sólo una pieza del rompecabezas, la manera en la que Node utiliza JavaScript es
+de lo más convincente.
 
 AngularJS y patrón de arquitectura Model-View-Controller
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-AngularJS es un framework basado en JavaScript de código abierto, mantenido por Google y por una
+AngularJS es un framework basado en JavaScript, de código abierto, mantenido por Google y por una
 amplia comunidad de individuos y organizaciones para la solución de muchos de los desafíos encontrados en el
 desarrollo de _aplicaciones web de una sola página_. Lo que se pretende con este framework es simplificar el
 desarrollo y las pruebas de este tipo de aplicaciones proporcionando un framework Model-View-Controller (MVC) y
@@ -742,11 +740,11 @@ image::mvc.png[scaledwidth="40%"]
 
 En este patrón de arquitectura, la vista obtiene los datos del modelo para ser mostrados al usuario. Cuando un
 usuario interactúa con la aplicación haciendo clic con el ratón o escribiendo un _input_, el controlador responde
-cambiando los datos en el modelo Finalmente, el modelo notifica a la vista que se ha producido un cambio para que
-pueda actualizar lo que se está mostrando. En las aplicaciones Angular, la vista es el <<X2, Document Object Model>>
-(DOM)footnote:[Especificación técnica de w3c: https://www.w3.org/DOM/DOMTR], los controladores son clases
-JavaScript y los datos del modelo se almacenan en propiedades de objetos. MVC es apropiado por varios motivos.. En
-primer lugar ofrece un modelo mental que indica dónde colocar las cosas, de tal manera que no hay que reinventar la
+cambiando los datos en el modelo. Finalmente, el modelo notifica a la vista que se ha producido un cambio para que
+pueda actualizar lo que se está mostrando. En las aplicaciones Angular, la vista es el
+DOMfootnote:[Especificación técnica de w3c: https://www.w3.org/DOM/DOMTR], los controladores son clases
+JavaScript y los datos del modelo se almacenan en propiedades de objetos. MVC es apropiado por varios motivos. En
+primer lugar, ofrece un modelo mental que indica dónde colocar las cosas, de tal manera que no hay que reinventar la
 rueda continuamente. Los colegas que colaboran en un mismo proyecto tendrán una ventaja de antemano al entender lo
 que ya se hubiese escrito, ya que ellos sabrán que se está utilizando la estructura MVC para organizar el código. Y
 quizás lo que es más importante, ofrece grandes beneficios ya que hace que las aplicaciones sean más fáciles de
@@ -757,13 +755,13 @@ Módulos en AngularJS
 Un _módulo_<<MODU17>> en AngularJS es un contenedor para las diferentes partes de una aplicación, como controladores,
 servicios, filtros, directivas, información sobre configuración, etc. Es una manera de agrupar funcionalidades. La
 mayoría de aplicaciones en otros lenguajes de programación como Java o incluso Python tienen un método _main_ que
-instancia y vincula todas las partes de la aplicación. Las aplicaciones Angular no tienen dicho método. En vez de
-ello, tiene el concepto de módulos, que especifican de forma declarativa las dependencias de la aplicación y cómo
+instancia y vincula todas las partes de la aplicación. Las aplicaciones Angular no tienen dicho método, en vez de
+ello, tienen el concepto de módulos, que especifican de forma declarativa las dependencias de la aplicación y cómo
 esta debe ser inicializada. Esta aproximación tiene varias ventajas:
 
-* El proceso es declarativo. Esto significa que está escrito de tal manera es que más sencillo de escribir y de
+* El proceso es declarativo: lo que significa que está escrito de tal manera que es más sencillo de escribir y de
 entender.
-* Es modular. Ello fuerza a que se piense en cómo se van a definir los componentes y dependencias de la aplicación. Se
+* Es modular: ello fuerza a que se piense en cómo se van a definir los componentes y dependencias de la aplicación. Se
 puede empaquetar código como módulos reutilizables.
 * Dichos módulos pueden ser cargados en cualquier orden--incluso en paralelo--ya que los módulos pueden diferir la
 ejecución.
@@ -799,12 +797,12 @@ inicie la aplicación usando el módulo _myApp_.
 </div>
 -------------------------
 
-Estos módulos se deben de definir de una manera organizada. Es recomendable tener módulos separados para los
+Estos módulos se deben definir de una manera organizada. Es recomendable tener módulos separados para los
 controladores, servicios, filtros, directivas, etc. Para el desarrollo de esta aplicación se ha tenido en cuenta una
 https://github.com/johnpapa/angular-styleguide/tree/master/a1[guía de buenas prácticas] muy utilizada en la comunidad
-de desarrollo de AngularJS. Em módulo principal podría entonces simplemente declarar el resto de módulos como
+de desarrollo de AngularJS. El módulo principal podría entonces simplemente declarar el resto de módulos como
 dependencias, tal como se ha hecho en el desarrollo de esta aplicación. Esto hace que sea más sencilla la gestión de
-nuestros módulos, ya que se convierten en piezas aisladas de código, teniendo cada uno de ellos una, y sólo una
+nuestros módulos, ya que se convierten en piezas aisladas de código, teniendo cada uno de ellos una, y sólo una,
 responsabilidad. Esto también permite que los tests carguen el módulo (o módulos) que interesen, haciendo que sean
 más rápidos y que se focalicen en la funcionalidad a ser probada.
 
@@ -815,7 +813,7 @@ esto, se envían las páginas al navegador. Muchas _aplicaciones web de una sola
 manera. Angular es diferente en este sentido ya que la plantilla (el HTML) y los datos se envían al navegador para
 ser ensamblados allí. El servidor sólo sirve recursos estáticos: las plantillas y los datos requeridos por dichas
 plantillas para que se puedan mostrar de forma apropiada. Una vez recibida la plantilla en el navegador web, Angular
-expande dichas plantillas en la aplicación poblando la plantilla con los datos pertinentes.
+expande dichas plantillas en la aplicación poblándola con los datos pertinentes.
 
 El flujo básico de este procedimiento es el siguiente:
 
@@ -837,13 +835,11 @@ nuevos datos del servidor al cliente, con lo que resulta en un mejor rendimiento
 Controladores
 ^^^^^^^^^^^^^
 Los controladores, en AngularJS, son objetos que permiten desarrollar la lógica de negocio de la aplicación. Enlazan
-el ámbito `$scope` con la vista y permite tener un control total de los datos. Este enlace con la vista se realiza a
-través de una directiva `ng-controller`. Un módulo necesita como mínimo un
-controlador para funcionar. Un controlador es una parte
-funcional de un módulo, con
- sus propios atributos, modelos y métodos. Para declarar un controlador se utiliza el método `controller()` del
- objeto `module` visto anteriormente. Este método acepta, como mínimo, un parámetro llamado `$scope`, que representa
- el alcance de variables, modelos y métodos del controlador.
+el ámbito del objeto `$scope` con la vista y permite tener un control total sobre los datos. Este enlace con la vista se
+realiza a través de una directiva `ng-controller`. Un módulo necesita como mínimo un controlador para funcionar. Un
+controlador es una parte funcional de un módulo, con  sus propios atributos, modelos y métodos. Para declarar un
+controlador se utiliza el método `controller()` del  objeto `module` visto anteriormente. Este método acepta, como
+mínimo, un parámetro llamado `$scope`, que representa el alcance de variables, modelos y métodos del controlador.
 
 [source, python]
 ----------------------------------------------------
@@ -853,12 +849,12 @@ app.controller("mainController", function($scope) {
 });
 ----------------------------------------------------
 
-Tanto el método `angular.module()` como el método `controller()` devuelven una referencial al módulo, es posible
-concatenar métodos. Como se puede observar, en el _snippet_ anterior, declarar un controlador es bastante sencillo, tan
-solo basta con asignarle un nombre e inyectar las dependencias necesarias, podemos inyectar otros componentes dentro
-del controlador, sean nativos de AngularJS u otros componentes creados por nosotros.
+Tanto el método `angular.module()` como el método `controller()` devuelven una referencia al módulo, es posible
+concatenar métodos. Como se puede observar, en el _snippet_ anterior, la declaración de un controlador es bastante
+sencilla, tan solo basta con asignarle un nombre e inyectar las dependencias necesarias. Se pueden inyectar otros
+componentes dentro del controlador, sean nativos de AngularJS u otros componentes creados de manera personalizada.
 
-Angular hace uso intensivo de la inyección de dependencias en todos sus componentes, para inyectar nuevas
+Angular hace uso intensivo de la inyección de dependencias en todos sus componentes. Para inyectar nuevas
 dependencias simplemente se le pasan como parámetros al controlador separados por comas.
 
 [source, python]
@@ -900,12 +896,12 @@ app.controller('mainController', function($scope) {
 </body>
 -------------------------
 
-Se puede observar como en el controlador se ha creado la variable `saludo` dentro del `$scope`, al cual se le ha
-asignado un valor. Por otra parte en la vista podemos ver cómo se accede y se muestra la variable. Para hacer
+Se puede observar cómo en el controlador se ha creado la variable `saludo` dentro del `$scope`, al cual se le ha
+asignado un valor. Por otra parte en la vista se puede ver cómo se accede y se muestra la variable. Para hacer
 referencia a las variables del `$scope` se utiliza el _double_curly_ ``{{}}'' que trae incorporado Angular en su propio
 motor de plantillas.
 
-En resumen, se puede decir que los módulos y controladores en AngularJS son componentes que nos permiten desacoplar el
+En resumen, se puede decir que los módulos y controladores en AngularJS son componentes que permiten desacoplar el
 código, englobar funcionalidades y tener un código más limpio. Los controladores extienden o construyen el `$scope`,
 el cual se encarga de contener los datos y de transferirlos de la vista al controlador y viceversa.
 
@@ -921,17 +917,18 @@ es posible crear controladores o servicios propios, también se pueden crear dir
 una aplicación, el compilador HTML recorre el DOM emparejando directivas con elementos del DOM.
 
 Para poder crear directivas es importante saber cómo el compilador de AngularJS determina cuándo usar una directiva.
-Similar a la terminología usada cuando un https://developer.mozilla.org/en-US/docs/Web/API/Element.matches[elemento
-*se corresponde con* un selector], se puede decir que un elemento *se corresponde con* una directiva cuando la
-directiva es parte de su declaración. En el siguiente ejemplo se puede decir que el elemento `<input>` se corresponde
-con la directiva `ngModel`.
+Similar a la terminología usada cuando un elemento
+https://developer.mozilla.org/en-US/docs/Web/API/Element.matches[``se corresponde con''] un selector, se puede decir
+ que
+un elemento ``se corresponde'' con una directiva cuando la directiva es parte de su declaración. En el siguiente ejemplo
+se puede decir que el elemento `<input>` se corresponde con la directiva `ngModel`.
 
 [source, html]
 -------------------------
 <input ng-model="foo">
 -------------------------
 
-El elemento `<input>` de a continuación también encaja con `ngModel`.
+El elemento `<input>` que se presenta a continuación también encaja con `ngModel`.
 
 [source, html]
 -------------------------
@@ -945,7 +942,7 @@ Y el siguiente elemento `<person>` se corresponde con la directiva `person`.
 <person>{{name}}</person>
 -------------------------
 
-.Normalización.
+*Normalización* +
 AngularJS normaliza el _tag_ de un elemento y los nombres de atributos para determinar qué elementos
 encajan con qué
 directivas. En terminología AngularJS, se suele hacer referencia a las directivas por su nombre normalizado usando
@@ -971,7 +968,7 @@ Por ejemplo, las siguientes formas son equivalentes y todas ellas se corresponde
 </div>
 -------------------------
 
-.Tipos de directivas.
+*Tipos de directivas* +
 `$compile` puede emparejar directivas basadas en nombres de elementos (E), atributos (A),
 nombres de clases \(C) y comentarios (M). Las directivas nativas de Angular muestran en su documentación qué tipo de
 emparejamiento soportan. A continuación se muestran las diferentes maneras en las que una directiva (`myDir` en este
@@ -987,9 +984,9 @@ soporta los tipos `EA`.
 <span class="my-dir: exp;"></span>
 -------------------------
 
-.Crear directivas propias.
+*Crear directivas propias* +
 Al igual que los controladores, las directivas se registran en los módulos. Para registrar
-un directiva se usa la APU `module.directive`, que recibe el nombre de la directiva normalizada seguida de una
+un directiva se usa la API `module.directive`, que recibe el nombre de la directiva normalizada seguida de una
 _función factoría_. Esta _función factoría_ debería de devolver un objeto con las opciones que le digan a `$compile`
 cómo se debería de comportar la directiva cuando esté activa. La _función factoría_ se invoca sólo una vez cuando el
 compilador encuentra la directiva por primera vez. Se puede realizar cualquier trabajo de inicialización en este
@@ -1042,20 +1039,21 @@ de la aplicación. Se trata de un contexto de ejecución para https://docs.angul
 Tienen una estructura jerarquizada que imita a la estructura del DOM de la aplicación. Los _scopes_ pueden
 observar expresiones y propagar eventos.
 
-.Características del scope.
-Los _scopes_ proporcionan APIs (https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$watch[`$watch`]) para
-observar cambios en el modelo. También proporcionan APIs (https://docs.angularjs.org/api/ng/type/$rootScope
-.Scope#$apply[`$apply`]) para propagar cualquier cambio en el modelo de la aplicación en la vista desde fuera del
-ámbito de AngularJS (controladores, servicios, controladores de eventos de Angulars, etc.).
+*Características del scope* +
+Los _scopes_ proporcionan APIs (https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$watch[$watch]) para
+observar cambios en el modelo. También proporcionan APIs
+(https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$apply[$apply]) para propagar cualquier cambio en el
+modelo de la aplicación en la vista desde fuera del ámbito de AngularJS (controladores, servicios, controladores de
+eventos de Angular, etc.).
 
 Los _scopes_ se pueden anidar para limitar el acceso a las propiedades de los componentes de la aplicación mientras
-se proporciona acceso a propiedades compartidas del modelo. Los _scopes_ anidados son o bien ``_scopes_ hijos'' o
-``_scopes_ a aislados''. Los primeros heredan las propiedades de su _scope_ padre mientras que los segundos no lo hacen.
-Los _scopes_ proporcionan un contexto contra el que se evalúan las expresiones (_i.e._ la expresión `{{username}}` no
-tiene ningún significado a no ser que se evalúe contra in _scope_ específico donde se defina el valor de la
-propiedad `username`).
+se proporciona acceso a propiedades compartidas del modelo. Los _scopes_ anidados son o bien ``__scopes__ hijos'' o
+``__scopes__  aislados''. Los primeros heredan las propiedades de su _scope_ padre mientras que los segundos no lo
+hacen. Los _scopes_ proporcionan un contexto contra el que se evalúan las expresiones (_i.e._ la expresión
+`{{username}}` no tiene ningún significado a no ser que se evalúe contra un _scope_ específico donde se defina el
+valor de la propiedad `username`).
 
-.El _scope_ como modelo de datos.
+*El _scope_ como modelo de datos* +
 El _scope_ es el nexo de unión entre el controlador y la vista de la aplicación. Durante la fase de https://docs.angularjs.org/guide/compiler[linkado]
 las directivas establecen expresiones `$watch` en el _scope_. El `$watch` permite que las directivas sean notificadas
 cuando se produce algún cambio en una propiedad, lo que permite a la directiva renderizar el valor actualizado en el
@@ -1069,7 +1067,7 @@ componentes del modelo y de la vista. La forma en que AngularJS implementa la vi
 el modelo como la única fuente de datos en la aplicación. La vista es una proyección del modelo en todo momento.
 Cuando el modelo cambia, la vista refleja dicho cambio y viceversa.
 
-._Databinding_ en sistemas de plantillas clásicos.
+*_Databinding_ en sistemas de plantillas clásicos* +
 La mayoría de los sistemas de plantillas enlazan datos en una sola dirección: incorporan los componentes de plantilla y
 de modelo juntos en una vista. Después de que se produzca esta fusión, los cambios del modelo o de las secciones
 relacionadas de la vista no se reflejan automáticamente en la vista. Peor aún, los cambios que el usuario hace a la
@@ -1080,7 +1078,7 @@ constantemente la vista con el modelo y el modelo con la vista.
 .One Way Data Binding.
 image::One_Way_Data_Binding.png[scaledwidth="50%"]
 
-._Databinding_ en el sistema de plantillas de AngularJS.
+*_Databinding_ en el sistema de plantillas de AngularJS* +
 Las plantillas de AngularJS funcionan de manera diferente. En primer lugar, la plantilla (que es el HTML sin compilar
 junto con cualquier marcado adicional o directivas) se compila en el navegador. El proceso de compilación produce una
 vista en vivo. Cualquier cambio en la vista se refleja inmediatamente en el modelo y cualquier cambio en el modelo se
@@ -1088,9 +1086,9 @@ propaga a la vista. El modelo es una representación fiel de los datos para el e
 enormemente el modelo de programación para el desarrollador. Se puede pensar en la vista como una simple
 proyección instantánea del modelo.
 
-Debido a que la vista es sólo una proyección del modelo, el controlador está completamente separado de la vista y no
-tiene conocimiento de ello. Esto hace que la prueba sea un complemento porque es fácil probar su controlador de forma
-aislada sin la vista y la dependencia DOM / navegador relacionada.
+Debido a que la vista es sólo una proyección del modelo, el controlador está totalmente separado de la vista y es
+totalmente agnóstico a él. Esto hace que las pruebas sean muy sencillas ya que es relativamente fácil probar un
+controlador de forma aislada sin la vista y la dependencia relacionada con el DOM o el navegador.
 
 [[Two_Way_Data_Binding]]
 .Two Way Data Binding.
@@ -1954,30 +1952,30 @@ Metodología de desarrollo
 Metodología Scrum
 ^^^^^^^^^^^^^^^^^
 Scrum es un _framework_ de desarrollo<<SCRU12>> en el que los equipos multifuncionales desarrollan productos o
-proyectos de forma iterativa e incremental. Scrum estructura el desarrollo en ciclos de trabajo  llamados _Sprints_.
-Estas iteraciones no duran más de cuatro semanas cada una (lo más común son iteraciones de dos semanas), y tienen
-lugar una tras otra sin pausa. Los Sprints tienen una duración determinada, terminan en una fecha específica si el
-trabajo se ha completado o no, y nunca se extienden. Por lo general, los equipos Scrum eligen una longitud del Sprint
-y la utilizan para todos sus Sprints hasta que mejoren y puedan utilizar un ciclo más corto. Al comienzo de cada
-Sprint, un equipo multifuncional (de aproximadamente siete personas) selecciona los elementos (requisitos del
-cliente) de una lista de prioridades. El Equipo acuerda un objetivo colectivo de lo que ellos creen que pueden
-entregar al final del Sprint, algo que es tangible y que será verdaderamente "hecho". Durante el Sprint, no se pueden
-agregar nuevos elementos, estos quedarían para el siguiente Sprint, ya que el Sprint corto actual está destinado a
-centrarse en un objetivo pequeño, claro y relativamente estable. Todos los días el equipo se reúne brevemente para
-inspeccionar su progreso, y ajustar los pasos siguientes necesarios para completar el trabajo restante. Al final del
-Sprint, el equipo revisa el Sprint con los __stakeholders__footnote:[_stakeholder_: cualquier parte interesada que es
-afectado o puede ser afectado por el desarrollo del producto], y demuestra lo que ha construido. La gente obtiene
-retroalimentación que se puede incorporar en el próximo Sprint. Scrum hace hincapié en que el producto tiene que ser
-funcional al final del Sprint. En el caso del software, esto significa un sistema integrado, completamente probado,
-documentado para el usuario final y potencialmente enviable. Las funciones clave, artefactos y eventos se resumen en
-la <<scrum-overview>>.
+proyectos de forma iterativa e incremental. Scrum estructura el desarrollo en ciclos de trabajo  llamados _Sprints_
+(o iteraciones). Estas iteraciones no duran más de cuatro semanas cada una (lo más común son iteraciones de dos
+semanas), y tienen lugar una tras otra sin pausa. Los Sprints tienen una duración determinada, terminan en una fecha
+específica si el trabajo se ha completado o no, y nunca se extienden. Por lo general, los equipos Scrum eligen una
+longitud del Sprint y la utilizan para todos sus iteraciones hasta que mejoren y puedan utilizar un ciclo más corto.
+Al comienzo de cada Sprint, un equipo multifuncional (de aproximadamente siete personas) selecciona los elementos
+(requisitos del cliente) de una lista de prioridades. El Equipo acuerda un objetivo colectivo de lo que ellos creen
+que pueden entregar al final de la iteración, algo que es tangible y que será verdaderamente ``hecho'' Durante el
+Sprint, no se pueden agregar nuevos elementos, estos quedarían para la siguiente iteración, ya que el Sprint corto
+actual está destinado a centrarse en un objetivo pequeño, claro y relativamente estable. Todos los días el Equipo se
+reúne brevemente para inspeccionar su progreso, y ajustar los pasos siguientes necesarios para completar el trabajo
+restante. Al final del Sprint, el equipo revisa el Sprint con los __stakeholders__footnote:[_stakeholder_: cualquier
+parte interesada que es afectado o puede ser afectado por el desarrollo del producto], y demuestra lo que ha
+construido. La gente obtiene retroalimentación que se puede incorporar en el próximo Sprint. Scrum hace hincapié en
+que el producto tiene que ser funcional al final de la iteración que, en el caso del software, esto significa un
+sistema integrado, completamente probado, documentado para el usuario final y potencialmente enviable. Las funciones
+clave, artefactos y eventos se resumen en la <<scrum-overview>>.
 
 [[scrum-overview]]
 .Scrum: visión general.
 image::scrum.png[]
 
-Un lema importante en Scrum es "inspeccionar y adaptarse". Dado que el desarrollo implica inevitablemente el
-aprendizaje, la innovación y las sorpresas, Scrum hace hincapié en dar pasos cortos de desarrollo, inspeccionando
+Un lema importante en Scrum es ``inspeccionar y adaptarse''. Dado que el desarrollo implica inevitablemente el
+aprendizaje, la innovación y los imprevistos, Scrum hace hincapié en dar pasos cortos de desarrollo, inspeccionando
 tanto el producto resultante como la eficacia de las prácticas llevadas a cabo y adaptando los objetivos del producto
 y las prácticas del proceso.
 
@@ -1994,29 +1992,29 @@ superior de la lista para el próximo Sprint y continuamente redefiniendo y refi
 Producto tiene la responsabilidad de las pérdidas y las ganancias del producto, asumiendo que es un producto comercial.
 En el caso de una aplicación interna, el propietario del Producto no es responsable del ROI en el sentido de un producto
 comercial (que generará ingresos), pero sigue siendo responsable de maximizar el ROI en el sentido de elegir, en cada
-Sprint, los ítems de más alto valor. En la práctica, "valor" es un término difuso y la priorización puede
+Sprint, los ítems de más alto valor. En la práctica, ``valor'' es un término difuso y la priorización puede
 verse influida por el deseo de satisfacer a los clientes clave, la alineación con los objetivos estratégicos, la
-minimización de riesgos, la mejora y otros factores. En algunos casos, el propietario del Producto y el cliente son
+minimización de riesgos, la mejora y otros factores. En algunos casos, el Propietario del Producto y el cliente son
 la misma persona, esto es bastante común en las aplicaciones internas. En otros casos, el cliente podría ser millones
 de personas con diferentes necesidades, en cuyo caso el rol de Propietario del Producto es similar al de _Product
 Manager_ o de _Product Marketing Manager_ en muchas organizaciones. Sin embargo, el Propietario del Producto es algo
 diferente de un Gerente de Producto tradicional porque interactúa activamente y regularmente con el Equipo, prioriza
 trabajando con todas las partes interesadas y revisando los resultados de cada Sprint, en lugar de delegar decisiones
-de desarrollo a un gerente de proyecto. Es importante observar que en Scrum hay una sola persona que sirve como
-Propietario del Producto, y él o ella es responsable del valor del trabajo; Aunque esa persona no tiene que trabajar
-sola.
+de desarrollo a un gerente de proyecto. Es importante observar que en Scrum hay una sola persona que actúa como
+Propietario del Producto, y este es el responsable final del valor del trabajo, aunque dicha persona no tenga que
+trabajar sola.
 
 El equipo::
 El Equipo, también llamado Equipo de Desarrollo, construye el producto que el Propietario del Producto
 indica:
-la aplicación o el sitio web, por ejemplo. El equipo en Scrum es "multifuncional", incluye toda la experiencia
+la aplicación o el sitio web, por ejemplo. El equipo en Scrum es ``multifuncional'', incluye toda la experiencia
 necesaria para entregar el producto potencialmente en cada Sprint, y es auto-organizado, con un alto
 grado de autonomía y responsabilidad. El Equipo decide cuántos artículos--del conjunto ofrecido por el Propietario
 del Producto--debe construir en cada Sprint y la mejor manera de lograr ese objetivo.
 +
 En el Equipo no hay títulos especializados: no hay analista de negocios, ni DBA, ni arquitecto, ni jefe de equipo, ni
-diseñador de interfaz gráfica, ni programador. Los componentes trabajan juntos durante cada Sprint de la manera que
-sea más apropiada para alcanzar el objetivo que ellos mismos han fijado.
+diseñador de interfaz gráfica, ni programador, etc., los componentes del mismo trabajan juntos durante cada iteración
+de la manera que sea más apropiada para alcanzar el objetivo que ellos mismos han fijado.
 +
 Cada persona tendrá habilidades primarias, secundarias e incluso terciarias. Los individuos también asumen tareas en
 áreas en las que están menos familiarizados para ayudar a completar dicha tarea. Por ejemplo, una persona cuya
@@ -2024,20 +2022,20 @@ habilidad principal es el diseño de interfaces gráficas podría tener una habi
 automatizadas o alguien con habilidad primaria en escritura técnica también podría ayudar con el análisis y la
 programación.
 +
-El Equipo en Scrum consta de 5 a 9 personas. Para un producto de software el Equipo puede incluir personas con
+El Equipo en Scrum consta de 5 a 9 personas. Para un producto de software, el Equipo puede incluir personas con
 habilidades en análisis, desarrollo, pruebas, diseño de interfaces, diseño de bases de datos, arquitectura,
 documentación, etc. El equipo desarrolla el producto y proporciona ideas al Propietario del Producto sobre cómo hacer
 que el producto sea de la mayor calidad posible. En Scrum los Equipos son más eficientes si todos los
-miembros están dedicados a un único producto durante el Sprint. El equipo evita la multitarea a través
-de múltiples proyectos, para huir de las atenciones divididas y del cambio de contexto. Los equipos estables están
+miembros están dedicados a un único producto durante el Sprint. El equipo evita la multitarea entre múltiples
+proyectos, para huir de las atenciones divididas y del cambio de contexto. Los equipos estables están
 asociados con una mayor productividad, por lo que es conveniente evitar cambiar a los miembros del equipo en la medida
 de lo posible.
 
 ScrumMaster::
-El ScrumMaster ayuda a aplicar Scrum para producto comercial tenga éxito. Hace lo que esté en su mano para
+El ScrumMaster ayuda a aplicar Scrum para que el producto a desarrollar tenga éxito. Hace lo que esté en su mano para
 ayudar al Equipo, al Propietario del Producto y a la organización. El ScrumMaster no es el
-administrador de los miembros del equipo, ni es un jefe de proyecto, ni un líder del equipo. Ayuda a eliminar
-los impedimentos que puedan surgir, protege al equipo de interferencias externas y le ayuda a adoptar
+administrador de los miembros del equipo, ni es un jefe de proyecto, ni un líder del equipo, simplemente ayuda a eliminar
+los impedimentos que puedan surgir, protege al Equipo de interferencias externas y le ayuda a adoptar
 buenas prácticas de desarrollo. Educa, entrena y guía al Propietario del Producto, al Equipo y al resto de la
 organización en el uso adecuado de Scrum. El ScrumMaster es un entrenador y profesor, se asegura de que
 todo el mundo (incluido el Propietario del Producto y los administradores) entienda los principios y las prácticas
@@ -2052,24 +2050,22 @@ gestión de la calidad.
 El ScrumMaster y el Propietario del Producto no pueden ser el mismo individuo, ya que su enfoque es tan diferente que
 combinarlos a menudo lleva a la confusión y al conflicto. Un resultado común de combinar estos roles es un
 Propietario del Producto que se opone a la autogestión de los equipos que Scrum requiere. A diferencia
-de un gestor tradicional, el ScrumMaster no le dice a la gente qué hacer ni asigna tareas sino que básicamente
+de un gestor tradicional, el ScrumMaster no le dice a la gente qué hacer ni asigna tareas, sino que básicamente
 facilita el proceso, apoya al equipo mientras se organiza y se gestiona. Si el ScrumMaster estaba previamente en una
 posición de gestión del equipo, tendrá que cambiar significativamente su mentalidad y estilo de interacción para que
 el equipo tenga éxito con Scrum.
 +
-No hay ningún rol de líder de proyecto en Scrum, esto se debe a que no es necesario. Las responsabilidades
-tradicionales de un director de proyecto se han dividido y reasignado entre los tres roles de Scrum,
-y en su mayoría al Equipo y Propietario del Producto, en vez de al ScrumMaster. Utilizar Scrum con un
+No hay ningún rol de jefe de proyecto en Scrum, esto se debe a que no es necesario. Las responsabilidades
+tradicionales de un director de proyecto se han dividido y reasignado entre los tres roles de Scrum, principalmente,
+entre el Equipo y el Propietario del Producto, en vez de al ScrumMaster. Utilizar Scrum con un
 director de proyecto indica un mal uso fundamental de Scrum y típicamente resulta en responsabilidades
 conflictivas, autoridad poco clara y resultados mejorables. A veces un ex director de proyecto puede entrar en el
 papel de ScrumMaster, el éxito de este enfoque depende en gran medida de la persona, y lo bien que entienda la
 diferencia fundamental entre los dos roles, tanto en las responsabilidades del día a día como en la mentalidad
-necesaria para tener éxito. Una buena manera de entender a fondo el papel de ScrumMaster y comenzar a desarrollar
-las habilidades básicas necesarias para el éxito, es asistir a la formación  de certificado ScrumMaster por
-Scrum Alliance.
+necesaria para tener éxito.
 
 Además de estos tres roles, existen otros _stakeholders_ que contribuyen al éxito del producto como son los
-administradores, los cliente y los usuarios finales. Algunos _stakeholders_ como los gerentes funcionales (_i.e._ un
+administradores, los clientes y los usuarios finales. Algunos _stakeholders_ como los gerentes funcionales (_i.e._ un
 gerente de ingeniería) pueden encontrarse con que su role cambia al adoptar Scrum. Por ejemplo:
 
 * Apoyan al equipo considerando las reglas y la esencia de Scrum.
@@ -2082,39 +2078,40 @@ La metodología Scrum establece la elaboración de una serie de documentos para 
 
 Product blacklog::
 Cuando un grupo planea migrar a Scrum, antes de empezar el primer Sprint, se necesita el _Product Backlog_, un
-documento de características centradas en el cliente priorizado y ordenado. Contiene descripciones genéricas de todos
+documento priorizado y ordenado de características centradas en el cliente. Contiene descripciones genéricas de todos
 los requisitos, funcionalidades deseables, etc. Se trata de un documento de alto nivel para todo el proyecto, que
-existe y evoluciona durante la vida útil del producto. Es el plan de negocio del producto (<<product-backlog, Figura 13>>
- y <<product-backlog-visual-management, Figura 14>>). En
-cualquier momento, el _Product backlog_ ofrece una visión única y definitiva de "todo lo que  podría ser hecho por el
-Equipo, en orden de prioridad", esta prioridad se organiza según su retorno sobre la inversión (ROI). Sólo existe un
-único _Product backlog_ para un producto, lo que significa que el Propietario del Producto debe tomar decisiones de
-priorización de alto nivel, representando los intereses de todas las partes interesadas (incluido el Equipo).
+existe y evoluciona durante la vida útil del producto. Es el plan de negocio del producto (ver <<product-backlog>>
+y <<product-backlog-visual-management>>). En cualquier momento, el _Product backlog_ ofrece una visión única y
+definitiva de ``todo lo que  podría ser hecho por el Equipo, en orden de prioridad'', esta prioridad se organiza
+según su ROI. Sólo existe un único _Product backlog_ para un producto, lo que significa que el Propietario del
+Producto debe tomar decisiones de priorización de alto nivel, representando los intereses de todas las partes
+interesadas (incluido el Equipo).
 +
 [[product-backlog]]
 .El _Product Backlog_.
-image::product-backlog.png[scaledwidth="80%"]
+image::product-backlog.png[]
 +
 [[product-backlog-visual-management]]
 .Gestión visual: ítems del _Product Backlog_ sobre la pared.
-image::product-backlog-visual-management.png[scaledwidth="80%"]
+image::product-backlog-visual-management.png[]
 +
 El _Product Backlog_ incluye una variedad de elementos, principalmente nuevas características del cliente
 (_e.g._ "permitir a todos los usuarios colocar el libro en el carrito de compras"), pero también otros objetivos
-de mejora técnica (_e.g._ "reescribir el sistema de C ++ a Java" o "Mejorar el rendimiento de los tests"),
-trabajos e investigación (_e.g._ "investigar soluciones para acelerar la validación de la tarjeta de crédito"), y,
-posiblemente, defectos conocidos (_e.g._ "diagnosticar y arreglar los errores del script de procesamiento de pedidos")
+de mejora técnica (_e.g._ ``reescribir el sistema de C ++ a Java'' o ``Mejorar el rendimiento de los tests''),
+trabajos e investigación (_e.g._ ``investigar soluciones para acelerar la validación de la tarjeta de crédito''), y,
+posiblemente, defectos conocidos (_e.g._ ``diagnosticar y arreglar los errores del script de procesamiento de
+pedidos'').
 +
-Los elementos _Product Backlog_ se expresan de cualquier manera que sea clara y concisa. Contrariamente a los
-malentendidos populares, el _Product Backlog_ no contiene "historias de usuarios", simplemente contiene elementos.
-Estos elementos pueden expresarse como historias de usuarios, casos de uso o cualquier otro enfoque de requisitos que
-el grupo considere útil. Pero cualquiera que sea el enfoque, la mayoría de los artículos deben centrarse en la
+Los elementos del Product Backlog se tienen que expresar de una manera clara y concisa. Contrariamente a los
+malentendidos populares, el _Product Backlog_ no contiene ``historias de usuarios'', simplemente contiene elementos,
+que pueden expresarse como historias de usuarios, casos de uso o cualquier otro enfoque de requisitos que
+el grupo considere útil. Pero, cualquiera que sea el enfoque, la mayoría de los artículos deben centrarse en la
 entrega de valor a los clientes.
 
 Sprint blacklog::
 Muchos Equipos tienen un _Sprint Backlog_ en forma de tablero de tareas de tamaño de pared (a menudo llamado
 también _Scrum Board_) donde las tareas, escritas en forma de notas Post-It, se van moviendo durante el Sprint a través
-de las columnas denominadas "To Do", "Work In Progress" y "Done". Ver <<sprint-backlog, Figura 15>>
+de las columnas denominadas ``To Do'', ``Work In Progress'' y ``Done'' (<<sprint-backlog>>).
 +
 [[sprint-backlog]]
 .Gestión visual: tareas de un _Sprint Backlog_ sobre la pared.
@@ -2130,9 +2127,9 @@ Uno de los pilares de Scrum es que, una vez que el equipo establece su objetivo 
 cambio debe ser aplazado al siguiente Sprint. Esto significa que si el Propietario del Producto, en mitad de un Sprint,
 decide que hay un nuevo ítem en el que quisiera que el Equipo trabajara, no podría hacer el cambio hasta el comienzo
 del próximo Sprint. Si aparece una circunstancia externa que cambia significativamente las prioridades que
-significase que el Equipo estaría perdiendo el tiempo si continúa trabajando el Sprint actual, el Propietario del
-Producto o el Equipo puede abortar el Sprint. El equipo se detiene y se realiza una nueva reunión de planificación
-del Sprint, iniciándose de esta manera un nuevo Sprint. El perjuicio de hacer esto generalmente es grande, además de
+significase que el Equipo estaría perdiendo el tiempo si continuase trabajando en la iteración actual, el Propietario
+del Producto o el Equipo puede abortar el Sprint. El equipo se detiene y se realiza una nueva reunión de planificación
+del Sprint, iniciándose de esta manera una nueva iteración. El perjuicio de hacer esto generalmente es grande, además de
 la posible desmotivación tanto para el Propietario del Producto como para el Equipo.
 +
 Que el Equipo esté protegido contra los cambios durante el Sprint tiene varias ventajas. En primer lugar, el Equipo se
@@ -2143,10 +2140,10 @@ los ítems que él prioriza en el _Product Backlog_.
 Burn Down::
 La _Burn Down Chart_ es una gráfica que se muestra públicamente y que mide la cantidad de requisitos en el _Backlog_ del
 proyecto pendientes al comienzo de cada Sprint. Dibujando una línea que conecte los puntos de todos los Sprints
-completados, se puede ver el progreso del proyecto. Lo normal es que esta línea sea descendiente (en casos en que todo
-va bien en el sentido de que los requisitos están bien definidos desde el principio y no varían nunca) hasta llegar
-al eje horizontal, momento en el cual el proyecto se ha terminado (no hay más requisitos pendientes de ser
-completados en el _Backlog_). Si durante el proceso se añaden nuevos requisitos la recta tendrá pendiente ascendente en
+completados, se puede ver el progreso del proyecto. Lo normal es que esta línea sea descendiente (en casos en los que
+todo va bien, en el sentido de que los requisitos están bien definidos desde el principio y no varían nunca) hasta
+llegar al eje horizontal, momento en el cual el proyecto se ha terminado (no hay más requisitos pendientes de ser
+completados en el _Backlog_). Si durante el proceso se añaden nuevos requisitos, la recta tendrá pendiente ascendente en
 determinados segmentos, y si se modifican algunos requisitos la pendiente variará o incluso valdrá cero en algunos
 tramos.
 
@@ -2158,8 +2155,8 @@ reuniones que tienen lugar en esta metodología:
 Daily Scrum::
 El principal objetivo de las _Daily Scrum meetings_ es llevar a cabo una actualización y una coordinación entre los
 miembros del Equipo. Estas reuniones son diarias durante el desarrollo de un Sprint, participan obligatoriamente
-todos los miembros de el Equipo, la presencia de el Propietario del Producto es opcional y el ScrumMaster suele estar
-presente. La duración máxima no debe exceder de los 15 minutos, para mantenerla breve se recomienda que todos estén
+todos los miembros del Equipo, la presencia de el Propietario del Producto es opcional y el ScrumMaster suele estar
+presente. La duración máxima no debe exceder los 15 minutos, para mantenerla breve se recomienda que todos
 permanezcan de pie, es la oportunidad del equipo para sincronizar su trabajo e informar de cualquier obstáculo que
 pudiese haber aparecido. Cada uno debe ir informando al resto del equipo de lo siguiente:
 
@@ -2189,7 +2186,7 @@ Se trata de la reunión para preparar cada Sprint, típicamente dividida en dos 
 _qué_ y la segunda en el _cómo_. En la primera parte participa el Equipo, el Propietario del Producto y el
 ScrumMaster. En la segunda participa el Equipo y el ScrumMaster (el Propietario del Producto puede asistir o no, pero
 debe de estar disponible por si surgiesen dudas). La duración de cada una de las partes es de una hora por semana de
-Sprint. Esta reunión tiene lugar al principio de cada Sprint que, como se ha mencionado anteriormente, suelen durar
+Sprint. Esta reunión tiene lugar al principio de cada iteración que, como se ha mencionado anteriormente, suelen durar
 entre 1 y 4 semanas y se tratan los siguientes puntos:
 
 * Seleccionar qué trabajo se hará exactamente.
@@ -2205,7 +2202,7 @@ En esta reunión se trata la inspección y adaptación relacionada con el increm
 desarrollar. Participa el Equipo, el Propietario del Producto, el ScrumMaster y otros interesados (_stakeholders_),
 según corresponda, invitados por el Propietario del Producto. La duración es de una hora por semana de Sprint.
 +
-Tienen lugar cuando termina el Sprint y es el momento en el que la gente hace una revisión del Sprint. La idea
+Tienen lugar cuando finaliza cada iteración y es el momento en el que la gente hace una revisión del Sprint. La idea
 principal es que esta reunión permita inspeccionar y adaptar el producto, se revisa qué trabajo fue completado y cuál
 no lo ha sido. Se hace una presentación del trabajo completado a todos los interesados, no permitiéndose mostrar el
 trabajo no completado. Un elemento crítico de esta revisión se centra en una _conversación_ en profundidad entre el
@@ -2236,12 +2233,12 @@ las funcionalidades del producto o sistema. Se trata de la fase de desarrollo qu
 implementación, las pruebas, el _empaquetado_ , generación de ejecutables, etc. La duración es de entre una y cuatro
 semanas, esta duración se fija a nivel global y todos los equipos que trabajan en el mismo sistema o producto
 utilizan la misma duración de ciclo. En la fase de revisión se resuelven problemas y se añaden nuevos elementos y en
-la fase de ajuste se utilizan las mejorías y ajustes encontrados para mejorar el producto ya se código,
+la fase de ajuste se utilizan las mejorías y ajustes encontrados para mejorar el producto ya sea código,
 documentación, etc.
 
 Revisión del Sprint::
 A veces se le denomina incorrectamente "la demo", concepto que no define la intención de esta revisión, cuyo objetivo
-es revisar el producto realizado durante el último Sprint y se añadir _Backlogs_ nuevos en caso necesario. Esta fase
+es revisar el producto realizado durante el último Sprint y añadir _Backlogs_ nuevos en caso necesario. Esta fase
 puede admitir la participación de los clientes, los ejecutivos, etc.
 
 Cierre::
@@ -2274,21 +2271,21 @@ del resultado obtenido.
 * Retorno de inversión (ROI): de manera regular, el cliente maximiza el ROI del proyecto. Cuando el beneficio
 pendiente de obtener es menor que el coste de desarrollo, el cliente puede finalizar el proyecto.
 
-* Mitigación de riesgos: desde la primera iteración el equipo tiene que gestionar los problemas que pueden aparecer
+* Mitigación de riesgos: desde la primera iteración, el equipo tiene que gestionar los problemas que pueden aparecer
 en una entrega del proyecto. Al hacer patentes estos riesgos, es posible iniciar su mitigación de manera anticipada.
-"Si hay que equivocarse o fallar, mejor hazlo lo antes posible". El _feedback_ temprano permite ahorrar esfuerzo y
+Si se comete un error, lo mejor es que suceda lo antes posible. El _feedback_ temprano permite ahorrar esfuerzo y
 tiempo en errores técnicos. La cantidad de riesgo a que se enfrenta el equipo está limitada a los requisitos que se
 pueden desarrollar en una iteración. La complejidad y riesgos del proyecto se dividen de manera natural en iteraciones.
 
-* Productividad y calidad: de manera regular el equipo va mejorando y simplificando su forma de trabajar. Los
-miembros del equipo sincronizan su trabajo diariamente y se ayudan a resolver los problemas que pueden impedir
+* Productividad y calidad: de manera regular, el equipo va mejorando y simplificando su forma de trabajar. Los
+miembros del Equipo sincronizan su trabajo diariamente y se ayudan a resolver los problemas que pueden impedir
 conseguir el objetivo de la iteración. La comunicación y la adaptación a las diferentes necesidades entre los
 miembros del equipo son máximas (se van ajustando iteración a iteración), de manera que no se realizan tareas
 innecesarias y se evitan ineficiencias.
 +
 Las personas trabajan más enfocadas y de manera más eficiente cuando hay una fecha límite a corto plazo para entregar
 un resultado al que se han comprometido. La consciencia de esta limitación temporal favorece la priorización de las
-tareas y fuerza la toma de decisiones. Las iteraciones (Sprints) son regulares y de un mes para facilitar la
+tareas y fuerza la toma de decisiones. Las iteraciones son regulares y de un mes para facilitar la
 sincronización sistemática con otros equipos, con el resto de la empresa y con el cliente. El Equipo minimiza su
 dependencia de personas externas para poder avanzar (depender de la disponibilidad de otros puede parar o
 retrasar tareas).
@@ -2314,7 +2311,7 @@ Aplicación de Scrum en el proyecto
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Como ya se ha comentado al principio de esta sección, se ha utilizado una versión simplificada de la metodología Scrum.
 
-Esta versión simplificada consiste en la realización de iteraciones bien diferenciadas y que permiten ir obteniendo
+Esta versión simplificada consiste en la realización de iteraciones bien diferenciadas que permiten ir obteniendo
 un producto de desarrollo operativo al final de cada una. Se han realizado cuatro iteraciones, en las cuales, al final
 de cada una de ellas, se obtiene un subproducto funcional de la aplicación final. En la primera iteración se obtiene
 una aplicación con la funcionalidad básica; se crea la estructura del proyecto AngularJS y se desarrolla la
@@ -2328,14 +2325,14 @@ iteración, por similitud funcional también se ha tratado la edición de las pr
 iteración se finaliza la edición aumentando la funcionalidad, es decir, en esta iteración se ha abarcado la
 funcionalidad que permite la edición de los términos locales, el agregado de los mismos, la edición de enlaces a
 terminologías externas y la visualización del código GDL generado en un editor de textos, así como una vista en
-formato HTML con información tanto de autoría como clínica de las guías. En esta última iteración se ha desarrollado
-también la funcionalidad de salvado de las guías en el _backend_ y de creación de una nueva guía clínica,
+formato HTML con información tanto de autoría como clínica de las guías. En esta última iteración también se ha
+desarrollado la funcionalidad de salvado de las guías en el _backend_ y de creación de una nueva guía clínica,
 obteniéndose de este modo la aplicación global completamente terminada y funcional.
 
 Otra particularidad que caracteriza a esta versión simplificada de Scrum es la analogía en cuanto a las reuniones. Se
 han realizado reuniones periódicas entre el ScrumMaster, en este caso el director profesional del proyecto, y el
 Equipo, en este caso mi persona, como alumno que realiza el proyecto. No se han realizado _Daily Scrum meetings_ por
-motivos laborales, pero sí se han realizado reuniones siempre de la misma duración y en la medida de lo posible en el
+motivos laborales, pero sí se han realizado reuniones siempre de la misma duración y, en la medida de lo posible, en el
 mismo lugar (en su defecto se han llevado a cabo mediante sesiones remotas de Skype). En estas reuniones se trataron los
 asuntos referentes a qué se ha hecho (y cómo), los problemas que hubiesen podido surgir y qué se pretendía hacer hasta
 la siguiente reunión. En cada iteración se describieron las tareas a llevar a cabo dependiendo de la fase en la que
@@ -2375,13 +2372,13 @@ Análisis
 ^^^^^^^^
 En la fase de análisis del primer Sprint se han identificado dos tareas a ser tratadas. Por un lado se ha
 analizado la estructura organizativa de directorios de la aplicación y por otro el desarrollo de la funcionalidad
-básica consistente en la visualización de las guías clínicas existentes en el _backend_.
+básica consistente en la visualización de las guías clínicas existentes en el <<X4, Knowledge Manager>> (KM).
 
 Para la primera tarea, se ha estudiado la mejor mejor forma de estructurar la aplicación web. En numerosas ocasiones, en
 las primeras fases de un proyecto AngularJS, la estructura de directorios no importa demasiado y se tiende a ignorar
 las guías de buenas prácticas dedicadas a este cometido. Si se trata de una aplicación pequeña, esto no tendría
 importancia y permitiría al desarrollador tener algo funcional rápidamente, no afectando en ningún sentido a la
-aplicación. Pero si se trata de un proyecto mediano o grande con algo que complejidad, esto afectaría a la capacidad
+aplicación. Pero si se trata de un proyecto mediano o grande, con algo que complejidad, esto afectaría a la capacidad
 de mantenimiento de la aplicación. AngularJS es todavía relativamente nuevo y los desarrolladores aún están
 averiguando cuál es la mejor forma de estructurar una SPA. Hay muchas maneras de estructurar una aplicación, se han
 tomado algunos principios de los _frameworks_ MVC maduros existentes, pero también hemos tomado algunas cosas que son
@@ -2390,10 +2387,11 @@ específicas de Angular.
 Para construir aplicaciones que sean escalables y mantenibles en AngularJS se debe hacer uso de las guías de buenas
 prácticas existentes a tal efecto. La estructura de una aplicación Angular ideal debe ser modularizada en
 funcionalidades específicas. Se deben aprovechar las extraordinarias directivas de AngularJS para compartimentar aún
-más nuestras aplicaciones. Las estructuras donde se usa un directorio por funcionalidad se dice que siguen el
-principio LIFTfootnote:[*LIFT:* L-Localización del código sencilla, I-Identificación del código de un vistazo,
-F-Aplana la estructura lo máximo posible (F de 'flatten') y T-Tratar de no repetir código.]. Esta aproximación es la
-adecuada para proyectos que no sean pequeños, aportando una serie de beneficios como los siguientes:
+más las aplicaciones. Las estructuras donde se usa un directorio por funcionalidad se dice que siguen el
+principio LIFTfootnote:[Aproximación que proporciona una estructura consistente, con el objetivo de ofrecer una buena
+escalabilidad, es modular y fomenta la eficiencia del desarrollador al aportar una búsqueda de código sencilla. Mas
+información: http://bguiz.github.io/js-standards/angularjs/application-structure-lift-principle/]. Esta
+aproximación es la adecuada para proyectos que no sean pequeños, aportando una serie de beneficios como los siguientes:
 
 * Mantenibilidad del código: seguir este enfoque estructurando lógicamente las aplicaciones permite localizar y
 editar el código de una manera sencilla.
@@ -2452,7 +2450,7 @@ El único actor que tenemos en este desarrollo es el de _Profesional Sanitario_ 
 será el que elabore las guías clínicas.
 
 Se ha dedicado una iteración para cada uno de los casos de uso que extienden del caso de uso base _Editar guía
-clínica_, por lo que la explicación de cada uno de ellos se indicara en la iteración correspondiente. La creación de
+clínica_, por lo que la explicación de cada uno de ellos se indicará en la iteración correspondiente. La creación de
 una guía nueva se entiende como la edición de una guía con sus secciones vacías, excepto las obligatorias (ver
 <<_paquete_de_guias_clinicas>>), que se rellenarán en el proceso que implementa el caso de uso _Crear nueva guía
 clínica_.
@@ -2468,7 +2466,7 @@ image::architecture.png[]
 
 Las flechas son asociaciones de dependencia y se corresponden con las dependencias definidas en el código bien en el
 método `module` del objeto `angular` o bien en los propios objetos definidos en cada uno de los módulos. A
-continuación se describen los módulos definidos entrando un poco más en detalle e indicando el propósito y las
+continuación se describen dichos módulos entrando un poco más en detalle e indicando el propósito y las
 responsabilidades de cada uno:
 
 * `app`: es el módulo raíz de la aplicación. Se le pasa a la directiva https://docs.angularjs.org/api/ng/directive/ngApp[ngApp]
@@ -2484,14 +2482,14 @@ favoreciendo la reutilización del código.
 proporcionar a la aplicación el comportamiento que soporte un marcado declarativo en la vista (plantilla HTML).
 
 * `app.directives`: módulo que contiene las directivas personalizadas de la aplicación. En AngularJS cualquier acción
-que requiera modificar los elementos del DOM deben hacerse a través e una directiva.
+que requiera modificar los elementos del DOM deben hacerse a través de una directiva.
 
 * `app.components`: módulo que contiene los componentes personalizados de la aplicación, son un tipo especial de
 directiva que utilizan una configuración más simple que lo hace más adecuado para una aplicación con una estructura
 basada en componentes. Estos componentes son auto-contenidos, por lo que son reutilizables en diferentes puntos de la
 aplicación, fomentando las buenas prácticas del desarrollo de aplicaciones web.
 
-* `app.constants`: módulo que contiene las constantes globales personalizados de la aplicación. Proporciona una
+* `app.constants`: módulo que contiene las constantes globales personalizadas de la aplicación. Proporciona una
 manera de inyectar valores constantes en cualquier controlador o servicio que lo necesite.
 
 * `app.filters`: módulo que contiene filtros personalizados de la aplicación. Se usan en la vista, controladores o
@@ -2502,22 +2500,24 @@ servicios, motivo por el cual no existe una dependencia en el diagrama de la <<a
 funcionalidades con la interfaz de usuario.
 
 * `ui.tree`: componente de _drag and drop_ que permite anidación en forma de árbol, utilizado en la definición de los
-elementos de los arquetipos, en la definición de los predicados, en las reglas y en las pre-condiciones de las guías
+elementos de los arquetipos, en la definición de los predicados, en las reglas y en las precondiciones de las guías
 clínicas.
 
-* `ui.codemirror`: componente que facilita un área de texto, numerada, donde se permite editar la guía en formato GDL.
+* `ui.codemirror`: componente que facilita un editor de texto, numerado, donde se permite editar la guía en formato GDL.
 
-* `ui.router`: solución _de facto_ para el enrutado de vistas en _Single Page Applicactions_. Este tipo de enrutado
-modela las aplicaciones como un árbol de estados jerárquico, cada estado se corresponde con una vista con su
-correspondiente controlador. Proporciona una https://en.wikipedia.org/wiki/Finite-state_machine[máquina de estados]
-que permite gestionar las transiciones entre dichos estados.
+* `ui.router`: solución _de facto_ para el enrutado de vistas en __Single Page Applicactions__footnote:[Aplicación de
+página única: aplicación web que cabe en una sola página con el próposito de dar una experiencia de usuario fluida
+simulando una aplicación de escritorio] (SPA). Este tipo de enrutado modela las aplicaciones como un árbol de
+estados jerárquico, cada estado se corresponde con una vista (con su controlador asociado). Proporciona una
+https://en.wikipedia.org/wiki/Finite-state_machine[máquina de estados] que permite gestionar las transiciones entre
+dichos estados.
 
 * `ui.bootstrap`: componente con un conjunto de directivas AngularJS nativas basadas en el marcado de Bootstrap y en
 CSS.
 
 * `xEditable`: componente utilizado para la edición de tablas requerido en la sección de terminologías.
 
-* `ngSanitize`: componente utilizado para evaluar como una expresión un HTML que proviene del _backend_ e insertarlo
+* `ngSanitize`: componente utilizado para evaluar un HTML como una expresión que proviene del _backend_ e insertarlo
 de forma segura en el elemento correspondiente de la vista. Se utiliza en la vista HTML de la guía clínica.
 
 * `treeControl`: módulo utilizado para la gestión de los árboles de la aplicación, utilizado en diferentes situaciones.
@@ -2540,12 +2540,12 @@ image::sequence-guidelines.png[]
 
 Se diferencian 3 colores en los componentes implicados en las diferentes líneas de vida del diagrama de la
 <<sequence-guidelines>>: amarillo para los desarrollados para la aplicación, azul para los que son nativos de AngularJS
-y en gris está representado el _backend_. Cuando se selecciona la pestaña _Guidelines_ (ver <<_manual_de_usuario,
-manual de usuario>>), el enrutador de Angular automáticamente carga el controlador correspondiente (_GuidelinesCtrl_),
-al cual se le inyecta el servicio _guidelinesFactory_. Este controlador cuenta con un método _activate()_ que es
-invocado al iniciarse y que llama al método _getGuidelines()_ del servicio inyectado, el cual hace uso del servicio
-nativo de AngularJS `$http`, que hace una petición GET a la API del <<X4, Knowledge Manager>> (KM), el cual
-gestiona dicha petición y devuelve una promesa, que se renderizará cuando dicha petición se haya completado.
+y en gris está representada la API del <<X4, Knowledge Manager>> (KM). Cuando se selecciona la pestaña _Guidelines_ (ver
+<<_manual_de_usuario, manual de usuario>>), el enrutador de Angular automáticamente carga el controlador
+correspondiente (_GuidelinesCtrl_), al cual se le inyecta el servicio _guidelinesFactory_. Este controlador cuenta
+con un método _activate()_ que es invocado al iniciarse y que llama al método _getGuidelines()_ del servicio
+inyectado, el cual hace uso del servicio nativo de AngularJS `$http`, que hace una petición GET a la API del KM, el
+cual gestiona dicha petición y devuelve una promesa, que se renderizará cuando dicha petición se haya completado.
 
 Implementación
 ^^^^^^^^^^^^^^
@@ -4479,10 +4479,10 @@ Glosario
 [[X4]] Knowledge Manager::
   COSMIC CDS Knowledge Manager es una base de datos de conocimiento y un motor de reglas para la gestión de
   normalización médica y modelos de información clínica. El conocimiento clínico se desglosa en reglas interpretables
-  por las máquinas basadas en estándares internacionales y terminologías de referencia, de modo que las reglas de
-  soporte a la decisión pueden ser compartidas de forma sencilla entre diferentes aplicaciones de soporte a la
+  por las máquinas basadas en estándares internacionales y en terminologías clínicas, de modo que las reglas de
+  soporte a la decisión puedan ser compartidas de forma sencilla entre diferentes aplicaciones de soporte a la
   decisión, independientemente del proveedor. Las reglas pueden ser usadas para construir un poderoso y flexible
-  sistema de apoyo a la toma de decisiones clínicas.
+  sistema de soporte a las decisiones clínicas.
 
 [index]
 Índice
