@@ -4,13 +4,13 @@ definition = (GUIDE_DEFINITION) <
       archetype_id = <"openEHR-EHR-EVALUATION.problem-diagnosis.v1">
       domain = <"EHR">
       elements = <
-        ["gt0107"] = (ELEMENT_BINDING) <
+        ["gt0003"] = (ELEMENT_BINDING) <
           path = <"/data[at0001]/items[at0002.1]">
         >
       >
-      predicates = <"/data[at0001]/items[at0002.1] is_a local::gt0105|Atrial fibrillation|",...>                                <1>
+      predicates = <"/data[at0001]/items[at0002.1] is_a local::gt0121|Atrial fibrillation|",...>                     <1>
       template_id = <"diagnosis_chadvas_icd10">
     >
   >
-  pre_conditions = <"$gt0107!=null",...>	 <2>
+  pre_conditions = <"$gt0003!=null",...>          <2>
 >

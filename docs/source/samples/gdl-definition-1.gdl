@@ -4,7 +4,7 @@ definition = (GUIDE_DEFINITION) <					<1>
       archetype_id = <"openEHR-EHR-EVALUATION.problem-diagnosis.v1">	<2>
       domain = <"EHR">							<3>
       elements = <							<4>		
-        ["gt0107"] = (ELEMENT_BINDING) <				<5>
+        ["gt0003"] = (ELEMENT_BINDING) <				<5>
           path = <"/data[at0001]/items[at0002.1]">
         >
       >

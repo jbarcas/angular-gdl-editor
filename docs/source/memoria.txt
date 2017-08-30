@@ -13,36 +13,38 @@ v0.0.1, Julio 2017
 
 [abstract]
 --
-Expresar y compartir conocimiento informatizado que dé soporte a la decisión clínica independientemente del
-idioma y de plataformas técnicas ha sido un gran desafío durante mucho tiempo. Los dos retos principales a
-afrontar para compartir lógica de decisión entre diferentes sistemas son, por un lado, la ausencia de modelos de
-información clínica de uso colectivo y, por otro, la escasez de soporte para los diferentes recursos terminológicos.
+Expresar y compartir conocimiento dé soporte a la decisión clínica independientemente del idioma y de tecnologías
+específicas es uno de los principales retos en Informática Médica, y que ha dado lugar a diversos trabajos en las
+últimas décadas. Disponer de repositorios de conocimiento de decisión clínica expresado de manera formal y estándar,
+de manera que este conocimiento pueda ser explotado tanto por humanos como por máquinas, es un paso crucial para
+agilizar la acumulación y validación de conocimiento y para avanzar hacia un mejor diagnóstico, seguimiento y
+tratamiento de las enfermedades.
 
-Para expresar la lógica que da soporte a la decisión médica se necesita un modelo de representación de guías
-clínicas. Para que dicha lógica pueda ser interpretada automáticamente entre los sistemas sanitarios tiene que contar
-con la característica de ser semánticamente interoperable. __open__EHR, comunidad virtual que trabaja en
-el desarrollo de especificaciones para la interoperabilidad de registros clínicos electrónicos entre sistemas, ha
-desarrollado la especificación del _Guideline Definition Language_(_GDL_), un lenguaje formal
-diseñado para expresar lógica de soporte a la decisión de forma interoperable, el cual, recientemente, ha pasado
-a formar parte del núcleo de la plataforma __open__EHR. Ha sido diseñado para ser independiente de lenguajes
-naturales y de terminologías clínicas haciendo uso, para ello, de los diseños del Modelo de Referencia y del Modelo
-de Arquetipos de __open__EHR.
+Los dos retos principales a afrontar para compartir lógica de decisión entre diferentes sistemas son, por un lado, la
+ausencia de modelos de información clínica de uso colectivo y, por otro, la escasez de soporte para los diferentes
+recursos terminológicos.
 
-El principal objetivo de este proyecto ha sido la elaboración de una herramienta web para la edición de guías
-clínicas expresadas en lenguaje GDL. La comunidad no disponía de una herramienta de gestión de dichas guías con un
-enfoque colaborativo como el que puede ofrecer una aplicación web. Lo que se pretende es que sean los propios
-profesionales sanitarios--los que tienen el conocimiento necesario--los que elaboren las guías clínicas de una manera
-colaborativa y consensuada, con el fin de poder utilizarlas de manera exitosa en la práctica médica.
+Expresar lógica dé soporte a la decisión requiere de un modelo de representación de guías clínicas que permita a
+diferentes sistemas intercambiar conocimiento a nivel semántico. __open__EHR, comunidad virtual que trabaja en el
+desarrollo de especificaciones para la interoperabilidad de registros clínicos electrónicos entre sistemas, ha
+desarrollado el _Guideline Definition Language (GDL)_, un lenguaje formal diseñado para expresar lógica de soporte a la
+decisión de forma interoperable, el cual, recientemente, ha pasado a formar parte del núcleo de la plataforma
+__open__EHR.
 
-El resultado de este proyecto es un software capaz de crear, editar y gestionar guías clínicas en formato GDL, las guías
-son validadas en el servidor de la aplicación (denominado _Knowledge Manager Server_, o _KM server_), denegándose la
-petición de envío cuando la guía posee algún error de sintaxis. Se ha desarrollado una aplicación modular en
-AngularJS, herramienta para el desarrollo de _aplicaciones web de una sola página_ basado en el
-patrón de arquitectura Modelo-vista-controlador, por lo que existe una clara separación entre los datos (modelo), la
-lógica de la aplicación, (controlador) y la presentación de la información (vista). AngularJS favorece la
-reutilización de componentes, inyección de dependencias y un testeo unitario y _end-to-end_ de forma sencilla y
-eficiente. La metodología de desarrollo ágil Scrum ha ayudado a reducir considerablemente los ciclos de desarrollo y
-ha asegurado que al final de cada ciclo se hubiesen desarrollado ciertas funcionalidades operativas de aplicación.
+GDL supone un avance fundamental hacia la representación formal de guías clínicas. Sin embargo, la adopción de este
+lenguaje es todavía limitada, principalmente debido a que la comunidad no dispone de herramientas software que
+faciliten a los profesionales sanitarios la elaboración de guías clínicas en formato GDL de manera colaborativa. En
+este proyecto, se ha desarrollado una herramienta web para la edición de guías clínicas expresadas en lenguaje GDL.
+Se pretende que sean los propios profesionales sanitarios—los que tienen el conocimiento del dominio—los principales
+protagonistas en la elaboración de las guías clínicas de manera colaborativa y consensuada, con el fin de poder
+utilizarlas de manera exitosa en la práctica médica.
+
+El resultado de este proyecto es un software que facilita la creación, validación, edición y gestión de guías
+clínicas en formato GDL. El software se ha desarrollado como una aplicación web en AngularJS y siguiendo una versión
+simplificada de la metodología ágil Scrum, la cual ha ayudado a reducir considerablemente la duración de los ciclos
+de desarrollo y ha asegurado que al final de cada ciclo se hubiesen desarrollado ciertas funcionalidades operativas
+de aplicación. El software desarrollado es de código abierto y está a disponible para su integración en la plataforma
+__open__EHR.
 
 *Palabras clave*
 Guías clínicas, arquetipos clínicos, sistema de soporte a la decisión, interoperabilidad semántica, AngularJS, REST.
@@ -107,15 +109,43 @@ decisión clínica <<BONI04>>. Incluso una década antes, se trabajó con intens
 partir de la información que los médicos habían almacenado en sus computadoras, se basaban en reglas lógicas básicas.
 Dos ejemplos clásicos son el sistema de diagnóstico de alteraciones electrolíticas de Bleich <<BLEI69>> y el realizado
 por Warner _et al_. <<WARN61>> basado en la realización de razonamientos probabilísticos mediante el uso  intensivo
-del teorema de Bayes. Hasta ese momento se fundaron lo que fueron las bases teóricas del desarrollo de los SSDC.
+del teorema de Bayes.
+
+Otro sistema relevante, desarrollado a principios de los años 70 en la Universidad de Stanford, fue el sistema
+MYCIN<<EDWA77>>, un sistema de ayuda a la decisión del diagnóstico médico en el dominio de las enfermedades
+infeccionsas de la sangre. Se trataba de un sistema experto basado en reglas que usaba técnicas de inteligencia
+artificial y un modelo de interacción entre médicos y consultores para tratar de satisfacer la demanda de una
+comunidad de usuarios que, a menudo, se resistía a experimentar con la tecnología informática. En su momento se
+demostró que el sistema era eficiente, relativamente fácil de usar y confiable en el diagnóstico dentro del dominio
+de terapia de bacteremia. Mycin era capaz, además, de ``razonar'' el proceso seguido para llegar a sus conclusiones.
+Su funcionamiento se basaba principalmente en un motor de inferencia sencillo que manejaba una base de conocimiento
+de aproximadamente unas 500 reglas. Investigaciones llevadas a cabo en la _Stanford Medical School_ revelaron que Mycin
+tenía una mejor tasa de aciertos que los médicos no especializados en infeccines bacterianas.
+
+A finales de los años 70 surge, en la Universidad de Pittsburgh, una herramienta experimental para asistir a las
+decisiones en el diagnóstico médico en medicina interna denominada INTERNIST-I<<RAND86>>. Contenía una base de
+conocimiento con 570 enfermedades descritas de medicina interna. Sus diseñadores esperaban que llegase a ser útil en
+ambientes remotos como zonas rurales, el espacio exterior, bases militares extranjeras, etc. pero los usuarios del
+sistema se quejaban de que era demasiado lento. Posteriormente, investigadores de la Universidad Carnegie Mellon
+desarrollaron un software que la hacía más rápido. En cualquier caso, INTERNIST-I nunca pasó de su estado original
+como proyecto de investigación.
+
+Hasta ese momento se fundaron lo que fueron las bases teóricas del desarrollo de los SSDC.
 Durante las dos décadas siguientes se desarrollaron los primeros SSDC basados en grandes ordenadores. Sin
 embargo, no fue hasta los 80 y 90, con la llegada de los ordenadores personales y el uso generalizado de los mismos,
-cuando se aprovecharon potencialmente este tipo de sistemas. Hoy en día el soporte a la decisión clínica forma parte
-de muchos sistemas sanitarios, se está invirtiendo mucho esfuerzo por parte de las instituciones médicas y compañías
-de software para producir SSDC viables para apoyar en todos los aspectos de la práctica clínica. A pesar de estos
-esfuerzos por parte de las instituciones para producir y utilizar estos sistemas, todavía no se ha alcanzado la
-adopción y la aceptación generalizada de la mayoría de las ofertas, y esto es debido principalmente a la escasez de
-modelos de información clínicos compartidos entre sistemas sanitarios.
+cuando se aprovecharon potencialmente este tipo de sistemas.
+
+Hoy en día el soporte a la decisión clínica forma parte de muchos sistemas sanitarios, se está invirtiendo mucho
+esfuerzo por parte de las instituciones médicas y compañías de software para producir SSDC viables para apoyar en
+todos los aspectos de la práctica clínica. A pesar de estos esfuerzos por parte de las instituciones para producir y
+utilizar estos sistemas, todavía no se ha alcanzado la adopción y la aceptación generalizada de la mayoría de las
+ofertas, y esto es debido principalmente a la escasez de modelos de información clínicos compartidos entre sistemas
+sanitarios.
+
+Como referencia actual de relativa importancia destacan los esfuerzos que está haciendo IBM com
+Watsonfootnote:[Software de inteligencia artificial capaz de responder a preguntas expresadas en lenguaje natural.
+IBM actualmente está aplicando esta herramienta al campo de los sistemas de soporte a la decisión en el contexto
+clínico] aplicado al ámbito clínico [continuar aquí......]
 
 *Las Tecnologías de la Información y las Comunicaciones (TIC) en los sistemas sanitarios* +
 Actualmente la utilización de las TIC en los sistemas sanitarios se ha convertido en indispensable. Hoy en día todavía
@@ -296,11 +326,131 @@ los navegadores. En numerosas ocasiones requieren que exista una conexión a Int
 que la aplicación no funcione. Esto, dependiendo de la aplicación, se podría abordar implementando soluciones que
 permitan el funcionamiento _off-line_.
 
+Patrones de software
+~~~~~~~~~~~~~~~~~~~~
+Un patrón, en cualquier disciplina, representa una solución a un problema resuelto anteriormente. Los
+patrones de software son la base para la búsqueda de soluciones a problemas recurrentes en el desarrollo de software.
+Además de la definición mencionada, los patrones de software pretenden formalizar un vocabulario común entre
+desarrolladores, estandarizar la manera en que se lleva a cabo dicho desarrollo y facilitar el aprendizaje de nuevos
+desarrolladores acumulando conocimiento ya existente.
+
+La explicación de los patrones de software que se mencionan en esta sección se han orientado a la plataforma
+AngularJS, ya que es la tecnoloǵia utilizada como _framework_ de  desarrollo en este TFM.
+
+Patrones de arquitectura
+^^^^^^^^^^^^^^^^^^^^^^^^
+Las aplicaciones que carecen de una arquitectura formal son generalmente sistemas muy acoplados, frágiles, difíciles de
+manetener y sin una perspectiva clara. Como consecuencia, resulta muy difícil determinar las características
+arquitectónicas de la aplicación sin comprender completamente el funcionamiento interno de cada componente y de
+cada módulo en el sistema. Las preguntas básicas cuando no se sigue una arquitectura formal a la hora de la
+implementación y del mantenimiento son difíciles de responder:
+
+* ¿La arquitectura es escalable?
+* ¿Cuáles son las características de rendimiento de la aplicación?
+* ¿Con qué facilidad responde la aplicación a los cambio?
+* ¿Cuáles son las características de despliegue de la aplicación?
+* ¿Qué reponderá la arquitectura?
+
+Los patrones de arquitectura ayudan a definir las características básicas y el comportamiento de una aplicación. Por
+ejemplo, algunos patrones de arquitectura fomentan el desarrollo de aplicaciones altamente escalables, mientras
+que otros se prestan naturalmente hacia aplicaciones que son altamente ágiles. Conocer las características,
+fortalezas y debilidades de cada patrón de arquitectura es necesario para elegir el que mejor se adapte a las
+necesidades y objetivos específicos de cada proyecto.
+
+Patrón Modelo-vista-controlador
++++++++++++++++++++++++++++++++
+El patrón Patrón Modelo-vista-controlador (MVC) es un patrón de arquitectura cuya idea incipal es establecer una
+separación clara, en el código de la aplicación, entre la gestión de los datos (_modelo_), la lógica de la aplicación
+(_controlador_) y la presentación de datos al usuario (_vista_), en la <<patron-mvc>> se muestran gráficamente estos
+tres componentes y las relaciones entre ellos, las líneas sólidas indican una asociación directa y las punteadas una
+asociación indirecta, por ejemplo usando el patrón
+observadorfootnote:[https://es.wikipedia.org/wiki/Observer_(patr%C3%B3n_de_dise%C3%B1o)].
+
+[[patron-mvc]]
+.Patrón MVC.
+image::MVC.png[scaledwidth="60%"]
+
+Las aplicaciones basadas en MVC surgieron ya en los años 70 de la mano de
+Smalltalkfootnote:[https://es.wikipedia.org/wiki/Smalltalk]. A partir de entonces se fueron convirtiendo cada vez más
+populares en casi todos los entornos de desarrollo donde estuvieran involucradas las interfaces de usuario. Hasta
+hace relativamente poco tiempo, era prácticamente ajeno al desarrollo web.
+
+Este patrón de arquitectura de software se basa en las ideas de reutilización de código y la separación de conceptos,
+características que buscan facilitar las tareas de desarrollo de aplicaciones y su posterior mantenimiento. El flujo
+de eventos es el siguiente:
+
+1. El usuario interactúa con la aplicación a través de la interfaz de usuario.
+2. El _controlador_ recibe la notificación de la acción solicitada por el usuario y se activan los gestores de eventos
+ del _controlador_.
+3. El _controlador_ solicita datos al _modelo_ y se los envía a la _vista_.
+4. El _controlador_ delega en la a _vista la presentación de los datos del _modelo_ al usuario.
+5. La interfaz de usuario espera otra interacción del usuario, que comenzará otro nuevo ciclo
+
+A continuación se describen los 3 componentes de este patrón arquitectónico <<MACC11>>:
+
+*Modelo* +
+El _modelo_ es donde se residen los objetos de datos de la aplicación. Por ejemplo, se podría tener un _modelo_
+denominado `ModeloUsuario` que contenga una lista de usuarios, sus atributos y cualquier lógica asociada
+específicamente con ese _modelo_.
+
+El _modelo_ no sabe nada acerca de las vistas o controladores. Lo único que debe contener un _modelo_ son los datos y la
+lógica asociada directamente con esos datos. Cualquier código de gestión de eventos, plantillas de vista o lógica no
+específica a ese _modelo_ debe mantenerse separado de él. Los _modelos_ deben estar completamente desacoplados del resto
+de la aplicación.
+
+Cuando los controladores recuperan datos de los servidores o crean nuevos registros, los encapsulan en instancias de
+_modelo_, que se encarga de notificar a la _vista_ los cambios que se producen el el mismo.
+
+*Vista* +
+La capa de _vista_ es lo que se presenta al usuario y es con lo que interactúa, las _vistas_ no deben contener ninguna
+lógica. Al igual que los _modelos_, las _vistas_ también deben estar desacopladas del resto de la aplicación.
+Presenta el
+_modelo_ en un formato adecuado para interactuar, por lo que requiere de dicho _modelo_ la información que debe
+representar como salida.
+
+*Controlador* +
+Los _controladores_ son el nexo de unión entre el _modelo_ y la _vista_. Los _controladores_ reciben eventos e
+información de entrada de las _vistas_, los procesan, invocan las acciones necesarias sobre el _modelo_ y actualizan
+las _vistas_ en consecuencia. El controlador añadirá escuchadores de eventos a las vistas cuando se cargue la página,
+_e.g._ envío de formularios, clic en un botón, etc. Por lo tanto, cuando el usuario interactúa con la aplicación,
+los eventos desencadenan acciones dentro de los controladores.
+
+*Uso en aplicaciones web*
+Aunque originalmente MVC fue desarrollado para aplicaciones de escritorio, ha sido ampliamente adaptado como
+arquitectura para diseñar e implementar aplicaciones web en los principales lenguajes de programación. Se han
+desarrollado multitud de frameworks, comerciales y no comerciales, que implementan este patrón. Estos frameworks se
+diferencian básicamente en la interpretación de cómo las funciones MVC se dividen entre cliente y servidor.
+
 Patrones de diseño
-~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^
+Un patrón de diseño es una descripción de clases y objetos que se comunican entre sí, adaptada para resolver un
+problema de diseño general en un contexto particular<<GAMM02>>. Los patrones de diseño buscan ayudar a la comunidad
+de desarrolladores de software a resolver problemas comunes, crean un lenguaje común para comunicar ideas y
+experiencias acerca de los problemas y sus soluciones. El uso de patrones de diseño ayuda a obtener un software de
+calidad fomentando la reutilización y la extensibilidad.
+
+Para que una solución se pueda considerar un aptrón de diseño debe cumplir ciertas características, la más importante
+es que debe de estar comprobada su efectividad resolviendo problemas similares en situaciones anteriores. Otra es que
+debe ser reutilizable, de modo que se pueda aplicar a diferentes probelmas de siseño en sistintas circunstancias.
+
+Lo que se pretende es suministrar un catálogo bien definido de elementos reutilizables en el diseño de sistemas
+software, evitando búsquedas de soluciones a problemas ya conocidos que tienen una solución bien desarrollada. Al
+igual que los patrones de arquitectura, también pretenden facilitar el aprendizaje a las nuevas generaciones, en este
+caso orintado al diseño, de aplicaciones software, condensando conocimiento ya existente.
+
+Debido a la existencia de muchos patrones de diseño, es necesario un modo de organizarlos, de manera que podamos
+referirnos a familias de patrones de diseño relacionados. Se clasifican, según su propósito, en las siguientes
+categorías:
+
+* De creación: relacionados con el proceso de creación de objetos. Ayudan a crear un sistema independiente de cómo se
+ crean sus objetos, de cómo se componen y cómo se representan.
+* Estructurales: tratan con la composición de clases u objetos. Se ocupan de cómo las clases y los objetos se
+componen para crear estructuras más comlejas, separan la interfaz de la implementación.
+* De comportamiento: caracterízan el modo en que las clases y objetos interactúan y se reparten las responsabilidades.
+
 
 Patrón _Singleton_
-^^^^^^^^^^^^^^^^^^
+++++++++++++++++++
 El patrón _singleton_ es un patrón de diseño que restringe la instanciación de una clase a un único objeto y
 proporciona un punto de acceso global a dicha instancia. Esto es útil cuando se necesita exactamente un objeto para
 coordinar acciones en todo el sistema. El concepto a veces se generaliza a sistemas que operan más eficientemente
@@ -356,7 +506,7 @@ anteriormente ya que, en lugar de mantener la referencia privada estática al _s
 mantiene dentro del gestor de _singleton_ (indicado en el _snippet_ anterior como `cache`).
 
 Patrón Fachada
-^^^^^^^^^^^^^^
+++++++++++++++
 El patrón fachada es un patrón estructural. Se utiliza cuando se necesita proporcionar una interfaz simple de alto
 nivel para un subsistema complejo, o cuando se quiera estructurar varios subsistemas en capas, ya que las fachadas
 serían el punto de entrada a cada nivel. Aplicando este patrón se reduce la complejidad, minimiza las
@@ -431,8 +581,8 @@ creado una mayor abstracción utilizando el servicio
 `$resource` footnote:[https://docs.angularjs.org/api/ngResource/service/$resource], el cual se construye sobre el
 servicio `$http`.
 
-Patrón _Proxy_.
-^^^^^^^^^^^^^^^
+Patrón _Proxy_
+++++++++++++++
 Un _proxy_, en su sentido más abstracto, es una clase que funciona como una interfaz de otra cosa. El _proxy_ podría
 hacer de _interface_ a cualquier cosa: una conexión de red, un objeto grande en memoria, un archivo o algún otro
 recurso que sea costoso o imposible de duplicar.
@@ -484,7 +634,7 @@ AngularJS rellenará el objeto con los datos recibidos del servidor. Durante el 
 detectará el cambio en `$scope.user`, lo que llevará a la actualización de la vista.
 
 Inyección de dependencias
-^^^^^^^^^^^^^^^^^^^^^^^^^
++++++++++++++++++++++++++
 La Inyección de Dependencias (_DI_ por sus siglas en inglés) es un patrón de diseño de software que se ocupa de cómo
 los componentes consiguen sus dependencias. AngularJS cuenta con un subsistema inyector que se encarga de crear
 componentes, resolver sus dependencias y proporcionarlos a otros componentes según lo solicitado.
@@ -720,28 +870,17 @@ No cabe duda que, debido a su alcance, rendimiento y otras características menc
 mucho terreno. Aunque JavaScript es sólo una pieza del rompecabezas, la manera en la que Node utiliza JavaScript es
 de lo más convincente.
 
-AngularJS y patrón de arquitectura Model-View-Controller
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+AngularJS
+~~~~~~~~~
 AngularJS es un framework basado en JavaScript, de código abierto, mantenido por Google y por una
 amplia comunidad de individuos y organizaciones para la solución de muchos de los desafíos encontrados en el
 desarrollo de _aplicaciones web de una sola página_. Lo que se pretende con este framework es simplificar el
-desarrollo y las pruebas de este tipo de aplicaciones proporcionando un framework Model-View-Controller (MVC) y
-Model-View-Viewmodel (MVVM) para las arquitecturas del lado cliente.
+desarrollo y las pruebas de este tipo de aplicaciones proporcionando un framework MVC y Model-View-Viewmodel (MVVM)
+para las arquitecturas del lado cliente.
 
-La principal idea detrás del patrón MVC es que se tiene una separación clara en el código entre la gestión de los
-datos (modelo), la lógica de la aplicación (controlador) y la presentación de datos al usuario (vista). Las
-aplicaciones MVC surgieron ya en los años 70 de la mano de Smalltalk. A partir de entonces se fueron convirtiendo
-cada vez más populares en casi todos los entornos de desarrollo donde estuvieran involucradas las interfaces de
-usuario. Hasta hace relativamente poco tiempo, era prácticamente ajeno al desarrollo web.
-
-[[mvc]]
-.Patrón Model-View-Controller.
-image::mvc.png[scaledwidth="40%"]
-
-En este patrón de arquitectura, la vista obtiene los datos del modelo para ser mostrados al usuario. Cuando un
-usuario interactúa con la aplicación haciendo clic con el ratón o escribiendo un _input_, el controlador responde
-cambiando los datos en el modelo. Finalmente, el modelo notifica a la vista que se ha producido un cambio para que
-pueda actualizar lo que se está mostrando. En las aplicaciones Angular, la vista es el
+El principal concepto detrás del _framework_ AngularJS es el patrón de arquitectura MVC<<SHYA14>>. Para el desarrollo de
+este
+proyecto se ha utilizado AngularJS como implementación de dicho patrón. En las aplicaciones Angular, la vista es el
 DOMfootnote:[Especificación técnica de w3c: https://www.w3.org/DOM/DOMTR], los controladores son clases
 JavaScript y los datos del modelo se almacenan en propiedades de objetos. MVC es apropiado por varios motivos. En
 primer lugar, ofrece un modelo mental que indica dónde colocar las cosas, de tal manera que no hay que reinventar la
@@ -749,6 +888,31 @@ rueda continuamente. Los colegas que colaboran en un mismo proyecto tendrán una
 que ya se hubiese escrito, ya que ellos sabrán que se está utilizando la estructura MVC para organizar el código. Y
 quizás lo que es más importante, ofrece grandes beneficios ya que hace que las aplicaciones sean más fáciles de
 extender, mantener y probar.
+
+A continuación se muestran una serie de ventajas que proporciona AngularJS:
+
+* AngularJS es un meta-framework para _Single Page Aplications_ (SPA) o _aplicaciones de una sola página_. Las
+plantillas de cliente y el uso intensivo de JavaScript, crear y mantener una aplicación puede convertirse en una
+tarea tedios. AngularJS elimina esa complicación y hace el trabajo pesado, de modo que el desarrollador pueda
+centrarse solamente en el núcleo de la aplicación.
+
+* Una aplicación AngularJS requerirá menos líneas de código para completar una tarea que una solución de JavaScript
+puro utilizando jQuery. Comparado con otros _frameworks_, se necesita escribir menos código, siendo este un código más
+limpio, ya que reutiliza la lógica usando componentes y los separa de la vista.
+
+* La mayor parte del código escrito en AngularJS se centrará en la lógica de negocio o en las funcionalidades
+principales de la aplicación.
+
+* La naturaleza declarativa de AngularJS facilita la escritura y comprensión de las aplicaciones. Es fácil entender
+la intención de una aplicación simplemente mirando el código HTML y los controladores.
+
+* Las aplicaciones AngularJS pueden diseñarse utilizando CSS y HTML independientemente de su lógica y
+funcionalidad de negocio. Es decir, es completamente posible cambiar todo el _layout_ y el diseño de una aplicación sin
+tocar una sola línea de JavaScript.
+
+* Angular está orientado a la definción de pruebas, lo que hace que las aplicaciones sean más estables y fáciles de
+mantener durante largos periodos de tiempo. Si hay nuevas funcionalidades o nuevos cambios, se pueden acometer de
+manera fiable gracias a las pruebas.
 
 Módulos en AngularJS
 ^^^^^^^^^^^^^^^^^^^^
@@ -1903,11 +2067,10 @@ La sección _rules_ hace uso exclusivo de las variables definidas localmente par
 regla tiene un nombre codificado por un _código gt_ definido localmente, cuyo nombre y descripción, que dependen del
 lenguaje natural, se indexan en la sección _term_definitions_. También se puede asignar una prioridad para asegurar
 el orden de ejecución de las reglas. Este ejemplo ilustra las reglas que inspeccionan diferentes diagnósticos
-relevantes para la puntuación CHA2DS2-VASc y establecen los valores correspondientes a los DV_ORDINALsfootnote:[Tipo
-de dato de __open__EHR, definido en el MR:
-http://www.openehr.org/releases/RM/latest/docs/data_types/data_types.html#_dv_ordinal_class] existentes en
-el arquetipo correspondiente, en este caso el arquetipo CHA2DS2-VASc. La regla `gt0026`, (``Calcular puntuación total'')
-suma todos los valores y asigna la puntuación total.
+relevantes para la puntuación CHA2DS2-VASc y establecen los valores correspondientes a los
+DV_ORDINALsfootnote:[Tipo de dato de __open__EHR, definido en el MR: http://www.openehr.org/releases/RM/latest/docs/data_types/data_types.html#_dv_ordinal_class]
+existentes en el arquetipo correspondiente, en este caso el arquetipo CHA2DS2-VASc. La regla `gt0026`, (``Calcular
+puntuación total'') suma todos los valores y asigna la puntuación total.
 
 ----
 include::samples/gdl-rules.gdl[]
@@ -1985,7 +2148,7 @@ Roles
 En Scrum existen 3 roles: el ScrumMaster, el propietario del Producto y el Equipo. Todos juntos se les conoce como en
 Equipo Scrum.
 
-Propietario del Producto::
+*Propietario del Producto* +
 Es el responsable de maximizar el retorno de la inversión (ROI) identificando las
 características del producto, traduciéndolas a una lista priorizada, decidiendo cuál debería estar en la parte
 superior de la lista para el próximo Sprint y continuamente redefiniendo y refinando la lista. El Propietario del
@@ -2004,24 +2167,24 @@ de desarrollo a un gerente de proyecto. Es importante observar que en Scrum hay 
 Propietario del Producto, y este es el responsable final del valor del trabajo, aunque dicha persona no tenga que
 trabajar sola.
 
-El equipo::
+*El equipo* +
 El Equipo, también llamado Equipo de Desarrollo, construye el producto que el Propietario del Producto
 indica:
 la aplicación o el sitio web, por ejemplo. El equipo en Scrum es ``multifuncional'', incluye toda la experiencia
 necesaria para entregar el producto potencialmente en cada Sprint, y es auto-organizado, con un alto
 grado de autonomía y responsabilidad. El Equipo decide cuántos artículos--del conjunto ofrecido por el Propietario
 del Producto--debe construir en cada Sprint y la mejor manera de lograr ese objetivo.
-+
+
 En el Equipo no hay títulos especializados: no hay analista de negocios, ni DBA, ni arquitecto, ni jefe de equipo, ni
 diseñador de interfaz gráfica, ni programador, etc., los componentes del mismo trabajan juntos durante cada iteración
 de la manera que sea más apropiada para alcanzar el objetivo que ellos mismos han fijado.
-+
+
 Cada persona tendrá habilidades primarias, secundarias e incluso terciarias. Los individuos también asumen tareas en
 áreas en las que están menos familiarizados para ayudar a completar dicha tarea. Por ejemplo, una persona cuya
 habilidad principal es el diseño de interfaces gráficas podría tener una habilidad secundaria en las pruebas
 automatizadas o alguien con habilidad primaria en escritura técnica también podría ayudar con el análisis y la
 programación.
-+
+
 El Equipo en Scrum consta de 5 a 9 personas. Para un producto de software, el Equipo puede incluir personas con
 habilidades en análisis, desarrollo, pruebas, diseño de interfaces, diseño de bases de datos, arquitectura,
 documentación, etc. El equipo desarrolla el producto y proporciona ideas al Propietario del Producto sobre cómo hacer
@@ -2031,7 +2194,7 @@ proyectos, para huir de las atenciones divididas y del cambio de contexto. Los e
 asociados con una mayor productividad, por lo que es conveniente evitar cambiar a los miembros del equipo en la medida
 de lo posible.
 
-ScrumMaster::
+*ScrumMaster* +
 El ScrumMaster ayuda a aplicar Scrum para que el producto a desarrollar tenga éxito. Hace lo que esté en su mano para
 ayudar al Equipo, al Propietario del Producto y a la organización. El ScrumMaster no es el
 administrador de los miembros del equipo, ni es un jefe de proyecto, ni un líder del equipo, simplemente ayuda a eliminar
@@ -2046,7 +2209,7 @@ probable que tengan dificultades para tener éxito. Un equipo pequeño podría c
 desempeñe este papel (llevando una carga más ligera de trabajo regular cuando lo hace). Un ScrumMaster brillante
 puede provenir de cualquier disciplina: ingeniería, diseño, pruebas, gestión de productos, gestión de proyectos o
 gestión de la calidad.
-+
+
 El ScrumMaster y el Propietario del Producto no pueden ser el mismo individuo, ya que su enfoque es tan diferente que
 combinarlos a menudo lleva a la confusión y al conflicto. Un resultado común de combinar estos roles es un
 Propietario del Producto que se opone a la autogestión de los equipos que Scrum requiere. A diferencia
@@ -2054,7 +2217,7 @@ de un gestor tradicional, el ScrumMaster no le dice a la gente qué hacer ni asi
 facilita el proceso, apoya al equipo mientras se organiza y se gestiona. Si el ScrumMaster estaba previamente en una
 posición de gestión del equipo, tendrá que cambiar significativamente su mentalidad y estilo de interacción para que
 el equipo tenga éxito con Scrum.
-+
+
 No hay ningún rol de jefe de proyecto en Scrum, esto se debe a que no es necesario. Las responsabilidades
 tradicionales de un director de proyecto se han dividido y reasignado entre los tres roles de Scrum, principalmente,
 entre el Equipo y el Propietario del Producto, en vez de al ScrumMaster. Utilizar Scrum con un
@@ -2076,53 +2239,56 @@ Documentos
 ++++++++++
 La metodología Scrum establece la elaboración de una serie de documentos para apoyar, auditar y documentar el proceso.
 
-Product blacklog::
+*Product blacklog* +
 Cuando un grupo planea migrar a Scrum, antes de empezar el primer Sprint, se necesita el _Product Backlog_, un
 documento priorizado y ordenado de características centradas en el cliente. Contiene descripciones genéricas de todos
 los requisitos, funcionalidades deseables, etc. Se trata de un documento de alto nivel para todo el proyecto, que
 existe y evoluciona durante la vida útil del producto. Es el plan de negocio del producto (ver <<product-backlog>>
-y <<product-backlog-visual-management>>). En cualquier momento, el _Product backlog_ ofrece una visión única y
+y <<waffle-backlog>>). En cualquier momento, el _Product backlog_ ofrece una visión única y
 definitiva de ``todo lo que  podría ser hecho por el Equipo, en orden de prioridad'', esta prioridad se organiza
 según su ROI. Sólo existe un único _Product backlog_ para un producto, lo que significa que el Propietario del
 Producto debe tomar decisiones de priorización de alto nivel, representando los intereses de todas las partes
 interesadas (incluido el Equipo).
-+
+
 [[product-backlog]]
 .El _Product Backlog_.
 image::product-backlog.png[]
-+
-[[product-backlog-visual-management]]
-.Gestión visual: ítems del _Product Backlog_ sobre la pared.
-image::product-backlog-visual-management.png[]
-+
+
+[[waffle-backlog]]
+.Gestión visual: ítems del _Product Backlog_ utilizando una herramienta software (columna de la izquierda).
+image::waffle-board.jpg[scalewidth="70%"]
+
 El _Product Backlog_ incluye una variedad de elementos, principalmente nuevas características del cliente
-(_e.g._ "permitir a todos los usuarios colocar el libro en el carrito de compras"), pero también otros objetivos
+(_e.g._ "permitir a todos los usuarios colocar el libro en el carrito de la compra"), pero también otros objetivos
 de mejora técnica (_e.g._ ``reescribir el sistema de C ++ a Java'' o ``Mejorar el rendimiento de los tests''),
 trabajos e investigación (_e.g._ ``investigar soluciones para acelerar la validación de la tarjeta de crédito''), y,
 posiblemente, defectos conocidos (_e.g._ ``diagnosticar y arreglar los errores del script de procesamiento de
-pedidos'').
-+
+pedidos''). A día de hoy existen herramientas modernas para la gestión de tareas de manera automática usando Scrum, en
+la imagen de la <<waffle-backlog>> se muestran los elementos del _Product Backlog_ (columna de la izquierda) de una
+aplicación, utilizando __Waffle__footnote:[Herramienta de gestión de proyectos automatizada, permite la
+integración con  _GitHub_: https://waffle.io/].
+
 Los elementos del Product Backlog se tienen que expresar de una manera clara y concisa. Contrariamente a los
 malentendidos populares, el _Product Backlog_ no contiene ``historias de usuarios'', simplemente contiene elementos,
 que pueden expresarse como historias de usuarios, casos de uso o cualquier otro enfoque de requisitos que
 el grupo considere útil. Pero, cualquiera que sea el enfoque, la mayoría de los artículos deben centrarse en la
 entrega de valor a los clientes.
 
-Sprint blacklog::
+*Sprint blacklog* +
 Muchos Equipos tienen un _Sprint Backlog_ en forma de tablero de tareas de tamaño de pared (a menudo llamado
 también _Scrum Board_) donde las tareas, escritas en forma de notas Post-It, se van moviendo durante el Sprint a través
 de las columnas denominadas ``To Do'', ``Work In Progress'' y ``Done'' (<<sprint-backlog>>).
-+
+
 [[sprint-backlog]]
 .Gestión visual: tareas de un _Sprint Backlog_ sobre la pared.
 image::sprint-backlog.jpg[scaledwidth="80%"]
-+
+
 En definitiva, el _Sprint backlog_ se trata de un documento detallado donde se describe cómo el equipo va a
 implementar los requisitos durante el siguiente Sprint. Las tareas se dividen en horas donde ninguna tarea
 tendrá una duración superior a 16 horas. Si una tarea es mayor de 16 horas, deberá ser dividida en subtareas de un
 nivel de detalle más fino. Las tareas en el _Sprint Backlog_ no se asignan, sino que los miembros del equipo las
 van tomando de la manera que les parezca más oportuno.
-+
+
 Uno de los pilares de Scrum es que, una vez que el equipo establece su objetivo para el Sprint, cualquier añadido o
 cambio debe ser aplazado al siguiente Sprint. Esto significa que si el Propietario del Producto, en mitad de un Sprint,
 decide que hay un nuevo ítem en el que quisiera que el Equipo trabajara, no podría hacer el cambio hasta el comienzo
@@ -2131,13 +2297,13 @@ significase que el Equipo estaría perdiendo el tiempo si continuase trabajando 
 del Producto o el Equipo puede abortar el Sprint. El equipo se detiene y se realiza una nueva reunión de planificación
 del Sprint, iniciándose de esta manera una nueva iteración. El perjuicio de hacer esto generalmente es grande, además de
 la posible desmotivación tanto para el Propietario del Producto como para el Equipo.
-+
+
 Que el Equipo esté protegido contra los cambios durante el Sprint tiene varias ventajas. En primer lugar, el Equipo se
 pone a trabajar sabiendo con absoluta certeza que su objetivo no va a cambiar, lo que refuerza el enfoque del Equipo en
 asegurar la finalización. En segundo lugar, obliga al _Propietario del Producto_ a pensar realmente a través de
 los ítems que él prioriza en el _Product Backlog_.
 
-Burn Down::
+*Burn Down* +
 La _Burn Down Chart_ es una gráfica que se muestra públicamente y que mide la cantidad de requisitos en el _Backlog_ del
 proyecto pendientes al comienzo de cada Sprint. Dibujando una línea que conecte los puntos de todos los Sprints
 completados, se puede ver el progreso del proyecto. Lo normal es que esta línea sea descendiente (en casos en los que
@@ -2152,7 +2318,7 @@ Reuniones
 Uno de los pilares fundamentales de Scrum es la comunicación. A continuación se muestran los diferentes tipos de
 reuniones que tienen lugar en esta metodología:
 
-Daily Scrum::
+*Daily Scrum* +
 El principal objetivo de las _Daily Scrum meetings_ es llevar a cabo una actualización y una coordinación entre los
 miembros del Equipo. Estas reuniones son diarias durante el desarrollo de un Sprint, participan obligatoriamente
 todos los miembros del Equipo, la presencia de el Propietario del Producto es opcional y el ScrumMaster suele estar
@@ -2163,25 +2329,25 @@ pudiese haber aparecido. Cada uno debe ir informando al resto del equipo de lo s
 * ¿Qué se ha logrado desde la última reunión?
 * ¿Qué se hará antes de la próxima reunión?
 * ¿Qué obstáculos han aparecido en el camino?
-+
+
 Hay que destacar que el _Daily Scrum_ no es una reunión de estado para informar a un gerente, se trata de un tiempo para
 que un equipo auto-organizado comparta entre sí lo que está pasando, se trata de una ayuda a la coordinación.
 
-Scrum de Scrums::
+*Scrum de Scrums* +
 Suele realizarse cada día, normalmente después del _Daily Scrum_.
 
 * Estas  reuniones  permiten  a  los  grupos  de  equipos  discutir  su  trabajo, enfocándose especialmente en áreas de
 solapamiento e integración.
 * Asiste una persona asignada por cada equipo.
-+
+
 La agenda será la misma que la del _Daily Scrum_, además de las siguientes cuatro preguntas:
-+
+
 * ¿Qué ha hecho tu equipo desde nuestra última reunión?
 * ¿Qué hará tu equipo antes que nos volvamos a reunir?
 * ¿Hay algo que demore o estorbe a tu equipo?
 * ¿Estás a punto de encargarle una tarea a otro equipo?
 
-Sprint Planning Meeting::
+*Sprint Planning Meeting* +
 Se trata de la reunión para preparar cada Sprint, típicamente dividida en dos partes, la primera se centra en el
 _qué_ y la segunda en el _cómo_. En la primera parte participa el Equipo, el Propietario del Producto y el
 ScrumMaster. En la segunda participa el Equipo y el ScrumMaster (el Propietario del Producto puede asistir o no, pero
@@ -2197,23 +2363,23 @@ entre 1 y 4 semanas y se tratan los siguientes puntos:
 Al final del ciclo Sprint, se llevarán a cabo dos reuniones: la _Sprint Review Meeting_ y la _Sprint Retrospective
 Meeting_
 
-Sprint Review Meeting::
+*Sprint Review Meeting* +
 En esta reunión se trata la inspección y adaptación relacionada con el incremento de funcionalidades del producto a
 desarrollar. Participa el Equipo, el Propietario del Producto, el ScrumMaster y otros interesados (_stakeholders_),
 según corresponda, invitados por el Propietario del Producto. La duración es de una hora por semana de Sprint.
-+
+
 Tienen lugar cuando finaliza cada iteración y es el momento en el que la gente hace una revisión del Sprint. La idea
 principal es que esta reunión permita inspeccionar y adaptar el producto, se revisa qué trabajo fue completado y cuál
 no lo ha sido. Se hace una presentación del trabajo completado a todos los interesados, no permitiéndose mostrar el
 trabajo no completado. Un elemento crítico de esta revisión se centra en una _conversación_ en profundidad entre el
 Equipo y el Propietario del Producto para que este último conozca la situación, reciba consejos, etc.
 
-Sprint Retrospective::
+*Sprint Retrospective* +
 Esta reunión es la que sigue a la _Sprint Review Meeting_, la cual se centraba en la inspección y adaptación del
 producto. La _Sprint Retrospective_ se centra en la inspección y adaptación del proceso y del entorno. Participa el
 Equipo, el ScrumMaster y, opcionalmente, el Propietario del Producto. Otros _stakeholders_ pueden ser invitados por
 el Equipo, pero no está permitida la asistencia de nadie más.
-+
+
 En esta reunión el Equipo discute qué está funcionando y qué no lo está y se acuerdan cambios para buscar soluciones
 a ciertas cosas que no funcionen. A veces, el ScrumMaster puede actuar como un coordinador eficaz para la
 retrospectiva, aunque en ocasiones puede ser una mejor opción invitar a una entidad externa que sea neutral para la
@@ -2223,11 +2389,11 @@ Fases de Scrum
 ^^^^^^^^^^^^^^
 Se diferencian cuatro fases en el proceso de desarrollo utilizando la metodología Scrum:
 
-Revisión de los planes de lanzamiento y distribución, revisión y ajuste de los estándares del producto::
+*Revisión de los planes de lanzamiento y distribución, revisión y ajuste de los estándares del producto* +
 Esta fase es llevada a cabo por los desarrolladores realizando una revisión de lo que hay que hacer y definiendo los
 detalles de la revisión actual (tecnologías, estándares, etc.).
 
-Sprint::
+*Sprint* +
 Es cada una de las iteraciones o cada uno de los ciclos repetitivos de trabajo similar que producen un incremento de
 las funcionalidades del producto o sistema. Se trata de la fase de desarrollo que incluye análisis, el diseño, la
 implementación, las pruebas, el _empaquetado_ , generación de ejecutables, etc. La duración es de entre una y cuatro
@@ -2236,12 +2402,12 @@ utilizan la misma duración de ciclo. En la fase de revisión se resuelven probl
 la fase de ajuste se utilizan las mejorías y ajustes encontrados para mejorar el producto ya sea código,
 documentación, etc.
 
-Revisión del Sprint::
+*Revisión del Sprint* +
 A veces se le denomina incorrectamente "la demo", concepto que no define la intención de esta revisión, cuyo objetivo
 es revisar el producto realizado durante el último Sprint y añadir _Backlogs_ nuevos en caso necesario. Esta fase
 puede admitir la participación de los clientes, los ejecutivos, etc.
 
-Cierre::
+*Cierre* +
 En esta fase se encuentran las típicas actividades de fin de proyecto dirigidas a obtener una versión distribuible,
 como el _testing_, el _debugging_, la promoción, el _marketing_, etc.
 
@@ -2362,6 +2528,9 @@ mencionan en esta memoria:
 .Diagrama de despliegue del sistema.
 image::deployment.png[scaledwidth="80%"]
 
+En esta sección, al final de la fase _Implementación_ de cada Sprint, se muestran unas capturas de pantalla de las
+funcinalidades más relevantes desarrolladas durante dicha iteración.
+
 Iteración 1
 ~~~~~~~~~~~
 En la primera iteración se ha establecido el objetivo básico de tener una primera versión funcional para
@@ -2416,7 +2585,7 @@ Descripción de los casos de uso
 +++++++++++++++++++++++++++++++
 A continuación se describe el caso de uso _Browse clinical guidelines_.
 
-Navegar guías clínicas::
+*Navegar guías clínicas* +
 Para que el profesional sanitario pueda editar un guía clínica existente, primero debe poder visualizar las guías que
 ya están creadas. Cuando se muestre el listado con las guías, el usuario simplemente seleccionará la que desee editar.
 
@@ -2748,7 +2917,11 @@ funcionalidad básica de la primera vista. En siguientes iteraciones, por tratar
 omitirán capturas de código de servicios y controladores. Después de esta iteración, un usuario tiene la posibilidad
 de visualizar las guías contenidas en el servidor.
 
-.Iteración 1: funcionalidad visualización guías clínicas.
+En la <<screenshot-usecase1>> se muestra una captura de pantalla de la interfaz gráfica correspondiente a
+la realización del caso de uso _Navegar guías clínicas_.
+
+[[screenshot-usecase1]]
+.Iteración 1: Caso de uso _Navegar guías clínicas_.
 image::iteration-1.png[]
 
 Pruebas
@@ -2843,7 +3016,7 @@ un nivel de detalle más fino.
 Descripción de los casos de uso
 +++++++++++++++++++++++++++++++
 
-Editar descripción::
+*Editar descripción* +
 La edición de la descripción de guías clínicas es sencilla, simplemente consiste en la edición de meta-información de
 las guías. Los requisitos que se piden son los siguientes: se debe poder editar el nombre de la guía, detalles del
 autor principal, el estado del ciclo de vida de la guíafootnote:[Posibles estados: Ver todos los posibles valores en
@@ -2854,20 +3027,20 @@ para gestionar palabras clave y colaboradores relacionados con la guía, así co
 clara y concisa la misma, un propósito que indique claramente para qué se ha desarrollado, dos campos para indicar el
 uso aconsejado y el desaconsejado de la guía y un medio para indicar referencias relacionadas con la guía clínica.
 
-Editar definición::
+*Editar definición* +
 La edición de las definiciones es más compleja. Las definiciones se encargan de enlazar los términos utilizados en
 las guías con elementos de arquetipos. Para que el profesional sanitario pueda realizar dicha vinculación, primero
 debe poder instanciar un arquetipo, es decir, debe poder seleccionar un arquetipo entre los disponibles, y poder
 importarlo a la guía que esté elaborando para, posteriormente, poder instanciar elementos de dicho arquetipo
 vinculándolos a variables locales de la guía (_i.e._ poder seleccionar elementos de arquetipos para utilizarlos en
 nuestra guía).
-+
+
 Además de estas dos instanciaciones se deben poder establecer restricciones sobre la instanciación de arquetipos. Se
 deben de poder añadir, eliminar y/o modificar predicados. Estos predicados definen restricciones para una instancia
 de arquetipo, por lo tanto deben situarse dentro de la instanciación del mismo, mediante un componente de _drag and
 drop_ que permita arrastrar cada predicado y poder soltarlo en la instancia de arquetipo correspondiente. Hay 4 tipos
 de predicados :
-+
+
 * _Predicate (DataValue)_: este predicado tiene dos operandos y un operador. El operando izquierdo puede ser cualquier
 elemento del arquetipo. El operador puede ser un operador de igualdad (==), de mayor o igual (>=), de menor o igual
 (\<=) o un operador jerárquico (IS_A). El operando derecho debe de tener en cuenta dos cosas: el tipo de operador y
@@ -2881,14 +3054,14 @@ http://www.openehr.org/releases/RM/latest/docs/data_types/data_types.html] del o
  formulario correspondiente para poder establecer la restricción, _e.g._ el tipo de dato _DV_QUANTITY_ tiene dos
  atributos (_magnitude_ y _units_), por lo tanto cuando el operando izquierdo sea de tipo _DV_QUANTITY_ al editar el
  operando derecho se debe renderizar un formulario con estos dos atributos.
-+
+
 * _Predicate (Function)_: se trata de un predicado unario, consta de un elemento y una función de agregación. De
 momento GDL soporta dos funciones: _MAX_ y _MIN_ que obtienen el valor máximo y mínimo del elemento almacenado en la
 HCE.
-+
+
 * _Predicate (Exists)_: es un predicado unario, consta de un elemento y de un valor ("existe" o "no existe"). Lo que
 hace este predicado es comprobar si el elemento existe o no (si su valor es distinto de `null` o no).
-+
+
 * _Predicate (Expression)_: se trata de un predicado binario y consta de dos operandos y un operador. El primer
 operando es un atributo de un elemento de un arquetipo. El operador puede ser un operador de igualdad (==), de mayor
 o igual (>=) o de menor o igual (\<=). La edición del segundo operador depende del atributo del primer operador. Cada
@@ -3123,6 +3296,17 @@ método `updateRightItem()` que permite actualizar la parte derecha de los predi
 dato del elemento de la parte izquierda, tal como se comentó en la definición de <<use-case-desc-2, casos de uso de
 la iteración 2>>.
 
+En la <<screenshot-usecase2-1>> y en la <<screenshot-usecase2-2>> se muestra una captura de pantalla de la interfaz
+correspondiente al desarrollo de dos funcionalidades importantes dentro de esta iteración.
+
+[[screenshot-usecase2-1]]
+.Iteración 2: caso de uso _Editar descripción_ .
+image::description.png[]
+
+[[screenshot-usecase2-2]]
+.Iteración 2: caso de uso _Editar definición_.
+image::definitions-2.png[]
+
 Pruebas
 ^^^^^^^
 Siguiendo la guía de buenas prácticas, al fichero que contiene los test unitarios para testear el controlador
@@ -3292,6 +3476,20 @@ include::../../app/components/tabs/tab-preconditions/tab.preconditions.controlle
 En el controlador `PreconditionsCtrl` define una serie de métodos para obtener las precondiciones de la guía y para
 su gestión, cuya lógica de negocio la delega en los servicios `guidelineFactory`, `expressionItemFactory`,
 `conditionFactory`, ya que esta lógica de negocio es reutilizada en otros controladores.
+
+En la <<screenshot-usecase3-1>> se muestra una captura de pantalla del desarrollo de la edición de la edición de
+reglas. Se observa el panel principal en el que se definen cada una de las reglas y el componente de la derecha que
+permite seleccionar los tipos de predicados para definir las mismas. En la <<screenshot-usecase3-1>> se muestra una
+captura de pantalla del editor de expresiones, que permite la definición de expresiones utilizando elementos de
+los arquetipos instanciados en la guía clínica.
+
+[[screenshot-usecase3-1]]
+.Iteración 3: caso de uso _Editar reglas GDL_ (I). Editando condiciones y acciones.
+image::calculateBMI-8.png[]
+
+[[screenshot-usecase3-2]]
+.Iteración 3: caso de uso _Editar reglas GDL_ (II). Editor de expresiones.
+image::calculateBMI-9.png[]
 
 Pruebas
 ^^^^^^^
@@ -3537,6 +3735,22 @@ dicha tabla, ya que el hecho de que fuese una tabla editable era un requisito de
 `TerminologyCtrl` se trae a memoria la ontología de la guía y renderiza sus términos locales. Este controlador define
 los métodos necesarios para la gestión de los términos locales.
 
+En la <<screenshot-usecase4-1>>, <<screenshot-usecase4-2>> y en la <<screenshot-usecase4-3>> se muestran la
+correspondiente parte de la interfaz de usuario que hace referencia a diferentes funcionalidades relevantes de esta
+última iteración.
+
+[[screenshot-usecase4-1]]
+.Iteración 4: caso de uso _Editar terminología_ .
+image::calculateBMI-10.png[]
+
+[[screenshot-usecase4-2]]
+.Iteración 4: caso de uso _Editar enlaces_ .
+image::binding-1.png[]
+
+[[screenshot-usecase4-3]]
+.Iteración 4: caso de uso _Mostrar GDL_ .
+image::gdl-code.png[]
+
 Pruebas
 ^^^^^^^
 A continuación se muestran los tests unitarios que se han desarrollado para probar las principales funcionalidades
@@ -3568,6 +3782,184 @@ es el correcto comparándolo con la guía clínica de pruebas.
 Para la escenario relacionada con la gestión de los términos locales, se ha definido otra batería de tests en el
 fichero `tab.terminology.controller.spec` en el que se han probado las funcionalidades que se han considerado más
 importantes para la realización de su cometido.
+
+Ejemplo de aplicación
+~~~~~~~~~~~~~~~~~~~~~
+Una vez terminado el desarrollo, en esta sección se muestra un ejemplo de la correspondencia entre las acciones del
+usuario en la interfaz gráfica y el efecto que tienen en la guía. Para ello nos basamos en el ejemplo de GDL mostrado
+en la <<_ejemplo_de_guia_gdl>> sobre el cálculo del
+https://es.wikipedia.org/wiki/Escala_CHA2DS2-VASc[CHA2DS2VASc Score].
+
+Pestaña _Description_
++++++++++++++++++++++
+
+Comenzamos con la siguiente captura que muestra la sección de descripción de la guía, se trata de meta-información
+tanto de autoría como de caracter clínico.
+
+[[example-2]]
+.Descripción de una guía.
+image::example-2.png[]
+
+El efecto que esto tendría en la guía en formato GDL sería el siguiente:
+ +
+----
+include::samples/CHA2DS2VASc-header.v1.gdl[]
+----
+
+<1> Versión actual de GDL.
+<2> Identificador unívoco.
+<3> Representación del concepto principal de la guía. Siempre con un código local para posibilitar traducciones.
+<4> Lenguaje original y lenguajes soportados.
+<5> Descripción de la guía.
+<6> Estado del ciclo de vida.
+<7> Autor original.
+<8> Otros colaboradores.
+
+Se puede profundizar en detalle sobre cada atributo del GDL en la <<_description>>.
+
+Pestaña _Definitions_ y _Preconditions_
++++++++++++++++++++++++++++++++++++++++
+
+En la pestaña _definitions_ se definen los elementos con los que se van a trabajar en la guía. Dichos elementos se
+reutilizan de los arquetipos que haya definidos en el KM Server.
+
+[[example-3]]
+.Definición de una guía.
+image::example-3.png[]
+
+Se puede visualizar a continuación el efecto que tiene en el GDL la parte que se ha remarcado en color rojo (que
+muestra cómo se define desde la interfaz de usuario un elemento denominado _Diagnosis_ que será necesario en esta
+guía). El bloque GDL muestra la sección `archetype_binding` dentro de la sección `guide_definition`, la cual
+vincula elementos de los arquetipos clínicos con variables usadas en las reglas GDL. Por cuestiones de espacio sólo se
+muestra la instanciación de arquetipo y de elemento que están marcados en rojo en la figura anterior.
+
+----
+include::samples/gdl-definition-1.gdl[]
+----
+
+<1> Sección _definition_: contenedor de enlaces con arquetipos, precondiciones y reglas.
+<2> Identificador unívoco del arquetipo que contiene los elementos que se enlazan con términos locales.
+<3> Dominio: puede ser _EHR_, _CDS_ o _ANY_. Ver <<table-guide-definition>>.
+<4> Contenedor de elementos vinculados.
+<5> Vinculación: al término local cuyo código es _gt0003_ se le hace corresponder con el elemento del arquetipo
+_openEHR-EHR-EVALUATION.problem-diagnosis.v1_ cuyo _path_ dentro del arquetipo es `/data[at0001]/items[at0002.1]`.
+
+Siguiendo en la pestaña de _definitions_, además de definir los elementos debemos definir las expresiones que
+necesitemos utilizar durante la guía, en este caso, que el paciente haya sido diagnosticado con fibrilación
+auricular (_atrial fibrilation_).
+
+[[example-4]]
+.Definición de predicados en la pestaña _definitions_.
+image::example-4.png[scaledwidth="80%"]
+
+Para expresar la precondición de que la guía no se ejecute si el paciente no ha sido diagnosticado de _fibrilación
+auricular_ debemos definirlo como una precondición en la pestaña _Preconditions_.
+
+[[example-preconditions]]
+.Definición de precondiciones en la pestaña _Preconditions_.
+image::example-preconditions.png[]
+
+Dentro de la `guide_definition`, es donde se definen las _condiciones_ que deben cumplirse para que
+se puedan ejecutar las _acciones_ de las reglas de de la guía. Como se omentó anterioemente, la guía no se
+ejecutará a menos que el paciente haya sido diagnosticado con _fibrilación auricular_. En el ejemplo siguiente, una
+precondición (atributo pre_conditions_) verifica la existencia de _fibrilación auricular_ en el diagnóstico del paciente
+(gt0003). Utilizando el predicado de la sección _definition_, se establece la precondición para comprobar contra un
+código local (gt0121), que representa el significado de _fibrilación auricular_. Este código puede estar ligado a un
+concepto definido formalmente por terminologías externas, _e.g._ SNOMED CT, en la sección _term_bindings_.
+
+<<<
+----
+include::samples/gdl-definition-2.gdl[]
+----
+
+<1> Predicado donde se define la condición de que el diagnóstico (_gt0003_) sea de _fibrilación auricular (gt0121)_.
+<2> Precondición que verifica la presencia o ausencia de _fibrilación auricular_ en el diagnóstico del paciente.
+
+Pestaña _Rule list_
++++++++++++++++++++
+
+En la pestaña _Rule list_ es donde se gestionan las reglas de la guía, las cuales contienen un conjunto de
+_condiciones_ necesarias para que la regla se ejecute y un conjunto de _acciones_ que se ejecutarán en caso de que
+las condiciones se cumplan. A continuación se muestran 3 reglas (no son todas las de la guía), la puntuación total del
+_CHA2DS2-VASc_ se cacula en una de ellas, concretamente en la regla _Calculate total score_.
+
+[[example-5]]
+.Regla "_Set hypertension_".
+image::example-5.png[]
+
+[[example-6]]
+.Regla "_Set diabetes_".
+image::example-6.png[]
+
+[[example-7]]
+.Regla "_Calculate total score_".
+image::example-7.png[]
+
+A continuación se muestra el bloque GDL correspondiente. La sección _rules_ hace uso exclusivo de las variables
+definidas localmente para expresar la lógica clínica. Cada regla tiene un nombre codificado por un _código gt_
+definido localmente, cuyo nombre y descripción, que dependen del lenguaje natural, se indexan en la sección
+_term_definitions_. El campo _priority_ representa la prioridad que asegura el orden de ejecución de las reglas. Este
+ejemplo ilustra las reglas que inspeccionan diferentes diagnósticos relevantes para la puntuación CHA2DS2-VASc y
+establecen los valores correspondientes a los DV_ORDINALsfootnote:[Tipo de dato de __open__EHR] existentes en el
+arquetipo correspondiente, en este caso el arquetipo CHA2DS2-VASc. La regla `gt0026`, _Calcular puntuación total_
+suma todos los valores y asigna dicho valor a la puntuación total.
+
+----
+include::samples/gdl-rules.gdl[]
+----
+
+Pestaña _Terminology_
++++++++++++++++++++++
+
+En la pestaña _Terminology_ se gestiona la edición de los términos locales de la guía, a continuación se muestra una
+captura de esta parte. Se remarcan en color rojo los términos que se muestran en el siguiente fragmento de GDL
+(tanto en la captura de la interfaz de usuario como en el GDL no se muestran todos los términos por motivos de
+espacio).
+
+[[example-8]]
+.Pestaña "_Terminology_".
+image::example-8.png[]
+
+En la sección _ontology_ del GDL, todos los términos se enlazan con un texto (normalmente para etiquetas de
+interfaces de usuario) y una descripción (para cualquier otro uso) en los lenguajes naturales soportados. A
+continuación se muestra el bloque GDL correspondiente a la definición terminológica, en 3 lenguajes soportados
+(inglés, suevo y español), de los 3 términos marcados en color rojo en la <<example-8>>.
+ +
+----
+include::samples/gdl-terminology.gdl[]
+----
+
+Pestaña _Binding_
++++++++++++++++++
+
+Es en esta pestaña donde se definen las vinculaciones de los términos definidos localmente con terminologías externas,
+como SNOMED-CT, CIE-10, LOINC, etc.
+
+[[example-10]]
+.Pestaña "_Binding_: terminología CIE-10 (ICD10)".
+image::example-10.png[]
+
+[[example-11]]
+.Pestaña "_Binding_": terminología SNOMED-CT.
+image::example-11.png[]
+
+En la sección _term_bindings_ (dentro de la sección _ontology_) del documento GDL, es donde se enlazan los términos
+locales de la guía con terminologías externas. A continuación se muestra el efecto que tiene en el GDL las acciones
+de la <<example-10>> y <<example-11>>, es decir la vinculación de 3 términos (los marcados en rojo en la
+<<example-8>>) con las terminologías CIE-10 y SNOMED-CT respectivamente. Aquí se deberían vincular todos los términos
+locales con las terminologías que se desease trabajar, en este ejemplo hemos enlazado 3 términos con 2 terminologías
+por motivos de espacio.
+
+----
+include::samples/gdl-bindings.gdl[]
+----
+
+<1> Enlace del código local _gt0036 (Puntuación CHA2DS2-VASc)_ con terminología SNOMED-CT.
+<2> Enlace del código local _gt0104 (Trastorno vascular)_ con terminología SNOMED-CT.
+<3> Enlace del código local _gt0121 (Fibrilación auricular)_ con terminología SNOMED-CT.
+<4> Enlace del código local _gt0036 (Puntuación CHA2DS2-VASc)_ con terminología CIE-10.
+<5> Enlace del código local _gt0104 (Trastorno vascular)_ con terminología CIE-10.
+<6> Enlace del código local _gt0121 (Fibrilación auricular)_ con terminología CIE-10.
 
 Material utilizado
 ------------------
@@ -4432,8 +4824,17 @@ Bibliografía
 [bibliography]
 - [[[TURB11]]] E. Turban, R. Sharda, D. Delen, ``Decision Support and Business Intelligence Systems, 9^th^ ed.''. Pearson, 2011.
 - [[[VERC09]]] C. Vercellis, ``Business Intelligence: Data Mining and Optimization for Decision Making''. Wiley Ltd, 2009. ISBN: 978-0-470-51138-1.
+- [[[EDWA77]]] E. Shortliffe, ``Mycin: A Knowledge-Based Computer Program Applied to Infectious Diseases''. Stanford
+University School of Medicine, 1977. Disponible en:
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2464549/pdf/procascamc00015-0074.pdf.
+- [[[RAND86]]] R. Miller, M. McNeil, S. Challinor, F. Masarie, J. Myers, ``The INTERNIST-1/Quick medical reference
+Project', University of Pittsburgh School of Medicine, Pittsburgh, 1986.
 - [[[KEEN87]]] P. Keen, M. Scott Morton, ``Decision support systems: an organizational perspective''. Addison-Wesley. ISBN: 0-201-03667-3.
+- [[[MACC11]]] A. MacCaw, ``JavaScript Web Applicactions''. O'Reilly, 2011, pp. 2-5.
 - [[[LEHM06]]] H. Lehman, P. Abbott, N. Roderer, A. Rothschild, _et al._ ``Aspects of electronic Health Record Systems''. Springer, 2006.
+- [[[GAMM02]]] E. Gamma, R. Helm, R. Johnson, J. Vlissides, ``Patrones de diseño''. Addison Wesley, 2002. ISBN:
+8478290591.
+- [[[SHYA14]]] S. Seshadri, B. Green, ``AngularJS: Up And Running''. O'Reilly, 2014. ISBN: 978-1-491-90194-6.
 - [[[BONI04]]] J. Bonis, J. Sancho, F. Sanz, ``Computer-assisted Clinical Decision Support Systems''. Clinical Medicine, Elsevier Ed. 2004;122 Supl 1:39-44. (2004), pp. 75-81.DOI: https://doi.org/10.1157/13057545[10.1157/13057545], 2004.
 - [[[BLEI69]]] HL. Bleich HL, ``Computer evaluation of acid-base disorders''. J Clin Invest, 48 (1969), pp. 1689-96. DOI: http://dx.doi.org/10.1172/JCI106134
 - [[[IHTS17]]] ``International Health Terminology Standards Development Organisation''. URL: http://www.snomed.org/. Último acceso: junio 2017.
