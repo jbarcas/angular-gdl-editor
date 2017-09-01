@@ -39,8 +39,8 @@ function GuidelineCtrl(guidelineFactory, guidelinesFactory, SharedProperties) {
   function getGuideline (guideId) {
     guidelineFactory.getGuideline(guideId).then(
       function (data) {
-        SharedProperties.setChecked(guideId);
         vm.guideline = data;
+        SharedProperties.setChecked(guidelineFactory.getText(data.concept));
       },
       function (error) {
         vm.errorMsg = error.error;

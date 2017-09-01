@@ -64,20 +64,21 @@ decisiones, como son:
 ** no siempre orientable al proceso analítico.
 * Uso de metodologías de análisis sencillas e intuitivas.
 
+[[decision-making]]
 .Toma de decisiones.
 image::toma-de-decisiones.png[scaledwidth="50%"]
 
-La toma de decisiones utiliza como materias primas la _información_ y el _conocimiento_<<VERC09>>, ya que sin estas
-sería
-imposible evaluar las opciones existentes o el desarrollo de nuevas alternativas. El contexto de este Trabajo Fin de
-Máster (TFM) es el entorno médico-sanitario, el cual se encuentra sometido constantemente a la toma de decisiones y
-donde la representación de la información y del conocimiento juega un papel de vital importancia. Para interpretar
-los datos y poder transformarlos en información relevante es necesario un _sistema de información_. De esta
-información, con su respectivo proceso de análisis, se puede obtener conocimiento de gran valor para la medicina y,
-por lo tanto, para la sociedad. Además de los sistemas de información, existen sistemas diseñados especialmente para
-ayudar en el proceso de la toma de decisiones, que se conocen como _sistemas de soporte a decisiones_ o _sistemas de
-apoyo a la decisión_. En esta memoria de TFM se presenta el proceso de desarrollo de una herramienta para la creación
-y edición de guías clínicas interoperables que serán utilizadas en este tipo de sistemas.
+La toma de decisiones, como se puede observar en la <<decision-making>>, utiliza como materias primas la _información_
+y el _conocimiento_<<VERC09>>, ya que sin estas sería imposible evaluar las opciones existentes o el desarrollo de
+nuevas alternativas. El contexto de este Trabajo Fin de Máster (TFM) es el entorno médico-sanitario, el cual se
+encuentra sometido constantemente a la toma de decisiones y donde la representación de la información y del
+conocimiento juega un papel de vital importancia. Para interpretar los datos y poder transformarlos en información
+relevante es necesario un _sistema de información_. De esta información, con su respectivo proceso de análisis, se
+puede obtener conocimiento de gran valor para la medicina y, por lo tanto, para la sociedad. Además de los sistemas
+de información, existen sistemas diseñados especialmente para ayudar en el proceso de la toma de decisiones, que se
+conocen como _sistemas de soporte a decisiones_ o _sistemas de apoyo a la decisión_. En esta memoria de TFM se
+presenta el proceso de desarrollo de una herramienta para la creación y edición de guías clínicas interoperables que
+serán utilizadas en este tipo de sistemas.
 
 El requisito de que las guías clínicas sean interoperables obliga a que haya que seguir un estándar de
 interoperabilidad. GDL es un lenguaje para la definición de guías basado en arquetipos clínicosfootnote:[Arquetipo
@@ -112,15 +113,15 @@ por Warner _et al_. <<WARN61>> basado en la realización de razonamientos probab
 del teorema de Bayes.
 
 Otro sistema relevante, desarrollado a principios de los años 70 en la Universidad de Stanford, fue el sistema
-MYCIN<<EDWA77>>, un sistema de ayuda a la decisión del diagnóstico médico en el dominio de las enfermedades
-infeccionsas de la sangre. Se trataba de un sistema experto basado en reglas que usaba técnicas de inteligencia
+Mycin<<EDWA77>>, un sistema de ayuda a la decisión del diagnóstico médico en el dominio de las enfermedades
+infecciosas de la sangre. Se trataba de un sistema experto basado en reglas que usaba técnicas de inteligencia
 artificial y un modelo de interacción entre médicos y consultores para tratar de satisfacer la demanda de una
 comunidad de usuarios que, a menudo, se resistía a experimentar con la tecnología informática. En su momento se
 demostró que el sistema era eficiente, relativamente fácil de usar y confiable en el diagnóstico dentro del dominio
 de terapia de bacteremia. Mycin era capaz, además, de ``razonar'' el proceso seguido para llegar a sus conclusiones.
 Su funcionamiento se basaba principalmente en un motor de inferencia sencillo que manejaba una base de conocimiento
 de aproximadamente unas 500 reglas. Investigaciones llevadas a cabo en la _Stanford Medical School_ revelaron que Mycin
-tenía una mejor tasa de aciertos que los médicos no especializados en infeccines bacterianas.
+tenía una mejor tasa de aciertos que los médicos no especializados en infecciones bacterianas.
 
 A finales de los años 70 surge, en la Universidad de Pittsburgh, una herramienta experimental para asistir a las
 decisiones en el diagnóstico médico en medicina interna denominada INTERNIST-I<<RAND86>>. Contenía una base de
@@ -142,10 +143,15 @@ utilizar estos sistemas, todavía no se ha alcanzado la adopción y la aceptaci�
 ofertas, y esto es debido principalmente a la escasez de modelos de información clínicos compartidos entre sistemas
 sanitarios.
 
-Como referencia actual de relativa importancia destacan los esfuerzos que está haciendo IBM com
-Watsonfootnote:[Software de inteligencia artificial capaz de responder a preguntas expresadas en lenguaje natural.
-IBM actualmente está aplicando esta herramienta al campo de los sistemas de soporte a la decisión en el contexto
-clínico] aplicado al ámbito clínico [continuar aquí......]
+Como referencia actual de relativa importancia destacan los esfuerzos que está haciendo IBM con
+Watsonfootnote:[Software de IBM de inteligencia artificial capaz de responder a preguntas expresadas en lenguaje
+natural. IBM actualmente está aplicando esta herramienta al campo de los sistemas de soporte a la decisión en el
+contexto clínico] <<MICH11>> aplicado al ámbito clínico. Está invirtiendo muchos esfuerzos en discutir cómo la
+tecnología DeepQAfootnote:[Tecnología de IBM que analiza el lenguaje natural de una pregunta para encontrar, sintetizar,
+entregar y ordenar, de la manera más eficientemente posible, respuestas relevantes y sus justificaciones a partir de
+una base de conocimiento disponible.] que hay detrás de Watson se puede utilizar para resolver problemas específicos
+en la asistencia sanitaria. IBM todavía está formulando exactamente cómo se aplicará esta tecnología en el dominio
+médico, en tareas de apoyo a la decisión clínica.
 
 *Las Tecnologías de la Información y las Comunicaciones (TIC) en los sistemas sanitarios* +
 Actualmente la utilización de las TIC en los sistemas sanitarios se ha convertido en indispensable. Hoy en día todavía
@@ -162,7 +168,7 @@ evolución <<LEHM06>> y se han implementado una gran cantidad de proyectos orien
 Los sistemas de salud actuales requieren para sí una característica fundamental para garantizar la continuidad
 asistencialfootnote:[Continuidad asistencial: concepto que define el proceso, centrado en el paciente, en el cual
 intervienen diferentes profesionales sanitarios en diferentes periodos de tiempo y lugares con el objetivo
-compartido de mejorar la calidad de la asistencia prestada.], se requiere que la informaciónclínica sea representada
+compartido de mejorar la calidad de la asistencia prestada.], se requiere que la información clínica sea representada
 de una manera interoperable, de modo que diferentes organizaciones puedan hacer uso de dicha información
 independientemente de quién, cómo y cuándo se haya generado. La continuidad asistencial del paciente es indispensable
 en multitud de situaciones como cambios de residencia de los pacientes, cambios organizativos, cambios de niveles
@@ -235,12 +241,6 @@ comunidad, como la edición colaborativa en tiempo real, la resolución de confl
 versiones, etc. La aplicación se desarrollará siguiendo un enfoque de metodología ágil, adaptado a las
 características y requerimientos de un Trabajo Fin de Máster (TFM).
 
-Hasta el desarrollo de la aplicación objeto de este TFM, se disponía de una herramienta basada en tecnología Java
-Swing que permite editar y ejecutar guías clínicas en GDL. Se trata de un software de escritorio independiente de la
-plataforma CKM, que permite editar las guías de manera off-line. Por tratarse de un software _stand-alone_ que no se
-encuentra integrado en CKM, representa una limitación en la colaboración e intercambio de conocimiento clínico entre
-diferentes usuarios.
-
 *Objetivos específicos* +
 Como objetivos específicos, se plantean los siguientes:
 
@@ -261,6 +261,8 @@ fácilmente reutilizados y de forma que resulte sencillo incorporar nuevas funci
 * Se diseñará una interfaz de usuario sencilla e intuitiva, teniendo en cuenta aspectos de usabilidad, de forma que
 el proceso de gestión de las guías clínicas resulte fácilmente asimilable por los expertos en el dominio clínico y
 disfruten de una experiencia agradable durante el uso de la herramienta.
+
+<<<
 
 Fundamentos
 -----------
@@ -300,15 +302,15 @@ distribuida. Se caracterizan por estar alojada en un servidor web en una URL det
 .Arquitectura cliente-servidor.
 image::cliente-servidor.png[scaledwidth="50%"]
 
-En este tipo de arquitecturas la entidad que realiza solicitudes se denomina cliente. Las características de un
-cliente son:
+La <<cliente_servidor>> muestra de manera gráfica la arquitectura cliente-servidor. La entidad que realiza
+solicitudes se denomina _cliente_ y sus principales características son las siguientes:
 
 * Es quien inicia una solicitud o petición a un servidor, por lo tanto asumen un rol activo en la comunicación.
 * Se queda a la espera y recibe la respuesta del servidor.
 * Se puede conectar con varios servidores a la vez por lo general.
 * Suele utilizar una _interfaz gráfica de usuario_ como media de interacción con el servidor.
 
-A la entidad receptora de dichas solicitudes se le denomina servidor, cuyas características se resumen a continuación:
+A la entidad receptora de dichas solicitudes se le denomina _servidor_, cuyas características se resumen a continuación:
 
 * Están a la espera de solicitudes por parte de los clientes, por lo tanto asumen un rol pasivo en la comunicación.
 * Reciben una solicitud, la procesa y, posteriormente, envía la respuesta al cliente.
@@ -335,12 +337,12 @@ desarrolladores, estandarizar la manera en que se lleva a cabo dicho desarrollo 
 desarrolladores acumulando conocimiento ya existente.
 
 La explicación de los patrones de software que se mencionan en esta sección se han orientado a la plataforma
-AngularJS, ya que es la tecnoloǵia utilizada como _framework_ de  desarrollo en este TFM.
+AngularJS, ya que es la tecnología utilizada como _framework_ de  desarrollo en este TFM.
 
 Patrones de arquitectura
 ^^^^^^^^^^^^^^^^^^^^^^^^
 Las aplicaciones que carecen de una arquitectura formal son generalmente sistemas muy acoplados, frágiles, difíciles de
-manetener y sin una perspectiva clara. Como consecuencia, resulta muy difícil determinar las características
+mantener y sin una perspectiva clara. Como consecuencia, resulta muy difícil determinar las características
 arquitectónicas de la aplicación sin comprender completamente el funcionamiento interno de cada componente y de
 cada módulo en el sistema. Las preguntas básicas cuando no se sigue una arquitectura formal a la hora de la
 implementación y del mantenimiento son difíciles de responder:
@@ -349,7 +351,7 @@ implementación y del mantenimiento son difíciles de responder:
 * ¿Cuáles son las características de rendimiento de la aplicación?
 * ¿Con qué facilidad responde la aplicación a los cambio?
 * ¿Cuáles son las características de despliegue de la aplicación?
-* ¿Qué reponderá la arquitectura?
+* ¿Qué responderá la arquitectura?
 
 Los patrones de arquitectura ayudan a definir las características básicas y el comportamiento de una aplicación. Por
 ejemplo, algunos patrones de arquitectura fomentan el desarrollo de aplicaciones altamente escalables, mientras
@@ -359,7 +361,7 @@ necesidades y objetivos específicos de cada proyecto.
 
 Patrón Modelo-vista-controlador
 +++++++++++++++++++++++++++++++
-El patrón Patrón Modelo-vista-controlador (MVC) es un patrón de arquitectura cuya idea incipal es establecer una
+El patrón Patrón Modelo-vista-controlador (MVC) es un patrón de arquitectura cuya idea principal es establecer una
 separación clara, en el código de la aplicación, entre la gestión de los datos (_modelo_), la lógica de la aplicación
 (_controlador_) y la presentación de datos al usuario (_vista_), en la <<patron-mvc>> se muestran gráficamente estos
 tres componentes y las relaciones entre ellos, las líneas sólidas indican una asociación directa y las punteadas una
@@ -429,14 +431,14 @@ de desarrolladores de software a resolver problemas comunes, crean un lenguaje c
 experiencias acerca de los problemas y sus soluciones. El uso de patrones de diseño ayuda a obtener un software de
 calidad fomentando la reutilización y la extensibilidad.
 
-Para que una solución se pueda considerar un aptrón de diseño debe cumplir ciertas características, la más importante
+Para que una solución se pueda considerar un patrón de diseño debe cumplir ciertas características, la más importante
 es que debe de estar comprobada su efectividad resolviendo problemas similares en situaciones anteriores. Otra es que
-debe ser reutilizable, de modo que se pueda aplicar a diferentes probelmas de siseño en sistintas circunstancias.
+debe ser reutilizable, de modo que se pueda aplicar a diferentes problemas de diseño en distintas circunstancias.
 
 Lo que se pretende es suministrar un catálogo bien definido de elementos reutilizables en el diseño de sistemas
 software, evitando búsquedas de soluciones a problemas ya conocidos que tienen una solución bien desarrollada. Al
 igual que los patrones de arquitectura, también pretenden facilitar el aprendizaje a las nuevas generaciones, en este
-caso orintado al diseño, de aplicaciones software, condensando conocimiento ya existente.
+caso orientado al diseño, de aplicaciones software, condensando conocimiento ya existente.
 
 Debido a la existencia de muchos patrones de diseño, es necesario un modo de organizarlos, de manera que podamos
 referirnos a familias de patrones de diseño relacionados. Se clasifican, según su propósito, en las siguientes
@@ -445,8 +447,8 @@ categorías:
 * De creación: relacionados con el proceso de creación de objetos. Ayudan a crear un sistema independiente de cómo se
  crean sus objetos, de cómo se componen y cómo se representan.
 * Estructurales: tratan con la composición de clases u objetos. Se ocupan de cómo las clases y los objetos se
-componen para crear estructuras más comlejas, separan la interfaz de la implementación.
-* De comportamiento: caracterízan el modo en que las clases y objetos interactúan y se reparten las responsabilidades.
+componen para crear estructuras más complejas, separan la interfaz de la implementación.
+* De comportamiento: caracterizan el modo en que las clases y objetos interactúan y se reparten las responsabilidades.
 
 
 Patrón _Singleton_
@@ -454,8 +456,8 @@ Patrón _Singleton_
 El patrón _singleton_ es un patrón de diseño que restringe la instanciación de una clase a un único objeto y
 proporciona un punto de acceso global a dicha instancia. Esto es útil cuando se necesita exactamente un objeto para
 coordinar acciones en todo el sistema. El concepto a veces se generaliza a sistemas que operan más eficientemente
-cuando sólo existe un objeto, o que restringen la instanciación a un cierto número de objetos. A continuación se
-muestra el diagrama UML del patrón de diseño _Singleton_.
+cuando sólo existe un objeto, o que restringen la instanciación a un cierto número de objetos. A continuación, en la
+<<Singleton>> se muestra el diagrama UML del patrón de diseño _Singleton_.
 
 [[Singleton]]
 .Patrón Singleton.
@@ -522,7 +524,8 @@ posible y buscando una reutilización de las funcionalidades más utilizadas, co
 las partes de una guía clínica o para la interacción con el servidor. En el primer caso, cuando se ejecuta un método
 del servicio _GuidelineFactory_, en numerosas ocasiones interactúa con otros servicios y controladores ejecutando
 lógica de negocio que está oculta para el cliente que invocó dicho método. En el segundo caso se ha utilizado el patrón
-fachada para ocultar los detalles de la implementación de comunicación con el servidor.
+fachada para ocultar los detalles de la implementación de comunicación con el servidor. En la <<Facade>> se muestra
+la representación del patrón _Fachada_ en notación UML.
 
 [[Facade]]
 .Patrón fachada.
@@ -591,7 +594,7 @@ recurso que sea costoso o imposible de duplicar.
 .Patrón proxy.
 image::proxy.png[scaledwidth="65%"]
 
-Se pueden distinguir 3 tipos de _proxies_:
+En la <<Proxy>> se puede observar la estructura del patrón _Proxy_. Se pueden distinguir 3 tipos de _proxies_:
 
 * Proxy virtual
 * Proxy remoto
@@ -687,8 +690,8 @@ para que se pueda probar el modelo sin tener que manipular el DOM directamente. 
 que los datos se han ordenado sin tener que crear u observar el estado del DOM o esperar a que cualquier solicitud
 XHR devuelva datos. La función de ordenación individual se puede probar de forma aislada.
 
-AngularJS viene con inyección de dependencia incorporada, lo que hace que los componentes sean mucho más fáciles de
-probar, ya que se pueden pasar las dependencias de un componente y hacer un _mock_ de los mimos como desee.
+AngularJS viene incorporado con inyección de dependencias, lo que hace que los componentes sean mucho más fáciles de
+probar, ya que se pueden pasar las dependencias de un componente y simularlas como se desee.
 
 Los componentes que tienen sus dependencias inyectadas permiten que sean fácilmente simuladas en un test, sin tener
 que ensuciar con cualquier variable global que podría afectar inadvertidamente otros tests.
@@ -775,7 +778,7 @@ https://karma-runner.github.io/latest/intro/installation.html] y configuraciónf
 configuración de _Karma_: https://karma-runner.github.io/latest/intro/configuration.html]
 estás disponibles en la página web oficial de _Karma_.
 
-Pruebas end-to-end con _Protractor_
+Pruebas _end-to-end_ con _Protractor_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 A medida que las aplicaciones crecen en tamaño y complejidad, se vuelve poco realista confiar en las pruebas hechas a
 mano para verificar la corrección de nuevas funcionalidades y detectar errores. Las pruebas unitarias son la primera
@@ -798,11 +801,12 @@ Si alguna expectativa dentro de un bloque `it` falla, el _testrunner_ lo marca c
 siguiente bloque.
 
 Los archivos de test también pueden tener bloques `beforeEach` y `afterEach`, que se ejecutarán antes o después de
-cada bloque `it`, independientemente de si el bloque pasa o falla.
+cada bloque `it`, independientemente de si el bloque pasa o falla. La <<protractor>> muestra un esquema de los
+elementos que ponen un _escenario_ (nomenclatura que designa una batería de tests en _Protractor_).
 
 [[protractor]]
 .Bloques en un fichero de pruebas _Protractor_.
-image::protractor.png[scaledwidth="20%"]
+image::protractor.png[scaledwidth="37%"]
 
 Además de los elementos anteriores, las pruebas también pueden contener funciones auxiliares para evitar la duplicidad de código en los bloques. A continuación se muestra un ejemplo simple de pruebas con _Protractor_:
 
@@ -891,7 +895,7 @@ extender, mantener y probar.
 
 A continuación se muestran una serie de ventajas que proporciona AngularJS:
 
-* AngularJS es un meta-framework para _Single Page Aplications_ (SPA) o _aplicaciones de una sola página_. Las
+* AngularJS es un meta-framework para _Single Page Applications_ (SPA) o _aplicaciones de una sola página_. Las
 plantillas de cliente y el uso intensivo de JavaScript, crear y mantener una aplicación puede convertirse en una
 tarea tedios. AngularJS elimina esa complicación y hace el trabajo pesado, de modo que el desarrollador pueda
 centrarse solamente en el núcleo de la aplicación.
@@ -910,7 +914,7 @@ la intención de una aplicación simplemente mirando el código HTML y los contr
 funcionalidad de negocio. Es decir, es completamente posible cambiar todo el _layout_ y el diseño de una aplicación sin
 tocar una sola línea de JavaScript.
 
-* Angular está orientado a la definción de pruebas, lo que hace que las aplicaciones sean más estables y fáciles de
+* Angular está orientado a la definición de pruebas, lo que hace que las aplicaciones sean más estables y fáciles de
 mantener durante largos periodos de tiempo. Si hay nuevas funcionalidades o nuevos cambios, se pueden acometer de
 manera fiable gracias a las pruebas.
 
@@ -1236,7 +1240,8 @@ La mayoría de los sistemas de plantillas enlazan datos en una sola dirección: 
 de modelo juntos en una vista. Después de que se produzca esta fusión, los cambios del modelo o de las secciones
 relacionadas de la vista no se reflejan automáticamente en la vista. Peor aún, los cambios que el usuario hace a la
 vista no se reflejan en el modelo. Esto significa que el desarrollador tiene que escribir código que sincroniza
-constantemente la vista con el modelo y el modelo con la vista.
+constantemente la vista con el modelo y el modelo con la vista. A continuación, en la <<One_Way_Data_Binding>>, se
+representa gráficamente el funcionamiento de esta aproximación.
 
 [[One_Way_Data_Binding]]
 .One Way Data Binding.
@@ -1251,8 +1256,9 @@ enormemente el modelo de programación para el desarrollador. Se puede pensar en
 proyección instantánea del modelo.
 
 Debido a que la vista es sólo una proyección del modelo, el controlador está totalmente separado de la vista y es
-totalmente agnóstico a él. Esto hace que las pruebas sean muy sencillas ya que es relativamente fácil probar un
-controlador de forma aislada sin la vista y la dependencia relacionada con el DOM o el navegador.
+totalmente agnóstico a él. Esto hace que las pruebas sean muy sencillas ya que es relativamente fácil probar un controlador de
+forma aislada sin la vista y la dependencia relacionada con el DOM o el navegador. En la <<Two_Way_Data_Binding>> se
+puede ver un esquema gráfico de la utilización de este sistema.
 
 [[Two_Way_Data_Binding]]
 .Two Way Data Binding.
@@ -1301,10 +1307,11 @@ deseada continuidad asistencial del ciudadano.
 instituciones puedan cooperar deben compartir un contexto común en sus procedimientos y flujos de trabajo. En muchos
 casos estas reglas dependen de las políticas de salud definidos por las administraciones.
 
-No existen unos límites claros en dónde termina un tipo de interoperabilidad y dónde comienza el siguiente, pero se
-podría hacer una aproximación representando los diferentes niveles según los cinco puntos que define el modelo de
-referencia OSI para los sistemas distribuidos (técnico, ingeniería, computación, información y negocio) vinculados
-con cada tipo de interoperabilidad de los que se acaban de definir.
+En la <<interoperability-types>> se muestran de manera gráfica estos tipos de interoperabilidad. No existen unos
+límites claros en dónde termina un tipo de interoperabilidad y dónde comienza el siguiente, pero se podría hacer una
+aproximación representando los diferentes niveles según los cinco puntos que define el modelo de referencia OSI para
+los sistemas distribuidos (técnico, ingeniería, computación, información y negocio) vinculados con cada tipo de
+interoperabilidad de los que se acaban de definir.
 
 [[interoperability-types]]
 .Tipos de interoperabilidad.
@@ -1335,15 +1342,15 @@ que el dominio clínico lo elaboran los médicos, los verdaderos conocedores del
 
 En la parte de la izquierda de la <<doble-modelo>> se representa la _información_ clínica; hechos u opiniones
 de o referidos a entidades específicas y que no varían con el paso del tiempo (_e.g._ el día 1 de enero el paciente X
-tenía una presión arterial de 120/80 mmHg.). El _conocimiento_, representado en la parte derecha, comprende hechos
-acumulados a lo largo del tiempo, procedente de muchas fuentes, que son verdad para todas las instancias de las
-entidades del dominio y que pueden variar con el paso del tiempo (_e.g._ la medida de la presión arterial consta de dos
-valores: la presión arterial sistólica y la presión arterial diastólica). Para cada uno de estos dos niveles se
-tiene un modelo de datos. La _información_, los datos que se almacenan en el sistema, se componen a partir de los
-elementos y la organización del <<_modelo_de_referencia, Modelo de Referencia>> (MR). Este modelo necesita reflejar la
-estructura y la organización jerárquica de la HCE con el fin de ser fiel al contexto clínico original. El MR
-representa el conjunto de clases que forman los componentes básicos de cualquier HCE, además de la información
-jerarquizada de estas clases. Cada parte proporciona significado semántico claro a la hora de intercambiar HCE entre
+tenía una presión arterial de 120/80 mmHg.). El _conocimiento_, representado en la parte derecha de la
+<<doble-modelo>>, comprende hechos acumulados a lo largo del tiempo, procedente de muchas fuentes, que son verdad
+para todas las instancias de las entidades del dominio y que pueden variar con el paso del tiempo (_e.g._ la medida
+de la presión arterial consta de dos valores: la presión arterial sistólica y la presión arterial diastólica). Para
+cada uno de estos dos niveles se tiene un modelo de datos. La _información_, los datos que se almacenan en el
+sistema, se componen a partir de los elementos y la organización del <<_modelo_de_referencia, Modelo de Referencia>>
+(MR). Este modelo necesita reflejar la estructura y la organización jerárquica de la HCE con el fin de ser fiel al
+contexto clínico original. El MR necesita reflejar la estructura y la organización jerárquica con el fin de ser fiel
+al contexto clínico original. Cada parte proporciona significado semántico claro a la hora de intercambiar HCE entre
 distintos sistemas heterogéneos. El objeto de información por antonomasia en este tipo de estándares es el extracto
 clínico. El _conocimiento_ representa los conceptos del dominio clínico, de manera que permita representar los datos
 y se define mediante el <<_modelo_de_arquetipos, Modelo de Arquetipos>> (MA).
@@ -1359,11 +1366,12 @@ nodos.
 [[modelos-duales]]
 __open__EHR: Modelo de Referencia y Modelo de arquetipos
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-En el modelo dual, el MR representa las características intrínsecas de cualquier de los componentes de registro de
-la HCE, su organización y la información de contexto para satisfacer los requisitos ético-legales del registro. Para
-conseguir la interoperabilidad, un modelo como este debe complementarse en el dominio del _conocimiento_ con una
-metodología formal para definir conceptos del dominio clínico. Un arquetipo es combinación jerárquica de componentes
-del MR con una serie de restricciones. Estas restricciones son las que permite definir el MA.
+En el modelo dual, ver <<modelos-duales>> el MR representa las características intrínsecas de cualquier de los
+componentes de registro de la HCE, su organización y la información de contexto para satisfacer los requisitos
+ético-legales del registro. Para conseguir la interoperabilidad, un modelo como este debe complementarse en el
+dominio del _conocimiento_ con una metodología formal para definir conceptos del dominio clínico. Un arquetipo es
+combinación jerárquica de componentes del MR con una serie de restricciones. Estas restricciones son las que permite
+definir el MA.
 
 Modelo de Referencia
 ^^^^^^^^^^^^^^^^^^^^
@@ -1371,16 +1379,16 @@ El http://www.openehr.org/releases/RM/latest/docs/index[Modelo de Referencia] de
 los atributos genéricos de la información de la HCE, de su organización y de cómo se agregan, es decir define el
 conjunto de clases que forman los componentes básicos de cualquier HCE, además de la organización de estas clases.
 
-[[high_level_ehr_structure.png]]
+[[high_level_ehr_structure]]
 .Estructura de alto nivel de registro de HCE.
-image::high_level_ehr_structure[scaledwidth="60%"]
+image::high_level_ehr_structure.png[scaledwidth="60%"]
 
 El registro de HCE de __open__EHR se estructura de acuerdo con un modelo relativamente sencillo. Un objeto EHR central
 con un identificador único indica referencias a una serie de tipos de información estructurada y
 versionada, además de una lista de objetos _Contribution_ que actúan como auditorías de conjuntos de cambios hechos a
 la HCE.
 
-En la figura anterior, las partes de la HCE que se muestran son las siguientes:
+En la <<high_level_ehr_structure>>, las partes de la HCE que se muestran son las siguientes:
 
 * _EHR_: el objeto raíz, con un identificador unívoco globalmente.
 * _EHR_access (versioned)_: un objeto que contiene la configuración de control de acceso para el registro;
@@ -1401,7 +1409,7 @@ se describe brevemente cómo es el paquete que contiene la información clínica
 .Paquete de información clínica de __open__EHR.
 image::reference-model.png[scaledwidth="90%"]
 
-El paquete `rm.data_structures` que se muestra a continuación contiene dos paquetes de importancia: el paquete
+El paquete `rm.data_structures` que se muestra en la <<reference-model>> contiene dos paquetes de importancia: el paquete
 `item_structure` y el paquete `history`. El primero describe estructuras de datos genéricas, localizables mediante un
 _path_, mientras que la segunda describe una noción genérica de historia lineal, para registrar eventos del pasado.
 El paquete _representation_ contiene las clases para una representación jerárquica simple de cualquier estructura de
@@ -1439,10 +1447,10 @@ nombres, rangos permitidos, tipos de datos posibles, valores por defecto, cardin
 conceptos clínicos del dominio del _conocimiento_. Estas estructuras, aunque suficientemente estables, pueden
 modificarse o sustituirse por otras a medida que la práctica clínica evolucione. Los arquetipos son instancias del
 modelo de arquetipos, que restringen el MR para que las instancias de este sean representaciones de los conceptos
-modelados del dominio.
+modelados del dominio. En la <<aom>>, se muestra la estructura de paquetes del MA.
 
 [[aom]]
-.Estructura de paquetes del modelo de arquetipos.
+.Estructura de paquetes del Modelo de Arquetipos.
 image::aom.png[scaledwidth="70%"]
 
 A continuación se muestra la estructura del paquete _archetype_ (<<archetype-package-aom>>) y del paquete de
@@ -1473,17 +1481,21 @@ la norma.
 Los arquetipos, al igual que las guías clínicas con el GDL, se definen mediante un lenguaje formal, denominado
 Archetype Definition Language<<BEAL07>> (ADL), que proporciona una sintaxis abstracta para la definición de estos
 arquetipos. Esta sintaxis es semánticamente equivalente al MA, por lo que se puede traducir entre ambos utilizando
-un _parser_ de ADL. El lenguaje ADL usa una combinación de dos sintaxis: _dADL_ (ADL de definición) y
-_cADL_ (ADL de restricciones).
+un _parser_ de ADL. Como se muestra en la <<adl>>, el lenguaje ADL usa una combinación de dos sintaxis: _dADL_ (ADL de
+definición) y _cADL_ (ADL de restricciones) para definir los arquetipos, dependiendo de la sección de la que se
+trate, se utiliza uno u otro.
 
 [[adl]]
 .Definición de arquetipos con lenguaje ADL.
 image::adl.png[scaledwidth="50%"]
 
-_dADL_, el lenguaje de definición de datos, proporciona una sintaxis para definir instancias de objetos basadas en un
-MR subyacente y que puede ser leído por humanos y por máquinas. A continuación se muestra un fragmento de un
-arquetipo escrito en dADL.
+El _dAdl_, el lenguaje de definición de datos, proporciona una sintaxis para definir instancias de objetos
+basadas en un MR subyacente y que puede ser leído por humanos y por máquinas. En la <<dadl-example>> se muestra la
+representación en UML de la clase _ARCHETYPE_DESCRIPTION_ del MA y, a continuación, el fragmento correspondiente del
+arquetipo escrito en dAdl.
 
+[[dadl-example]]
+.Clase _ARCHETYPE_DESCRIPTION_, cuyas instancias en los arquetipos se representan en _dAdl_.
 image::dadl-example.png[scaledwidth="50%"]
 ----
 description
@@ -1600,8 +1612,9 @@ interpretable por un componente de software.
 
 En SNOMED CT se encuentran conceptos que pertenecen a una amplia variedad de ejes semánticos. En el nivel superior se
 encuentra el concepto raíz de la terminología, un concepto único que actúa como origen de todos los significados,
-denominado _Concept_. Por debajo del concepto raíz, se encuentran 19 jerarquías principales. Bajo cada uno de los
-conceptos de jerarquía principal se agrupan los restantes conceptos.
+denominado _Concept_. Por debajo del concepto raíz, como se puede apreciar en la <<snomed-ct-hierarchy>>, se
+encuentran 19 jerarquías principales. Bajo cada uno de los conceptos de jerarquía principal se agrupan los restantes
+conceptos.
 
 [[snomed-ct-hierarchy]]
 .Jerarquía de conceptos en SNOMED CT.
@@ -2097,6 +2110,41 @@ include::samples/gdl-bindings.gdl[]
 <5> Enlace del código local _gt0104 (Trastorno vascular)_ con terminología CIE-10.
 <6> Enlace del código local _gt0121 (Fibrilación auricular)_ con terminología CIE-10.
 
+<<<
+
+Estado de la cuestión
+---------------------
+
+* Hablar de la evolución histórica de la representación de guías clínicas
+* Hablar del trabajo relacionado que existe hasta la fecha
+* Cerrar el apartado expresando el porqué del proyecto.
+* GELLO
+* GLIF
+* Common data elements
+* ISO 11179
+* CDISC
+
+Editor GDL en Java Swing
+~~~~~~~~~~~~~~~~~~~~~~~~
+Hasta el desarrollo de la aplicación objeto de este TFM, se disponía de una herramienta basada en tecnología Java
+Swing que permite editar y ejecutar guías clínicas en GDL. Se trata de un software de escritorio independiente de la
+plataforma CKM, que permite editar las guías de manera _off-line_. Por tratarse de un software _stand-alone_ que no se
+puede integrar en el CKM de __open__EHR, representa una limitación en la colaboración e intercambio de conocimiento
+clínico entre diferentes usuarios.
+
+No está integrado con el Knowledge Manager, por lo que tiene almacenadas las guías en local, trabaja con ellas y
+permite exportarlas al sistema de ficheros de la máquina donde se esté ejecutando la aplicación.
+
+Pendiente...
+
+Editor GLIF/GELLO
+~~~~~~~~~~~~~~~~~
+Editor GLIF/GELLO
+
+Pendiente...
+
+<<<
+
 Métodos
 -------
 Introducción
@@ -2277,7 +2325,7 @@ entrega de valor a los clientes.
 *Sprint blacklog* +
 Muchos Equipos tienen un _Sprint Backlog_ en forma de tablero de tareas de tamaño de pared (a menudo llamado
 también _Scrum Board_) donde las tareas, escritas en forma de notas Post-It, se van moviendo durante el Sprint a través
-de las columnas denominadas ``To Do'', ``Work In Progress'' y ``Done'' (<<sprint-backlog>>).
+de las columnas denominadas ``To Do'', ``Work In Progress'' y ``Done'' (ver <<sprint-backlog>>).
 
 [[sprint-backlog]]
 .Gestión visual: tareas de un _Sprint Backlog_ sobre la pared.
@@ -2512,6 +2560,8 @@ Por lo tanto, se han aplicado las principales características de Scrum como la 
 producto operativo al final de cada una de ellas, las revisiones periódicas y la toma de decisiones sobre el
 desarrollo guiado por las reuniones regulares por parte de las partes implicadas en el desarrollo de este proyecto.
 
+<<<
+
 Desarrollo
 ----------
 La fase de desarrollo de este editor de guías clínicas se ha llevado a cabo en cuatro iteraciones o Sprints de Scrum,
@@ -2521,15 +2571,28 @@ implementación y una de pruebas. Siguiendo la metodología Scrum, ha habido una
 primer Sprint para decidir el orden de las funcionalidades a desarrollar en cada iteración. A mayores nos hemos reunido
 antes de empezar cada Sprint para decidir los componentes a desarrollar durante el mismo.
 
-A continuación se muestra un diagrama de despliegue de alto nivel, que ayuda a situar cada componente de los que se
-mencionan en esta memoria:
+En la <<deployment>> se muestra un diagrama de despliegue de alto nivel, que ayuda a situar cada componente de los
+que se mencionan en esta memoria:
 
 [[deployment]]
 .Diagrama de despliegue del sistema.
 image::deployment.png[scaledwidth="80%"]
 
-En esta sección, al final de la fase _Implementación_ de cada Sprint, se muestran unas capturas de pantalla de las
-funcinalidades más relevantes desarrolladas durante dicha iteración.
+En la imagen anterior se diferencian 4 nodos diferentes:
+
+* El nodo _Client_ representa al cliente, es decir el navegador web con el que el usuario accede a la
+aplicación a través del protocolo HTTP.
+* El nodo _Node.js_ representa al entorno de ejecución del servidor y es donde se despliega la aplicación web
+desarrollada en AngularJS, que se integra con el componente _km-server_ desplegado en el siguiente nodo, utilizando
+para la comunicación el protocolo HTTP.
+* El nodo _JBoss AS_ representa al servidor de aplicaciones que contiene el Knowledge Manager (base de datos de
+conocimiento y motor de reglas), este sistema se está utilizando en producción en varios hospitales suecos.
+Proporciona una API que consume la aplicación Angular con funcionalidades de persistencia y de ejecución de reglas.
+* El nodo _PostgreSQL_ representa un sistema gestor de bases de datos relacional, con una base de datos _CDS
+Database_ que contiene los recursos del sistema, _i.e._ guías clínicas, arquetipos y terminologías.
+
+En esta sección de _Desarrollo_, al final de la fase _Implementación_ de cada Sprint, se muestran las capturas de
+pantalla de las funcionalidades más relevantes llevadas a cabo durante dicha iteración.
 
 Iteración 1
 ~~~~~~~~~~~
@@ -2539,8 +2602,8 @@ la estructura de directorios de la aplicación y el desarrollo de permitir visua
 
 Análisis
 ^^^^^^^^
-En la fase de análisis del primer Sprint se han identificado dos tareas a ser tratadas. Por un lado se ha
-analizado la estructura organizativa de directorios de la aplicación y por otro el desarrollo de la funcionalidad
+En la fase de análisis del primer Sprint se han identificado dos tareas a ser tratadas. Por una parte se ha
+analizado la estructura organizativa de directorios de la aplicación y por la otra el desarrollo de la funcionalidad
 básica consistente en la visualización de las guías clínicas existentes en el <<X4, Knowledge Manager>> (KM).
 
 Para la primera tarea, se ha estudiado la mejor mejor forma de estructurar la aplicación web. En numerosas ocasiones, en
@@ -2675,7 +2738,7 @@ clínicas.
 * `ui.codemirror`: componente que facilita un editor de texto, numerado, donde se permite editar la guía en formato GDL.
 
 * `ui.router`: solución _de facto_ para el enrutado de vistas en __Single Page Applicactions__footnote:[Aplicación de
-página única: aplicación web que cabe en una sola página con el próposito de dar una experiencia de usuario fluida
+página única: aplicación web que cabe en una sola página con el propósito de dar una experiencia de usuario fluida
 simulando una aplicación de escritorio] (SPA). Este tipo de enrutado modela las aplicaciones como un árbol de
 estados jerárquico, cada estado se corresponde con una vista (con su controlador asociado). Proporciona una
 https://en.wikipedia.org/wiki/Finite-state_machine[máquina de estados] que permite gestionar las transiciones entre
@@ -2814,10 +2877,12 @@ script en el _package.json_ (denominado `postinstall`) que lo hará automáticam
 Node.js.
 
 Para gestionar la navegación de la aplicación entre las diferentes vistas se ha utilizado el módulo `ui-router`, el
-cual permite cargar varias vistas simultáneamente en una misma página. El patrón https://tiles.apache.org/framework/tutorial/pattern.html[Composite View]
-es uno de los clásicos a la hora de desarrollar la capa de presentación y define que la vista puede estar compuesta
-por varias subvistas que se actualizan de forma independiente.
+cual permite cargar varias vistas simultáneamente en una misma página. La <<composite-view>> muestra una
+representación gráfica del patrón https://tiles.apache.org/framework/tutorial/pattern.html[Composite View], patrón
+clásico a la hora de desarrollar la capa de presentación, el cual define que la vista puede estar compuesta por varias
+subvistas que se actualizan de forma independiente.
 
+[[composite-view]]
 .Patrón _Composite View_.
 image::composite-view.png[scaledwidth="50%"]
 
@@ -3081,25 +3146,26 @@ afinando el nivel de detalle.
 .Casos de uso de la iteración 2.
 image::use-cases-iter-2.png[scaledwidth="90%"]
 
-El diagrama de casos de uso de la segunda iteración se centra en dos casos de uso incluidos en _Editar guías
-clínicas_, estos son _Editar descripción_ y _Editar definiciones_. Este último, debido a su complejidad, se ha
-desgranado y se muestra con un nivel de detalle más fino para poder reflejar con mayor precisión las funcionalidades
-que un profesional sanitario puede realizar cuando edita las definiciones de una guía clínica. Para editar las
-definiciones, el usuario debe poder instanciar arquetipos, instanciar elementos de arquetipos y gestionar predicados.
-Se muestran dos diagramas de secuencia: uno para mostrar el flujo de trabajo de lo que ocurre cuando se selecciona
-una guía de la lista de guías disponibles y otro que ayuda a comprender cuál es el flujo de la aplicación cuando
-se están editando las definiciones. En primer lugar se muestra qué ocurre cuando se selecciona una guía (este paso se
-va a producir siempre cuando se empiece a editar una guía):
+El diagrama de casos de uso de la segunda iteración mostrado en la <<use-cases-iter-2>> se centra en dos casos de uso
+incluidos en _Editar guías clínicas_, estos son _Editar descripción_ y _Editar definiciones_. Este último, debido a
+su complejidad, se ha desgranado y se muestra con un nivel de detalle más fino para poder reflejar con mayor
+precisión las funcionalidades que un profesional sanitario puede realizar cuando edita las definiciones de una guía
+clínica. Para editar las definiciones, el usuario debe poder instanciar arquetipos, instanciar elementos de
+arquetipos y gestionar predicados. Se muestran dos diagramas de secuencia: uno para mostrar el flujo de trabajo de lo
+que ocurre cuando se selecciona una guía de la lista de guías disponibles y otro que ayuda a comprender cuál es el
+flujo de la aplicación cuando se están editando las definiciones. En primer lugar, en la <<sequence-guideline>> se
+muestra qué ocurre cuando se selecciona una guía (este paso se va a producir siempre cuando se empiece a editar una
+guía):
 
 [[sequence-guideline]]
 .Diagrama de actividades: seleccionando una guía.
 image::sequence-guideline.png[]
 
 Se verá con más detalle en la siguiente sección. Básicamente el usuario cuando selecciona una guía se obtiene un
-objeto JSON enlazado con el `$scope` de AngularJS que representa dicha guía. Una vez seleccionada una guía
+objeto JSON enlazado con el `$scope` de AngularJS que representa dicha guía. Una vez seleccionada,
 se puede editar cualquier sección de la misma usando las pestañas de la aplicación. Eligiendo la pestaña
-_Definitions_ se pueden editar las definiciones, a continuación se muestra un diagrama de secuencia que muestra qué
-ocurre por detrás cuando se instancia un arquetipo y un elemento de arquetipo.
+_Definitions_ se pueden editar las definiciones, a continuación, en la <<sequence-guideline>>, se muestra un diagrama
+de secuencia que muestra qué ocurre por detrás cuando se instancia un arquetipo y un elemento de arquetipo.
 
 [[sequence-elementInst]]
 .Diagrama de actividades: instanciar un elemento de arquetipo.
@@ -3117,7 +3183,7 @@ servicios, etc.--que intervienen en dichos escenarios, y las relaciones entre el
 .Diagrama de colaboraciones entre componentes en la iteración 2.
 image::classes-iter-2.png[]
 
-En el diagrama anterior se puede observar las dependencias entre los diferentes componentes, así vemos cómo _Editar
+En el diagrama de la <<sequence-guideline>> se puede observar las dependencias entre los diferentes componentes, así vemos cómo _Editar
 descripción_ depende de `guidelineFactory` principalmente para obtener los objetos que representan la ontología y la
 descripción de la guía clínica. Los modales se han delegado todos en un servicio `modalService` con unas opciones por
 defecto que pueden ser sobreescritas con los parámetros que queramos mostrar en dichos componentes gráficos. El caso
@@ -3196,10 +3262,11 @@ lateral derecho donde se muestran los diferentes elementos que podemos arrastrar
 .Editar las definiciones de una guía.
 image::implementation-iter-2.png[]
 
-Para realizar nuevas instanciaciones se utiliza el panel derecho que cuenta con la directiva uiTree del módulo
-`ui-tree` y se le pasa un objeto de configuración definido en el controlador (`treeDefinitions`) donde se le indica
-que tiene que ser un árbol _clonable_ (aunque en este caso sólo tiene un nivel de anidamiento, el componente es un
-árbol) y que al soltar cada uno de los elementos tiene que generar la definición correspondiente.
+Para realizar nuevas instanciaciones se utiliza el panel derecho de la <<implementation-iter-2>> que cuenta con la
+directiva uiTree del módulo `ui-tree` y se le pasa un objeto de configuración definido en el controlador
+(`treeDefinitions`) donde se le indica que tiene que ser un árbol _clonable_ (aunque en este caso sólo tiene un nivel
+de anidamiento, el componente es un árbol) y que al soltar cada uno de los elementos tiene que generar la definición
+correspondiente.
 
 [source, html]
 ----
@@ -3392,7 +3459,7 @@ precondiciones en casos de uso más simples.
 .Casos de uso de la iteración 3.
 image::use-cases-iter-3.png[scaledwidth="90%"]
 
-De los dos escenarios que se incorporan en esta iteración, se ha elaborado de un diagrama de clases para la
+De los dos escenarios que se incorporan en esta iteración (ver <<use-cases-iter-3>>), se ha elaborado un diagrama de clases para la
 funcionalidad de edición de reglas--la edición de precondiciones se obvia, por ser más sencilla--donde se muestra el
 comportamiento de controladores, factorías, servicios, etc. y las colaboraciones entre ellos.
 
@@ -3400,7 +3467,7 @@ comportamiento de controladores, factorías, servicios, etc. y las colaboracione
 .Diagrama de colaboraciones entre componentes en la iteración 3.
 image::classes-iter-3.png[]
 
-En el diagrama anterior se pone de manifiesto cómo el controlador que gestiona la lógica de negocio que hay tras la
+En el diagrama de la <<use-cases-iter-3>> se pone de manifiesto cómo el controlador que gestiona la lógica de negocio que hay tras la
 lista de reglas (`RulelistCtrl`) depende de `guidelineFactory`, esto lo hace para obtener la ontología y para añadir o
 eliminar reglas a una guía. Asimismo, el controlador que gestiona el editor de las reglas, `RuleEditorCtrl`, utiliza
 dos servicios, `conditionFactory` y `actionFactory` para la gestión de los diferentes tipos de condiciones y acciones
@@ -3477,9 +3544,9 @@ En el controlador `PreconditionsCtrl` define una serie de métodos para obtener 
 su gestión, cuya lógica de negocio la delega en los servicios `guidelineFactory`, `expressionItemFactory`,
 `conditionFactory`, ya que esta lógica de negocio es reutilizada en otros controladores.
 
-En la <<screenshot-usecase3-1>> se muestra una captura de pantalla del desarrollo de la edición de la edición de
+En la <<screenshot-usecase3-1>> se muestra una captura de pantalla del desarrollo de la edición de
 reglas. Se observa el panel principal en el que se definen cada una de las reglas y el componente de la derecha que
-permite seleccionar los tipos de predicados para definir las mismas. En la <<screenshot-usecase3-1>> se muestra una
+permite seleccionar los tipos de predicados para definir las mismas. En la <<screenshot-usecase3-2>> se muestra una
 captura de pantalla del editor de expresiones, que permite la definición de expresiones utilizando elementos de
 los arquetipos instanciados en la guía clínica.
 
@@ -3594,9 +3661,10 @@ uso base en casos de uso más simples.
 .Casos de uso de la iteración 4.
 image::use-cases-iter-4.png[scaledwidth="80%"]
 
-Se han refinado los casos de uso _Editar terminologías_ y _Editar enlaces_. El primero ha dado lugar a un nuevo caso de
-uso denominado _Añadir término local_ y del segundo han surgido los casos de uso _Añadir enlaces nuevos_, _Añadir
-terminologías a los enlaces_ y _Eliminar terminologías de los enlaces_.
+Como se puede apreciar en la <<use-cases-iter-4>>, se han refinado los casos de uso _Editar terminologías_ y _Editar
+enlaces_. El primero  ha dado lugar a un nuevo caso de uso denominado _Añadir término local_ y del segundo han
+surgido los casos de uso _Añadir enlaces nuevos_, _Añadir terminologías a los enlaces_ y _Eliminar terminologías de
+los enlaces_.
 
 A continuación se muestra un diagrama de secuencia con una de las funcionalidades de esta iteración consistente en la
 edición de un enlace terminológico.
@@ -3605,7 +3673,8 @@ edición de un enlace terminológico.
 .Diagrama de secuencia para "Editar enlace".
 image::sequence-editBinding.png[]
 
-La edición de enlaces se hace en la pestaña _Binding_. En el momento que se activa dicha pestaña, automáticamente se
+La edición de enlaces se hace en la pestaña _Binding_. La <<sequence-editBinding>> muestra el proceso de la
+edición de enlaces con un diagrama de secuencia. En el momento que se activa dicha pestaña, automáticamente se
 ejecuta el controlador que gestiona su vista (`tab-binding.html`) que, viendo el fichero `routes.js`, se trata de
 `BindingCtrl`, que hará uso del método `getTermBindings` del servicio `guidelineFactory` que se le ha inyectado para
 recuperar los enlaces a terminologías externas que tiene guía actual. Una vez recuperados se asignan al `$scope` de
@@ -3794,13 +3863,13 @@ Pestaña _Description_
 +++++++++++++++++++++
 
 Comenzamos con la siguiente captura que muestra la sección de descripción de la guía, se trata de meta-información
-tanto de autoría como de caracter clínico.
+tanto de autoría como de carácter clínico.
 
 [[example-2]]
 .Descripción de una guía.
 image::example-2.png[]
 
-El efecto que esto tendría en la guía en formato GDL sería el siguiente:
+El efecto que la parte de la guía mostrada en la <<example-2>> tiene en el GDL sería el siguiente:
  +
 ----
 include::samples/CHA2DS2VASc-header.v1.gdl[]
@@ -3827,11 +3896,12 @@ reutilizan de los arquetipos que haya definidos en el KM Server.
 .Definición de una guía.
 image::example-3.png[]
 
-Se puede visualizar a continuación el efecto que tiene en el GDL la parte que se ha remarcado en color rojo (que
-muestra cómo se define desde la interfaz de usuario un elemento denominado _Diagnosis_ que será necesario en esta
-guía). El bloque GDL muestra la sección `archetype_binding` dentro de la sección `guide_definition`, la cual
-vincula elementos de los arquetipos clínicos con variables usadas en las reglas GDL. Por cuestiones de espacio sólo se
-muestra la instanciación de arquetipo y de elemento que están marcados en rojo en la figura anterior.
+Se puede visualizar a continuación el efecto que tiene en el GDL la parte que se ha remarcado en color rojo en la
+<<example-3>> (que muestra cómo se define desde la interfaz de usuario un elemento denominado _Diagnosis_ que será
+necesario en esta guía). El bloque GDL muestra la sección `archetype_binding` dentro de la sección
+`guide_definition`, la cual vincula elementos de los arquetipos clínicos con variables usadas en las reglas GDL. Por
+cuestiones de espacio sólo se muestra la instanciación de arquetipo y de elemento que están marcados en rojo en la
+figura anterior.
 
 ----
 include::samples/gdl-definition-1.gdl[]
@@ -3846,21 +3916,21 @@ _openEHR-EHR-EVALUATION.problem-diagnosis.v1_ cuyo _path_ dentro del arquetipo e
 
 Siguiendo en la pestaña de _definitions_, además de definir los elementos debemos definir las expresiones que
 necesitemos utilizar durante la guía, en este caso, que el paciente haya sido diagnosticado con fibrilación
-auricular (_atrial fibrilation_).
+auricular (ver el último predicado de la <<example-4>>, _atrial fibrilation_).
 
 [[example-4]]
-.Definición de predicados en la pestaña _definitions_.
+.Definición de predicados en la pestaña _Definitions_.
 image::example-4.png[scaledwidth="80%"]
 
 Para expresar la precondición de que la guía no se ejecute si el paciente no ha sido diagnosticado de _fibrilación
-auricular_ debemos definirlo como una precondición en la pestaña _Preconditions_.
+auricular_ debemos definirlo como una precondición en la pestaña _Preconditions_, tal como se muestra en la <<example-preconditions>>.
 
 [[example-preconditions]]
 .Definición de precondiciones en la pestaña _Preconditions_.
 image::example-preconditions.png[]
 
 Dentro de la `guide_definition`, es donde se definen las _condiciones_ que deben cumplirse para que
-se puedan ejecutar las _acciones_ de las reglas de de la guía. Como se omentó anterioemente, la guía no se
+se puedan ejecutar las _acciones_ de las reglas de de la guía. Como se mencionó anteriormente, la guía no se
 ejecutará a menos que el paciente haya sido diagnosticado con _fibrilación auricular_. En el ejemplo siguiente, una
 precondición (atributo pre_conditions_) verifica la existencia de _fibrilación auricular_ en el diagnóstico del paciente
 (gt0003). Utilizando el predicado de la sección _definition_, se establece la precondición para comprobar contra un
@@ -3880,8 +3950,9 @@ Pestaña _Rule list_
 
 En la pestaña _Rule list_ es donde se gestionan las reglas de la guía, las cuales contienen un conjunto de
 _condiciones_ necesarias para que la regla se ejecute y un conjunto de _acciones_ que se ejecutarán en caso de que
-las condiciones se cumplan. A continuación se muestran 3 reglas (no son todas las de la guía), la puntuación total del
-_CHA2DS2-VASc_ se cacula en una de ellas, concretamente en la regla _Calculate total score_.
+las condiciones se cumplan. A continuación, en las <<example-5>>, <<example-6>> y <<example-7>> se muestran 3 reglas
+(no son todas las de la guía), la puntuación total del _CHA2DS2-VASc_ se calcula en una de ellas, concretamente en la
+regla _Calculate total score_.
 
 [[example-5]]
 .Regla "_Set hypertension_".
@@ -3961,8 +4032,30 @@ include::samples/gdl-bindings.gdl[]
 <5> Enlace del código local _gt0104 (Trastorno vascular)_ con terminología CIE-10.
 <6> Enlace del código local _gt0121 (Fibrilación auricular)_ con terminología CIE-10.
 
+<<<
+
 Material utilizado
 ------------------
+Para el desarrollo de este TFM ha sido necesaria la instalación de una serie de herramientas y el uso de un conjunto
+de tecnologías. A lo largo de esta sección se enumerarán las principales herramientas y se mencionará por qué se han
+elegido cada una de ellas. Las tecnologías utilizadas se han ido mencionando a lo largo de la memoria. A modo de
+resumen en la <<table-technologies>> se indican las versiones de dichas tecnologías.
+
+[[table-technologies]]
+.Tecnologías utilizadas.
+[cols="30%,55%,15%", options="header"]
+|===
+|Nombre                      |Descripción                                               |Versión
+|AngularJS                   |Framework MVC                                             |1.5.0
+|Angular Bootstrap           |Directivas AngularJS nativas basadas en Bootstrap         |2.5.0
+|Angular UI router           |Framework de enrutado para SPAs AngularJS                 |0.2.18
+|NodeJS                      |Entorno en tiempo de ejecución para la capa del servidor  |6.5.0
+|Bower                       |Gestor de dependencias de NodeJs (cliente)                |1.7.7
+|Node Package Manager (npm)  |Gestor de dependencias de NodeJs (servidor)               |3.10.6
+|Jasmine core                |Framework de pruebas para JavaScript                      |2.4.1
+|Karma test runner           |Ejecutor de pruebas unitarias para AngularJS              |1.7.1
+|Protractor framework        |Framework de pruebas _end-to-end_ para AngularJS          |5.1.2
+|===
 
 Sistema operativo Ubuntu 14.04 LTS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -4095,8 +4188,9 @@ lo largo del tiempo, de modo que puedas recuperar versiones específicas más ad
 control de versiones _Git_ para la gestión del código, esta herramienta gratuita, rápida y que se integra
 perfectamente con la plataforma de alojamiento _Github_. _Git_ ofrece algunas ventajas sobre otros
 SCVfootnote:[https://www.atlassian.com/git/tutorials/why-git]. En SVN por ejemplo, cada desarrollador obtiene una
-copia de trabajo que apunta a un único repositorio central. _Git_, sin embargo, es un SCV distribuido. En lugar de una
-copia de trabajo, cada desarrollador obtiene su propio repositorio local, con un historial completo de confirmaciones.
+copia de trabajo que apunta a un único repositorio central. _Git_, sin embargo, es un SCV distribuido. En la <<git>>
+se puede apreciar cómo, en lugar de una copia de trabajo, cada desarrollador obtiene su propio repositorio local, con
+un historial completo de confirmaciones.
 
 [[git]]
 .Desarrollo distribuido de _Git_.
@@ -4158,7 +4252,9 @@ GitHub.
 Al ser una herramienta de código libre la desarrollada en este proyecto, se puede usar _Travis CI_ sin costes. Todos
 los proyectos _open source_ pueden ser probados sin cargo a través de travis-ci.org. Los proyectos privados pueden ser
 probados en travis-ci.com con un coste asociado. También existe un versión profesional _TravisPro_ que proporciona
-implementaciones personalizadas de una versión propietaria en el propio hardware del cliente.
+implementaciones personalizadas de una versión propietaria en el propio hardware del cliente. A continuación en la
+<<travis>> se muestra una imagen de la consola de _travis CI_ donde se aprecian detalles del último _commit_ y de los
+tests que se ejecutaron cuando se realizó dicho _commit_.
 
 [[travis]]
 .Consola de _Travis CI_.
@@ -4179,11 +4275,13 @@ La elección de _travis CI_ frente a otras opciones como _Jenkins_, _Shippable_,
 hospedado de modo que no hay que instalar ni configurar el servicio (sí requiere una pequeña configuración
 del proyecto como se acaba de mostrar en el fichero `.travis.yml`). Otra razón ha sido que se trata de una herramienta
 gratuita para proyectos _open source_ y además cuenta con una perfecta integración con _GitHub_, de manera que,
-cuando se hace un _commit_ en _GitHub_ automáticamente construye el proyecto de nuevo y ejecuta todos sus tests,
-enviándose una notificación en caso de que algún test hubiese fallado.
+cuando se hace un _commit_ en _GitHub_ automáticamente construye el proyecto de nuevo y ejecuta todos sus tests
+(tanto tests unitarios como tests _end-to-end_), enviándose una notificación en caso de que alguno hubiese fallado.
 
-Planificación y costes (planificación inicial vs. final) - (Opcional)
----------------------------------------------------------------------
+<<<
+
+Planificación y costes
+----------------------
 En esta sección se expone la planificación temporal y económica relacionada con el desarrollo de este proyecto. Para
 ello se proporciona, en primer lugar, una explicación detallada de cada una de las tareas que serán representadas
 posteriormente de una manera gráfica con un diagrama de Gantt, donde se indica el tiempo dedicado a cada actividad, así
@@ -4246,8 +4344,9 @@ desarrollo de este proyecto. Su elaboración se ha prolongado durante todo el ti
 este Trabajo Fin de Máster.
 
 Diagrama de Gantt::
-A continuación se muestra el diagrama de Gantt con la planificación temporal del proyecto, desglosado por tareas
-indicando la precedencia entre ellas, el comiendo y el fin de cada una y los recursos asociados a las mismas.
+A continuación se muestra el diagrama de Gantt en la <<gantt>>,  con la planificación temporal del proyecto
+(<<tasks>>), desglosado por tareas indicando la precedencia entre ellas, el comiendo y el fin de cada una y los
+recursos asociados a las mismas.
 
 [[tasks]]
 .Detalle de tareas del diagrama de Gantt.
@@ -4269,13 +4368,16 @@ asume el rol de _director del proyecto_.
 
 El coste por hora de cada rol se ha calculado a partir del salario medio para cada categoría, para ello esta estimación
 se ha basado en un estudio realizado en la propuesta del Grado de Ingeniería Informática de la Universidad de A
-Coruña. Dichos costes hacen mención al salario bruto que recibe el trabajador y los costes de contratación.
+Coruñafootnote:[Estos costes podrían variar en el momento de la elaboración de este documento ya que el coste por hora
+descritos aquí corresponde al año 2010.]. Dichos costes hacen mención al salario bruto que recibe el trabajador y los
+costes de contratación. En la <<hhrr-cost>> se plasma la información mencionada anteriormente.
 
 Las horas de trabajo se han calculado utilizando el proyecto desarrollado en Openproj, asumiendo una jornada
 laboral de 4 horas diarias de lunes a viernes, teniendo en cuenta las horas dedicadas a las reuniones. Para este
 cálculo se suman las horas dedicadas por parte del director del proyecto durante todo el proceso de desarrollo. Los
 cálculos derivados de recursos humanos se muestra en la siguiente tabla.
 
+[[hhrr-cost]]
 .Coste de recursos humanos.
 [cols="25%,^25%,^25%,^25%", options="header"]
 |===
@@ -4287,10 +4389,12 @@ cálculos derivados de recursos humanos se muestra en la siguiente tabla.
 |===
 
 Como se ha plasmado en el proyecto desarrollado en Openproj, también existe una serie de recursos a parte de los
-humos, estos son los recursos materiales que se deben cuantificar en los costes del proyecto. En la realización de
+humanos, estos son los recursos materiales que se deben cuantificar en los costes del proyecto. En la realización de
 este proyecto se utilizaron recursos materiales como un ordenador portátil y un conjunto de herramientas software
-adecuadas, el coste de dichos recursos se ha calculado consultando a los proveedores de los mismos.
+adecuadas, el coste de dichos recursos se ha calculado consultando a los proveedores de los mismos. En la
+<<mat-res-cost>> se muestran los costes asociados a recursos materiales.
 
+[[mat-res-cost]]
 .Coste de recursos materiales.
 [cols="75%,^25%", options="header"]
 |===
@@ -4303,8 +4407,9 @@ adecuadas, el coste de dichos recursos se ha calculado consultando a los proveed
 Finalmente habría que añadir un coste adicional de 20€ por cada reunión en concepto de gastos de desplazamiento y
 dietas. Se han realizado un total de 24 reuniones, por lo que, por este concepto, sumaría un total de 480 €. Para
 obtener el coste total asignado a este proyecto se suman los costes parciales de recursos humanos, recursos
-materiales, dietas y desplazamientos, que se pueden visualizar en la siguiente tabla.
+materiales, dietas y desplazamientos, que se pueden visualizar en la <<total-cost>>.
 
+[[total-cost]]
 .Coste total de la aplicación.
 [cols="75%,^25%", options="header"]
 |===
@@ -4314,6 +4419,8 @@ materiales, dietas y desplazamientos, que se pueden visualizar en la siguiente t
 |Coste de reuniones             |480 €
 >s|Total:                       |17.482 €
 |===
+
+<<<
 
 Resultados
 ----------
@@ -4350,9 +4457,26 @@ La utilización de componentes hace que la ejecución sea más fluida.
 usabilidad agradable de cara al usuario. La navegación entre las diferentes vistas hace uso del patrón _Composite
 view_ permite la composición de vistas que se renderizan de manera independiente.
 
+<<<
+
 Conclusiones
 ------------
 A continuación se mencionan las principales conclusiones que se han obtenido tras la realización de este proyecto.
+
+* Actualmente existe una necesidad importante en el contexto médico de disponer de sistemas que permitan interoperar
+de manera universal a nivel semántico . De poco sirve que las organizaciones representen sus procedimientos
+en forma de guías de práctica clínica si no se comparten. Estas representaciones del conocimiento clínico deben estar
+disponibles públicamente para que puedan ser utilizadas por los sistemas sanitarios y para que los profesionales
+puedan generar, discutir, modificar y aprobar las guías de manera colaborativa a través de plataformas de intercambio
+de conocimiento. Esto permitiría:
++
+--
+** una mejor definición de las mismas. La colaboración entre expertos enriquece el resultado obtenido.
+** el intercambio entre sistemas de información clínica (manteniendo su significado) de manera automática.
+** una serie de funciones de verdadero análisis, como el apoyo a la toma de decisiones y la investigación.
+
+Este TFM es un primer paso hacia la consecución de dicho objetivo.
+--
 
 * El contexto en el que reside este proyecto se encuentra en auge hoy en día a nivel internacional. En España el
 https://www.msssi.gob.es/profesionales/hcdsns/areaRecursosSem/Rec_mod_clinico_arquetipos.htm[Ministerio de Sanidad]
@@ -4389,6 +4513,8 @@ viajar de una organización a otra.
 ser costosa, debido a la sencillez la interfaz de usuario y a la especial dedicación que se ha mostrado para el
 proceso de definición de las guías utilizando un componente _drag and drop_ que permite la creación de las guías
 arrastrando componentes de una manera muy visual, proporcionando una excelente experiencia de usuario.
+
+<<<
 
 Futuros trabajos
 ----------------
@@ -4816,7 +4942,7 @@ Java se puede encontrar a continuación.
 ----
 include::javacc/expression.jj[]
 ----
-
+<<<
 [bibliography]
 Bibliografía
 ------------
@@ -4829,6 +4955,8 @@ University School of Medicine, 1977. Disponible en:
 https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2464549/pdf/procascamc00015-0074.pdf.
 - [[[RAND86]]] R. Miller, M. McNeil, S. Challinor, F. Masarie, J. Myers, ``The INTERNIST-1/Quick medical reference
 Project', University of Pittsburgh School of Medicine, Pittsburgh, 1986.
+- [[[MICH11]]] M. Yuan, ``Watson and healthcare:  How natural language processing and semantic search could
+revolutionize clinical decision support''. Developer Works, IBM. 2011. Disponible en: https://www.ibm.com/developerworks/library/os-ind-watson/os-ind-watson-pdf.pdf
 - [[[KEEN87]]] P. Keen, M. Scott Morton, ``Decision support systems: an organizational perspective''. Addison-Wesley. ISBN: 0-201-03667-3.
 - [[[MACC11]]] A. MacCaw, ``JavaScript Web Applicactions''. O'Reilly, 2011, pp. 2-5.
 - [[[LEHM06]]] H. Lehman, P. Abbott, N. Roderer, A. Rothschild, _et al._ ``Aspects of electronic Health Record Systems''. Springer, 2006.
@@ -4859,7 +4987,7 @@ agosto 2017.
 - [[[DATA17]]] Documentación oficial de AngularJS. URL: https://docs.angularjs.org/guide/databinding. Último acceso:
   junio 2017.
 - [[[SCRU12]]] P. Deemer, G. Benefield, C. Larman, B. Vodde. ``The Scrum Primer''. 2012.
-
+<<<
 [glossary]
 Glosario
 --------
