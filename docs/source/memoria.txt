@@ -162,7 +162,9 @@ clínico, redundancia, errores en la consignación de datos y algo muy important
 1990 empieza a surgir la necesidad de representación genérica para la comunicación de registros de historia clínica
 entre sistemas. La HCE puede almacenar, cuanto menos, la misma información que podría
 almacenarse en un archivo médico convencional. En los últimos 20 años los sistemas de HCE han sufrido una gran
-evolución <<LEHM06>> y se han implementado una gran cantidad de proyectos orientados a la eSalud.
+evolución <<LEHM06>> y se han implementado una gran cantidad de proyectos orientados a la e-saludfootnote:[Aplicación
+de las Tecnologías de la Información y las Comunicación (TICs) en el diagnóstico, el seguimiento y la gestión de
+centros sanitarios.].
 
 *Interoperabilidad* +
 Los sistemas de salud actuales requieren para sí una característica fundamental para garantizar la continuidad
@@ -475,37 +477,43 @@ requeridas por la dependencia dada. Este proceso puede llevar a una dependencia 
 .. AngularJS lo cachea dentro del _hash map_ mencionado anteriormente.
 .. AngularJS lo pasa como parámetro al componente que lo requiere.
 
-Se puede observar mejor el código fuente de AngularJS, que implementa el método `getService`:
+A continuación se muestra una manera de implementar este patrón usando JavaScript:
 
 [source, python]
 ----
-function getService(serviceName) {
-  if (cache.hasOwnProperty(serviceName)) {
-    if (cache[serviceName] === INSTANTIATING) {
-      throw $injectorMinErr('cdep', 'Circular dependency found: {0}', path.join(' <- '));
-    }
-    return cache[serviceName];
-  } else {
-    try {
-      path.unshift(serviceName);
-      cache[serviceName] = INSTANTIATING;
-      return cache[serviceName] = factory(serviceName);
-    } catch (err) {
-      if (cache[serviceName] === INSTANTIATING) {
-        delete cache[serviceName];
-      }
-      throw err;
-    } finally {
-      path.shift();
-    }
+var Singleton = (function () {
+  var instance;
+
+  function createInstance() {
+    var object = new Object("I am the instance");
+    return object;
   }
+
+  return {
+    getInstance: function () {
+      if (!instance) {
+        instance = createInstance();
+      }
+      return instance;
+    }
+  };
+})();
+
+function run() {
+    var instance1 = Singleton.getInstance();
+    var instance2 = Singleton.getInstance();
+    alert("Same instance? " + (instance1 === instance2));
 }
 ----
 
-Los _servicios_ y las _factorías_ en Angular son _singletons_, ya que no se instancian más de una vez. Se puede
-considerar la memoria caché como un gestor de _singleton_. Existe una ligera variación con el diagrama mostrado
-anteriormente ya que, en lugar de mantener la referencia privada estática al _singleton_ dentro de su constructor, se
-mantiene dentro del gestor de _singleton_ (indicado en el _snippet_ anterior como `cache`).
+El objeto Singleton se implementa como una función anónima inmediata. La función se ejecuta de manera inmediata
+encerrándola entre paréntesis, seguida de dos paréntesis adicionales. Se denomina anónima porque no tiene un nombre
+asignado. El método `getInstance()` es el centinela del Singleton. Devuelve la única instancia del objeto mientras
+mantiene una referencia privada a él, que no es accesible al mundo exterior.
+
+Los _singleton_ se usan de manera recurrente en AngularJS, los servicios y las factorías son _singletons_, ya que
+sólo existe una instancia de ellos en un momento determinado, pero pueden ser inyectados en deferentes lugares (los
+objetos se pasan por referencia a un método).
 
 Patrón Fachada
 ++++++++++++++
@@ -519,70 +527,78 @@ Es una buena práctica en AngularJS, y en el desarrollo de software en general, 
 los controladores, en servicios separados. Esto permite que el código sea más sencillo de probar y proporciona
 una manera más sencilla para el desarrollador de averiguar qué está sucediendo.
 
-El patrón fachada se ha utilizado con frecuencia en este proyecto con el fin de mantener el código lo más limpio
-posible y buscando una reutilización de las funcionalidades más utilizadas, como por ejemplo el acceso a cada una de
-las partes de una guía clínica o para la interacción con el servidor. En el primer caso, cuando se ejecuta un método
-del servicio _GuidelineFactory_, en numerosas ocasiones interactúa con otros servicios y controladores ejecutando
-lógica de negocio que está oculta para el cliente que invocó dicho método. En el segundo caso se ha utilizado el patrón
-fachada para ocultar los detalles de la implementación de comunicación con el servidor. En la <<Facade>> se muestra
-la representación del patrón _Fachada_ en notación UML.
+El patrón fachada se utiliza con frecuencia en AngularJS, y particularmente en este proyecto también ha sido
+utilizado, con el fin de mantener el código lo más limpio posible y buscando una reutilización de las funcionalidades
+más utilizadas, como por ejemplo el acceso a cada una de las partes de una guía clínica o para la interacción con el
+servidor. En el primer caso, cuando se ejecuta un método del servicio _GuidelineFactory_, en numerosas ocasiones
+interactúa con otros servicios y controladores, ejecutando lógica de negocio que está oculta para el cliente que
+invocó dicho método. En el segundo caso se ha utilizado el patrón fachada para ocultar los detalles de la
+implementación de comunicación con el servidor. En la <<Facade>> se muestra la representación del patrón _Fachada_ en
+notación UML.
 
 [[Facade]]
 .Patrón fachada.
 image::facade.png[scaledwidth="60%"]
 
-En AngularJS se suelen utilizar con asiduidad las fachadas. Cada vez que se quiere proporcionar una API de alto nivel
-a una funcionalidad dada se suele crear una fachada. Por ejemplo, a continuación se muestra cómo podemos hacer una
-petición `XMLHttpRequest` POST:
-
+A continuación se muestra un fragmento de código que implementa el patrón Fachada en JavaScript.
+ +
 [source, python]
 ----
-var http = new XMLHttpRequest(),
-    url = '/example/new',
-    params = encodeURIComponent(data);
-http.open("POST", url, true);
+var Mortgage = function(name) {
+    this.name = name;
+}
 
-http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-http.setRequestHeader("Content-length", params.length);
-http.setRequestHeader("Connection", "close");
+Mortgage.prototype = {
 
-http.onreadystatechange = function () {
-  if(http.readyState == 4 && http.status == 200) {
-    alert(http.responseText);
+  applyFor: function(amount) {
+    // access multiple subsystems...
+    var result = "approved";
+    if (!new Bank().verify(this.name, amount)) {
+      result = "denied";
+    } else if (!new Credit().get(this.name)) {
+      result = "denied";
+    }
+    return this.name + " has been " + result +
+               " for a " + amount + " mortgage";
   }
 }
-http.send(params);
+
+var Bank = function() {
+  this.verify = function(name, amount) {
+    // complex logic ...
+    return true;
+  }
+}
+
+var Credit = function() {
+  this.get = function(name) {
+    // complex logic ...
+    return true;
+  }
+}
+
+function run() {
+  var mortgage = new Mortgage("John Doe");
+  var result = mortgage.applyFor("$100,000");
+
+  alert(result);
+}
 ----
 
-Pero si se quiere hacer un POST de esos mismos datos usando el servicio `$http` de AngularJS, se puede hacer lo
-siguiente:
+Los objetos que participan en este patrón son:
 
-[source, python]
-----
-$http({
-  method: 'POST',
-  url: '/example/new',
-  data: data
-})
-.then(function (response) {
-  alert(response);
-});
-----
+* La fachada: en el código de ejemplo es el objeto _Mortgage_.
+** sabe qué subsistemas son responsables de una solicitud.
+** delega las solicitudes de cliente a los objetos del subsistema apropiado.
+* Subsistemas: en el código de ejemplo serían los objetos _Bank_ y _Credit_.
+** implementan y realizan funciones especializadas de cada subsistema.
+** no tienen conocimiento o referencia a la fachada.
 
-o, incluso, se podría hacer de la siguiente manera:
-
-[source, python]
-----
-$http.post('/someUrl', data)
-.then(function (response) {
-  alert(response);
-});
-----
-
-La segunda opción proporciona una versión preconfigurada, la cual crea una petición HTTP a la URL dada. Incluso se ha
-creado una mayor abstracción utilizando el servicio
-`$resource` footnote:[https://docs.angularjs.org/api/ngResource/service/$resource], el cual se construye sobre el
-servicio `$http`.
+El objeto de _Mortgage_ es la fachada en el código de ejemplo. Presenta una interfaz simple para el cliente con un solo
+método: `applyFor`. Debajo de la sencilla API que ofrece el método, se encuentra una considerable complejidad. Se
+pasa un nombre al constructor de _Mortgage_, a continuación se invoca el método `applyFor` con el importe del
+préstamos solicitado. Internamente, este método, utiliza servicios complejos de 2 subsistemas independientes que son
+los objetos _Bank_ y _Credit_ del ejemplo.
 
 Patrón _Proxy_
 ++++++++++++++
@@ -590,18 +606,30 @@ Un _proxy_, en su sentido más abstracto, es una clase que funciona como una int
 hacer de _interface_ a cualquier cosa: una conexión de red, un objeto grande en memoria, un archivo o algún otro
 recurso que sea costoso o imposible de duplicar.
 
+El patrón Proxy proporciona un intermediario para otro objeto y controla el acceso a este otro objeto. En programación
+orientada a objetos, los objetos hacen el trabajo que publican a través de su interfaz (atributos y métodos). Los
+clientes de estos objetos esperan que este trabajo se realice rápida y eficientemente. Sin embargo, hay situaciones
+en las que un objeto está severamente restringido y no llevar a cabo su responsabilidad. Esto ocurre con frecuencia
+cuando hay una dependencia de un recurso remoto (que resulta en latencia de red) o cuando un objeto tarda
+mucho tiempo en cargarse.
+
+En situaciones como éstas se aplica el patrón Proxy y se crea un objeto _proxy_ que reemplaza al objeto original.
+El Proxy envía la solicitud al objeto de destino. La interfaz del objeto _proxy_ es la misma que la del objeto
+original y los clientes pueden incluso no ser conscientes de que están tratando con un _proxy_ en lugar del objeto real.
+
 [[Proxy]]
 .Patrón proxy.
 image::proxy.png[scaledwidth="65%"]
 
-En la <<Proxy>> se puede observar la estructura del patrón _Proxy_. Se pueden distinguir 3 tipos de _proxies_:
+Se pueden distinguir 3 tipos diferentes de _proxies_:
 
-* Proxy virtual
-* Proxy remoto
-* Proxy protector
+* Proxy virtual: crea objetos costosos bajo demanda.
+* Proxy remoto: representante local de un objeto remoto.
+* Proxy de protección: controla el acceso al objeto original.
 
 Se mencionará la implementación que AngularJS tiene del _proxy_ virtual. A continuación se muestra una llamada al
-método `get` de la instancia `$resource`, llamada `User`:
+método `get` de la instancia de servicio https://docs.angularjs.org/api/ngResource/service/$resource[`$resource`] de
+AngularJS, denominada `User`:
 
 [source, python]
 ----
@@ -610,12 +638,11 @@ var User = $resource('/users/:id'),
 console.log(user); //{}
 ----
 
-En el _snippet_ anterior, `console.log` generaría un objeto vacío. Dado que la petición AJAX que tiene lugar por detrás,
-cuando se invoca `User.get`, es asíncrona, no se tiene el usuario real cuando se llama a `console.log`. Justo después
-de que `User.get` haga la petición GET, devuelve un objeto vacío y mantiene una referencia a él. Se puede pensar en
-este objeto como _proxy_ virtual (un simple _placeholder_), que se rellenaría con los datos reales una vez que el
-cliente reciba la respuesta del servidor. Esto en Angular funciona de la siguiente manera, consideremos el siguiente
-_snippet_:
+En el código anterior, `console.log` generaría un objeto vacío, dado que cuando se ejecuta, todavía no se ha resuelto
+la promesa que devuelve `$resource`. Justo después de que `User.get` haga la petición GET, devuelve un objeto vacío y
+mantiene una referencia a él. El objeto _user_ actúa como un _proxy_ virtual (un simple sustituto), que se
+rellenaría con los datos reales una vez que el cliente reciba la respuesta del servidor. Esto en Angular funciona de
+la siguiente manera, consideremos el siguiente fragmento:
 
 [source, python]
 ----
@@ -633,8 +660,10 @@ function MainCtrl($scope, $resource) {
 Cuando se ejecuta el código anterior, la propiedad `user` del objeto `$scope` tendrá un valor de un objeto vacío
 (`{}`), lo que significa que `user.name` será indefinido y no se renderizará nada en la vista. Internamente AngularJS
 mantendrá la referencia a este objeto vacío. Una vez que el servidor devuelva la respuesta de la petición GET,
-AngularJS rellenará el objeto con los datos recibidos del servidor. Durante el siguiente bucle de `$digest`, AngularJS
+AngularJS rellenará el objeto con los datos recibidos del servidor. Durante el siguiente bucle de
+https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$digest[`$digest`], AngularJS
 detectará el cambio en `$scope.user`, lo que llevará a la actualización de la vista.
+
 
 Inyección de dependencias
 +++++++++++++++++++++++++
@@ -1363,6 +1392,37 @@ que se verán en la <<_modelo_de_arquetipos>>. Los arquetipos son elementos jer�
 de nodos utilizando el patrón de diseño _Composite_, de manera que un nodo pueda contener de manera recursiva otros
 nodos.
 
+*Otros estándares de interoperabilidad* +
+Además de __open__EHR, existen otros estándares de interoperabilidad para el intercambio de información clínica, a
+continuación se mencionan los más relevantes:
+
+* UNE-EN ISO 13606: es una norma europea que especifica cómo tiene que ser la transferencia de la HCE para garantizar
+la interoperabilidad semántica. Es gratuita y
+sus derechos no son propiedad de ninguna empresa o consorcio, ha sido adoptada por AENORfootnote:[Asociación Española
+de Normalización y Certificación]. Tiene unos cimiento científicos muy sólidos: en su desarrollo se aprovecharon
+trabajos e investigaciones de más de 15 años. Toma la especificación del modelo de arquetipos de __open__EHR, así
+que ambos se están utilizando hoy en día por diversos gobiernos para especificar estándares nacionales de
+información sobre e-salud.
+
+* Health Level 7 Clinical Document Architecture (HL7 CDA): HL7 es un conjunto de estándares de intercambio de
+información clínica, utiliza una notación formal del UML y XML (Extensible Markup Language). En el año 2003 el
+Instituto Nacional Estadounidense de Estándares (American National Standards Institute, ANSI) aprobó un conjunto de
+estándares contenidos en la especificación de la versión 3 HL7. Tiene su propio modelo de referencia, el Reference
+Information Model (RIM), comúnmente conocido por HL7 V3 RIM.
++
+CDA es uno de los estándares de HL7, está basado en el lenguaje de marcado XML para especificar la codificación, la
+estructura y la semántica de los documentos clínicos a ser intercambiados. En noviembre de 2000, HL7 publicó la
+versión 1.0. La organización publicó la Versión 2.0 con su "Edición Normativa 2005".
+
+* Clinical Data Interchange Standards Consortium (CDISC): organización sin ánimo de lucro para el desarrollo de
+estándares que ha estado trabajando a través de equipos colaborativos basados en el consenso y productivos desde su
+creación en 1997, para desarrollar estándares e innovaciones globales para agilizar la investigación médica y
+asegurar un vínculo con la asistencia sanitaria. Su misión consiste en ``desarrollar y apoyar estándares de datos
+globales, independientes de la plataforma, que permitan la interoperabilidad del sistema de información para mejorar
+la investigación médica y las áreas relacionadas con la atención de la salud''.
+
+
+
 [[modelos-duales]]
 __open__EHR: Modelo de Referencia y Modelo de arquetipos
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1524,40 +1584,40 @@ definition
   OBSERVATION[at0000] matches {	-- Blood Pressure
     data matches {
       HISTORY[at0001] matches {	-- history
-	    events cardinality matches {1..*; unordered} matches {
-		  EVENT[at0006] occurrences matches {0..*} matches {	-- Any event
-		    data matches {
-			  ITEM_TREE[at0003] matches {	-- blood pressure
-			    items cardinality matches {0..*; unordered} matches {
-				  ELEMENT[at0004] occurrences matches {0..1} matches {	-- Systolic
-				    value matches {
-					  C_DV_QUANTITY <
-					    property = <[openehr::125]>
-						list = <
-						  ["1"] = <
-						    units = <"mm[Hg]">
-							magnitude = <|0.0..<1000.0|>
-							precision = <|0|>
-						  >
-						>
-					  >
-					}
-				  }
-				  ELEMENT[at0005] occurrences matches {0..1} matches {	-- Diastolic
-				    value matches {
-					  C_DV_QUANTITY <
-					    property = <[openehr::125]>
-						list = <
-						  ["1"] = <
-						    units = <"mm[Hg]">
-							magnitude = <|0.0..<1000.0|>
-							precision = <|0|>
-						  >
-						>
-				      >
-					}
-				  }
-	.........
+        events cardinality matches {1..*; unordered} matches {
+          EVENT[at0006] occurrences matches {0..*} matches {	-- Any event
+            data matches {
+              ITEM_TREE[at0003] matches {	-- blood pressure
+                items cardinality matches {0..*; unordered} matches {
+                  ELEMENT[at0004] occurrences matches {0..1} matches {	-- Systolic
+                    value matches {
+                      C_DV_QUANTITY <
+                        property = <[openehr::125]>
+                        list = <
+                          ["1"] = <
+                            units = <"mm[Hg]">
+                            magnitude = <|0.0..<1000.0|>
+                            precision = <|0|>
+                          >
+                        >
+                      >
+                    }
+                  }
+                  ELEMENT[at0005] occurrences matches {0..1} matches {	-- Diastolic
+                    value matches {
+                      C_DV_QUANTITY <
+                        property = <[openehr::125]>
+                        list = <
+                          ["1"] = <
+                            units = <"mm[Hg]">
+                            magnitude = <|0.0..<1000.0|>
+                            precision = <|0|>
+                          >
+                        >
+                      >
+                    }
+                  }
+    .........
   }
 ----
 
@@ -1672,7 +1732,7 @@ Cada condición de salud puede ser asignada a una categoría y recibir un códig
 códigos se utilizan por la Clasificación Estadística Internacional de Enfermedades y Problemas Relacionados con la
 Salud.
 
-En el <<cie10-table>> se pueden observar las categorías en las que se agrupan los códigos CIE-10.
+En la <<cie10-table>> se pueden observar las categorías en las que se agrupan los códigos CIE-10.
 
 [[cie10-table]]
 .Capítulos de CIE-10.
@@ -1747,6 +1807,87 @@ inglés:
 |Y          |Aparato genital masculino y mamas (Y, de cromosoma Y)
 |Z          |Problemas sociales
 |===
+
+Guías clínicas
+~~~~~~~~~~~~~~
+Los médicos se enfrentan en su actividad diaria a situaciones problemáticas en las que tiene que tomar decisiones
+importantes en poco tiempo y bajo la presión de las numerosas entidades implicadas en el proceso asistencial. La
+medicina no es una ciencia exacta, por lo que los profesionales sanitarios pueden tener diferentes opiniones sobre el
+valor relativo de las diversas opciones de tratamiento o las estrategias diagnósticas de un proceso. Por lo tanto es
+fácil que, ante un mismo problema, varios profesionales opten por actitudes diferentes.
+
+Hay estudios <<KAHN96>> que demuestran que la frecuencia con la que se realizan los estudios complementarios clínicos
+varían dependiendo de los médicos, especialistas y regiones geográficas. Sucede que pacientes con problemas clínicos
+idénticos reciben diferentes cuidados según su médico, hospital o ubicación. Existen múltiples motivos por los que la
+toma de decisiones ante un mismo problema pueda variar:
+
+* Incertidumbre: no existe buena evidencia científica sobre el valor de los posibles tratamientos o de los métodos
+diagnósticos.
+* Ignorancia: existe evidencia científica, pero el clínico la desconoce o no la tiene actualizada.
+* Presiones externas: el profesional conoce el valor de las pruebas o tratamientos, pero emplea otras pautas.
+* Recursos y oferta de servicios: al no disponer de la técnica diagnóstica o del tratamiento recomendado se utiliza
+una alternativa. También ocurre lo contrario, una disponibilidad elevada puede inducir a un uso excesivo.
+* Preferencias del paciente: en la mayoría de los casos la decisión última la tiene el paciente o su familia y sus
+valores y preferencias también cuentan de forma que pueden hacer que las acciones varíen significativamente de un
+paciente a otro.
+
+Para solucionar estos problemas han surgido las guías clínicas. La definición de ``guía clínica'' ha suscitado algunas
+controversias, dado que no se correspondía con el tipo de documentos habituales en nuestro medio. Resulta útil
+distinguir diferentes tipos de guías clínicas, dependiendo del fundamento en que se basan sus recomendaciones:
+
+* Basadas en la opinión de expertos.
+* Basadas en el consenso.
+* Basadas en la evidencia.
+
+La definición más tradicional en la literatura científica  es la propuesta por el Institute of
+Medicinefootnote:[http://www.iom.edu.np/] (IOM), en 1990 y que las define como el ``conjunto de recomendaciones
+desarrolladas de manera sistemática, para ayudar a los clínicos y a los pacientes en el proceso de la toma de
+decisiones, sobre cuáles son las intervenciones más adecuadas para resolver un problema clínico en unas
+circunstancias sanitarias específicas''. Su finalidad primordial consiste en ofrecer al clínico una serie de
+directrices con las que poder resolver, a través de la evidencia científica, los problemas que surgen en la práctica
+diaria con los pacientes, además de disminuir la variabilidad de la atención y promover el abandono de tratamientos
+dañinos u obsoletos que generan costos injustificados ofreciéndole al médico información científica actualizada que
+le permite seleccionar la mejor opción para el paciente, de una manera informada para el paciente y el médico.
+
+Entre los diferentes aspectos que pueden motivar la necesidad de elaborar una guía clínica y, por lo tanto, de donde
+surgen también los temas para su desarrollo, están los siguientes:
+
+* Cuando existe una amplia variabilidad en la manera de abordar determinadas áreas de práctica clínica.
+* Ante determinados problemas de salud con gran impacto social y económico en los que no existe consenso a la hora de
+abordarlos y afectan a varios niveles asistenciales.
+* Cuando una práctica clínica adecuada puede ser decisiva para reducir la morbimortalidad de determinadas enfermedades.
+* En circunstancias donde las pruebas diagnósticas o los tratamientos produzcan efectos adversos o costes innecesarios.
+
+Cabe mencionar que existen ciertos aspectos relacionados con las guías clínicas que todavía no han sido abordados de
+una manera exitosa, entre ellos:
+
+* Son costosas de elaborar por el gran esfuerzo de análisis de la práctica, sistematización de las decisiones que
+necesitan ser guiadas y síntesis de evidencias que requieren.
+* A veces no dan la respuesta a las dudas principales que surgen en la práctica clínica diaria, especialmente cuando
+no hay suficientes evidencias como para responder a todas las situaciones en las que podría ser necesaria. En estos
+casos se suelen hacer adaptaciones locales.
+* No todas las guías están elaboradas con las mejores evidencias.
+* La decisión final sobre cuál es el procedimiento clínico más apropiado debería de tener en cuenta el contexto en el
+que se plantea y las preferencias del paciente.
+
+La definición del alcance y los objetivos de una guía clínica es una etapa fundamental en su desarrollo (ver
+<<proceso>>). Del éxito de esta etapa dependerá que el enfoque sea el buscado, facilitando la elaboración de las
+preguntas clínicas a las que dará respuesta la guía. El resultado de esta etapa será un documento que delimite
+claramente los aspectos a tratar, garantizando que la guía responda a los objetivos que se pretenden alcanzar con ella.
+
+[[proceso]]
+.Fases del desarrollo de una guía clínica.
+image::proceso.png[scaledwidth="70%"]
+
+[[guide-process]]
+.Fases del desarrollo de una guía clínica.
+image::guide-process.png[scaledwidth="70%"]
+
+
+
+Una guía clínica debe aportar aspectos tales como la justificación para la elaboración de la guía, sus objetivos, la
+descripción de los pacientes objeto de la guía, los aspectos clínicos que van a ser tratados, el ámbito de aplicación,
+los usuarios finales y aquellos aspectos que quedarán excluidosfootnote:[http://www.sign.ac.uk/guidelines/fulltext/50/].
 
 Especificación GDL
 ~~~~~~~~~~~~~~~~~~
@@ -2115,33 +2256,72 @@ include::samples/gdl-bindings.gdl[]
 Estado de la cuestión
 ---------------------
 
+En la <<_guias_clinicas>> se mencionó la necesidad de la existencia de guías clínicas
+
 * Hablar de la evolución histórica de la representación de guías clínicas
 * Hablar del trabajo relacionado que existe hasta la fecha
 * Cerrar el apartado expresando el porqué del proyecto.
 * GELLO
 * GLIF
-* Common data elements
-* ISO 11179
-* CDISC
+* Common data elements (no lo veo..)
+* ISO 11179 (no lo veo..)
+* CDISC (Lo veo bien, pero en <<_fundamentos>>)
+
 
 Editor GDL en Java Swing
 ~~~~~~~~~~~~~~~~~~~~~~~~
 Hasta el desarrollo de la aplicación objeto de este TFM, se disponía de una herramienta basada en tecnología Java
-Swing que permite editar y ejecutar guías clínicas en GDL. Se trata de un software de escritorio independiente de la
-plataforma CKM, que permite editar las guías de manera _off-line_. Por tratarse de un software _stand-alone_ que no se
-puede integrar en el CKM de __open__EHR, representa una limitación en la colaboración e intercambio de conocimiento
-clínico entre diferentes usuarios.
+Swing que permite editar y ejecutar guías clínicas en formato GDL. Se trata de un software de escritorio independiente
+de la plataforma CKM, que permite editar las guías de manera _offline_. Por tratarse de un software _stand-alone_
+que no se puede integrar en el CKM de __open__EHR, representa una limitación en la colaboración e intercambio de
+conocimiento clínico entre diferentes usuarios.
 
-No está integrado con el Knowledge Manager, por lo que tiene almacenadas las guías en local, trabaja con ellas y
-permite exportarlas al sistema de ficheros de la máquina donde se esté ejecutando la aplicación.
+Por el mismo motivo, tampoco se puede integrar con el Knowledge Manager. Por lo que almacena las guías
+en local, trabaja con ellas. Permite exportarlas al sistema de ficheros de la máquina donde se esté ejecutando la
+aplicación.
 
-Pendiente...
+Además de los inconvenientes anteriores, cuenta con las desventajas que presentan las aplicaciones de escritorio
+para ciertos cometidos: sólo se puede acceder a la aplicación desde la máquina donde esté instalada la aplicación y
+sólo esta aplicación podrá tener acceso a los datos, que se encuentran en condiciones más vulnerables al estar
+almacenados en local. Los procesos de actualización requieren de la intervención por parte del usuario.
+
+A continuación se muestran algunas capturas de pantalla de la herramienta Swing:
+
+[[swing-1]]
+.Editor GDL Java Swing: selección local de una guía clínica.
+image::swing-1.png[scaledwidth="50%"]
+
+[[swing-2]]
+.Editor GDL Java Swing: editando las definiciones de una guía.
+image::swing-2.png[scaledwidth="50%"]
+
+[[swing-3]]
+.Editor GDL Java Swing: editando las condiciones de una guía.
+image::swing-3.png[scaledwidth="50%"]
 
 Editor GLIF/GELLO
 ~~~~~~~~~~~~~~~~~
-Editor GLIF/GELLO
+GLIF es el acrónimo de GuideLine Interchange Format, se trata de un lenguaje formal que permite modelar, expresar y
+compartir guías clínicas informatizadas. Ha sido desarrollado por un _Intermed_, un grupo de investigación en
+colaboración entre las Universidades de Stanford, Harvard y Columbia.
 
-Pendiente...
+Actualmente el desarrollo se encuentra en la versión 3 y cuenta con un modelo orientado a objetos. Para realizar el
+modelado de los documentos clínicos, se basa en un algoritmo, utilizando un diagrama de flujo, que diferencia varias
+fases y especifica los valores de los atributos en dichas fases: _accion_, _decisión_, _estado del paciente_, _rama y
+_sincronización_. Se ha desarrollado una herramienta de software para la creación de guías en GLIF, dicha herramienta
+ almacena las guías en formato RDFfootnote:[https://www.w3.org/RDF/].
+
+A continuación, en la <<glif1>> y la <<glif2>> se muestran unas capturas de pantalla de dicha herramienta.
+
+[[glif1]]
+.Editor de guías clínicas en formato GLIF.
+image::glif1.png[scaledwidth="50%"]
+
+[[glif2]]
+.Editor de guías clínicas en formato GLIF.
+image::glif2.png[scaledwidth="50%"]
+
+
 
 <<<
 
@@ -2304,7 +2484,7 @@ image::product-backlog.png[]
 
 [[waffle-backlog]]
 .Gestión visual: ítems del _Product Backlog_ utilizando una herramienta software (columna de la izquierda).
-image::waffle-board.jpg[scalewidth="70%"]
+image::waffle-board.jpg[]
 
 El _Product Backlog_ incluye una variedad de elementos, principalmente nuevas características del cliente
 (_e.g._ "permitir a todos los usuarios colocar el libro en el carrito de la compra"), pero también otros objetivos
@@ -2580,16 +2760,42 @@ image::deployment.png[scaledwidth="80%"]
 
 En la imagen anterior se diferencian 4 nodos diferentes:
 
-* El nodo _Client_ representa al cliente, es decir el navegador web con el que el usuario accede a la
+* El nodo _Client_ representa al cliente, es decir, el navegador web con el que el usuario accede a la
 aplicación a través del protocolo HTTP.
 * El nodo _Node.js_ representa al entorno de ejecución del servidor y es donde se despliega la aplicación web
-desarrollada en AngularJS, que se integra con el componente _km-server_ desplegado en el siguiente nodo, utilizando
-para la comunicación el protocolo HTTP.
+desarrollada en AngularJS, que se integra con el componente _km-server_ desplegado en el nodo que se verá a
+continuación, utilizando para la comunicación entre ambos el protocolo HTTP.
 * El nodo _JBoss AS_ representa al servidor de aplicaciones que contiene el Knowledge Manager (base de datos de
 conocimiento y motor de reglas), este sistema se está utilizando en producción en varios hospitales suecos.
 Proporciona una API que consume la aplicación Angular con funcionalidades de persistencia y de ejecución de reglas.
-* El nodo _PostgreSQL_ representa un sistema gestor de bases de datos relacional, con una base de datos _CDS
-Database_ que contiene los recursos del sistema, _i.e._ guías clínicas, arquetipos y terminologías.
+* El nodo _PostgreSQL_ representa un sistema gestor de bases de datos relacional, con una base de datos denominada _CDS_
+que contiene los recursos del sistema, _i.e._ guías clínicas, arquetipos y terminologías.
+
+A continuación se va a mostrar, con el diagrama de secuencia reflejado en la <<workflow>>, cómo interactúan dichos
+componentes para realizar una operación sencilla del sistema: la petición de una guía clínica para poder comenzar con la
+edición de la misma. Para ello, ver <<sequence-guidelines>>, se va a suponer que ya se ha hecho el renderizado de
+todas las guías disponibles.
+
+[[workflow]]
+.Flujo de trabajo del sistema.
+image::workflow.png[]
+
+
+Las acciones que tienen lugar entre los diferentes componentes, que se enumeran en el diagrama de la <<workflow>>, son:
+
+. El usuario selecciona una guía del listado de guías clínicas.
+. El navegador web solicita el recurso correspondiente (la vista de la guía) al servidor web que corre en NodeJS.
+. En este momento, la aplicación AngularJS, hace una peticion GET de la guía y de los arquetipos involucrados en la
+misma al componente _km-server.war_.
+. El componente _km-server.war_ recibe dicha petición, ejecuta su lógica de negocio asociada y hace la consulta
+correspondiente a la base de datos _CDS_, que  se alberga en un sistema gestor de bases de datos relacional PostgreSQL.
+. La base de datos recibe dicha consulta, la ejecuta y devuelve el resultado al componente _km-server.war_.
+. El componente que _km-server.war_ genera una representación en formato JSON y la envía a la aplicación AngularJS.
+
+En este momento la aplicación AngularJS tiene en memoria una representación de la guía clínica y de los
+arquetipos correspondientes. Se trabaja sobre la guía clínica utilizando dichos arquetipos (u otros que se solicitarían
+si fuese necesario). Cuando se ha terminado la edición, se guardan los cambios, lo cual involucra de nuevo la
+interacción de los componentes anteriormente mencionados.
 
 En esta sección de _Desarrollo_, al final de la fase _Implementación_ de cada Sprint, se muestran las capturas de
 pantalla de las funcionalidades más relevantes llevadas a cabo durante dicha iteración.
@@ -2767,7 +2973,7 @@ clínicas de manera que, en siguientes iteraciones, esta lista permitiese la nav
 diagrama de secuencias muestra la forma en la que diferentes componentes se comunican entre sí para cumplir esta tarea:
 
 [[sequence-guidelines]]
-.Diagrama de actividades: listado guías clínicas.
+.Diagrama de secuencia: listado guías clínicas.
 image::sequence-guidelines.png[]
 
 Se diferencian 3 colores en los componentes implicados en las diferentes líneas de vida del diagrama de la
@@ -3158,7 +3364,7 @@ muestra qué ocurre cuando se selecciona una guía (este paso se va a producir s
 guía):
 
 [[sequence-guideline]]
-.Diagrama de actividades: seleccionando una guía.
+.Diagrama de secuencia: seleccionando una guía.
 image::sequence-guideline.png[]
 
 Se verá con más detalle en la siguiente sección. Básicamente el usuario cuando selecciona una guía se obtiene un
@@ -3168,7 +3374,7 @@ _Definitions_ se pueden editar las definiciones, a continuación, en la <<sequen
 de secuencia que muestra qué ocurre por detrás cuando se instancia un arquetipo y un elemento de arquetipo.
 
 [[sequence-elementInst]]
-.Diagrama de actividades: instanciar un elemento de arquetipo.
+.Diagrama de secuencia: instanciar un elemento de arquetipo.
 image::sequence-elementInst.png[]
 
 Para _Instanciar un predicado_, el procedimiento es similar, la instanciación de arquetipo es idéntica. Se arrastra
@@ -4344,7 +4550,7 @@ desarrollo de este proyecto. Su elaboración se ha prolongado durante todo el ti
 este Trabajo Fin de Máster.
 
 Diagrama de Gantt::
-A continuación se muestra el diagrama de Gantt en la <<gantt>>,  con la planificación temporal del proyecto
+A continuación se muestra el diagrama de Gantt en la <<gantt1>>,  con la planificación temporal del proyecto
 (<<tasks>>), desglosado por tareas indicando la precedencia entre ellas, el comiendo y el fin de cada una y los
 recursos asociados a las mismas.
 
@@ -4352,9 +4558,17 @@ recursos asociados a las mismas.
 .Detalle de tareas del diagrama de Gantt.
 image::tasks.png[scaledwidth="100%"]
 
+/////////////////////////////////////
 [[gantt]]
 .Diagrama de Gantt.
 image::gantt.png[scaledwidth="100%"]
+/////////////////////////////////////
+
+image::gantt-0-0.png[scaledwidth="69%"]
+
+[[gantt1]]
+.Diagrama de Gantt.
+image::gantt-0-1.png[scaledwidth="67%"]
 
 Cálculo de costes::
 En este apartado se muestra una estimación del coste total del proyecto que se ha elaborado teniendo en cuenta los
@@ -4464,19 +4678,11 @@ Conclusiones
 A continuación se mencionan las principales conclusiones que se han obtenido tras la realización de este proyecto.
 
 * Actualmente existe una necesidad importante en el contexto médico de disponer de sistemas que permitan interoperar
-de manera universal a nivel semántico . De poco sirve que las organizaciones representen sus procedimientos
-en forma de guías de práctica clínica si no se comparten. Estas representaciones del conocimiento clínico deben estar
-disponibles públicamente para que puedan ser utilizadas por los sistemas sanitarios y para que los profesionales
-puedan generar, discutir, modificar y aprobar las guías de manera colaborativa a través de plataformas de intercambio
-de conocimiento. Esto permitiría:
-+
---
-** una mejor definición de las mismas. La colaboración entre expertos enriquece el resultado obtenido.
-** el intercambio entre sistemas de información clínica (manteniendo su significado) de manera automática.
-** una serie de funciones de verdadero análisis, como el apoyo a la toma de decisiones y la investigación.
-
-Este TFM es un primer paso hacia la consecución de dicho objetivo.
---
+a nivel semántico de manera universal. De poco sirve que las organizaciones representen sus procedimientos
+en forma de guías de práctica clínica si no se comparten o si se comparten sin preservar su significado. Estas
+representaciones del conocimiento clínico deben estar disponibles públicamente para que puedan ser utilizadas por los
+ sistemas sanitarios y para que los profesionales puedan generar, discutir, modificar y aprobar las guías de manera
+ colaborativa a través de plataformas de intercambio de conocimiento.
 
 * El contexto en el que reside este proyecto se encuentra en auge hoy en día a nivel internacional. En España el
 https://www.msssi.gob.es/profesionales/hcdsns/areaRecursosSem/Rec_mod_clinico_arquetipos.htm[Ministerio de Sanidad]
@@ -4956,6 +5162,7 @@ https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2464549/pdf/procascamc00015-0074.pd
 - [[[RAND86]]] R. Miller, M. McNeil, S. Challinor, F. Masarie, J. Myers, ``The INTERNIST-1/Quick medical reference
 Project', University of Pittsburgh School of Medicine, Pittsburgh, 1986.
 - [[[MICH11]]] M. Yuan, ``Watson and healthcare:  How natural language processing and semantic search could
+- [[[KAHN96]]] K. Kahn, M. Chassin, _et.al._ ``Variations in the use of medical and surgical services by the Medicare population''. Journal Medicine. 1986, 314(5):285-90.
 revolutionize clinical decision support''. Developer Works, IBM. 2011. Disponible en: https://www.ibm.com/developerworks/library/os-ind-watson/os-ind-watson-pdf.pdf
 - [[[KEEN87]]] P. Keen, M. Scott Morton, ``Decision support systems: an organizational perspective''. Addison-Wesley. ISBN: 0-201-03667-3.
 - [[[MACC11]]] A. MacCaw, ``JavaScript Web Applicactions''. O'Reilly, 2011, pp. 2-5.

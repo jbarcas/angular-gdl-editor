@@ -1,13 +1,13 @@
 GUIDE) <
-  gdl_version = <"0.1">							<1>
-  id = <"CHA2DS2VASc_Score_calculation.v1.1">				<2>
-  concept = <"gt0036">							<3>
-  language = (LANGUAGE) <						<4>
+  gdl_version = <"0.1">                                     <1>
+  id = <"CHA2DS2VASc_Score_calculation.v1.1">               <2>
+  concept = <"gt0036">                                      <3>
+  language = (LANGUAGE) <                                   <4>
     original_language = <[ISO_639-1::en]>
     translations = <
     >
   >
-  description = (RESOURCE_DESCRIPTION) <				<5>
+  description = (RESOURCE_DESCRIPTION) <                    <5>
     details = <
       ["en"] = (RESOURCE_DESCRIPTION_ITEM) < 
         copyright = <"">
@@ -19,18 +19,18 @@ GUIDE) <
      ["sv"] = (RESOURCE_DESCRIPTION_ITEM) <
      >
   >
-  lifecycle_state = <"Author draft">					<6>
-  original_author = <							<7>
+  lifecycle_state = <"Author draft">                        <6>
+  original_author = <                                       <7>
     ["date"] = <"2017/02/03">
     ["email"] = <"rong.chen@cambio.se">
     ["name"] = <"Rong Chen">
     ["organisation"] = <"Cambio Healthcare Systems">
   >
-  other_contributors = <"Dr Carlos Valladares",...>			<8>
+  other_contributors = <"Dr Carlos Valladares",...>         <8>
   other_details = <
-  	["references"] = <"1. Lip GY, Nieuwlaat R, Pisters R, Lane DA, Crijns HJ. Refining clinical risk stratification .
-  	 ...
-  	>
+    ["references"] = <"1. Lip GY, Nieuwlaat R, Pisters R, Lane DA, Crijns HJ. Refining clinical risk stratification .
+    ...
+    >
   >
 
 >
