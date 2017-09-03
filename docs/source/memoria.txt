@@ -3,13 +3,14 @@ Desarrollo de un editor de guías clínicas (GDL) basadas en arquetipos utilizan
 Jesús Barros Castro <j.barros@udc.es>
 v0.0.1, Julio 2017
 :revremark: Primera versión de la memoria
-:lang:      es
-:imagesdir: ./images
-:iconsdir: ./images/icons
-:homepage: https://github.com/jbarcas/angular-gdl-editor
+:lang:       es
+:doctype:    book
+:imagesdir:  ./images
+:iconsdir:   ./images/icons
+:homepage:   https://github.com/jbarcas/angular-gdl-editor
 :ascii-ids:
-:grid: all
-:frame: topbot
+:valign:     middle
+:frame:      topbot
 
 [abstract]
 --
@@ -66,7 +67,7 @@ decisiones, como son:
 
 [[decision-making]]
 .Toma de decisiones.
-image::toma-de-decisiones.png[scaledwidth="50%"]
+image::toma-de-decisiones.png[scaledwidth="35%"]
 
 La toma de decisiones, como se puede observar en la <<decision-making>>, utiliza como materias primas la _información_
 y el _conocimiento_<<VERC09>>, ya que sin estas sería imposible evaluar las opciones existentes o el desarrollo de
@@ -306,7 +307,7 @@ distribuida. Se caracterizan por estar alojada en un servidor web en una URL det
 
 [[cliente_servidor]]
 .Arquitectura cliente-servidor.
-image::cliente-servidor.png[scaledwidth="50%"]
+image::cliente-servidor.png[scaledwidth="40%"]
 
 La <<cliente_servidor>> muestra de manera gráfica la arquitectura cliente-servidor. La entidad que realiza
 solicitudes se denomina _cliente_ y sus principales características son las siguientes:
@@ -376,7 +377,7 @@ observadorfootnote:[https://es.wikipedia.org/wiki/Observer_(patr%C3%B3n_de_dise%
 
 [[patron-mvc]]
 .Patrón MVC.
-image::MVC.png[scaledwidth="60%"]
+image::MVC.png[scaledwidth="40%"]
 
 Las aplicaciones basadas en MVC surgieron ya en los años 70 de la mano de
 Smalltalkfootnote:[https://es.wikipedia.org/wiki/Smalltalk]. A partir de entonces se fueron convirtiendo cada vez más
@@ -624,7 +625,7 @@ real. En la <<Proxy>> se muestra una representación de este patrón de diseño.
 
 [[Proxy]]
 .Patrón proxy.
-image::proxy.png[scaledwidth="65%"]
+image::proxy.png[scaledwidth="50%"]
 
 Se pueden distinguir 3 tipos diferentes de _proxies_:
 
@@ -1992,8 +1993,10 @@ _paquete guía_ y el _paquete de expresiones_ descrito en detalle a través de l
 Paquete de Guías Clínicas
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 La vista general del _paquete guía_ se ilustra en la <<gom>>. Las clases en color azul se basan, en líneas generales,
-en el diseño original de las especificaciones __open__EHR. En este documento se mencionará con frecuencia el concepto
-``código _gt_'', que hace referencia al código de un Guideline Term (Término local a la guía).
+en el diseño original de las especificaciones __open__EHR. Las tablas <<table-guide, 3>>,
+<<table-guide-definition, 4>>, <<table-archetype-binding, 5>>, <<table-event-binding, 6>> y <<table-rule, 7>>
+muestran los atributos de las principales clases de este paquete. En este documento se mencionará con frecuencia el
+concepto ``código _gt_'', que hace referencia al código de un Guideline Term (Término local a la guía).
 
 [[gom]]
 .Paquete ``guía clínica''.
@@ -2002,6 +2005,7 @@ image::gdl-relational-model.png[]
 .GUIDE.
 Clase principal de una guía discreta que define enlaces a arquetipos, reglas y meta-información.
 
+[[table-guide]]
 .Clase _Guide_
 [cols="10%,40%,50%", options="header"]
 |===
@@ -2028,9 +2032,11 @@ La definición de la guía incluye una lista de enlaces de arquetipos y una list
 |0..1       |pre_conditions: List<EXPRESSION_ITEM>          |Lista de pre-condiciones que tienen que ser cumplidas para que una guía pueda ser ejecutada.
 |===
 
+
 .ARCHETYPE_BINDING.
 El enlace de la lista de elementos de un arquetipo o plantilla seleccionado a los códigos _gt_ locales
 
+[[table-archetype-binding]]
 .Clase _ArchetypeBinding_
 [cols="10%,40%,50%", options="header"]
 |===
@@ -2042,9 +2048,11 @@ El enlace de la lista de elementos de un arquetipo o plantilla seleccionado a lo
 |0..1           |predicate_statements: List<EXPRESSION_ITEM>    |Lista de predicados (restricciones) que deben cumplirse antes de que se puedan realizar las consultas de a la HCE
 |===
 
+
 .ELEMENT_BINDING.
 La vinculación entre un elemento específico de un arquetipo y una variable local en la guía.
 
+[[table-event-binding]]
 .Clase _ElementBinding_.
 [cols="10%,40%,50%", options="header"]
 |===
@@ -2056,6 +2064,7 @@ La vinculación entre un elemento específico de un arquetipo y una variable loc
 .RULE.
 Una regla definida en una guía.
 
+[[table-rule]]
 .Clase _Rule_.
 [cols="10%,40%,50%", options="header"]
 |===
@@ -2067,7 +2076,11 @@ Una regla definida en una guía.
 
 Paquete de Expresiones
 ^^^^^^^^^^^^^^^^^^^^^^
-El paquete de expresiones se muestra en la <<paquete-expresiones>>.
+El paquete de expresiones se muestra en la <<paquete-expresiones>>. Posteriormente se muestran las tablas
+<<table-unary-expression, 8>>, <<table-binary-expression, 9>>, <<table-assignment-expression, 10>>,
+<<table-functional-expression, 11>>, <<table-operator-kind, 12>>, que indican los atributos de las principales clases de
+este paquete. La <<table-allowed-functions>> muestra un listado con las funciones soportadas por la versión actual de
+GDL.
 
 [[paquete-expresiones]]
 .Paquete de Expresiones.
@@ -2079,6 +2092,7 @@ Modelo abstracto de un ítem de expresión en una regla.
 .UNARY_EXPRESSION.
 Modelo abstracto de un ítem de expresión en una regla. Hereda de EXPRESSION_ITEM
 
+[[table-unary-expression]]
 .Clase _Unary Expression_.
 [cols="10%,40%,50%", options="header"]
 |===
@@ -2090,6 +2104,7 @@ Modelo abstracto de un ítem de expresión en una regla. Hereda de EXPRESSION_IT
 .BINARY_EXPRESSION.
 Modelo concreto de una expresión binaria. Hereda de EXPRESSION_ITEM.
 
+[[table-binary-expression]]
 .Clase _BinaryExpression_.
 [cols="10%,40%,50%", options="header"]
 |===
@@ -2102,6 +2117,7 @@ Modelo concreto de una expresión binaria. Hereda de EXPRESSION_ITEM.
 .ASSIGNMENT_EXPRESSION.
 Modelo concreto de una expresión de asignación. Hereda de EXPRESSION_ITEM.
 
+[[table-assignment-expression]]
 .Clase _AssignmentExpression_.
 [cols="10%,40%,50%", options="header"]
 |===
@@ -2113,6 +2129,7 @@ Modelo concreto de una expresión de asignación. Hereda de EXPRESSION_ITEM.
 .FUNCTIONAL_EXPRESSION.
 Expresión concreta que modela una función. Hereda de EXPRESSION_ITEM.
 
+[[table-functional-expression]]
 .Clase _FunctinalExpression_.
 [cols="10%,40%,50%", options="header"]
 |===
@@ -2124,7 +2141,7 @@ Expresión concreta que modela una función. Hereda de EXPRESSION_ITEM.
 .OPERATOR_KIND.
 Enumerado que contiene todos los operadores utilizados.
 
-[[operator-kind]]
+[[table-operator-kind]]
 .Clase _OperatorKind_.
 [options="header"]
 |===
@@ -2151,6 +2168,7 @@ Enumerado que contiene todos los operadores utilizados.
 .FUNCTION_KIND.
 Tipos de funciones permitidas
 
+[[table-allowed-functions]]
 .Funciones permitidas.
 [cols="20%,80%", options="header"]
 |===
@@ -2303,15 +2321,15 @@ La <<swing-1>>, <<swing-2>> y <<swing-3>> muestran algunas capturas de pantalla 
 
 [[swing-1]]
 .Editor GDL Java Swing: selección local de una guía clínica.
-image::swing-1.png[scaledwidth="50%"]
+image::swing-1.png[scaledwidth="90%"]
 
 [[swing-2]]
 .Editor GDL Java Swing: editando las definiciones de una guía.
-image::swing-2.png[scaledwidth="50%"]
+image::swing-2.png[scaledwidth="90%"]
 
 [[swing-3]]
 .Editor GDL Java Swing: editando las condiciones de una guía.
-image::swing-3.png[scaledwidth="50%"]
+image::swing-3.png[scaledwidth="90%"]
 
 Editor GLIF
 ~~~~~~~~~~~
@@ -2918,6 +2936,7 @@ La segunda tarea de esta iteración se ha centrado en la funcionalidad básica c
  _backend_. Para que esto sea posible, el caso de uso (ver <<use-cases-iter-1>>) que se ha de implementar es el que
  permita navegar entre las guías clínicas (_Browse clinical guidelines_), el cual se describe a continuación.
 
+[discrete]
 Descripción de los casos de uso
 +++++++++++++++++++++++++++++++
 A continuación se describe el caso de uso _Browse clinical guidelines_.
@@ -3298,7 +3317,8 @@ Para la primera iteración se han realizado tests unitarios para comprobar que t
 hacen lo que tienen que hacer, así como un test _end-to-end_ sencillo que se asegura que el enrutado está funcionando
 correctamente.
 
-Testeando el controlador `tab.guidelines.controller.js`
+[discrete]
+Probando el controlador `tab.guidelines.controller.js`
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++
 A continuación se detalla el procedimiento de pruebas para el controlador `tab.guidelines.controller.js` que se ha
 utilizado para la obtención de las guías clínicas. La librería `angular-mocks` que se ha añadido en el fichero `karma.conf`
@@ -3318,7 +3338,8 @@ mensaje de error en caso de fallo sea igual a `false`. Por otro lado se comprueb
 funciona correctamente, tanto si obtienen las guías de forma satisfactoria (`deferred.resolve`) como que se muestra el
 mensaje de error correspondiente cuando, por algún motivo, se ha producido un error (`deferred.reject`).
 
-Testeando el servicio `tab.guidelines.service.js`
+[discrete]
+Probando el servicio `tab.guidelines.service.js`
 +++++++++++++++++++++++++++++++++++++++++++++++++
 A continuación se detalla el procedimiento de pruebas par el servicio `tab.guidelines.service.js`, que hace una
 petición HTTP para obtener las guías clínicas disponibles en el servidor. Siempre que se utiliza el servicio nativo
@@ -3351,7 +3372,7 @@ Para cumplir los objetivos marcados para esta segunda iteración, se implementan
 _Editar definiciones_ de una guía clínica. Para ello se hace un refinamiento de ambos casos de uso, estudiándolos con
 un nivel de detalle más fino.
 
-[[use-case-desc-2]]
+[discrete]
 Descripción de los casos de uso
 +++++++++++++++++++++++++++++++
 
@@ -3488,8 +3509,8 @@ petición y la vista se carga de forma inmediata.
 
 La implementación del primer caso de uso _Editar descripción_ es relativamente sencilla y se realiza en la vista de
 la pestaña _Description_. Para ello se cuenta con la vista `tab-description.html` donde se implementan una serie de
-paneles, cada uno de ellos destinado a los requisitos de información que se piden para este caso de uso (ver
-<<use-case-desc-2, descripción de los casos de uso de la segunda iteración>>). A continuación se muestra un resumen
+paneles, cada uno de ellos destinado a los requisitos de información que se piden para este caso de uso. A
+continuación se muestra un resumen
 de la vista de la pestaña _Description_:
 
 [source, html]
@@ -3635,8 +3656,8 @@ lista de arquetipos (si se está sustituyendo por otro, automáticamente los ele
 eliminarían). Un método `updateLeftItem()` que permite actualizar tanto instanciaciones de elementos como de
 predicados, en este último caso sería el elemento de la parte izquierda del predicado. Por último, mencionar el
 método `updateRightItem()` que permite actualizar la parte derecha de los predicados, teniendo en cuenta el tipo de
-dato del elemento de la parte izquierda, tal como se comentó en la definición de <<use-case-desc-2, casos de uso de
-la iteración 2>>.
+dato del elemento de la parte izquierda, tal como se comentó en la definición de los casos de uso de la segunda
+iteración.
 
 En la <<screenshot-usecase2-1>> y en la <<screenshot-usecase2-2>> se muestra una captura de pantalla de la interfaz
 correspondiente al desarrollo de dos funcionalidades importantes dentro de esta iteración.
@@ -3678,6 +3699,7 @@ Para cumplir los objetivos marcados para esta tercera iteración, se implementan
 reglas_ y _Editar precondiciones_ de una guía clínica. Para ello se descomponen ambos casos de uso en factores de
 casos de uso más simples.
 
+[discrete]
 Descripción de los casos de uso
 +++++++++++++++++++++++++++++++
 
@@ -3884,6 +3906,7 @@ guía clínica, así como una visualización en formato HTML de modo que el usua
 toda la información relacionada con la guía. Asimismo se necesita cubrir el caso de uso relacionado con el
 almacenamiento de la guía modificada en el _backend_.
 
+[discrete]
 Descripción de los casos de uso.
 +++++++++++++++++++++++++++++++
 
@@ -4563,7 +4586,7 @@ En esta sección se expone la planificación temporal y económica relacionada c
 ello se proporciona, en primer lugar, una explicación detallada de cada una de las tareas que serán representadas
 posteriormente de una manera gráfica con un diagrama de Gantt, donde se indica el tiempo dedicado a cada actividad, así
 como las relaciones de precedencia que existen entre ellas. Para la elaboración del diagrama y del cálculo de costes
-se ha utilizado la herramienta de gestión de proyectos Openproj, versión 1.4.
+se ha utilizado la herramienta de gestión de proyectos ProjectLibre, versión 1.7.0.
 
 Formación::
 Para la realización de este proyecto ha sido imprescindible recibir una formación básica en las tecnologías y en la
@@ -4627,7 +4650,7 @@ recursos asociados a las mismas.
 
 [[tasks]]
 .Detalle de tareas del diagrama de Gantt.
-image::tasks.png[scaledwidth="100%"]
+image::tasks.png[]
 
 /////////////////////////////////////
 [[gantt]]
@@ -4635,11 +4658,11 @@ image::tasks.png[scaledwidth="100%"]
 image::gantt.png[scaledwidth="100%"]
 /////////////////////////////////////
 
-image::gantt-0-0.png[scaledwidth="69%"]
+image::gantt-0-0.png[]
 
 [[gantt1]]
 .Diagrama de Gantt.
-image::gantt-0-1.png[scaledwidth="67%"]
+image::gantt-0-1.png[]
 
 Cálculo de costes::
 En este apartado se muestra una estimación del coste total del proyecto que se ha elaborado teniendo en cuenta los
@@ -4657,7 +4680,7 @@ Coruñafootnote:[Estos costes podrían variar en el momento de la elaboración d
 descritos aquí corresponde al año 2010.]. Dichos costes hacen mención al salario bruto que recibe el trabajador y los
 costes de contratación. En la <<hhrr-cost>> se plasma la información mencionada anteriormente.
 
-Las horas de trabajo se han calculado utilizando el proyecto desarrollado en Openproj, asumiendo una jornada
+Las horas de trabajo se han calculado utilizando el proyecto desarrollado en ProjectLibre, asumiendo una jornada
 laboral de 4 horas diarias de lunes a viernes, teniendo en cuenta las horas dedicadas a las reuniones. Para este
 cálculo se suman las horas dedicadas por parte del director del proyecto durante todo el proceso de desarrollo. Los
 cálculos derivados de recursos humanos se muestra en la siguiente tabla.
@@ -4673,7 +4696,7 @@ cálculos derivados de recursos humanos se muestra en la siguiente tabla.
 3+>s|Total: ^|16.076 €
 |===
 
-Como se ha plasmado en el proyecto desarrollado en Openproj, también existe una serie de recursos a parte de los
+Como se ha plasmado en el proyecto desarrollado en ProjectLibre, también existe una serie de recursos a parte de los
 humanos, estos son los recursos materiales que se deben cuantificar en los costes del proyecto. En la realización de
 este proyecto se utilizaron recursos materiales como un ordenador portátil y un conjunto de herramientas software
 adecuadas, el coste de dichos recursos se ha calculado consultando a los proveedores de los mismos. En la
@@ -5060,7 +5083,7 @@ directamente en los elementos de EHR.
 Editor de expresiones
 ^^^^^^^^^^^^^^^^^^^^^
 Los atributos de los elementos de arquetipos pueden compararse con expresiones que contienen otros atributos o
-valores constantes. GDL soporta un conjunto básico de operadores aritméticos (ver <<operator-kind, operadores
+valores constantes. GDL soporta un conjunto básico de operadores aritméticos (ver <<table-operator-kind, operadores
 aritméticos en las especificaciones GDL>>). El editor de expresiones se divide en dos partes, el panel de edición
 (arriba) y el panel de visualización (abajo), cualquier cambio realizado en el panel de edición se mostrará en la
 parte de visualización, siempre que la expresión sea correcta. Los elementos se pueden agregar a la expresión
