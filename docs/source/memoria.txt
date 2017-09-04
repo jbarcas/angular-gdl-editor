@@ -14,7 +14,7 @@ v0.0.1, Julio 2017
 
 [abstract]
 --
-Expresar y compartir conocimiento dé soporte a la decisión clínica independientemente del idioma y de tecnologías
+Expresar y compartir conocimiento de soporte a la decisión clínica independientemente del idioma y de tecnologías
 específicas es uno de los principales retos en Informática Médica, y que ha dado lugar a diversos trabajos en las
 últimas décadas. Disponer de repositorios de conocimiento de decisión clínica expresado de manera formal y estándar,
 de manera que este conocimiento pueda ser explotado tanto por humanos como por máquinas, es un paso crucial para
@@ -23,14 +23,12 @@ tratamiento de las enfermedades.
 
 Los dos retos principales a afrontar para compartir lógica de decisión entre diferentes sistemas son, por un lado, la
 ausencia de modelos de información clínica de uso colectivo y, por otro, la escasez de soporte para los diferentes
-recursos terminológicos.
-
-Expresar lógica dé soporte a la decisión requiere de un modelo de representación de guías clínicas que permita a
-diferentes sistemas intercambiar conocimiento a nivel semántico. __open__EHR, comunidad virtual que trabaja en el
-desarrollo de especificaciones para la interoperabilidad de registros clínicos electrónicos entre sistemas, ha
-desarrollado el _Guideline Definition Language (GDL)_, un lenguaje formal diseñado para expresar lógica de soporte a la
-decisión de forma interoperable, el cual, recientemente, ha pasado a formar parte del núcleo de la plataforma
-__open__EHR.
+recursos terminológicos. Expresar lógica de soporte a la decisión requiere de un modelo de representación de guías
+clínicas que permita a diferentes sistemas intercambiar conocimiento a nivel semántico. __open__EHR, comunidad
+virtual que trabaja en el desarrollo de especificaciones para la interoperabilidad de registros clínicos electrónicos
+entre sistemas, ha desarrollado el _Guideline Definition Language (GDL)_, un lenguaje formal diseñado para expresar
+lógica de soporte a la decisión de forma interoperable, el cual, recientemente, ha pasado a formar parte del núcleo
+de la plataforma __open__EHR.
 
 GDL supone un avance fundamental hacia la representación formal de guías clínicas. Sin embargo, la adopción de este
 lenguaje es todavía limitada, principalmente debido a que la comunidad no dispone de herramientas software que
@@ -43,8 +41,8 @@ utilizarlas de manera exitosa en la práctica médica.
 El resultado de este proyecto es un software que facilita la creación, validación, edición y gestión de guías
 clínicas en formato GDL. El software se ha desarrollado como una aplicación web en AngularJS y siguiendo una versión
 simplificada de la metodología ágil Scrum, la cual ha ayudado a reducir considerablemente la duración de los ciclos
-de desarrollo y ha asegurado que al final de cada ciclo se hubiesen desarrollado ciertas funcionalidades operativas
-de aplicación. El software desarrollado es de código abierto y está disponible para su integración en la plataforma
+de desarrollo y ha asegurado que, al final de cada ciclo, se hubiesen desarrollado ciertas funcionalidades operativas
+de la aplicación. El software desarrollado es de código abierto y está disponible para su integración en la plataforma
 __open__EHR.
 
 *Palabras clave*
@@ -53,7 +51,7 @@ Guías clínicas, arquetipos clínicos, sistema de soporte a la decisión, inter
 
 Introducción
 ------------
-La toma de decisiones es el proceso mediante el que se realiza la elección de una alternativa para resolver un
+La toma de decisiones es el proceso mediante el cual se realiza la elección de una alternativa para resolver un
 problema<<TURB11>>. Está presente cotidianamente tanto en la actividad humana como en la de las organizaciones. La clave
 del éxito está en tomar buenas decisiones. Es necesario que se cumplan ciertos requisitos para tener éxito tomando
 decisiones, como son:
@@ -119,7 +117,7 @@ infecciosas de la sangre. Se trataba de un sistema experto basado en reglas que 
 artificial y un modelo de interacción entre médicos y consultores para tratar de satisfacer la demanda de una
 comunidad de usuarios que, a menudo, se resistía a experimentar con la tecnología informática. En su momento se
 demostró que el sistema era eficiente, relativamente fácil de usar y confiable en el diagnóstico dentro del dominio
-de terapia de bacteremia. Mycin era capaz, además, de ``razonar'' el proceso seguido para llegar a sus conclusiones.
+de terapia de bacteriemia. Mycin era capaz, además, de ``razonar'' el proceso seguido para llegar a sus conclusiones.
 Su funcionamiento se basaba principalmente en un motor de inferencia sencillo que manejaba una base de conocimiento
 de aproximadamente unas 500 reglas. Investigaciones llevadas a cabo en la _Stanford Medical School_ revelaron que Mycin
 tenía una mejor tasa de aciertos que los médicos no especializados en infecciones bacterianas.
@@ -170,18 +168,16 @@ centros sanitarios.].
 
 *Interoperabilidad* +
 Los sistemas de salud actuales requieren para sí una característica fundamental para garantizar la continuidad
-asistencialfootnote:[Continuidad asistencial: concepto que define el proceso, centrado en el paciente, en el cual
-intervienen diferentes profesionales sanitarios en diferentes periodos de tiempo y lugares con el objetivo
-compartido de mejorar la calidad de la asistencia prestada.], se requiere que la información clínica sea representada
-de una manera interoperable, de modo que diferentes organizaciones puedan hacer uso de dicha información
-independientemente de quién, cómo y cuándo se haya generado. La continuidad asistencial del paciente es indispensable
-en multitud de situaciones como cambios de residencia de los pacientes, cambios organizativos, cambios de niveles
-asistenciales, etc. La manera de conseguir la deseada interoperabilidad es aplicando la normalización. Las normas o
-estándares proporcionan la base sobre la que poder crear acuerdos con un objetivo en común, en este caso la
-continuidad asistencial. http://www.openehr.org/[__open__EHR]footnote:[EHR son las siglas de Electronic Health
-Record: Historia Clínica Electrónica en español.] es una comunidad virtual que trabaja en la estandarización de la
-HCE, garantizando una interoperabilidad universal entre todo tipo de sistemas de información clínicos. Actualmente se
-está utilizando en multitud de organizaciones:
+asistencial <<GULL06>>, se requiere que la información clínica sea representada de una manera interoperable, de modo
+que diferentes organizaciones puedan hacer uso de dicha información independientemente de quién, cómo y cuándo se
+haya generado. La continuidad asistencial del paciente es indispensable en multitud de situaciones como cambios de
+residencia de los pacientes, cambios organizativos, cambios de niveles asistenciales, etc. La manera de conseguir la
+deseada interoperabilidad es aplicando la normalización. Las normas o estándares proporcionan la base sobre la que
+poder crear acuerdos con un objetivo en común, en este caso la continuidad asistencial.
+http://www.openehr.org/[__open__EHR]footnote:[EHR son las siglas de Electronic Health Record: Historia Clínica
+Electrónica en español.] es una comunidad virtual que trabaja en la estandarización de la HCE, garantizando una
+interoperabilidad universal entre todo tipo de sistemas de información clínicos. Actualmente se está utilizando en
+multitud de organizaciones:
 
 * Soluciones ya implantadasfootnote:[http://www.openehr.org/who_is_using_openehr/healthcare_providers_and_authorities]
 * Proyectos de investigación financiadosfootnote:[http://www.openehr.org/who_is_using_openehr/funded_research_projects]
@@ -269,8 +265,6 @@ fácilmente reutilizados y de forma que resulte sencillo incorporar nuevas funci
 el proceso de gestión de las guías clínicas resulte fácilmente asimilable por los expertos en el dominio clínico y
 disfruten de una experiencia agradable durante el uso de la herramienta.
 
-<<<
-
 Fundamentos
 -----------
 
@@ -286,8 +280,8 @@ En ingeniería del software se denomina aplicación web <<WEBA17>> a aquellas he
 pueden utilizar accediendo a un servidor web a través de Internet o de una intranet mediante un
 navegador. Las aplicaciones web son populares debido a lo práctico del navegador web como
 cliente ligero, a la independencia del sistema operativo, así como a la facilidad para actualizar y
-mantener aplicaciones web sin distribuir e instalar software a miles de potenciales usuarios.
-Existen aplicaciones como los _webmails_, _wikis_, _weblogs_, tiendas en línea, buscadores etc. que
+mantener las aplicaciones sin la necesidad de distribuir e instalar software entre miles de potenciales usuarios.
+Existen aplicaciones como los _webmails_, _wikis_, _weblogs_, tiendas en línea, buscadores, etc. que
 son ejemplos bien conocidos de aplicaciones web.
 
 Es importante mencionar que una página web puede contener elementos que permiten una comunicación activa entre el
@@ -296,14 +290,14 @@ responderá a cada una de sus acciones, como por ejemplo rellenar y enviar formu
 y acceder a gestores de bases de datos de todo tipo. Las aplicaciones web usan una combinación de _scripts_ de
 servidor--PHP: Hypertext Preprocessor (PHP), Active Server Pages(ASP) o cualquier _backend_ desarrollado en otros
 lenguajes de programación--para gestionar el almacenamiento y la recuperación de la información, y _scripts_ del lado
-de cliente--Cascade Stylesheet (CSS), HyperText Markup Language (HTML) y Javascript--para presentar la información
+de cliente--Cascade Stylesheet (CSS), HyperText Markup Language (HTML) y JavaScript--para presentar la información
 al usuario. Esto permite a los usuarios la interacción con el _backend_ por medio de formularios, sistemas de gestión
-de contenidos, carritos de la compra, etc. Además de permitir la creación de documentos, la compartición de
+de contenidos, carritos de la compra, etc., además de permitir la creación de documentos, la compartición de
 información, la colaboración en proyectos y el trabajo en documentos compartidos independientemente de la
 localización y de los dispositivos de los usuarios.
 
 Las aplicaciones web encajan dentro de las aplicaciones cliente-servidor, que siguen un modelo de aplicación
-distribuida. Se caracterizan por estar alojada en un servidor web en una URL determinada.
+distribuida. Se caracterizan por estar alojadas en un servidor web, accesibles mediante una URL determinada.
 
 [[cliente_servidor]]
 .Arquitectura cliente-servidor.
@@ -312,15 +306,15 @@ image::cliente-servidor.png[scaledwidth="40%"]
 La <<cliente_servidor>> muestra de manera gráfica la arquitectura cliente-servidor. La entidad que realiza
 solicitudes se denomina _cliente_ y sus principales características son las siguientes:
 
-* Es quien inicia una solicitud o petición a un servidor, por lo tanto asumen un rol activo en la comunicación.
+* Es quien inicia una solicitud o petición a un servidor, por lo tanto asume un rol activo en la comunicación.
 * Se queda a la espera y recibe la respuesta del servidor.
 * Se puede conectar con varios servidores a la vez por lo general.
 * Suele utilizar una _interfaz gráfica de usuario_ como media de interacción con el servidor.
 
 A la entidad receptora de dichas solicitudes se le denomina _servidor_, cuyas características se resumen a continuación:
 
-* Están a la espera de solicitudes por parte de los clientes, por lo tanto asumen un rol pasivo en la comunicación.
-* Reciben una solicitud, la procesa y, posteriormente, envía la respuesta al cliente.
+* Está a la espera de solicitudes por parte de los clientes y, por lo tanto, asume un rol pasivo en la comunicación.
+* Recibe una solicitud, la procesa y, posteriormente, envía la respuesta al cliente.
 * Por lo general, acepta un número elevado de conexiones por parte de diferentes clientes.
 
 Las aplicaciones web poseen ventajas significativas con respecto a otro tipo de aplicaciones. Al ejecutarse en un
@@ -332,8 +326,8 @@ aplicaciones requieren poco o nada de espacio libre en disco, suelen ser bastant
 Sin embargo también tiene algunas desventajas que, como se verá, tiene solución relativamente sencilla. Requieren
 navegadores web totalmente compatibles para funcionar, aunque normalmente esto se resuelve actualizando la versión de
 los navegadores. En numerosas ocasiones requieren que exista una conexión a Internet, que si es interrumpida, puede
-que la aplicación no funcione. Esto, dependiendo de la aplicación, se podría abordar implementando soluciones que
-permitan el funcionamiento _off-line_.
+que la aplicación no funcione. Esto, dependiendo de la naturaleza de la aplicación, se podría abordar implementando
+soluciones que permitan el funcionamiento _off-line_.
 
 Patrones de software
 ~~~~~~~~~~~~~~~~~~~~
@@ -343,7 +337,7 @@ Además de la definición mencionada, los patrones de software pretenden formali
 desarrolladores, estandarizar la manera en que se lleva a cabo dicho desarrollo y facilitar el aprendizaje de nuevos
 desarrolladores acumulando conocimiento ya existente.
 
-La explicación de los patrones de software que se mencionan en esta sección se han orientado a la plataforma
+La explicación de los patrones de software que se mencionan en esta sección se ha orientado a la plataforma
 AngularJS, ya que es la tecnología utilizada como _framework_ de  desarrollo en este TFM.
 
 Patrones de arquitectura
@@ -358,7 +352,7 @@ implementación y del mantenimiento son difíciles de responder:
 * ¿Cuáles son las características de rendimiento de la aplicación?
 * ¿Con qué facilidad responde la aplicación a los cambio?
 * ¿Cuáles son las características de despliegue de la aplicación?
-* ¿Qué responderá la arquitectura?
+* ¿Cómo responderá la arquitectura?
 
 Los patrones de arquitectura ayudan a definir las características básicas y el comportamiento de una aplicación. Por
 ejemplo, algunos patrones de arquitectura fomentan el desarrollo de aplicaciones altamente escalables, mientras
@@ -368,65 +362,63 @@ necesidades y objetivos específicos de cada proyecto.
 
 Patrón Modelo-vista-controlador
 +++++++++++++++++++++++++++++++
-El patrón Patrón Modelo-vista-controlador (MVC) es un patrón de arquitectura cuya idea principal es establecer una
+El patrón Modelo-vista-controlador (MVC) es un patrón de arquitectura cuya idea principal es establecer una
 separación clara, en el código de la aplicación, entre la gestión de los datos (_modelo_), la lógica de la aplicación
-(_controlador_) y la presentación de datos al usuario (_vista_), en la <<patron-mvc>> se muestran gráficamente estos
+(_controlador_) y la presentación de datos al usuario (_vista_). En la <<patron-mvc>> se muestran gráficamente estos
 tres componentes y las relaciones entre ellos, las líneas sólidas indican una asociación directa y las punteadas una
-asociación indirecta, por ejemplo usando el patrón
-observadorfootnote:[https://es.wikipedia.org/wiki/Observer_(patr%C3%B3n_de_dise%C3%B1o)].
+asociación indirecta, por ejemplo usando el patrón observadorfootnote:[https://sourcemaking.com/design_patterns/observer].
 
 [[patron-mvc]]
 .Patrón MVC.
 image::MVC.png[scaledwidth="40%"]
 
 Las aplicaciones basadas en MVC surgieron ya en los años 70 de la mano de
-Smalltalkfootnote:[https://es.wikipedia.org/wiki/Smalltalk]. A partir de entonces se fueron convirtiendo cada vez más
+Smalltalkfootnote:[http://folk.uio.no/trygver/1979/sysreq/SysReq.pdf]. A partir de entonces se fueron convirtiendo cada vez más
 populares en casi todos los entornos de desarrollo donde estuvieran involucradas las interfaces de usuario. Hasta
 hace relativamente poco tiempo, era prácticamente ajeno al desarrollo web.
 
-Este patrón de arquitectura de software se basa en las ideas de reutilización de código y la separación de conceptos,
-características que buscan facilitar las tareas de desarrollo de aplicaciones y su posterior mantenimiento. El flujo
-de eventos es el siguiente:
+Este patrón de arquitectura de software se basa en las ideas de reutilización de código y la separación de
+responsabilidades, características que buscan facilitar las tareas de desarrollo de aplicaciones y su posterior
+mantenimiento. El flujo de eventos es el siguiente:
 
 1. El usuario interactúa con la aplicación a través de la interfaz de usuario.
 2. El _controlador_ recibe la notificación de la acción solicitada por el usuario y se activan los gestores de eventos
- del _controlador_.
+ del _controlador_ asociados a dicha acción.
 3. El _controlador_ solicita datos al _modelo_ y se los envía a la _vista_.
-4. El _controlador_ delega en la a _vista la presentación de los datos del _modelo_ al usuario.
+4. El _controlador_ delega en la a _vista_ la presentación de los datos del _modelo_ al usuario.
 5. La interfaz de usuario espera otra interacción del usuario, que comenzará otro nuevo ciclo
 
 A continuación se describen los 3 componentes de este patrón arquitectónico <<MACC11>>:
 
 *Modelo* +
-El _modelo_ es donde se residen los objetos de datos de la aplicación. Por ejemplo, se podría tener un _modelo_
+El _modelo_ es donde residen los objetos de datos de la aplicación. Por ejemplo, se podría tener un modelo
 denominado `ModeloUsuario` que contenga una lista de usuarios, sus atributos y cualquier lógica asociada
-específicamente con ese _modelo_.
+específicamente con ese modelo.
 
-El _modelo_ no sabe nada acerca de las vistas o controladores. Lo único que debe contener un _modelo_ son los datos y la
+El modelo no sabe nada acerca de las vistas o controladores. Lo único que debe contener un modelo son los datos y la
 lógica asociada directamente con esos datos. Cualquier código de gestión de eventos, plantillas de vista o lógica no
-específica a ese _modelo_ debe mantenerse separado de él. Los _modelos_ deben estar completamente desacoplados del resto
+específica a ese modelo, debe mantenerse separado de él. Los modelos deben estar completamente desacoplados del resto
 de la aplicación.
 
-Cuando los controladores recuperan datos de los servidores o crean nuevos registros, los encapsulan en instancias de
-_modelo_, que se encarga de notificar a la _vista_ los cambios que se producen el el mismo.
+Cuando los controladores recuperan datos de los servidores o crean nuevos registros, los encapsulan en instancias del
+modelo, que se encarga de notificar a la _vista_ los cambios que se producen en el mismo.
 
 *Vista* +
-La capa de _vista_ es lo que se presenta al usuario y es con lo que interactúa, las _vistas_ no deben contener ninguna
-lógica. Al igual que los _modelos_, las _vistas_ también deben estar desacopladas del resto de la aplicación.
-Presenta el
-_modelo_ en un formato adecuado para interactuar, por lo que requiere de dicho _modelo_ la información que debe
-representar como salida.
+La capa de _vista_ es lo que se presenta al usuario y es con lo que interactúa, las vistas no deben contener ninguna
+lógica. Al igual que los modelos, las vistas también deben estar desacopladas del resto de la aplicación.
+Presenta el modelo en un formato adecuado para interactuar, por lo que requiere de dicho modelo la información
+que debe representar como salida.
 
 *Controlador* +
-Los _controladores_ son el nexo de unión entre el _modelo_ y la _vista_. Los _controladores_ reciben eventos e
-información de entrada de las _vistas_, los procesan, invocan las acciones necesarias sobre el _modelo_ y actualizan
-las _vistas_ en consecuencia. El controlador añadirá escuchadores de eventos a las vistas cuando se cargue la página,
+Los _controladores_ son el nexo de unión entre el _modelo_ y la _vista_. Reciben eventos e
+información de entrada de las vistas, los procesan, invocan las acciones necesarias sobre el modelo y actualizan
+las vistas en consecuencia. El controlador añadirá escuchadores de eventos a las vistas cuando se cargue la página,
 _e.g._ envío de formularios, clic en un botón, etc. Por lo tanto, cuando el usuario interactúa con la aplicación,
 los eventos desencadenan acciones dentro de los controladores.
 
-*Uso en aplicaciones web*
-Aunque originalmente MVC fue desarrollado para aplicaciones de escritorio, ha sido ampliamente adaptado como
-arquitectura para diseñar e implementar aplicaciones web en los principales lenguajes de programación. Se han
+*Utilización en aplicaciones web* +
+Aunque originalmente MVC fue desarrollado para aplicaciones de escritorio, posteriormente ha sido ampliamente adaptado
+como arquitectura para diseñar e implementar aplicaciones web en los principales lenguajes de programación. Se han
 desarrollado multitud de frameworks, comerciales y no comerciales, que implementan este patrón. Estos frameworks se
 diferencian básicamente en la interpretación de cómo las funciones MVC se dividen entre cliente y servidor.
 
@@ -445,7 +437,7 @@ debe ser reutilizable, de modo que se pueda aplicar a diferentes problemas de di
 Lo que se pretende es suministrar un catálogo bien definido de elementos reutilizables en el diseño de sistemas
 software, evitando búsquedas de soluciones a problemas ya conocidos que tienen una solución bien desarrollada. Al
 igual que los patrones de arquitectura, también pretenden facilitar el aprendizaje a las nuevas generaciones, en este
-caso orientado al diseño, de aplicaciones software, condensando conocimiento ya existente.
+caso orientado al diseño de aplicaciones software, condensando conocimiento ya existente.
 
 Debido a la existencia de muchos patrones de diseño, es necesario un modo de organizarlos, de manera que podamos
 referirnos a familias de patrones de diseño relacionados. Se clasifican, según su propósito, en las siguientes
@@ -458,13 +450,14 @@ componen para crear estructuras más complejas, separan la interfaz de la implem
 * De comportamiento: caracterizan el modo en que las clases y objetos interactúan y se reparten las responsabilidades.
 
 
-Patrón _Singleton_
-++++++++++++++++++
-El patrón _singleton_ es un patrón de diseño que restringe la instanciación de una clase a un único objeto y
-proporciona un punto de acceso global a dicha instancia. Esto es útil cuando se necesita exactamente un objeto para
-coordinar acciones en todo el sistema. El concepto a veces se generaliza a sistemas que operan más eficientemente
-cuando sólo existe un objeto, o que restringen la instanciación a un cierto número de objetos. A continuación, en la
-<<Singleton>> se muestra el diagrama Unified Modeling Language (UML) del patrón de diseño _Singleton_.
+Patrón Singleton
+++++++++++++++++
+El patrón _singleton_ es un patrón de diseño de creación, que restringe la instanciación de una clase a un único
+objeto y proporciona un punto de acceso global a dicha instancia. Esto es útil cuando se necesita exactamente un
+objeto para coordinar acciones en todo el sistema. El concepto a veces se generaliza a sistemas que operan más
+eficientemente cuando sólo existe un objeto, o que restringen la instanciación a un cierto número de objetos. A
+continuación, en la <<Singleton>> se muestra el diagrama Unified Modeling Language (UML) del patrón de diseño
+_Singleton_.
 
 [[Singleton]]
 .Patrón Singleton.
@@ -472,9 +465,10 @@ image::singleton.png[scaledwidth="30%"]
 
 Cuando un componente requiere una dependencia, AngularJS lo resuelve utilizando el siguiente algoritmo:
 
-. Coge su nombre y hace una búsqueda en un _hashmap_ que se define en un _closure_ léxico, por lo que tiene una
+. Coge su nombre y hace una búsqueda en un _hashmap_ que se define en un
+__closure__footnote:[https://developer.mozilla.org/es/docs/Web/JavaScript/Closures] léxico, por lo que tiene una
 visibilidad privada.
-. Si la dependencia existe, AngularJS los pasa como parámetro al componente que lo requiere.
+. Si la dependencia existe, AngularJS la pasa como parámetro al componente que lo requiere.
 . Si la dependencia no existe:
 .. AngularJS lo instancia llamando al _factory method_ de su _provider_ (_i.e._ `$get`). Se debe tener en cuenta que
 instanciar la dependencia puede requerir una llamada recursiva al mismo algoritmo para resolver todas las dependencias
@@ -513,12 +507,11 @@ function run() {
 
 El objeto Singleton se implementa como una función anónima inmediata. La función se ejecuta de manera inmediata
 encerrándola entre paréntesis, seguida de dos paréntesis adicionales. Se denomina anónima porque no tiene un nombre
-asignado. El método `getInstance()` es el centinela del Singleton. Devuelve la única instancia del objeto mientras
-mantiene una referencia privada a él, que no es accesible al mundo exterior.
+asignado. El método `getInstance()` es el centinela del Singleton. Devuelve la única instancia del objeto (la
+variable _instance_) mientras mantiene una referencia privada a él, que no es accesible al mundo exterior.
 
 Los _singleton_ se usan de manera recurrente en AngularJS, los servicios y las factorías son _singletons_, ya que
-sólo existe una instancia de ellos en un momento determinado, pero pueden ser inyectados en deferentes lugares (los
-objetos se pasan por referencia a un método).
+sólo existe una instancia de ellos en un momento determinado, pero pueden ser inyectados en diferentes lugares.
 
 Patrón Fachada
 ++++++++++++++
@@ -532,8 +525,8 @@ Es una buena práctica en AngularJS, y en el desarrollo de software en general, 
 los controladores, en servicios separados. Esto permite que el código sea más sencillo de probar y proporciona
 una manera más sencilla para el desarrollador de averiguar qué está sucediendo.
 
-El patrón fachada se utiliza con frecuencia en AngularJS, y particularmente en este proyecto también ha sido
-utilizado, con el fin de mantener el código lo más limpio posible y buscando una reutilización de las funcionalidades
+El patrón fachada se utiliza con frecuencia en AngularJS, en este proyecto ha sido
+utilizado con el fin de mantener el código lo más limpio posible y buscando la reutilización de las funcionalidades
 más utilizadas, como por ejemplo el acceso a cada una de las partes de una guía clínica o para la interacción con el
 servidor. En el primer caso, cuando se ejecuta un método del servicio _GuidelineFactory_, en numerosas ocasiones
 interactúa con otros servicios y controladores, ejecutando lógica de negocio que está oculta para el cliente que
@@ -602,29 +595,29 @@ Los objetos que participan en este patrón son:
 El objeto de _Mortgage_ es la fachada en el código de ejemplo. Presenta una interfaz simple para el cliente con un solo
 método: `applyFor`. Debajo de la sencilla Application Programming Interface (API) que ofrece el método, se encuentra
 una considerable complejidad. Se pasa un nombre al constructor de _Mortgage_, a continuación se invoca el método
-`applyFor` con el importe del préstamos solicitado. Internamente, este método, utiliza servicios complejos de 2
+`applyFor` con el importe del préstamo solicitado. Internamente, este método utiliza servicios complejos de 2
 subsistemas independientes que son los objetos _Bank_ y _Credit_ del ejemplo.
 
-Patrón _Proxy_
-++++++++++++++
+Patrón Proxy
+++++++++++++
 Un _proxy_, en su sentido más abstracto, es una clase que funciona como una interfaz de otra cosa. El _proxy_ podría
 hacer de _interface_ a cualquier cosa: una conexión de red, un objeto grande en memoria, un archivo o algún otro
 recurso que sea costoso o imposible de duplicar.
 
-El patrón Proxy proporciona un intermediario para otro objeto y controla el acceso a este otro objeto. En programación
-orientada a objetos, los objetos hacen el trabajo que publican a través de su interfaz (atributos y métodos). Los
-clientes de estos objetos esperan que este trabajo se realice rápida y eficientemente. Sin embargo, hay situaciones
-en las que un objeto está severamente restringido y no llevar a cabo su responsabilidad. Esto ocurre con frecuencia
-cuando hay una dependencia de un recurso remoto (que resulta en latencia de red) o cuando un objeto tarda
-mucho tiempo en cargarse.
+El patrón Proxy es un patrón estructural que proporciona un intermediario para otro objeto y controla el acceso a este
+otro objeto. En programación orientada a objetos, los objetos hacen el trabajo que publican a través de su interfaz
+(atributos y métodos). Los clientes de estos objetos esperan que este trabajo se realice rápida y eficientemente. Sin
+embargo, hay situaciones en las que un objeto está severamente restringido y no llevar a cabo su responsabilidad.
+Esto ocurre con frecuencia cuando hay una dependencia de un recurso remoto (que resulta en latencia de red) o cuando
+un objeto tarda mucho tiempo en cargarse.
 
-En situaciones como éstas se aplica el patrón Proxy y se crea un objeto _proxy_ que reemplaza al objeto original.
+En situaciones como estas se aplica el patrón Proxy y se crea un objeto _proxy_ que reemplaza al objeto original.
 El Proxy envía la solicitud al objeto de destino. La interfaz del objeto _proxy_ es la misma que la del objeto
 original y los clientes pueden incluso no ser conscientes de que están tratando con un _proxy_ en lugar del objeto
 real. En la <<Proxy>> se muestra una representación de este patrón de diseño.
 
 [[Proxy]]
-.Patrón proxy.
+.Patrón Proxy.
 image::proxy.png[scaledwidth="50%"]
 
 Se pueden distinguir 3 tipos diferentes de _proxies_:
@@ -647,7 +640,7 @@ console.log(user); //{}
 En el código anterior, `console.log` generaría un objeto vacío, dado que cuando se ejecuta, todavía no se ha resuelto
 la promesa que devuelve `$resource`. Justo después de que `User.get` haga la petición GET, devuelve un objeto vacío y
 mantiene una referencia a él. El objeto _user_ actúa como un _proxy_ virtual (un simple sustituto), que se
-rellenaría con los datos reales una vez que el cliente reciba la respuesta del servidor. Esto en Angular funciona de
+rellenaría con los datos reales una vez que el cliente reciba la respuesta del servidor. Esto en AngularJS funciona de
 la siguiente manera, consideremos el siguiente fragmento:
 
 [source, python]
@@ -670,11 +663,69 @@ AngularJS rellenará el objeto con los datos recibidos del servidor. Durante el 
 https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$digest[`$digest`], AngularJS
 detectará el cambio en `$scope.user`, lo que llevará a la actualización de la vista.
 
+Patrón Observador
++++++++++++++++++
+El patrón Observador es un patrón de comportamiento en el cual un objeto, llamado _sujeto_, mantiene una
+lista de sus dependientes, llamados _observadores_, y los notifica automáticamente de cualquier cambio de estado,
+normalmente llamando a uno de sus métodos. Se utiliza principalmente para implementar sistemas distribuidos de gestión
+de eventos. La <<Observer>> presenta un diagrama de clases UML que representa dicho patrón.
+
+[[Observer]]
+.Patrón Observador.
+image::observer.png[scaledwidth="50%"]
+
+Hay dos formas básicas de comunicación entre los _scopes_ en una aplicación AngularJS. El primero es llamar a métodos
+de un _scope_ padre desde un _scope_ hijo. Esto permite la comunicación en una sola dirección: desde el hijo a
+los padres. A veces es necesario llamar un método de un scope hijo o notificarlo sobre la ocurrencia de un evento
+en el contexto del ámbito del padre. AngularJS proporciona un patrón observador que permite hacer esto.
+
+Otro posible caso de uso del patrón observador sucede cuando varios _scopes_ están interesados en un evento en
+particular, pero el alcance del scope donde ocurre el evento no es consciente de ellos. Esto permite el
+desacoplamiento entre los diferentes ámbitos, ninguno de los _scopes_ debe ser consciente del resto.
+
+Cada _scope_ en AngularJS tiene unos métodos públicos denominados
+https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$on[`$on`],
+https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$emit[`$emit`] y
+https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$broadcast[`$broadcast`]. El método `$on` acepta
+un nombre como primer argumento y una función _callback_ como segundo. Dicha función es un observador, un objeto que
+implementa la interfaz `Observer` (en JavaScript las funciones son de primera
+clasefootnote:[https://en.wikipedia.org/wiki/First-class_function], por lo que sólo podemos proporcionar la
+implementación del método `notify`):
+
+[source,python]
+----
+function ExampleCtrl($scope) {
+  $scope.$on('event-name', function handler() {
+    //body
+  });
+}
+----
+
+De esta manera el _scope_ actual ``se suscribe'' a eventos de tipo `event-name`. Cuando sucede el evento `event-name`
+en cualquier ámbito padre o hijo del proporcionado, se llamará al método `handler()`.
+
+Los métodos `$emit` y `$broadcast` se utilizan para activar eventos hacia arriba y hacia abajo respectivamente a
+través de la jerarquía de alcance. Por ejemplo:
+
+
+[source,python]
+----
+function ExampleCtrl($scope) {
+  $scope.$emit('event-name', { foo: 'bar' });
+}
+----
+
+El _scope_ en el ejemplo anterior, desencadena el evento `event-name` a todos los ámbitos hacia arriba (_scopes_
+padres). Esto significa que cada uno de los ámbitos padres del dado, que están suscritos al evento `event-name`,
+serán notificados y se llamará a su método asociado. Para el método `$broadcast` el funcionamiento es análogo, pero
+el evento se transmite hacia abajo en la jerarquía de alcance. En la comunidad JavaScript este patrón se conoce más
+comúnmente como ``publicación/suscripción''.
+
 
 Inyección de dependencias
 +++++++++++++++++++++++++
 La Inyección de Dependencias (ID) es un patrón de diseño de software que se ocupa de cómo
-los componentes consiguen sus dependencias. AngularJS cuenta con un subsistema inyector que se encarga de crear
+los componentes obtienen sus dependencias. AngularJS cuenta con un subsistema inyector que se encarga de crear
 componentes, resolver sus dependencias y proporcionarlos a otros componentes según lo solicitado.
 
 La ID aparece continuamente en AngularJS. Puede utilizarse al definir componentes o al proporcionar bloques de
@@ -722,7 +773,7 @@ HTML, XHTML y XML. Especificación técnica de w3c: https://www.w3.org/DOM/DOMTR
 
 AngularJS trata de hacer que sea fácil para el desarrollador hacer lo correcto. Para las peticiones XHR, se
 proporciona inyección de dependencias para que estas solicitudes puedan ser simuladas. Para el DOM, este se abstrae,
-para que se pueda probar el modelo sin tener que manipular el DOM directamente. Los tests podrían entonces asegurar
+para que se pueda probar el modelo sin tener que manipular el DOM directamente. Las pruebas podrían entonces asegurar
 que los datos se han ordenado sin tener que crear u observar el estado del DOM o esperar a que cualquier solicitud
 XHR devuelva datos. La función de ordenación individual se puede probar de forma aislada.
 
@@ -733,7 +784,7 @@ Los componentes que tienen sus dependencias inyectadas permiten que sean fácilm
 que ensuciar con cualquier variable global que podría afectar inadvertidamente otros tests.
 
 Para probar las aplicaciones AngularJS existen ciertas herramientas disponibles que harán que las pruebas sean mucho
-más fáciles de configurar y ejecutar. A continuación se verán el _framework_ de pruebas _Jasmine_, los _test runners_
+más fáciles de configurar y ejecutar. A continuación se verán el _framework_ de pruebas _Jasmine_, los _testrunners_
 _Karma_ y _Protractor_.
 
 Jasmine Framework
@@ -743,7 +794,7 @@ comportamiento] para probar código JavaScript. No depende de ningún otro frame
 tiene una sintaxis clara y obvia para que los tests se puedan escribir fácilmente.
 
 Antes de empezar a escribir el código, teniendo en cuenta la especificación formal de requisitos, se debe saber cómo
-se tiene que comportar el sistema. Se pueden escribir estas especificaciones en el código. En Angular, por
+se tiene que comportar el sistema. Se pueden escribir estas especificaciones en el código. En AngularJS, por
 convención, a cada fichero de test se le llama igual que el fichero que contiene la funcionalidad que se quiere
 probar, pero añadiéndole `.spec.js` al final. Cuando se ejecutan las pruebas se obtiene un éxito (si todo funciona
 según la especificación) o un error (si no lo hace). Si se obtiene un éxito para todos los test, se puede garantizar
@@ -803,7 +854,7 @@ https://travis-ci.org/[Travis CI] y https://github.com/[GitHub].
 * Utilizar https://github.com/gotwarlost/istanbul[Estambul] para la generación automática de informes.
 * Utilizar http://requirejs.org/[RequireJS] para la gestión de los ficheros de la aplicación.
 
-_Karma_ no es un _framework_ de pruebas, ni una librería de aserciones. _Karma_ es un _test runner_, simplemente lanza
+_Karma_ no es un _framework_ de pruebas, ni una librería de aserciones. _Karma_ es un _testrunner_, simplemente lanza
 un servidor HTTP, y genera el fichero HTML a ser utilizado por el _framework_ de pruebas que se quiera utilizar,
 entre ellos https://github.com/karma-runner/karma-jasmine[Jasmine],
 https://github.com/karma-runner/karma-mocha[Mocha], https://github.com/karma-runner/karma-qunit[QUnit], y
@@ -814,6 +865,7 @@ https://karma-runner.github.io/latest/intro/installation.html] y configuraciónf
 configuración de _Karma_: https://karma-runner.github.io/latest/intro/configuration.html]
 estás disponibles en la página web oficial de _Karma_.
 
+[[protractor-testing]]
 Pruebas _end-to-end_ con _Protractor_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 A medida que las aplicaciones crecen en tamaño y complejidad, se vuelve poco realista confiar en las pruebas hechas a
@@ -899,7 +951,7 @@ reutilizar el mismo código para la validación de formularios o cualquier lógi
 integración con ellos se realiza de forma natural (por ejemplo, el shell y el lenguaje de consulta de MongoDB es
 JavaScript, el paradigma _map/reduce_ de CouchDB es JavaScript).
 * JavaScript es un lenguaje _target_, en el sentido de que ya hay una serie de lenguajes que se compilar a
-Javascriptfootnote:[Ver la _Lista de lenguajes que se compilan a JavaScript_: https://github.com/jashkenas/coffee-script/wiki/List-of-languages-that-compile-to-JS.].
+JavaScriptfootnote:[Ver la _Lista de lenguajes que se compilan a JavaScript_: https://github.com/jashkenas/coffee-script/wiki/List-of-languages-that-compile-to-JS.].
 * Node usa una máquina virtual (V8) que se mantiene actualizada con el estándar ECMAScriptfootnote:[Para más
 información sobre el estándar ECMAScript, ver Wikipedia: http://en.wikipedia.org/wiki/ECMAScript]. En otras
 palabras, no se tiene que esperar a que todos los navegadores se pongan al día para usar las nuevas características
@@ -920,7 +972,7 @@ para las arquitecturas del lado cliente.
 
 El principal concepto detrás del _framework_ AngularJS es el patrón de arquitectura MVC<<SHYA14>>. Para el desarrollo de
 este
-proyecto se ha utilizado AngularJS como implementación de dicho patrón. En las aplicaciones Angular, la vista es el
+proyecto se ha utilizado AngularJS como implementación de dicho patrón. En las aplicaciones AngularJS, la vista es el
 DOMfootnote:[Especificación técnica de w3c: https://www.w3.org/DOM/DOMTR], los controladores son clases
 JavaScript y los datos del modelo se almacenan en propiedades de objetos. MVC es apropiado por varios motivos. En
 primer lugar, ofrece un modelo mental que indica dónde colocar las cosas, de tal manera que no hay que reinventar la
@@ -950,7 +1002,7 @@ la intención de una aplicación simplemente mirando el código HTML y los contr
 funcionalidad de negocio. Es decir, es completamente posible cambiar todo el _layout_ y el diseño de una aplicación sin
 tocar una sola línea de JavaScript.
 
-* Angular está orientado a la definición de pruebas, lo que hace que las aplicaciones sean más estables y fáciles de
+* AngularJS está orientado a la definición de pruebas, lo que hace que las aplicaciones sean más estables y fáciles de
 mantener durante largos periodos de tiempo. Si hay nuevas funcionalidades o nuevos cambios, se pueden acometer de
 manera fiable gracias a las pruebas.
 
@@ -971,7 +1023,7 @@ puede empaquetar código como módulos reutilizables.
 ejecución.
 * Facilitan las pruebas, ya que los tests unitarios sólo tienen que cargar los módulos necesarios, lo cual hace que
 dichos tests sean muy rápidos.
-* Los tests _end-to-end_ pueden usar módulos para sobreescribir la configuración.
+* Los tests _end-to-end_ pueden usar módulos para sobrescribir la configuración.
 
 En AngularJS un módulo se declara de una manera muy sencilla.
 
@@ -1014,7 +1066,7 @@ Plantillas
 ^^^^^^^^^^
 Las _aplicaciones web multi-página_ generan su HTML ensamblándolo y uniéndolo con datos del servidor y, una vez hecho
 esto, se envían las páginas al navegador. Muchas _aplicaciones web de una sola página_ también hacen esto de alguna
-manera. Angular es diferente en este sentido ya que la plantilla (el HTML) y los datos se envían al navegador para
+manera. AngularJS es diferente en este sentido ya que la plantilla (el HTML) y los datos se envían al navegador para
 ser ensamblados allí. El servidor sólo sirve recursos estáticos: las plantillas y los datos requeridos por dichas
 plantillas para que se puedan mostrar de forma apropiada. Una vez recibida la plantilla en el navegador web, Angular
 expande dichas plantillas en la aplicación poblándola con los datos pertinentes.
@@ -1032,7 +1084,7 @@ convierte en una vista como un DOM.
 . A partir de este punto, el usuario se conectará con el servidor para cargar la información adicional necesaria a
 medida que la vaya requiriendo el usuario.
 
-Estructurar una aplicación con Angular permite que las plantillas se mantengan separadas de los datos que las
+Estructurar una aplicación con AngularJS permite que las plantillas se mantengan separadas de los datos que las
 pueblan, por lo tanto las plantillas son cacheables. Después de la primera carga, sólo se necesita que se envíen los
 nuevos datos del servidor al cliente, con lo que resulta en un mejor rendimiento de la aplicación.
 
@@ -1054,9 +1106,9 @@ app.controller("mainController", function($scope) {
 ----------------------------------------------------
 
 Tanto el método `angular.module()` como el método `controller()` devuelven una referencia al módulo, es posible
-concatenar métodos. Como se puede observar, en el _snippet_ anterior, la declaración de un controlador es bastante
-sencilla, tan solo basta con asignarle un nombre e inyectar las dependencias necesarias. Se pueden inyectar otros
-componentes dentro del controlador, sean nativos de AngularJS u otros componentes creados de manera personalizada.
+concatenar métodos. Como se puede observar en el fragmento de código anterior, la declaración de un controlador es
+bastante sencilla, tan solo basta con asignarle un nombre e inyectar las dependencias necesarias. Se pueden inyectar
+otros componentes dentro del controlador, sean nativos de AngularJS u otros componentes creados de manera personalizada.
 
 Angular hace uso intensivo de la inyección de dependencias en todos sus componentes. Para inyectar nuevas
 dependencias simplemente se le pasan como parámetros al controlador separados por comas.
@@ -1102,7 +1154,7 @@ app.controller('mainController', function($scope) {
 
 Se puede observar cómo en el controlador se ha creado la variable `saludo` dentro del `$scope`, al cual se le ha
 asignado un valor. Por otra parte en la vista se puede ver cómo se accede y se muestra la variable. Para hacer
-referencia a las variables del `$scope` se utiliza el _double_curly_ ``{{}}'' que trae incorporado Angular en su propio
+referencia a las variables del `$scope` se utiliza el _double_curly_ ``{{}}'' que trae incorporado AngularJS en su propio
 motor de plantillas.
 
 En resumen, se puede decir que los módulos y controladores en AngularJS son componentes que permiten desacoplar el
@@ -1112,7 +1164,7 @@ el cual se encarga de contener los datos y de transferirlos de la vista al contr
 Directivas
 ^^^^^^^^^^
 Las directivas<<DIRE17>> son, desde un punto de vista de alto nivel, _marcadores_ en un elemento del DOM (_i.e._
-un atributo, un nombre de elemento, un comentario o una clase CSS) que le informan al compilador de Angular
+un atributo, un nombre de elemento, un comentario o una clase CSS) que le informan al compilador de AngularJS
 (`$compile`) que vincule un comportamiento especial a dicho elemento del DOM (_e.g._ a través de escuchadores de
 eventos), o incluso que transforme el elemento del DOM y sus elementos hijos.
 
@@ -1174,7 +1226,7 @@ Por ejemplo, las siguientes formas son equivalentes y todas ellas se corresponde
 
 *Tipos de directivas* +
 `$compile` puede emparejar directivas basadas en nombres de elementos (E), atributos (A),
-nombres de clases \(C) y comentarios (M). Las directivas nativas de Angular muestran en su documentación qué tipo de
+nombres de clases \(C) y comentarios (M). Las directivas nativas de AngularJS muestran en su documentación qué tipo de
 emparejamiento soportan. A continuación se muestran las diferentes maneras en las que una directiva (`myDir` en este
 caso) que cumple los cuatro tipos mencionados puede ser referenciada desde una plantilla. Una directiva puede
 especificar qué tipos soporta en su propiedad `restrict` de su definición. Si no se indica ninguno, por defecto
@@ -1209,7 +1261,7 @@ app.directive("myDirective", function() {
 ---------------------------------------------------
 
 Tal como se ha descrito con anterioridad, una vez creada la directiva se puede invocar mediante el nombre de un
-elemento, a través de un atributo, usando una clase y mediante un comentario. Los siguientes 4 _snippets_ producirían
+elemento, a través de un atributo, usando una clase y mediante un comentario. Los siguientes 4 fragmentos producirían
 el mismo resultado.
 
 Nombre de un elemento:
@@ -1248,7 +1300,7 @@ Los _scopes_ proporcionan APIs (https://docs.angularjs.org/api/ng/type/$rootScop
 observar cambios en el modelo. También proporcionan APIs
 (https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$apply[$apply]) para propagar cualquier cambio en el
 modelo de la aplicación en la vista desde fuera del ámbito de AngularJS (controladores, servicios, controladores de
-eventos de Angular, etc.).
+eventos de AngularJS, etc.).
 
 Los _scopes_ se pueden anidar para limitar el acceso a las propiedades de los componentes de la aplicación mientras
 se proporciona acceso a propiedades compartidas del modelo. Los _scopes_ anidados son o bien ``__scopes__ hijos'' o
@@ -1264,6 +1316,7 @@ cuando se produce algún cambio en una propiedad, lo que permite a la directiva 
 DOM. Tanto los controladores como las directivas hacen referencias al _scope_, pero no entre ellas. Este acuerdo
 aísla el controlador de la directiva y del DOM.
 
+[[two-way-databinding]]
 Two-way databinding
 ^^^^^^^^^^^^^^^^^^^
 La vinculación de datos <<DATA17>> en las aplicaciones AngularJS es la sincronización automática de datos entre los
@@ -1321,7 +1374,7 @@ intercambiada. Hoy en día, en el ámbito sanitario prácticamente todos los sis
 característica de que sean interoperables<<MUNO13>>, pero se podría decir que casi ninguno la cumple en la práctica.
 Hay profesionales, tanto sanitarios como técnicos, que piensan que sus sistemas son semánticamente interoperables
 porque utilizan terminologías clínicas, como Sistematic NOmenclature of MEDicine – Clinical Terms (SNOMED CT), o un
-determinado estándar; pero tampoco es así, pues éstos son requisitos necesarios pero no suficientes, ya que la
+determinado estándar; pero tampoco es así, pues estos son requisitos necesarios pero no suficientes, ya que la
 transferencia de información clínica que se busca con la interoperabilidad semántica es algo más que la comunicación
 de palabras sueltas.
 
@@ -1335,7 +1388,8 @@ sistemas, la cual obviamente está muy avanzada ya que no es exclusiva de los si
 * Interoperabilidad sintáctica: es la que permite la comunicación de mensajes o documentos garantizando la recepción
 adecuada de los mismos. Ejemplos de normas que pertenecen a este tipo de interoperabilidad son XML, la (International
 Organization for Standardization) ISO 21090footnote:[ISO 21090: especificación de tipos de datos para entornos
-sanitarios.], modelos de referencia de __open__EHR e UNE-EN (Una Norma Española - European Norm) ISO 13606, etc.
+sanitarios.] <<ISOD08>>, modelos de referencia de __open__EHR e UNE-EN (Una Norma Española - European Norm) ISO 13606,
+etc.
 * Interoperabilidad semántica: es la interoperabilidad buscada en prácticamente todos los sistemas sanitarios. Se da
 cuando un sistema acepta información de otro y puede hacer uso de dicha información, sin intervención humana,
 manteniendo el significado que se le ha dado en origen. Este tipo de interoperabilidad es la que va a permitir la
@@ -1354,11 +1408,11 @@ interoperabilidad de los que se acaban de definir.
 .Tipos de interoperabilidad.
 image::interoperability-types[scaledwidth="50%"]
 
-La gestión del conocimiento semántico es tratado en los puntos de vista _Información_ y _Computación_, son los que
+La gestión del conocimiento semántico es tratada en los puntos de vista _Información_ y _Computación_, son los que
 van a posibilitar la interoperabilidad semántica y, por lo tanto, que ambos sistemas puedan intercambiarse
 información manteniendo el significado que se le hubiese dado en origen y hacer uso de la misma sin intervención humana.
 
-Como ya se ha adelantado en la <<_introduccion>>, los estándares de normalización recientes presentan un modelo
+Como ya se ha adelantado en el <<_introduccion>>, los estándares de normalización recientes presentan un modelo
 de datos dual centrado en el paciente, en el que se tiene consideración de la constante evolución del conocimiento
 médico. Esto lo consigue manteniendo separada la _información_ en los sistemas, que es estática, del _conocimiento_
 médico, que evoluciona con el tiempo.
@@ -1378,11 +1432,11 @@ que el dominio clínico lo elaboran los médicos, los verdaderos conocedores del
 * Los sistemas pueden evolucionar y cambiar con naturalidad, lo que facilita el mantenimiento a largo plazo.
 
 En la parte de la izquierda de la <<doble-modelo>> se representa la _información_ clínica; hechos u opiniones
-de o referidos a entidades específicas y que no varían con el paso del tiempo (_e.g._ el día 1 de enero el paciente X
-tenía una presión arterial de 120/80 mmHg.). El _conocimiento_, representado en la parte derecha de la
+de o referidos a entidades específicas y que no varían con el paso del tiempo (_e.g._ ``el día 1 de enero el paciente X
+tenía una presión arterial de 120/80 mmHg''). El _conocimiento_, representado en la parte derecha de la
 <<doble-modelo>>, comprende hechos acumulados a lo largo del tiempo, procedente de muchas fuentes, que son verdad
-para todas las instancias de las entidades del dominio y que pueden variar con el paso del tiempo (_e.g._ la medida
-de la presión arterial consta de dos valores: la presión arterial sistólica y la presión arterial diastólica). Para
+para todas las instancias de las entidades del dominio y que pueden variar con el paso del tiempo (_e.g._ ``la medida
+de la presión arterial consta de dos valores: la presión arterial sistólica y la presión arterial diastólica''). Para
 cada uno de estos dos niveles se tiene un modelo de datos. La _información_, los datos que se almacenan en el
 sistema, se componen a partir de los elementos y la organización del <<_modelo_de_referencia, Modelo de Referencia>>
 (MR). Este modelo necesita reflejar la estructura y la organización jerárquica de la HCE con el fin de ser fiel al
@@ -1407,8 +1461,11 @@ continuación se mencionan los más relevantes:
 * UNE-EN ISO 13606: es una norma europea que especifica cómo tiene que ser la transferencia de la HCE para garantizar
 la interoperabilidad semántica. Es gratuita y
 sus derechos no son propiedad de ninguna empresa o consorcio, ha sido adoptada por la Asociación Española
-de Normalización y Certificación (AENOR). Tiene unos cimiento científicos muy sólidos: en su desarrollo se aprovecharon
-trabajos e investigaciones de más de 15 años. Toma la especificación del modelo de arquetipos de __open__EHR, así
+de Normalización y Certificación (AENOR). Tiene unos cimientos científicos muy sólidos: en su desarrollo se aprovecharon
+trabajos e investigaciones de más de 15 años. Está dividida en 5 partes, en la primera se define su Modelo de
+Referencia <<ISOH08>>, en la segunda se especifica la comunicación de la HCE <<ISOG08>>. Las 3 partes restantes
+especifican temas relacionados con seguridad (flujo de datos, políticas y niveles de control de acceso), auditorías e
+interfaces de consulta de la información. Toma la especificación del modelo de arquetipos de __open__EHR, así
 que ambos se están utilizando hoy en día por diversos gobiernos para especificar estándares nacionales de
 información sobre e-salud.
 
@@ -1497,7 +1554,7 @@ peso de un paciente), `ITEM_LIST` (para listas como partes de una dirección) IT
 forma jerárquica como un informe de microbiología) e `ITEM_TABLE` (para datos tabulares como la agudeza visual o los
 resultados de las pruebas auditivas). Cada una de estas clases define una interfaz funcional, tiene una representación
 física óptima utilizando los tipos básicos `CLUSTER` y `ELEMENT` del paquete de representación y puede generar una
-representación jerárquica de sus datos compatible con UNE-EN ISO 13606. Cualquier sistema que implemente
+representación jerárquica de sus datos compatible con la norma UNE-EN ISO 13606. Cualquier sistema que implemente
 estos tipos garantiza que generen datos que representen las estructuras lógicas de listas, tablas y árboles de
 la misma manera.
 
@@ -1639,8 +1696,8 @@ _items_ se restrinja para que tenga una lista de elementos, en este caso con una
 define un `ELEMENT` que representa la presión arterial sistólica, a este nodo se le aplica una restricción de
 ocurrencia, indicando que puede existir cero o una instancia de este nodo. A continuación se indica que su atributo
 value es de tipo `C_DV_QUANTITY` definido en el MR. Se restringe el tipo de dato obligándole a que las unidades se
-midan en mm. de Hg., se le aplica un rango obligándole a que el valor esté entre 0 y 1.000 y se indica la precisión,
-el número de decimales que debe tener el valor, que en este caso es de cero.
+midan en milímetros de mercurio (mmHg), se le aplica un rango obligándole a que el valor esté entre 0 y 1.000 y se
+indica la precisión, el número de decimales que debe tener el valor, que en este caso es de cero.
 
 Terminologías clínicas
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -1720,7 +1777,7 @@ La CIE-10 es el acrónimo de la Clasificación Internacional de Enfermedades, d�
 versión en español de la (en inglés) ICD, siglas de International Statistical Classification of Diseases and Related
 Health Problems y determina una clasificación y codificación de las enfermedades y una amplia variedad de signos,
 síntomas, hallazgos anormales, denuncias, circunstancias sociales y causas externas de daños y/o enfermedades.
-publicada y gestionada por la Organización Mundial de la Salud (OMS).
+Es publicada y gestionada por la Organización Mundial de la Salud (OMS).
 
 El conjunto de códigos contiene más de 14.400 códigos diferentes y permite el seguimiento de muchos nuevos
 diagnósticos. Los códigos pueden ampliarse a más de 16.000 códigos mediante subclasificaciones opcionales<<CIEM17>>.
@@ -1905,14 +1962,14 @@ Introducción y requisitos
 .Propósito.
 Expresar y compartir contenido computarizado de apoyo a la toma de decisiones clínicas (CDS) a través de lenguajes y
 plataformas técnicas ha sido un objetivo evasivo durante mucho tiempo. La falta de modelos de información clínica
-compartidos compartidos y el apoyo flexible para los diferentes recursos de terminologías se han identificado como dos
+compartidos y el apoyo flexible para los diferentes recursos de terminologías se han identificado como dos
 retos principales para compartir la lógica de decisión entre sistemas. GDL es un lenguaje formal para expresar
 lógica de soporte a las decisiones. Está diseñado para ser agnóstico a los lenguajes naturales y terminologías clínicas
 aprovechando los diseños del MR y MA de __open__EHR.
 
 El alcance del GDL es expresar la lógica clínica como reglas de producción. Las reglas GDL discretas, que cada una de
 las cuales contienen declaraciones `if-then`, pueden combinarse como piezas para dar soporte a procesos de toma de
-decisiones sencillo y a procesos de toma de decisiones más complejos. Las reglas GDL pueden usarse para llevar a cabo
+decisiones sencillos y a procesos de toma de decisiones más complejos. Las reglas GDL pueden usarse para llevar a cabo
 la toma de decisiones en aplicaciones en consulta, así como en analíticas poblacionales retrospectivas.
 
 .Documentos relacionados.
@@ -1993,8 +2050,8 @@ _paquete guía_ y el _paquete de expresiones_ descrito en detalle a través de l
 Paquete de Guías Clínicas
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 La vista general del _paquete guía_ se ilustra en la <<gom>>. Las clases en color azul se basan, en líneas generales,
-en el diseño original de las especificaciones __open__EHR. Las tablas <<table-guide, 3>>,
-<<table-guide-definition, 4>>, <<table-archetype-binding, 5>>, <<table-event-binding, 6>> y <<table-rule, 7>>
+en el diseño original de las especificaciones __open__EHR. La <<table-guide>>, la <<table-guide-definition>>,
+la <<table-archetype-binding>>, la <<table-event-binding>> y <<table-rule>>
 muestran los atributos de las principales clases de este paquete. En este documento se mencionará con frecuencia el
 concepto ``código _gt_'', que hace referencia al código de un Guideline Term (Término local a la guía).
 
@@ -2076,11 +2133,11 @@ Una regla definida en una guía.
 
 Paquete de Expresiones
 ^^^^^^^^^^^^^^^^^^^^^^
-El paquete de expresiones se muestra en la <<paquete-expresiones>>. Posteriormente se muestran las tablas
-<<table-unary-expression, 8>>, <<table-binary-expression, 9>>, <<table-assignment-expression, 10>>,
-<<table-functional-expression, 11>>, <<table-operator-kind, 12>>, que indican los atributos de las principales clases de
-este paquete. La <<table-allowed-functions>> muestra un listado con las funciones soportadas por la versión actual de
-GDL.
+El paquete de expresiones se muestra en la <<paquete-expresiones>>. Posteriormente se muestran la
+<<table-unary-expression>>, la <<table-binary-expression>>, la <<table-assignment-expression>>,
+la <<table-functional-expression>> y la <<table-operator-kind>>, que indican los atributos de las principales
+clases de este paquete. La <<table-allowed-functions>> muestra un listado con las funciones soportadas por la versión
+actual de GDL.
 
 [[paquete-expresiones]]
 .Paquete de Expresiones.
@@ -2230,7 +2287,7 @@ include::samples/gdl-definition-1.gdl[]
 _openEHR-EHR-EVALUATION.problem-diagnosis.v1_ cuyo _path_ dentro del arquetipo es `/data[at0001]/items[at0002.1]`.
 
 Dentro de la `guide_definition`, se puede definir un conjunto de condiciones que deben cumplirse para que
-puedan ejecutar las reglas de de la guía. En el caso del cálculo de la puntuación CHA2DS2-VASc, la guía no se
+puedan ejecutar las reglas de guía clínica. En el caso del cálculo de la puntuación CHA2DS2-VASc, la guía no se
 ejecutará a menos que el paciente haya sido diagnosticado con _fibrilación auricular_. En el ejemplo siguiente, una
 precondición verifica la existencia de _fibrilación auricular_ en el diagnóstico del paciente (gt0107).
 Utilizando el predicado de la sección _definition_, se establece la precondición para comprobar contra un
@@ -2241,7 +2298,7 @@ concepto definido formalmente por terminologías externas, _e.g._ SNOMED CT, en 
 include::samples/gdl-definition-2.gdl[]
 ----
 
-<1> Predicado donde se define la condición de de que el diagnóstico (`gt0107`) sea de _fibrilación auricular (gt0105)_.
+<1> Predicado donde se define la condición de que el diagnóstico (`gt0107`) sea de _fibrilación auricular (gt0105)_.
 <2> Precondición que verifica la presencia o ausencia de _fibrilación auricular_ en el diagnóstico del paciente.
 
 La sección _rules_ hace uso exclusivo de las variables definidas localmente para expresar la lógica clínica. Cada
@@ -2277,8 +2334,6 @@ include::samples/gdl-bindings.gdl[]
 <4> Enlace del código local _gt0036 (Puntuación CHA2DS2-VASc)_ con terminología CIE-10.
 <5> Enlace del código local _gt0104 (Trastorno vascular)_ con terminología CIE-10.
 <6> Enlace del código local _gt0121 (Fibrilación auricular)_ con terminología CIE-10.
-
-<<<
 
 Estado de la cuestión
 ---------------------
@@ -2317,7 +2372,7 @@ para ciertos cometidos: sólo se puede acceder a la aplicación desde la máquin
 sólo esta aplicación podrá tener acceso a los datos, que se encuentran en condiciones más vulnerables al estar
 almacenados en local. Los procesos de actualización requieren de la intervención por parte del usuario.
 
-La <<swing-1>>, <<swing-2>> y <<swing-3>> muestran algunas capturas de pantalla de la herramienta Swing:
+La <<swing-1>>, la <<swing-2>> y la <<swing-3>> muestran algunas capturas de pantalla de la herramienta Swing:
 
 [[swing-1]]
 .Editor GDL Java Swing: selección local de una guía clínica.
@@ -2344,15 +2399,16 @@ __sincronización__. Se ha desarrollado una herramienta de software para la crea
 almacena las guías en formato Resource Description Frameworkfootnote:[Framework general para describir
 cualquier recurso en Internet y su contenido: https://www.w3.org/RDF/] (RDF).
 
-A continuación, en la <<glif1>>, la <<glif2>> y la <<glif3>> se muestran unas capturas de pantalla de dicha herramienta.
+A continuación, en la <<glif1>>, en la <<glif2>> y en la <<glif3>> se muestran unas capturas de pantalla de dicha
+herramienta.
 
 [[glif1]]
 .Editor de guías clínicas en formato GLIF.
-image::glif4.png[scaledwidth="55%"]
+image::glif4.png[scaledwidth="80%"]
 
 [[glif2]]
 .Editor de guías clínicas en formato GLIF.
-image::glif5.png[scaledwidth="55%"]
+image::glif5.png[scaledwidth="80%"]
 
 [[glif3]]
 .Editor de guías clínicas en formato GLIF.
@@ -2400,8 +2456,6 @@ para la integración en alguna plataforma de intercambio de conocimiento.
 Esta clara necesidad, que ha suscitado interés en empresas de gran relevancia dentro del campo, como es _Cambio
 Healthcare Systems_, y de la organización sin ánimo de lucro __open__EHR, es lo que nos motivado para la elaboración
 de este proyecto.
-
-<<<
 
 Métodos
 -------
@@ -2628,7 +2682,7 @@ reuniones que tienen lugar en esta metodología:
 *Daily Scrum* +
 El principal objetivo de las _Daily Scrum meetings_ es llevar a cabo una actualización y una coordinación entre los
 miembros del Equipo. Estas reuniones son diarias durante el desarrollo de un Sprint, participan obligatoriamente
-todos los miembros del Equipo, la presencia de el Propietario del Producto es opcional y el ScrumMaster suele estar
+todos los miembros del Equipo, la presencia del Propietario del Producto es opcional y el ScrumMaster suele estar
 presente. La duración máxima no debe exceder los 15 minutos, para mantenerla breve se recomienda que todos
 permanezcan de pie, es la oportunidad del equipo para sincronizar su trabajo e informar de cualquier obstáculo que
 pudiese haber aparecido. Cada uno debe ir informando al resto del equipo de lo siguiente:
@@ -2703,7 +2757,7 @@ detalles de la revisión actual (tecnologías, estándares, etc.).
 *Sprint* +
 Es cada una de las iteraciones o cada uno de los ciclos repetitivos de trabajo similar que producen un incremento de
 las funcionalidades del producto o sistema. Se trata de la fase de desarrollo que incluye análisis, el diseño, la
-implementación, las pruebas, el _empaquetado_ , generación de ejecutables, etc. La duración es de entre una y cuatro
+implementación, las pruebas, el _empaquetado_ ,generación de ejecutables, etc. La duración es de entre una y cuatro
 semanas, esta duración se fija a nivel global y todos los equipos que trabajan en el mismo sistema o producto
 utilizan la misma duración de ciclo. En la fase de revisión se resuelven problemas y se añaden nuevos elementos y en
 la fase de ajuste se utilizan las mejorías y ajustes encontrados para mejorar el producto ya sea código,
@@ -2819,8 +2873,6 @@ Por lo tanto, se han aplicado las principales características de Scrum como la 
 producto operativo al final de cada una de ellas, las revisiones periódicas y la toma de decisiones sobre el
 desarrollo guiado por las reuniones regulares por parte de las partes implicadas en el desarrollo de este proyecto.
 
-<<<
-
 Desarrollo
 ----------
 La fase de desarrollo de este editor de guías clínicas se ha llevado a cabo en cuatro iteraciones o Sprints de Scrum,
@@ -2847,7 +2899,7 @@ continuación, utilizando para la comunicación entre ambos el protocolo HTTP.
 * El nodo _JBoss Application Server (AS)_ representa al servidor de aplicaciones que contiene el Knowledge Manager (base
  de datos de
 conocimiento y motor de reglas), este sistema se está utilizando en producción en varios hospitales suecos.
-Proporciona una API que consume la aplicación Angular con funcionalidades de persistencia y de ejecución de reglas.
+Proporciona una API que consume la aplicación AngularJS con funcionalidades de persistencia y de ejecución de reglas.
 * El nodo _PostgreSQL_ representa un sistema gestor de bases de datos relacional, con una base de datos denominada _CDS_
 que contiene los recursos del sistema, _i.e._ guías clínicas, arquetipos y terminologías.
 
@@ -2906,10 +2958,10 @@ aplicación. Pero si se trata de un proyecto mediano o grande, con algo que comp
 de mantenimiento de la aplicación. AngularJS es todavía relativamente nuevo y los desarrolladores aún están
 averiguando cuál es la mejor forma de estructurar una SPA. Hay muchas maneras de estructurar una aplicación, se han
 tomado algunos principios de los _frameworks_ MVC maduros existentes, pero también hemos tomado algunas cosas que son
-específicas de Angular.
+específicas de AngularJS.
 
 Para construir aplicaciones que sean escalables y mantenibles en AngularJS se debe hacer uso de las guías de buenas
-prácticas existentes a tal efecto. La estructura de una aplicación Angular ideal debe ser modularizada en
+prácticas existentes a tal efecto. La estructura de una aplicación AngularJS ideal debe ser modularizada en
 funcionalidades específicas. Se deben aprovechar las extraordinarias directivas de AngularJS para compartimentar aún
 más las aplicaciones. Las estructuras donde se usa un directorio por funcionalidad se dice que siguen el
 principio LIFTfootnote:[Aproximación que proporciona una estructura consistente, con el objetivo de ofrecer una buena
@@ -3065,7 +3117,7 @@ image::sequence-guidelines.png[]
 Se diferencian 3 colores en los componentes implicados en las diferentes líneas de vida del diagrama de la
 <<sequence-guidelines>>: amarillo para los desarrollados para la aplicación, azul para los que son nativos de AngularJS
 y en gris está representada la API del Knowledge Manager. Cuando se selecciona la pestaña _Guidelines_ (ver
-<<_manual_de_usuario, manual de usuario>>), el enrutador de Angular automáticamente carga el controlador
+<<_manual_de_usuario, manual de usuario>>), el enrutador de AngularJS automáticamente carga el controlador
 correspondiente (_GuidelinesCtrl_), al cual se le inyecta el servicio _guidelinesFactory_. Este controlador cuenta
 con un método _activate()_ que es invocado al iniciarse y que llama al método _getGuidelines()_ del servicio
 inyectado, el cual hace uso del servicio nativo de AngularJS `$http`, que hace una petición GET a la API del KM, el
@@ -3265,7 +3317,7 @@ clínicas.
 include::../../app/components/tabs/tab-guidelines/tab.guidelines.service.js[]
 ----
 
-A su vez, este servicio, hace uso de los servicios nativos de Angular `$http` y `$q`. El primero se usa para la
+A su vez, este servicio, hace uso de los servicios nativos de AngularJS `$http` y `$q`. El primero se usa para la
 comunicación con servidores HTTP remotos y el segundo para la ejecución de funciones asíncronas y la utilización de
 los valores devueltos por dichas funciones. Se trata de una implementación compatible con https://promisesaplus.com/[Promises/A+],
 una implementación de promesas/objetos diferidos basado en https://github.com/kriskowal/q[Q de Kris Kowal].
@@ -3341,9 +3393,9 @@ mensaje de error correspondiente cuando, por algún motivo, se ha producido un e
 [discrete]
 Probando el servicio `tab.guidelines.service.js`
 +++++++++++++++++++++++++++++++++++++++++++++++++
-A continuación se detalla el procedimiento de pruebas par el servicio `tab.guidelines.service.js`, que hace una
+A continuación se detalla el procedimiento de pruebas para el servicio `tab.guidelines.service.js`, que hace una
 petición HTTP para obtener las guías clínicas disponibles en el servidor. Siempre que se utiliza el servicio nativo
-`$http` para hacer una llamada remota, Angular utiliza por detrás otro servicio llamado `$httpBackend` que es el que
+`$http` para hacer una llamada remota, AngularJS utiliza por detrás otro servicio llamado `$httpBackend` que es el que
 realmente hace el trabajo duro. La librería `angular-mocks` que se ha añadido al fichero `karma.conf` cuenta con su
 propia versión de `$httpBackend` con ciertas ventajas que nos ayudan a simular llamadas al _backend_ real. Siguiendo
 la guía de buenas prácticas, al fichero que contiene los tests unitarios para testear el servicio `tab.guidelines.service.js`
@@ -3399,7 +3451,7 @@ Además de estas dos instanciaciones se deben poder establecer restricciones sob
 deben de poder añadir, eliminar y/o modificar predicados. Estos predicados definen restricciones para una instancia
 de arquetipo, por lo tanto deben situarse dentro de la instanciación del mismo, mediante un componente de _drag and
 drop_ que permita arrastrar cada predicado y poder soltarlo en la instancia de arquetipo correspondiente. Hay 4 tipos
-de predicados :
+de predicados:
 
 * _Predicate (DataValue)_: este predicado tiene dos operandos y un operador. El operando izquierdo puede ser cualquier
 elemento del arquetipo. El operador puede ser un operador de igualdad (==), de mayor o igual (>=), de menor o igual
@@ -3483,7 +3535,7 @@ vemos cómo _Editar descripción_ depende de `guidelineFactory` principalmente p
 la ontología y la descripción de la guía clínica. Los modales se han delegado todos en un servicio `modalService` con
 unas opciones por defecto que pueden ser sobreescritas con los parámetros que queramos mostrar en dichos componentes
 gráficos. El caso de uso _Editar definiciones_ utiliza el servicio `GuidelineFactory` que proporcionará los
-arquetipos con los que está vinculados la guía actual, permite obtener loas descripciones de los términos utilizados
+arquetipos con los que está vinculados la guía actual, permite obtener las descripciones de los términos utilizados
 en la guía, obtener la ontología, etc. Utiliza el `modalService` para proporcionar los diálogos que facilitan la
 comunicación con el usuario permitiendo seleccionar arquetipos y elementos de estos. la gestión de las expresiones
 (utilizadas en los predicados) se delegan en el servicio `expressionItemFactory` y la gestión de los conceptos
@@ -3548,7 +3600,7 @@ para gestionar su jerarquía, utiliza arrays de objetos y lo que queremos repres
 por lo que se ha tenido que trabajar con una transformación del modelo en memoria y hacer una reconversión en el
 momento que se hace un POST de la guía.
 
-Por motivos de limitación de espacio no se van a mostrar el controlador y el servicio de Angular que gestionan esta
+Por motivos de limitación de espacio no se van a mostrar el controlador y el servicio de AngularJS que gestionan esta
 funcionalidad. Para el desarrollo de la funcionalidad de editar las definiciones se ha implementado un controlador
 llamado `DefinitionsCtrl` que se encarga de vincular el modelo de la definición de la ontología de la guía con la
 vista `tab-definitions.html`. En la vista tenemos un panel principal donde se visualizan las definiciones y un panel
@@ -3792,7 +3844,7 @@ La lista se gestiona con el componente `ui-tree`, de manera que los nodos de la 
 para indicar la prioridad de cada regla. Se implementa un botón que permite la adición de nuevas reglas y se
 renderizan las ya creadas haciendo uso de la directiva https://docs.angularjs.org/api/ng/directive/ngRepeat[ngRepeat]
 asignándole a cada una de ellas las funcionalidades de edición y de eliminado. Dentro del `ng-repeat` hacemos uso del
-filtro nativo de Angular https://docs.angularjs.org/api/ng/filter/orderBy[orderBy], de modo que las reglas se
+filtro nativo de AngularJS https://docs.angularjs.org/api/ng/filter/orderBy[orderBy], de modo que las reglas se
 ordenarán automáticamente para su visualización. En el objeto de configuración que se le para a la directiva `uiTree`
 se le indica que cuando se suelte un nodo se recalcule la prioridad de la guía dependiendo de donde se haya colocado
 dicho nodo.
@@ -3874,7 +3926,7 @@ el servicio que es responsable de instanciar los controladores.
 include::../../app/components/tabs/tab-rulelist/tab.rulelist.controller.spec.js[]
 ----
 
-Se está utilizando la notación de guión bajo para tener una referencia global a los servicios inyectado en el
+Se está utilizando la notación de guion bajo para tener una referencia global a los servicios inyectado en el
 controlador, _i.e._ `guidelineFactory` y `rulelistFactory`.  Los guiones bajos serán ignorados por el inyector cuando
 la referencia se resuelva. En el test anterior se comprueba la funcionalidad del controlador `RulelistCtrl`.
 
@@ -3896,7 +3948,7 @@ que se necesita para poder proporcionársela al componente que renderiza las gu�
 Iteración 4
 ~~~~~~~~~~~
 La iteración cuatro es la última y se ha tratado de dejar el proyecto en un estado funcional que comprendiese todas
-las escenarios descritos en los objetivos del proyecto.
+los escenarios descritos en los objetivos del proyecto.
 
 Análisis
 ^^^^^^^^
@@ -3976,7 +4028,7 @@ edición de enlaces con un diagrama de secuencia. En el momento que se activa di
 ejecuta el controlador que gestiona su vista (`tab-binding.html`) que, viendo el fichero `routes.js`, se trata de
 `BindingCtrl`, que hará uso del método `getTermBindings` del servicio `guidelineFactory` que se le ha inyectado para
 recuperar los enlaces a terminologías externas que tiene guía actual. Una vez recuperados se asignan al `$scope` de
-Angular y se muestran al usuario (ver <<binding-1>>). Llegados a este punto el usuario tiene varias opciones como
+AngularJS y se muestran al usuario (ver <<binding-1>>). Llegados a este punto el usuario tiene varias opciones como
 editar cada enlace, eliminarlo, añadir una terminología-lo cual crearía una pestaña nueva para gestionar los
 nuevos enlaces--, añadir un nuevo enlace a la terminología actual, eliminar la terminología actual--lo que haría
 que se eliminasen todos sus enlaces y su pestaña asociada--y editar los enlaces a códigos de una terminología.
@@ -4015,7 +4067,7 @@ include::../../app/components/tabs/tab-binding/tab-bindings.html[]
 ----
 
 En esta vista cabe mencionar que se cuenta con un componente de pestañas (_tabs_), que gestiona las terminologías a
-las que se vinculan los conceptos locales de la guía. Este componentes de pestañas está sincronizado con la propiedad
+las que se vinculan los conceptos locales de la guía. Este componente de pestañas está sincronizado con la propiedad
 `termBindings` definida en el controlador. Un ejemplo real del modelo de esta asociada a esta propiedad puede ser el
 siguiente.
 
@@ -4146,7 +4198,7 @@ llamado  correctamente al método `getTermBindings` que devuelve todos los enlac
 correctamente con la propiedad del controlador `termBindings` y se comprueba que el objeto que contiene con los datos
 es el correcto comparándolo con la guía clínica de pruebas.
 
-Para la escenario relacionada con la gestión de los términos locales, se ha definido otra batería de tests en el
+Para el escenario relacionado con la gestión de los términos locales, se ha definido otra batería de tests en el
 fichero `tab.terminology.controller.spec` en el que se han probado las funcionalidades que se han considerado más
 importantes para la realización de su cometido.
 
@@ -4228,7 +4280,7 @@ auricular_ debemos definirlo como una precondición en la pestaña _Precondition
 image::example-preconditions.png[]
 
 Dentro de la `guide_definition`, es donde se definen las _condiciones_ que deben cumplirse para que
-se puedan ejecutar las _acciones_ de las reglas de de la guía. Como se mencionó anteriormente, la guía no se
+se puedan ejecutar las _acciones_ de las reglas de la guía. Como se mencionó anteriormente, la guía no se
 ejecutará a menos que el paciente haya sido diagnosticado con _fibrilación auricular_. En el ejemplo siguiente, una
 precondición (atributo pre_conditions_) verifica la existencia de _fibrilación auricular_ en el diagnóstico del paciente
 (gt0003). Utilizando el predicado de la sección _definition_, se establece la precondición para comprobar contra un
@@ -4330,8 +4382,6 @@ include::samples/gdl-bindings.gdl[]
 <5> Enlace del código local _gt0104 (Trastorno vascular)_ con terminología CIE-10.
 <6> Enlace del código local _gt0121 (Fibrilación auricular)_ con terminología CIE-10.
 
-<<<
-
 Material utilizado
 ------------------
 Para el desarrollo de este TFM ha sido necesaria la instalación de una serie de herramientas y el uso de un conjunto
@@ -4351,7 +4401,7 @@ resumen en la <<table-technologies>> se indican las versiones de dichas tecnolog
 |Bower                       |Gestor de dependencias de NodeJs (cliente)                |1.7.7
 |Node Package Manager (npm)  |Gestor de dependencias de NodeJs (servidor)               |3.10.6
 |Jasmine core                |Framework de pruebas para JavaScript                      |2.4.1
-|Karma test runner           |Ejecutor de pruebas unitarias para AngularJS              |1.7.1
+|Karma testrunner           |Ejecutor de pruebas unitarias para AngularJS              |1.7.1
 |Protractor framework        |Framework de pruebas _end-to-end_ para AngularJS          |5.1.2
 |===
 
@@ -4405,7 +4455,7 @@ SGBD PostgreSQL
 Como Sistema de Gestión de Bases de Datos (SGBD) se ha utilizado _PostgreSQL_, se trata de un SGBD relacional orientado
 a objetos y libre, publicado bajo la licencia _PostgreSQL_,​ similar a la BSD o la MIT. Como muchos otros proyectos de
 código abierto, el desarrollo de _PostgreSQL_ no es gestionado por una empresa o persona, sino que es dirigido por una
-comunidad de desarrolladores que trabajan de forma desinteresada, altruista, libre o apoyados por organizaciones
+comunidad de desarrolladores que trabaja de forma desinteresada, altruista, libre o apoyada por organizaciones
 comerciales. Dicha comunidad se denomina PGDG (_PostgreSQL_ Global Development Group). Se ha elegido este SGBD por
 diferentes motivos: proporciona ahorros considerables de costes de operación, se trata de un sistema estable y
 confiable ya que no se han presentado caídas importantes de la base de datos, es extensible, multiplataforma y
@@ -4463,14 +4513,14 @@ Esta memoria ha sido utilizando _AsciiDoc_ (ver https://github.com/jbarcas/angul
 se trata tanto del propio formato del fichero fuente como de la herramienta que compila dicho fichero a un documento
 de salida. AsciiDoc es un lenguaje de marcado ligero para la creación de notas, artículos, documentación, libros,
 páginas web, diapositivas y manual en texto plano. Los archivos de AsciiDoc se pueden traducir a muchos formatos
-incluyendo HTML, PDF, EPUB, página de man.
+incluyendo HTML, PDF, EPUB, manuales (páginas de _man_), etc.
 
 AsciiDoc es altamente configurable: la sintaxis del fichero fuente _AsciiDoc_ y el marcado que se quiere como salida
 del backend (que pueden ser casi cualquier tipo de marcado SGML/XML) puede ser personalizado y ampliado por el
 usuario. _AsciiDoc_ es un software libre y está bajo los términos de la Licencia Pública General GNU versión 2
 (GPLv2).
 
-un documento _AsciiDoc_ se escribe de la misma manera que escribiría un documento de texto normal, no hay etiquetas de
+Un documento _AsciiDoc_ se escribe de la misma manera que escribiría un documento de texto normal, no hay etiquetas de
 marcado o notación de formato extraño. Los archivos _AsciiDoc_ están diseñados para ser vistos, editados e impresos
 directamente o traducidos a otros formatos de presentación usando el comando
 http://www.methods.co.nz/asciidoc/manpage.html[asciidoc].
@@ -4518,7 +4568,7 @@ ProjectLibre como software de gestión de proyectos
 _ProjectLibre_, anteriormente denominada _OpenProj_ es un software de administración de proyectos diseñado como
 sustituto de completo para Microsoft Project, capaz de abrir archivos de proyecto nativos de dicho programa.
 ProjectLibre fue desarrollado por Projity en 2007. Se ejecuta en la máquina virtual de Java, lo que permite
-ejecutarlo en una variedad de sistema operativos.
+ejecutarlo en una gran variedad de sistemas operativos.
 
 OpenProj dejó de estar en fase beta con el lanzamiento de la versión 1.0, el 10 de enero de 2008. Actualmente es
 mantenido por https://www.projectlibre.com[ProjectLibre]. Es una versión gratuita y soporta las siguientes
@@ -4575,10 +4625,8 @@ La elección de _travis CI_ frente a otras opciones como _Jenkins_, _Shippable_,
 hospedado de modo que no hay que instalar ni configurar el servicio (sí requiere una pequeña configuración
 del proyecto como se acaba de mostrar en el fichero `.travis.yml`). Otra razón ha sido que se trata de una herramienta
 gratuita para proyectos _open source_ y además cuenta con una perfecta integración con _GitHub_, de manera que,
-cuando se hace un _commit_ en _GitHub_ automáticamente construye el proyecto de nuevo y ejecuta todos sus tests
-(tanto tests unitarios como tests _end-to-end_), enviándose una notificación en caso de que alguno hubiese fallado.
-
-<<<
+cuando se hace un _commit_ en _GitHub_ automáticamente construye el proyecto de nuevo y ejecuta todas sus pruebas
+(tanto unitarias como _end-to-end_), enviándose una notificación en caso de que alguna hubiese fallado.
 
 Planificación y costes
 ----------------------
@@ -4613,7 +4661,7 @@ Primera iteración::
 La primera iteración se ha centrado en la definición de la arquitectura del proyecto AngularJS, en la especificación
 de requisitos y en la elaboración de los casos de uso que realicen dichos requisitos. La principal funcionalidad a
 abordar ha sido la de permitir la navegación entre las diferentes guías clínicas existentes en el _backend_, para
-ello se han desarrollado los componentes de Angular necesarios y se ha hecho uso del _databinding_ y del contenedor
+ello se han desarrollado los componentes de AngularJS necesarios y se ha hecho uso del _databinding_ y del contenedor
 de inversión de control de AngularJS. Posteriormente se realizaron los tests unitarios correspondientes para probar
 los controladores y servicios desarrollados.
 
@@ -4666,7 +4714,8 @@ image::gantt-0-1.png[]
 
 Cálculo de costes::
 En este apartado se muestra una estimación del coste total del proyecto que se ha elaborado teniendo en cuenta los
-costes asociados a recursos humanos y los referentes a recursos materiales.
+costes asociados a recursos humanos, los referentes a recursos materiales y los derivados de los gastos
+correspondientes a las diferentes reuniones.
 
 En cuanto a los recursos humanos, cabe destacar que el alumno asume diferentes roles durante las distintas fases del
 proyecto. El cálculo de los costes se asigna de la siguiente manera: las fases de análisis y diseño las realiza un
@@ -4674,11 +4723,9 @@ analista, la fase de implementación la realiza un programador y la de pruebas l
 programador con un porcentaje definido. Además del alumno, en las _Scrum meetings_ participa el tutor profesional que
 asume el rol de _director del proyecto_.
 
-El coste por hora de cada rol se ha calculado a partir del salario medio para cada categoría, para ello esta estimación
-se ha basado en un estudio realizado en la propuesta del Grado de Ingeniería Informática de la Universidad de A
-Coruñafootnote:[Estos costes podrían variar en el momento de la elaboración de este documento ya que el coste por hora
-descritos aquí corresponde al año 2010.]. Dichos costes hacen mención al salario bruto que recibe el trabajador y los
-costes de contratación. En la <<hhrr-cost>> se plasma la información mencionada anteriormente.
+El coste por hora de cada rol se ha calculado a partir del salario medio para cada categoría. Dichos costes hacen
+mención al salario bruto que recibe el trabajador y los costes de contratación. En la <<hhrr-cost>> se plasma la
+información mencionada anteriormente.
 
 Las horas de trabajo se han calculado utilizando el proyecto desarrollado en ProjectLibre, asumiendo una jornada
 laboral de 4 horas diarias de lunes a viernes, teniendo en cuenta las horas dedicadas a las reuniones. Para este
@@ -4690,10 +4737,10 @@ cálculos derivados de recursos humanos se muestra en la siguiente tabla.
 [cols="25%,^25%,^25%,^25%", options="header"]
 |===
 |Personal           |Coste por hora                 |Horas trabajadas               |Total
-|Analista           |20 €                           |445                            |8.900 €
-|Programador        |12 €                           |528                            |6.336 €
-|Jefe de proyecto   |24 €                           |35                             |840 €
-3+>s|Total: ^|16.076 €
+|Analista           |50 €                           |445                            |22.250 €
+|Programador        |30 €                           |528                            |15.840 €
+|Jefe de proyecto   |60 €                           |35                             | 2.100 €
+3+>s|Total: ^|40.190 €
 |===
 
 Como se ha plasmado en el proyecto desarrollado en ProjectLibre, también existe una serie de recursos a parte de los
@@ -4722,13 +4769,139 @@ materiales, dietas y desplazamientos, que se pueden visualizar en la <<total-cos
 [cols="75%,^25%", options="header"]
 |===
 |Tipo de coste                  |Coste
-|Coste de recursos humanos      |16.076 €
+|Coste de recursos humanos      |40.190 €
 |Coste de recursos materiales   |926 €
 |Coste de reuniones             |480 €
->s|Total:                       |17.482 €
+>s|Total:                       |41.596 €
 |===
 
-<<<
+Implantación  en producción
+---------------------------
+Existen una serie de cosas que se deben tener en cuenta al poner la aplicación en producción.
+
+Deshabilitación de datos de depuración
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Por defecto, AngularJS vincula información sobre los enlaces y _scopes_ a los nodos del DOM
+(ver <<two-way-databinding>>) y agrega clases CSS a los elementos enlazados:
+
+* Como resultado de `ngBind`, `ngBindHtml` o de las interpolaciones `{{...}}`, los datos enlazados y la
+clase CSS `ng-binding` se adjuntan al elemento correspondiente.
+* Cuando el compilador haya creado un nuevo _scope_, el _scope_ y la clase CSS `ng-scope` o `ng-isolated-scope` se
+adjuntan al elemento correspondiente. A continuación, se podrá acceder a estas referencias de ámbito mediante
+`element.scope()` y `element.isolateScope()`.
+* Los comentarios de sustitución para directivas estructurales contendrán información acerca de qué tipo de
+directiva y vinculación causaron la sustitución (_e.g._ `<!-- ngIf: shouldShow () -->`).
+
+Esta información la necesitan herramientas como Protractor (ver <<protractor-testing>>) o
+https://chrome.google.com/webstore/detail/angularjs-batarang/ighdmehidhipcmcojjgiloacoafjmpfk[Batarang] para su
+ejecución, pero deben ser deshabilitadas en producción para una mejora significativa en el rendimiento. Se puede
+llevar a cabo de la siguiente manera:
+
+[source, python]
+----
+app.config(['$compileProvider', function ($compileProvider) {
+  $compileProvider.debugInfoEnabled(false);
+}]);
+----
+
+Si se desea depurar una aplicación con esta información, se debe abrir una consola de depuración en el navegador y
+luego llamar a este método directamente desde la consola:
+
+[source, python]
+----
+angular.reloadWithDebugInfo();
+----
+
+Para obtener más información, se debe consultar la documentación oficial de
+https://docs.angularjs.org/api/ng/provider/$compileProvider#debugInfoEnabled[$compileProvider] y
+https://docs.angularjs.org/api/ng/function/angular.reloadWithDebugInfo[angular.reloadWithDebugInfo].
+
+Modo _Strict DI_
+~~~~~~~~~~~~~~~~
+Este nombre hace referencia a la inyección de dependencias (DI) de manera estricta. El uso del modo _Strict DI_ en el
+entorno de producción lanzará errores cuando una función inyectable no se anote explícitamente. Este modo está
+diseñado para ayudar a asegurarse de que el código funcionará cuando se
+minifiquefootnote:[https://en.wikipedia.org/wiki/Minification_(programming)].
+
+También obligará a asegurarse de que sus componentes inyectables están explícitamente anotados, lo que mejorará
+considerablemente el rendimiento de AngularJS al inyectar dependencias en las funciones inyectables, ya que no tienen que
+resolver dinámicamente las dependencias de otra función. Se recomienda automatizar la anotación explícita a través de
+alguna herramienta como https://github.com/olov/ng-annotate[`ng-annotate`] cuando se despliegue en producción (y
+habilitar el modo _Strict DI_).
+
+Para habilitar el modo _Strict DI_ existen dos opciones:
+
+* Añadiendo la directiva `ng-strict-di` en el mismo elemento que la directiva `ng-app`, que, como se vio en la
+<<_modulos_en_angularjs>>, sirve para definir el alcance del módulo que define la aplicación.
+
+[source, html]
+----
+<div ng-app="app" ng-strict-di>
+  <!-- your app here -->
+</div>
+----
+
+El modo estricto lanzará un error cada vez que un servicio intente utilizar anotaciones implícitas.
+
+Considere este módulo, que incluye un servicio denominado `willBreak` que utiliza inyección de dependencias implícito:
+
+[source, python]
+----
+angular.module('myApp', [])
+.factory('willBreak', function($rootScope) {
+  // $rootScope is implicitly injected
+})
+.run(['willBreak', function(willBreak) {
+  // AngularJS will throw when this runs
+}]);
+----
+
+Cuando se instancia el servicio `willBreak`, AngularJS lanzará una excepción debido al modo estricto. Esto es útil
+cuando  se utilizan herramientas como https://github.com/olov/ng-annotate[ng-annotate] para asegurarse de que todos
+los componentes de la aplicación tengan anotaciones.
+
+Si está utilizando una inicialización manual de la aplicación, también puede usar _Strict DI_ indicando
+`strictDi: true` en el argumento de configuración opcional:
+
+[source, python]
+----
+angular.bootstrap(document, ['app'], {
+  strictDi: true
+});
+----
+
+Deshabilitación de directivas de comentarios y de clases CSS
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Por defecto AngularJS compila y ejecuta todas las directivas dentro de comentarios y clases de los elementos HTML. Para
+realizar esta tarea, el compilador AngularJS debe buscar directivas:
+
+* Parseando todas las clases de elementos HTML de aplicación.
+* Parseando todos los comentarios de las vistas HTML de la aplicación.
+
+Hoy en día, la mayoría de los proyectos AngularJS usan sólo directivas de elementos y atributos (ver los 4
+tipos de directivas en la <<_directivas>>), y en dichos proyectos no hay necesidad de compilar comentarios y clases.
+
+En este proyecto sólo se utilizan directivas de elementos o atributos. En general, si se está seguro de que
+el proyecto sólo utiliza directivas de elementos y atributos y no utiliza ninguna librería de terceros que utilice
+directivas dentro de clases CSS vinculadas a elementos o comentarios HTML, se puede deshabilitar la compilación de
+directivas sobre clases de elementos y comentarios para toda la aplicación. Esto resulta en una mejora de
+rendimiento en la compilación, ya que el compilador no tiene que comprobar los comentarios y las clases de elementos que
+buscan las directivas.
+
+Para deshabilitar las directivas de comentarios y clases CSS, se utiliza el _provider_
+https://docs.angularjs.org/api/ng/provider/$compileProvider[`$compileProvider`]:
+
+[source, python]
+----
+$compileProvider.commentDirectivesEnabled(false);
+$compileProvider.cssClassDirectivesEnabled(false);
+----
+
+Se puede consultar la documentación oficial para obtener más información sobre los métodos
+https://docs.angularjs.org/api/ng/provider/$compileProvider#commentDirectivesEnabled[`$compileProvider.commentDirectivesEnabled`]
+y
+https://docs.angularjs.org/api/ng/provider/$compileProvider#cssClassDirectivesEnabled[`$compileProvider.cssClassDirectivesEnabled`]
+
 
 Resultados
 ----------
@@ -4736,36 +4909,37 @@ En esta sección se presentan los resultados obtenidos del proyecto, que muestra
 existente, lo cual se consigue permitiendo la edición de guías clínicas GDL a través de Internet utilizando un
 navegador web. A continuación se destacan los aspectos más importantes de dichos resultados, esta aplicación web:
 
+* Permitirá a los profesionales sanitarios la creación, validación, edición y gestión de guías clínicas en formato GDL
+desde una plataforma colaborativa, con los consiguientes beneficios que ello conlleva, como evitar la duplicación de
+esfuerzos al utilizar guías comunes, la rápida diseminación de las modificaciones, el fomento del desarrollo de
+nuevas herramientas para recuperar y usar la información de las guías y el fomento de la creación de guías más
+rigurosas (con menos ambigüedad) por parte de los autores.
+
+* Al ser una aplicación web, accesible a todo el mundo a través de Internet, se ha creado un mecanismo que brinda la
+oportunidad a los profesionales sanitarios a que colaboren en la creación de conocimiento clínico y puedan llevar a
+cabo un consenso sobre sus guías clínicas.
+
+* La aplicación está preparada para ser integrada en el CKM de __open__EHR
+(http://www.openehr.org/ckm[www.openehr.org/ckm]) y, en general, en cualquier servidor que soporte el despliegue de
+aplicaciones web.
+
 * Ha sido desarrollada utilizando una versión simplificada de la metodología Scrum, lo cual ha permitido ir
 obteniendo subproductos funcionales en cada una de las iteraciones en las que se ha dividido el proyecto. En dicho
 desarrollo se han aplicado reconocidos patrones de diseño y se han utilizado tecnologías modernas de desarrollo web
-como el entorno de ejecución multiplataforma para la capa del servidor Node.js y el framework para la creaciones de
+como el entorno de ejecución multiplataforma para la capa del servidor Node.js y el framework para la creación de
 aplicaciones de web de una sola página AngularJS.
 
 * Es un producto de código libre, de utilidad para la empresa _Cambio Healthcare Systems_ y, en general, para cualquier
 organización del sector sanitario que desee elaborar y trabajar con guías clínicas basadas en GDL, de modo que estas
 guías permitan el intercambio de conocimiento médico de una manera consensuada y semánticamente interoperable.
 
-* Permite a los profesionales sanitarios la elaboración de nuevas guías clínicas basadas en arquetipos, así como la
-edición y eliminación de las mismas.
-
-* La aplicación está preparada para ser integrada en el CKM de __open__EHR
-(http://www.openehr.org/ckm[www.openehr.org/ckm]) y, en general, en cualquier servidor que soporte el despliegue de
-aplicaciones web.
-
-* Al ser una aplicación web, accesible a todo el mundo a través de Internet, se ha creado un mecanismo que brinda la
-oportunidad a los profesionales sanitarios a que colaboren en la creación de conocimiento clínico y puedan llevar a
-cabo un consenso sobre sus guías clínicas.
-
 * Se ha desarrollado utilizando una aproximación basada en componentes, de forma que cada uno de ellos tiene su
 propia lógica, lo cual facilita tanto la incorporación de nuevas funcionalidades como la eliminación de las mismas.
-La utilización de componentes hace que la ejecución sea más fluida.
+Además, la utilización de componentes hace que la ejecución sea más fluida.
 
 * Cuenta con una interfaz gráfica que ha sido diseñada utilizando recomendaciones de diseño, la cual proporciona una
 usabilidad agradable de cara al usuario. La navegación entre las diferentes vistas hace uso del patrón _Composite
 view_ permite la composición de vistas que se renderizan de manera independiente.
-
-<<<
 
 Conclusiones
 ------------
@@ -4775,46 +4949,40 @@ A continuación se mencionan las principales conclusiones que se han obtenido tr
 a nivel semántico de manera universal. De poco sirve que las organizaciones representen sus procedimientos
 en forma de guías de práctica clínica si no se comparten o si se comparten sin preservar su significado. Estas
 representaciones del conocimiento clínico deben estar disponibles públicamente para que puedan ser utilizadas por los
- sistemas sanitarios y para que los profesionales puedan generar, discutir, modificar y aprobar las guías de manera
- colaborativa a través de plataformas de intercambio de conocimiento.
+sistemas sanitarios y para que los profesionales puedan generar, discutir, modificar y aprobar las guías de manera
+colaborativa a través de plataformas de intercambio de conocimiento.
+
+* La utilización de guías clínicas basadas en estándares de interoperabilidad va a permitir almacenar la información
+relacionada con la guía de una manera normalizada. Esta normalización de los datos provocará un impacto
+positivo en investigación sanitaria, farmacéutica, estadística y, en general, en todas aquellas actividades en las que
+la información deba viajar de una organización a otra.
 
 * El contexto en el que reside este proyecto se encuentra en auge hoy en día a nivel internacional. En España el
 https://www.msssi.gob.es/profesionales/hcdsns/areaRecursosSem/Rec_mod_clinico_arquetipos.htm[Ministerio de Sanidad]
-está fomentando el uso de arquetipos clínicos en las herramientas de software médico barajándose la posibilidad de
-que, en un futuro, sea obligatorio la comunicación de registros clínicos electrónicos utilizando este tipo de normas.
+está fomentando el uso de arquetipos clínicos en las herramientas de software médico con la idea de
+que, en un futuro, sea obligatoria la comunicación de registros clínicos electrónicos utilizando este tipo de normas.
 La mayoría gobiernos a nivel internacional están trabajando en el mismo sentido apostando por la interoperabilidad
 semántica en la medicina, ya que es evidente la necesidad de que la información sanitaria del ciudadano pueda estar
 accesible desde cualquier lugar y en cualquier momento.
 
 * La curva de aprendizaje de estos estándares para desarrolladores es compleja debido a la dificultad de
-representación de los datos clínicos, algo que es abordable con la normalización. Actualmente en este área se está
+representación de los datos clínicos, algo que es abordable con la normalización. Actualmente, en este área, se está
 invirtiendo bastante dinero en investigación y están empezando a surgir _startups_ dedicadas exclusivamente al
 desarrollo de herramientas que soporten estándares de interoperabilidad.
 
 * A pesar de ser un ámbito en auge, no existen muchas herramientas para representar el conocimiento médico utilizando
-estándares de  interoperabilidad. Para la edición de arquetipos clínicos
-existe una aplicación de escritorio denominada http://www.linkehr.com/[LinkEHR], aplicación comercial que permite la
-generación de arquetipos de una manera visual, pero también tiene sus limitaciones.
+estándares de  interoperabilidad. Para la edición de arquetipos clínicos existen muy pocas herramientas, (todas
+son aplicaciones de escritorio) como http://www.linkehr.com/[LinkEHR] y
+http://www.openehr.org/downloads/archetypeeditor/home:[Archetype Editor].
 
-* El framework AngularJS es adecuado para la construcción de aplicaciones web de una sola página como el desarrollado
+* El framework AngularJS es adecuado para la construcción de aplicaciones web de una sola página, como la desarrollado
 en este proyecto, facilitando considerablemente la construcción del software, el mantenimiento y la prueba de
 componentes mediante tests unitarios utilizando _Karma_ y _Jasmine_.
-
-* Ha quedado un objetivo de ejecución de las guías clínicas ha podido llevarse a cabo por cuestiones de tiempo, la
-funcionalidad está soportada en el _backend_, pero la elaboración de formularios para los diferentes tipos de datos
-no ha podido alcanzarse, dejándose como trabajo futuro como se verá a continuación.
-
-* La utilización de guías clínicas basadas en estándares de interoperabilidad van a permitir almacenar información de
-una manera normalizada, por lo que dicha normalización de los datos provocará un impacto positivo en investigación
-sanitaria, farmacéutica, estadística y en general en todas aquellas actividades en las que la información deba
-viajar de una organización a otra.
 
 * La herramienta ha sido probada por profesionales sanitarios y se cree que la formación de los mismos no va a
 ser costosa, debido a la sencillez la interfaz de usuario y a la especial dedicación que se ha mostrado para el
 proceso de definición de las guías utilizando un componente _drag and drop_ que permite la creación de las guías
 arrastrando componentes de una manera muy visual, proporcionando una excelente experiencia de usuario.
-
-<<<
 
 Futuros trabajos
 ----------------
@@ -4832,6 +5000,11 @@ partes de la guía que están siendo modificadas.
 * Resolución de conflictos: del punto anterior se desprende esta futura funcionalidad. Al haber varios usuarios
 simultáneamente habría que plantear un medio de resolución de conflictos a la hora de almacenar los cambios de la
 guía cuando dos o más usuarios hayan modificado un mismo elemento.
+
+* Implementación de un sistema de ejecución de guías basado en formularios para probar las guías. Estos formularios
+se renderizarán en función del tipo de dato de __open__EHR de cada uno de los elementos que componen la guía. Esta
+funcionalidad ya está disponible en el _backend_, se trata de una característica que está prevista para su
+realización a corto plazo.
 
 * Gestión del historial y de versiones: con la modificación de una guía aparece el concepto de versión de una guía
 clínica. La versión de las guías clínicas, al igual que en los arquetipos, se indica en el propio nombre del fichero
@@ -4857,7 +5030,6 @@ componente gráfico que al utilizarlo renderizase un formulario para que se intr
 individuo, la ejecución se realizaría en el servidor teniendo en cuenta las reglas y las precondiciones y el sistema
 devolvería los datos calculados al usuario.
 
-<<<
 
 Índice de abreviaturas
 ----------------------
@@ -4932,8 +5104,6 @@ se han utilizado en este documento.
 |XHR          |XMLHttpRequest
 |XML          |Extensible Markup Language
 |===
-
-<<<
 
 [appendix]
 Apéndices
@@ -5161,7 +5331,8 @@ image::binding-3.png[]
 Código GDL
 ^^^^^^^^^^
 La pestaña de código GDL muestra la guía editada en formato GDL. Cuando se visualiza, todas las secciones anteriores se
-convertirán en lenguaje formal. Este es el mismo formato utilizado al guardar la guía en un archivo `.gdl`.
+convertirán en lenguaje formal. Este es el mismo formato utilizado al guardar la guía en un
+archivo _.gdl_.
 
 [[gdl-code]]
 .Código GDL.
@@ -5170,7 +5341,7 @@ image::gdl-code.png[]
 Vista HTML
 ^^^^^^^^^^
 Esta pestaña permite la visualización de la guía GDL en formato HTML, de manera que se pueda visualizar la
-información de la guía de una amanera más amigable de cara ala usuario.
+información de la guía de una amanera más amigable de cara al usuario.
 
 [[html-view]]
 .Vista HTML.
@@ -5260,7 +5431,7 @@ image::calculateBMI-6.png[]
 image::calculateBMI-7.png[]
 
 A continuación tendremos que añadir una acción que actualizará el atributo _magnitude_ del elemento _Body Mass Index_
-del arquetipo _openEHR-EHR-OBSERVATION.body_mass_index.v1_. Arrastramos la acción _Set (Attribute)_, ubicado en el
+del arquetipo _openEHR-EHR-OBSERVATION.body_mass_index.v1_. Arrastramos la acción _Set (Attribute)_, ubicada en el
 panel inferior derecho. Seguimos los mismos pasos que antes para seleccionar unidades, pero en lugar de ello,
 seleccionamos el atributo _magnitude_. Por ahora, la regla debe ser similar a la <<calculateBMI-8>>.
 
@@ -5321,8 +5492,6 @@ Java se puede encontrar a continuación.
 include::javacc/expression.jj[]
 ----
 
-<<<
-
 [bibliography]
 Bibliografía
 ------------
@@ -5336,6 +5505,10 @@ Bibliografía
 - [[[WARN61]]] H. Warner, A. Toronto, L. Veasey, R. Stephenson, ``Mathematical approach to medical diagnosis'' MD Comput, 1992.
 - [[[EDWA77]]] E. Shortliffe, ``Mycin: A Knowledge-Based Computer Program Applied to Infectious Diseases''. Stanford University School of Medicine, 1977. Disponible en: ttps://www.ncbi.nlm.nih.gov/pmc/articles/PMC2464549/pdf/procascamc00015-0074.pdf.
 - [[[RAND86]]] R. Miller, M. McNeil, S. Challinor, F. Masarie, J. Myers, ``The INTERNIST-1/Quick medical reference Project', University of Pittsburgh School of Medicine, Pittsburgh, 1986.
+- [[[GULL06]]] M. Gulliford, S. Naithani, M. MorganWhat, ``What is continuity of care?''. Journal of Health Services Research & Policy, DOI: 10.1258/135581906778476490, 2006
+- [[[ISOH08]]] ISO 13606, “Health informatics - Electronic health record communication - Part 1: Reference model. International Organization for Standardization, 2008.
+- [[[ISOG08]]] ISO 13606, “Health informatics - Electronic health record communication - Part 2: Archetype interchange specification”. International Organization for Standardization, 2008.
+- [[[ISOD08]]] International Organization for Standardization. ISO/DIS 21090. Health Informatics — Harmonized data types for information interchange. Geneva. © ISO 2008.
 - [[[MICH11]]] M. Yuan, ``Watson and healthcare:  How natural language processing and semantic search could revolutionize clinical decision support''. Developer Works, IBM. 2011. Disponible en: https://www.ibm.com/developerworks/library/os-ind-watson/os-ind-watson-pdf.pdf
 - [[[LEHM06]]] H. Lehman, P. Abbott, N. Roderer, A. Rothschild, _et al._ ``Aspects of electronic Health Record Systems''. Springer, 2006.
 - [[[WEBA17]]] Wikipedia en español. URL: https://es.wikipedia.org/wiki/Aplicaci%C3%B3n_web. Último acceso: junio 2017.
