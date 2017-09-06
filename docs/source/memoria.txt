@@ -80,11 +80,11 @@ presenta el proceso de desarrollo de una herramienta para la creación y edició
 serán utilizadas en este tipo de sistemas.
 
 El requisito de que las guías clínicas sean interoperables obliga a que haya que seguir un estándar de
-interoperabilidad. GDL es un lenguaje para la definición de guías basado en arquetipos clínicosfootnote:[Arquetipo
-clínico: estructura de datos para la representación formal de un concepto del ámbito sanitario]. La utilización de
-arquetipos para representar los conceptos de las guías, y el uso de terminologías clínicas como vocabulario común
-para la codificación de términos va a permitir alcanzar la interoperabilidad semántica necesaria para el intercambio
-de conocimiento clínico entre sistemas sanitarios.
+interoperabilidad. GDL es un lenguaje para la definición de guías basado en arquetipos
+clínicosfootnote:[Arquetipo clínico: estructura de datos para la representación formal de un concepto del dominio
+clínico.]. La utilización de arquetipos para representar los conceptos de las guías, y el uso de terminologías
+clínicas como vocabulario común para la codificación de términos va a permitir alcanzar la interoperabilidad
+semántica necesaria para el intercambio de conocimiento clínico entre sistemas sanitarios.
 
 El concepto de apoyo a las decisiones es muy
 antiguo <<KEEN87>> y ha evolucionado principalmente desde dos áreas de investigación: los estudios teóricos de
@@ -120,14 +120,16 @@ demostró que el sistema era eficiente, relativamente fácil de usar y confiable
 de terapia de bacteriemia. Mycin era capaz, además, de ``razonar'' el proceso seguido para llegar a sus conclusiones.
 Su funcionamiento se basaba principalmente en un motor de inferencia sencillo que manejaba una base de conocimiento
 de aproximadamente unas 500 reglas. Investigaciones llevadas a cabo en la _Stanford Medical School_ revelaron que Mycin
-tenía una mejor tasa de aciertos que los médicos no especializados en infecciones bacterianas.
+tenía una mejor tasa de aciertos que los médicos no especializados en infecciones bacterianas. Poco a poco Mycin fue
+cayendo en desuso, debido principalmente a algunas debilidades que se fueron presentando, y también por cuestiones
+éticas y legales que surgían al volcar la responsabilidad de la salud de una persona a una máquina.
 
 A finales de los años 70 surge, en la Universidad de Pittsburgh, una herramienta experimental para asistir a las
 decisiones en el diagnóstico médico en medicina interna denominada INTERNIST-I<<RAND86>>. Contenía una base de
 conocimiento con 570 enfermedades descritas de medicina interna. Sus diseñadores esperaban que llegase a ser útil en
 ambientes remotos como zonas rurales, el espacio exterior, bases militares extranjeras, etc. pero los usuarios del
 sistema se quejaban de que era demasiado lento. Posteriormente, investigadores de la Universidad Carnegie Mellon
-desarrollaron un software que la hacía más rápido. En cualquier caso, INTERNIST-I nunca pasó de su estado original
+desarrollaron un software que la hacía más rápida. En cualquier caso, INTERNIST-I nunca pasó de su estado original
 como proyecto de investigación.
 
 Hasta ese momento se fundaron lo que fueron las bases teóricas del desarrollo de los SSDC.
@@ -143,9 +145,9 @@ ofertas, y esto es debido principalmente a la escasez de modelos de información
 sanitarios.
 
 Como referencia actual de relativa importancia destacan los esfuerzos que está haciendo IBM con
-Watsonfootnote:[Software de IBM de inteligencia artificial capaz de responder a preguntas expresadas en lenguaje
+Watsonfootnote:[Sistema de Inteligencia Artificial de IBM capaz de responder a preguntas expresadas en lenguaje
 natural. IBM actualmente está aplicando esta herramienta al campo de los sistemas de soporte a la decisión en el
-contexto clínico] <<MICH11>> aplicado al ámbito clínico. Está invirtiendo muchos esfuerzos en discutir cómo la
+contexto clínico.] <<MICH11>> aplicado al ámbito clínico. Está invirtiendo muchos esfuerzos en discutir cómo la
 tecnología DeepQAfootnote:[Tecnología de IBM que analiza el lenguaje natural de una pregunta para encontrar, sintetizar,
 entregar y ordenar, de la manera más eficientemente posible, respuestas relevantes y sus justificaciones a partir de
 una base de conocimiento disponible.] que hay detrás de Watson se puede utilizar para resolver problemas específicos
@@ -174,10 +176,12 @@ haya generado. La continuidad asistencial del paciente es indispensable en multi
 residencia de los pacientes, cambios organizativos, cambios de niveles asistenciales, etc. La manera de conseguir la
 deseada interoperabilidad es aplicando la normalización. Las normas o estándares proporcionan la base sobre la que
 poder crear acuerdos con un objetivo en común, en este caso la continuidad asistencial.
-http://www.openehr.org/[__open__EHR]footnote:[EHR son las siglas de Electronic Health Record: Historia Clínica
-Electrónica en español.] es una comunidad virtual que trabaja en la estandarización de la HCE, garantizando una
-interoperabilidad universal entre todo tipo de sistemas de información clínicos. Actualmente se está utilizando en
-multitud de organizaciones:
+__open__EHRfootnote:[http://www.openehr.org/. El término viene de ``open''--abierto, ``EHR''--Electronic Health
+Record, Historia Clínica Electrónica, en inglés.] es una comunidad virtual que trabaja en la estandarización de la HCE,
+garantizando una interoperabilidad universal entre todo tipo de sistemas de información clínicos. Actualmente se está
+utilizando en multitud de organizaciones:
+
+<<<
 
 * Soluciones ya implantadasfootnote:[http://www.openehr.org/who_is_using_openehr/healthcare_providers_and_authorities]
 * Proyectos de investigación financiadosfootnote:[http://www.openehr.org/who_is_using_openehr/funded_research_projects]
@@ -186,10 +190,11 @@ multitud de organizaciones:
 * Investigación académicafootnote:[http://www.openehr.org/who_is_using_openehr/academic_research]
 
 Como parte de su trabajo, la Fundación __open__EHR cuenta con una plataforma internacional de intercambio de
-conocimiento clínico denominado http://www.openehr.org/ckm/[Clinical Knowledge Manager]footnote:[Plataforma de
+conocimiento clínico denominado Clinical Knowledge Managerfootnote:[Plataforma de
 desarrollo colaborativo, gestión y publicación de una amplia gama de recursos de conocimiento clínico de __open__EHR.
 Los recursos incluyen arquetipos, plantillas, subconjuntos terminológicos, metadatos relacionados con modelos
-clínicos y otros recursos relacionados.] (CKM), la cual ha reunido a una comunidad Web 2.0 activa de personas
+clínicos y otros recursos relacionados: http://www.openehr.org/ckm/]
+(CKM), la cual ha reunido a una comunidad Web 2.0 activa de personas
 motivadas en  promover un enfoque abierto e internacional de la informática sanitaria. En estos momentos el CKM
 consiste en un repositorio de arquetipos clínicos, un repositorio de plantillasfootnote:[Plantilla: arquetipo de alto
 nivel que agrega a otros arquetipos y forma una estructura jerárquica para modelar un concepto más complejo, _e.g._
@@ -228,18 +233,26 @@ común para codificar términos, pero el uso de terminologías no es suficiente,
 permita representar las estructuras de datos, esto se consigue mediante los arquetipos clínicos y finalmente es
 necesario un sistema que permita representar el contexto, para ello utilizaremos el Modelo de Referencia.
 
+<<<
+
 Objetivos
 ~~~~~~~~~
-El objetivo principal de este proyecto consiste en el desarrollo de una aplicación web para la gestión de guías
-clínicas basadas en arquetipos y expresadas en lenguaje GDL. Al estar GDL basado en una norma de interoperabilidad
-semántica, esta herramienta permitirá a los profesionales sanitarios generar conocimiento clínico interoperable
-semánticamente. Además, al hacer uso de tecnologías web y al ser integrada en el CKM de __open__EHR, permitirá
-hacerlo de una manera colaborativa y consensuada.
+El objetivo principal de este proyecto consiste en el desarrollo de una aplicación web para la edición de guías
+clínicas basadas en arquetiposfootnote:[Arquetipo clínico: estructura de datos para la representación formal de un
+concepto del dominio clínico.] y expresadas en lenguaje GDL. Al estar GDL basado en una norma de
+interoperabilidad semántica, esta herramienta permitirá a los profesionales sanitarios, generar conocimiento clínico
+interoperable semánticamente. Además, al hacer uso de tecnologías web y al estar integrada en el CKM de __open__EHR,
+permitirá hacerlo de una manera colaborativa y consensuada.
 
 Desde la fundación __open__EHR se demanda una herramienta de gestión de guías clínicas con un enfoque colaborativo,
 que proporcione una usabilidad adecuada, con una interfaz sencilla, accesible y que sea modular, de manera que sea
 sencillo añadir, modificar y eliminar funcionalidades. Esta herramienta estará preparada para ser integrada en la
-plataforma CKM y supondrá el punto de partida hacia una serie de nuevas funcionalidades de gran utilidad para la
+plataforma CKM con el fin de que dichas guías sean públicas y compartidas, aportando importantes beneficios a la
+comunidad, como evitar la duplicidad de esfuerzos en la elaboración, una difusión instantánea de las actualizaciones
+y el fomento de una mejora en la calidad de las guías al implicar a un conjunto multidisciplinar de autores, en
+definitiva se busca mejorar la práctica clínica y la salud de la población.
+
+Esta herramienta supondrá el punto de partida hacia una serie de nuevas funcionalidades de gran utilidad para la
 comunidad, como la edición colaborativa en tiempo real, la resolución de conflictos, la gestión de historial y de
 versiones, etc. La aplicación se desarrollará siguiendo un enfoque de metodología ágil, adaptado a las
 características y requerimientos de un Trabajo Fin de Máster (TFM).
@@ -247,17 +260,17 @@ características y requerimientos de un Trabajo Fin de Máster (TFM).
 *Objetivos específicos* +
 Como objetivos específicos, se plantean los siguientes:
 
-* La aplicación desarrollada permitirá crear, editar y actualizar ficheros GDL a través de un navegador web.
+* Desarrollar una aplicación que permita crear, editar, validar y actualizar ficheros GDL a través de un navegador web.
 
-* El software a construir se integrará con un sistema existente
+* El software a construir se debe integrar con un sistema existente
 (Knowledge Manager)footnote:[http://www.cambiohealthcare.co.uk/wp-content/uploads/2016/02/C_CDS-Knowledge-manager.pdf],
-dicho sistema se está utilizando actualmente en producción en varios hospitales en Suecia.
+dicho sistema se está utilizando actualmente, en producción, en varios hospitales de Suecia.
 
 * Se desarrollará siguiendo un _framework_ Modelo-vista-controlador (MVC), de manera que haya una separación clara entre
 la lógica de negocio, el modelo y la vista de la aplicación, fomentando de esta manera la mantenibilidad y la
 escalabilidad de la misma.
 
-* La aplicación desarrollada deberá estar preparada para ser integrada con el CKM de __open__EHR
+* La aplicación desarrollada debe estar preparada para ser integrada con el CKM de __open__EHR
 (http://www.openehr.org/ckm[www.openehr.org/ckm]). La aplicación se diseñará de manera que sus componentes puedan ser
 fácilmente reutilizados y de forma que resulte sencillo incorporar nuevas funcionalidades.
 
@@ -536,10 +549,9 @@ notación UML.
 
 [[Facade]]
 .Patrón fachada.
-image::facade.png[scaledwidth="60%"]
+image::facade.png[scaledwidth="50%"]
 
 A continuación se muestra un fragmento de código que implementa el patrón Fachada en JavaScript.
- +
 [source, python]
 ----
 var Mortgage = function(name) {
@@ -745,9 +757,10 @@ _constant_ como dependencias. No se pueden inyectar _providers_ en los bloques d
 * El método `config` acepta una función como parámetro, a la que se le puede inyectar componentes _provider_ y
 _constant_ como dependencias. No se pueden inyectar componentes _service_ o _value_ en la configuración.
 
-Para una comprensión más en profundidad sobre ID, puede consultarse
-http://en.wikipedia.org/wiki/Dependency_injection[Inyección de Dependencia]
-en Wikipedia, o un excelente http://martinfowler.com/articles/injection.html[artículo] al respecto, de Martin Fowler.
+Para una comprensión más en profundidad sobre ID, puede consultarse Inyección de
+Dependenciasfootnote:[http://en.wikipedia.org/wiki/Dependency_injection]
+en Wikipedia, o un excelente artículofootnote:[http://martinfowler.com/articles/injection.html]
+al respecto, de Martin Fowler.
 
 [[testing]]
 Pruebas
@@ -757,23 +770,23 @@ funcionalidad y a las restricciones que se quieren obtener de un sistema, pensad
 desarrolladores de lo que se requiere y sirve como base de un contrato. JavaScript es un lenguaje de tipos de
 datos dinámicos que cuenta con gran poder de expresión, pero realmente se cuenta con muy pocas ayudas por parte
 del compilador. Por esta razón, cualquier código escrito en JavaScript debe venir con un conjunto de tests que
-prueben las principales funcionalidades. AngularJS ha sido diseñado enfocado a la las pruebas. Existen multitud de
+prueben las principales funcionalidades. AngularJS ha sido diseñado enfocado a las pruebas. Existen multitud de
 herramientas para probar el código AngularJS.
 
 Las pruebas unitarias, como su propio nombre indica, consisten en probar unidades funcionales individuales de código.
 Tratan de responder preguntas del tipo ``¿se ha pensado en la lógica correctamente?'' o ``¿la función de ordenación
 ordena la lista en el orden correcto?''
 
-Para responder a este tipo de preguntas es muy importante que podamos aislar unidad funcional de código que se va a
-probar. Esto se debe a que cuando se quiere probar la función de ordenación no queremos ser forzados a crear partes
-relacionadas como los elementos del Document Object Modelfootnote:[Interfaz, independiente del lenguaje y plataforma
+Para responder a este tipo de preguntas es muy importante que podamos aislar la unidad funcional de código que se va a
+probar. Esto se debe a que, cuando se quiere probar la función de ordenación, no queremos ser forzados a crear otros
+ítems relacionados en el proceso, como los elementos del Document Object Modelfootnote:[Interfaz, independiente del lenguaje y plataforma
 que permite a programas y scripts acceder dinámicamente y actualizar el contenido, estructura y estilos de documentos
 HTML, XHTML y XML. Especificación técnica de w3c: https://www.w3.org/DOM/DOMTR] (DOM) o hacer llamadas XMLHttpRequest
 (XHR) para buscar los datos para ordenarlos.
 
 AngularJS trata de hacer que sea fácil para el desarrollador hacer lo correcto. Para las peticiones XHR, se
-proporciona inyección de dependencias para que estas solicitudes puedan ser simuladas. Para el DOM, este se abstrae,
-para que se pueda probar el modelo sin tener que manipular el DOM directamente. Las pruebas podrían entonces asegurar
+proporciona inyección de dependencias para que estas solicitudes puedan ser simuladas. El DOM se abstrae para que se
+pueda probar el modelo sin tener que manipular el DOM directamente. Las pruebas podrían entonces asegurar
 que los datos se han ordenado sin tener que crear u observar el estado del DOM o esperar a que cualquier solicitud
 XHR devuelva datos. La función de ordenación individual se puede probar de forma aislada.
 
@@ -783,15 +796,16 @@ probar, ya que se pueden pasar las dependencias de un componente y simularlas co
 Los componentes que tienen sus dependencias inyectadas permiten que sean fácilmente simuladas en un test, sin tener
 que ensuciar con cualquier variable global que podría afectar inadvertidamente otros tests.
 
-Para probar las aplicaciones AngularJS existen ciertas herramientas disponibles que harán que las pruebas sean mucho
-más fáciles de configurar y ejecutar. A continuación se verán el _framework_ de pruebas _Jasmine_, los _testrunners_
+Para probar las aplicaciones AngularJS existen ciertas herramientas disponibles que hacen que las pruebas sean mucho
+más fáciles de configurar y ejecutar. A continuación se muestran el _framework_ de pruebas _Jasmine_, los _testrunners_
 _Karma_ y _Protractor_.
 
 Jasmine Framework
 ^^^^^^^^^^^^^^^^^
-Jasmine es un _framework_ de desarrollo https://en.wikipedia.org/wiki/Behavior-driven_development[dirigido por
-comportamiento] para probar código JavaScript. No depende de ningún otro framework de JavaScript, ni de un DOM. Y
-tiene una sintaxis clara y obvia para que los tests se puedan escribir fácilmente.
+Jasmine es un _framework_ de desarrollo dirigido por
+comportamientofootnote:[https://en.wikipedia.org/wiki/Behavior-driven_development]
+para probar código JavaScript. No depende de ningún otro framework de JavaScript ni de un DOM. Y tiene una sintaxis
+clara y obvia para que los tests se puedan escribir fácilmente.
 
 Antes de empezar a escribir el código, teniendo en cuenta la especificación formal de requisitos, se debe saber cómo
 se tiene que comportar el sistema. Se pueden escribir estas especificaciones en el código. En AngularJS, por
@@ -1055,8 +1069,8 @@ inicie la aplicación usando el módulo _myApp_.
 
 Estos módulos se deben definir de una manera organizada. Es recomendable tener módulos separados para los
 controladores, servicios, filtros, directivas, etc. Para el desarrollo de esta aplicación se ha tenido en cuenta una
-https://github.com/johnpapa/angular-styleguide/tree/master/a1[guía de buenas prácticas] muy utilizada en la comunidad
-de desarrollo de AngularJS. El módulo principal podría entonces simplemente declarar el resto de módulos como
+guía de buenas prácticasfootnote:[https://github.com/johnpapa/angular-styleguide/tree/master/a1] muy utilizada en la
+comunidad de desarrollo de AngularJS. El módulo principal podría entonces simplemente declarar el resto de módulos como
 dependencias, tal como se ha hecho en el desarrollo de esta aplicación. Esto hace que sea más sencilla la gestión de
 nuestros módulos, ya que se convierten en piezas aisladas de código, teniendo cada uno de ellos una, y sólo una,
 responsabilidad. Esto también permite que los tests carguen el módulo (o módulos) que interesen, haciendo que sean
@@ -1174,10 +1188,9 @@ una aplicación, el compilador HTML recorre el DOM emparejando directivas con el
 
 Para poder crear directivas es importante saber cómo el compilador de AngularJS determina cuándo usar una directiva.
 Similar a la terminología usada cuando un elemento
-https://developer.mozilla.org/en-US/docs/Web/API/Element.matches[``se corresponde con''] un selector, se puede decir
- que
-un elemento ``se corresponde'' con una directiva cuando la directiva es parte de su declaración. En el siguiente ejemplo
-se puede decir que el elemento `<input>` se corresponde con la directiva `ngModel`.
+``se corresponde con''footnote:[https://developer.mozilla.org/en-US/docs/Web/API/Element.matches] un selector, se puede decir
+que un elemento ``se corresponde'' con una directiva cuando la directiva es parte de su declaración. En el siguiente
+ejemplo se puede decir que el elemento `<input>` se corresponde con la directiva `ngModel`.
 
 [source, html]
 -------------------------
@@ -1200,12 +1213,11 @@ Y el siguiente elemento `<person>` se corresponde con la directiva `person`.
 
 *Normalización* +
 AngularJS normaliza el _tag_ de un elemento y los nombres de atributos para determinar qué elementos
-encajan con qué
-directivas. En terminología AngularJS, se suele hacer referencia a las directivas por su nombre normalizado usando
-notación _camelCase_ (_e.g._ `ngModel`). Sin embargo, ya que HTML no es _case-sensitive_, se suele
+encajan con qué directivas. En terminología AngularJS, se suele hacer referencia a las directivas por su nombre
+normalizado usando notación _camelCase_ (_e.g._ `ngModel`). Sin embargo, ya que HTML no es _case-sensitive_, se suele
 hacer referencia a las directivas en el DOM usando notación _lower-case_, normalmente usando atributos
-https://en.wikipedia.org/wiki/Letter_case#Special_case_styles[_dash-delimited_] en los elementos del DOM (_e.g._
-`ng-model`). El proceso de normalización es el siguiente:
+__dash-delimited__footnote:[https://en.wikipedia.org/wiki/Letter_case#Special_case_styles] en los elementos del DOM
+(_e.g._ `ng-model`). El proceso de normalización es el siguiente:
 
 . Eliminar `x-` y `data-` del inicio de los elementos/atributos.
 . Convertir el `:`, `-` o los nombres delimitados por `_` a _camelCalse_.
@@ -1290,10 +1302,10 @@ Comentario:
 
 Objeto `$scope` de AngularJS
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-El objeto https://docs.angularjs.org/api/ng/type/$rootScope.Scope[scope] es un objeto que hace referencia al modelo
-de la aplicación. Se trata de un contexto de ejecución para https://docs.angularjs.org/guide/expression[expresiones].
-Tienen una estructura jerarquizada que imita a la estructura del DOM de la aplicación. Los _scopes_ pueden
-observar expresiones y propagar eventos.
+El objeto scopefootnote:[https://docs.angularjs.org/api/ng/type/$rootScope.Scope] es un objeto que hace referencia al
+modelo de la aplicación. Se trata de un contexto de ejecución para
+expresionesfootnote:[https://docs.angularjs.org/guide/expression]. Tienen una estructura jerarquizada que imita a la
+estructura del DOM de la aplicación. Los _scopes_ pueden observar expresiones y propagar eventos.
 
 *Características del scope* +
 Los _scopes_ proporcionan APIs (https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$watch[$watch]) para
@@ -1310,7 +1322,8 @@ hacen. Los _scopes_ proporcionan un contexto contra el que se evalúan las expre
 valor de la propiedad `username`).
 
 *El _scope_ como modelo de datos* +
-El _scope_ es el nexo de unión entre el controlador y la vista de la aplicación. Durante la fase de https://docs.angularjs.org/guide/compiler[linkado]
+El _scope_ es el nexo de unión entre el controlador y la vista de la aplicación. Durante la fase de
+__linkado__footnote:[https://docs.angularjs.org/guide/compiler]
 las directivas establecen expresiones `$watch` en el _scope_. El `$watch` permite que las directivas sean notificadas
 cuando se produce algún cambio en una propiedad, lo que permite a la directiva renderizar el valor actualizado en el
 DOM. Tanto los controladores como las directivas hacen referencias al _scope_, pero no entre ellas. Este acuerdo
@@ -1500,7 +1513,7 @@ definir el MA.
 
 Modelo de Referencia
 ^^^^^^^^^^^^^^^^^^^^
-El http://www.openehr.org/releases/RM/latest/docs/index[Modelo de Referencia] de __open__EHR es una representación de
+El Modelo de Referenciafootnote:[http://www.openehr.org/releases/RM/latest/docs/index] de __open__EHR es una representación de
 los atributos genéricos de la información de la HCE, de su organización y de cómo se agregan, es decir define el
 conjunto de clases que forman los componentes básicos de cualquier HCE, además de la organización de estas clases.
 
@@ -1643,6 +1656,8 @@ orientados a objetos u otros formalismos de definición de conocimiento. Se util
 los arquetipos, donde se definen los conceptos clínicos utilizando restricciones sobre el MR. A continuación se
 muestra un fragmento de la sección _definition_ de un arquetipo de _Presión arterial_, definido por expertos en el
 dominio.
+
+<<<
 
 ----
 definition
@@ -1936,20 +1951,15 @@ casos se suelen hacer adaptaciones locales.
 * La decisión final sobre cuál es el procedimiento clínico más apropiado debería de tener en cuenta el contexto en el
 que se plantea y las preferencias del paciente.
 
-La definición del alcance y los objetivos de una guía clínica es una etapa fundamental en su desarrollo (ver
-<<proceso>>). Del éxito de esta etapa dependerá que el enfoque sea el buscado, facilitando la elaboración de las
-preguntas clínicas a las que dará respuesta la guía. El resultado de esta etapa será un documento que delimite
-claramente los aspectos a tratar, garantizando que la guía responda a los objetivos que se pretenden alcanzar con ella.
+La definición del alcance y los objetivos de una guía clínica es una etapa fundamental en su desarrollo. Del éxito de
+esta etapa dependerá que el enfoque sea el buscado, facilitando la elaboración de las preguntas clínicas a las que
+dará respuesta la guía. El resultado de esta etapa será un documento que delimite claramente los aspectos a tratar,
+garantizando que la guía responda a los objetivos que se pretenden alcanzar con ella.
 
-[[proceso]]
-.Fases del desarrollo de una guía clínica.
-image::proceso.png[scaledwidth="70%"]
 
 [[guide-process]]
 .Fases del desarrollo de una guía clínica.
 image::guide-process.png[scaledwidth="70%"]
-
-
 
 Una guía clínica debe aportar aspectos tales como la justificación para la elaboración de la guía, sus objetivos, la
 descripción de los pacientes objeto de la guía, los aspectos clínicos que van a ser tratados, el ámbito de aplicación,
@@ -2294,6 +2304,8 @@ Utilizando el predicado de la sección _definition_, se establece la precondici�
 código local (gt0105) que representa el significado de _fibrilación auricular_. Este código puede estar ligado a un
 concepto definido formalmente por terminologías externas, _e.g._ SNOMED CT, en la sección _term_bindings_.
 
+<<<
+
 ----
 include::samples/gdl-definition-2.gdl[]
 ----
@@ -2343,17 +2355,66 @@ utilizando un modelo de datos con la finalidad de poder trabajar con ellas desde
 que utilicen la información disponible de sus pacientes, apliquen dichas guías y ayuden a los profesionales sanitarios a
 tomar decisiones  relacionadas con el diagnóstico, el seguimiento y el tratamiento de las enfermedades.
 
-Para ser eficaces, estas herramientas deben estar fundamentadas en el historial del paciente, deben utilizar
-vocabularios médicos estándar, deben tener una semántica clara, deben facilitar el mantenimiento y el intercambio de
-conocimientos y deben ser lo suficientemente expresivos para capturar el razonamiento natural del autor de la guía.
+Para ser eficaces, las guías clínicas deben integrarse con el flujo natural del proceso de atención al paciente y
+proporcionar asesoramiento específico del paciente cuando y donde sea necesario <<PELE13>>. Por lo tanto, la
+formalización como guías interpretables por computadoras hace posible el desarrollo de sistemas de apoyo a la toma de
+decisiones basados en guías clínicas, que tienen un mejor impacto que el que pueden proporcionar las guías o
+protocolos clínicos en forma narrativa.
 
-Además de los mencionados en la <<_guias_clinicas>>, existen multitud de beneficios que proporciona el hecho de tener
-una plataforma de intercambio de guías clínicas, siendo los siguientes los más relevantes:
+Para la representación formal de dichas guías hay que tener en cuenta una serie de factores. El ciclo de vida del
+desarrollo de la representación interpretable de guías incluye la adquisición de conocimientos y las especificaciones
+para un diseño adecuado, además de la elección del lenguaje de modelado, de las metodologías de especificación de las
+guías, de la integración con sistemas de HCE y del flujo de trabajo de la organización, de la verificación y de la
+validación de las guías, de motores de ejecución y herramientas de apoyo, de la gestión de excepciones, del
+mantenimiento de las guías, incluyendo el versionado y la evolución de las mismas y, finalmente, la difusión.
 
-* Evitar la duplicación de esfuerzos cuando se utilizan guías comunes en muchas organizaciones.
-* Difusión rápida de modificaciones.
-* Fomentar el desarrollo de herramientas para recuperar y usar la información de la guía.
-* Estimular a futuros autores a ser más rigurosos (disminución de la ambigüedad).
+[[proceso]]
+.Fases del desarrollo formal de una guía clínica.
+image::proceso.png[scaledwidth="70%"]
+
+La comunidad de Informática de la Salud está desarrollando una serie de métodos para apoyar la informatización de las
+guías clínicas. Los sistemas de apoyo a las decisiones basados en guías clínicas tienen por objeto permitir que los
+últimos conocimientos clínicos sean accesibles y utilizables en el punto de atención y, por tanto, aporten una
+contribución significativa a la calidad y a la seguridad en la asistencia sanitaria. Dichos métodos emplean
+diferentes formalismos de representación y técnicas computacionales. En esta sección veremos tres de los más
+importantes: GDL, GLIF y PRO__forma__, pero existen otros
+formalismosfootnote:[Comparativa de formalismos: http://bit.ly/2eI30m5] que merecen mención, como Arden Syntax, SAGE
+y GELLO.
+
+La reciente adopción, por parte de __open__EHR, de que GDL pase a formar parte de su núcleo de especificaciones
+provoca una serie de necesidades, como son que las guías clínicas deben estar disponibles públicamente para su acceso
+a través de Internet, fomentando de esta manera el intercambio de conocimiento clínico. Deben poder editarse y
+almacenarse, previo criterio de validación, de manera sencilla por parte de la comunidad. El editor GDL implementado
+en Java Swing, debido a su propia naturaleza, presenta una serie de limitaciones que no se pueden acometer o que, por
+lo menos, no merece la pena la inversión de tiempo y dinero en dicha tarea. La solución lógica pasa por la
+elaboración de la herramienta desarrollada en este proyecto, enfocada a la Web, que permite la creación, validación,
+edición y gestión de guías clínicas en formato GDL. Además, dicha herramienta, supone el primer paso hacia una serie
+de funcionalidades que se verán abordadas a corto plazo como la edición colaborativa en tiempo real, resolución de
+conflictos, gestión del historial y de versiones, etc., funcionalidades que no sería posible abordar con la
+herramienta actual.
+
+GLIF, como se verá en la <<_editor_glif>>, presenta similitudes con GDL, tienen la misma finalidad, aunque está
+basado en un modelo de flujo de tareas, a diferencia de GDL que sus elementos principales son los arquetipos clínicos.
+Existen editores que permiten elaborar documentos en formato GLIF. Pero el estado actual de la situación es el
+mismo que en el caso anterior. El editor existente es una aplicación de escritorio, lo que supone una limitación
+para la integración en alguna plataforma de intercambio de conocimiento _online_.
+
+GLIF utiliza GELLO como lenguaje de expresiones. Mei _et al_. informan que GELLO fue útil dentro de un motor de
+reglas para la gestión de enfermedades
+crónicas, pero critican la falta de herramientas que soportan el uso de GELLO <<MEIJ11>>. Koutkias et al. informan
+deficiencias en  la expresividad de GELLO cuando modelan eventos adversos de medicamentos, no pudieron usar GELLO
+para implementar comportamiento dinámico de soporte a la decisión donde diferentes reglas dependen unas de otras en
+su ejecución y notan la falta de una manera de representar alertas en GELLO y su modelo de información (el
+_virtual Mediacl Record_, vMR ) <<KOUT11>>. Una comparación directa con GDL con respecto a estos criterios de este
+trabajo no sería útil, ya  que la GDL está en sus primeras etapas en comparación con GELLO y los estudios mencionados
+abarcan diferentes demandas clínicas.
+
+GDL todavía está en sus primeras etapas de formalización, pero se presagia que tiene un gran futuro por delante. El
+hecho de que sus elementos principales utilicen una aproximación basada en arquetipos clínicos le da una proyección
+que lo diferencia del resto. Las necesidades comentadas anteriormente y las carencias que existen en otras
+aproximaciones, han suscitado interés en empresas de gran relevancia dentro del sector, como es _Cambio Healthcare
+Systems_, y de la organización sin ánimo de lucro __open__EHR, es lo que nos motivado para la elaboración de este
+proyecto.
 
 Editor GDL en Java Swing
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -2372,7 +2433,7 @@ para ciertos cometidos: sólo se puede acceder a la aplicación desde la máquin
 sólo esta aplicación podrá tener acceso a los datos, que se encuentran en condiciones más vulnerables al estar
 almacenados en local. Los procesos de actualización requieren de la intervención por parte del usuario.
 
-La <<swing-1>>, la <<swing-2>> y la <<swing-3>> muestran algunas capturas de pantalla de la herramienta Swing:
+La <<swing-1>>, la <<swing-2>> y la <<swing-3>> muestran capturas de pantalla de la herramienta Swing:
 
 [[swing-1]]
 .Editor GDL Java Swing: selección local de una guía clínica.
@@ -2389,32 +2450,32 @@ image::swing-3.png[scaledwidth="90%"]
 Editor GLIF
 ~~~~~~~~~~~
 GLIF es el acrónimo de GuideLine Interchange Format, se trata de un lenguaje formal que permite modelar, expresar y
-compartir guías clínicas informatizadas. Ha sido desarrollado por _Intermed_, un grupo de investigación en
-colaboración entre las Universidades de Stanford, Harvard y Columbia.
+compartir guías clínicas informatizadas. Ha sido desarrollado por _Intermed_, un grupo de investigación colaborativo
+entre las Universidades de Stanford, Harvard y Columbia.
 
-Actualmente el desarrollo se encuentra en la versión 3 y cuenta con un modelo orientado a objetos. Para realizar el
-modelado de los documentos clínicos, se basa en un algoritmo, utilizando un diagrama de flujo, que diferencia varias
-fases y especifica los valores de los atributos en dichas fases: _accion_, _decisión_, _estado del paciente_, _rama y
-__sincronización__. Se ha desarrollado una herramienta de software para la creación de guías en GLIF, dicha herramienta
-almacena las guías en formato Resource Description Frameworkfootnote:[Framework general para describir
-cualquier recurso en Internet y su contenido: https://www.w3.org/RDF/] (RDF).
+Actualmente el desarrollo se encuentra en la versión 3 y cuenta con un modelo de datos orientado a objetos. Para
+realizar el modelado de los documentos clínicos, se basa en un algoritmo, utilizando un diagrama de flujo, que
+diferencia varias fases y especifica los valores de los atributos en dichas fases: _accion_, _decisión_, _estado del
+paciente_, _rama y __sincronización__. Se ha desarrollado una herramienta de software para la creación de guías en
+GLIF, dicha herramienta almacena las guías en formato Resource Description Frameworkfootnote:[Framework general para
+describir cualquier recurso en Internet y su contenido: https://www.w3.org/RDF/] (RDF).
 
 A continuación, en la <<glif1>>, en la <<glif2>> y en la <<glif3>> se muestran unas capturas de pantalla de dicha
 herramienta.
 
 [[glif1]]
 .Editor de guías clínicas en formato GLIF.
-image::glif4.png[scaledwidth="80%"]
+image::glif4.png[scaledwidth="70%"]
 
 [[glif2]]
 .Editor de guías clínicas en formato GLIF.
-image::glif5.png[scaledwidth="80%"]
+image::glif5.png[scaledwidth="70%"]
 
 [[glif3]]
-.Editor de guías clínicas en formato GLIF.
+.Editor de guías clínicas en formato GLIF/GELLO.
 image::glif7.png[]
 
-GLIFF 3 cuenta con un proceso de modelado de guías en 3 niveles<<PELE00>>:
+GLIF 3 cuenta con un proceso de modelado de guías en 3 niveles<<PELE00>>:
 
 * Nivel A, diagrama de flujo abstracto: a este nivel, las guías se representan como diagramas de flujo, lo que ayuda
 a la conceptualización de la misma y permite su utilización para la navegación, para la búsqueda y para la
@@ -2426,36 +2487,50 @@ las acciones clínicas sobre este y el flujo del algoritmo.
 * Nivel C, integración en entornos informatizados. A este nivel las guías están preparadas para ser incorporadas en
 sistemas informáticos sanitarios.
 
-GLIF usa un lenguaje formal de expresiones, basado en sintaxis
-__Arden__footnote:[http://www.vico.org/hl7/AboutHL7/AboutHL7_StandardDes_01_Ard.pdf] para representar los criterios
-de decisión. La sintaxis _Arden_ es un estándar de HL7 que se usa para representar reglas ECA (Evento-Condición-Acción)
-que representan decisiones médicas simples (alertas, notificaciones, etc.). Por ejemplo, la representación de la
-expresión ``joven no fumador o mujer embarazada'' se  definiría de la siguiente manera:
-----
-((Age > 18 year) and smokingEndTime < now)) or (pregnancyDueDate > now)
-----
+Editor PRO__forma__
+~~~~~~~~~~~~~~~~~~~
+PRO__forma__ <<SUTT03>> es un lenguaje formal para la representación del conocimiento capaz de capturar la estructura
+y el contenido de una guía clínica de forma que pueda ser interpretado por una computadora. El lenguaje constituye
+la base de un método y una tecnología para desarrollar y publicar guías clínicas. Permite definir lógica de
+predicados de primer orden expresado en  notación Backus-Naur Formfootnote:[BNF es una notación formal para describir
+la sintaxis de un lenguaje dado, como la lógica temporal y de razonamiento.] (BNF).
 
-La reciente adopción, por parte de __open__EHR, de que GDL pase a formar parte de su núcleo de especificaciones
-provoca una serie de necesidades, como son que las guías clínicas deben estar disponibles públicamente para su acceso
-a través de Internet, fomentando de esta manera el intercambio de conocimiento clínico. Deben poder editarse y
-almacenarse, previo criterio de validación, de manera sencilla por parte de la comunidad. El editor GDL implementado
-en Java Swing, debido a su propia naturaleza, presenta una serie de limitaciones que no se pueden acometer o que, por
-lo menos, no merece la pena la inversión de tiempo y dinero en dicha tarea. La solución lógica pasa por la
-elaboración de la herramienta desarrollada en este proyecto, enfocada a la Web, que permite la creación, validación,
-edición y gestión de guías clínicas en formato GDL. Además, dicha herramienta, supone el primer paso hacia una serie
-de funcionalidades que se verán abordadas a corto plazo como la edición colaborativa en tiempo real, resolución de
-conflictos, gestión del historial y de versiones, etc., funcionalidades que no sería posible abordar con la
-herramienta actual.
+En PRO__forma__, una guía se modela como un conjunto de tareas y elementos de datos. La noción _tarea_ es
+fundamental: en la <<proforma>> se muestra el modelo de tareas de PRO__forma__, que divide la tarea genérica en
+cuatro tipos: planes, decisiones, acciones y consultas.
 
-GLIF, como se ha visto a lo largo de esta sección, presenta similitudes con GDL, tienen la misma finalidad y permite
-usar arquetipos UNE-EN ISO 13606 y terminologías clínicas para dotar de significado semántico los componentes de las
-guías. Existen editores que permiten elaborar documentos en formato GLIF. Pero el estado actual de la situación es el
-mismo que en el caso anterior. El editor existente es una aplicación de escritorio, lo que supone una limitación
-para la integración en alguna plataforma de intercambio de conocimiento.
+[[proforma]]
+.Desarrollo de guías en PRO__forma__.
+image::proforma.gif[scaledwidth="50%"]
 
-Esta clara necesidad, que ha suscitado interés en empresas de gran relevancia dentro del campo, como es _Cambio
-Healthcare Systems_, y de la organización sin ánimo de lucro __open__EHR, es lo que nos motivado para la elaboración
-de este proyecto.
+Los planes son los componentes básicos de una guía y pueden contener cualquier número de tareas de cualquier tipo,
+incluyendo otros planes. Las decisiones se toman en las situaciones en las que se presentan opciones, _e.g._ si
+tratar a un paciente o no, o una condición de edad, etc. Las acciones típicamente son procedimientos
+clínicos que deben llevarse a cabo, _e.g._ la administración de una inyección. Las consultas son típicamente
+peticiones de información adicional, requeridos antes de que la guía se pueda continuar.
+
+[[asthma]]
+.Modelado visual de una guía con PRO__forma__.
+image::asthma.bmp[scaledwidth="50%"]
+
+La herramienta PRO__forma__ consiste en un editor gráfico para facilitar el proceso de creación, y un motor para
+ejecutar la lógica de la guía. Facilita la elaboración de la guía basándose en los cuatro tipos de tareas, como se
+puede visualizar en el ejemplo de la <<asthma>>. Usando los iconos mostrados en el diagrama, se pueden componer redes
+de tareas que representan planes o procedimientos realizados a lo largo del tiempo. En el editor, las relaciones
+lógicas y temporales entre las tareas se capturan de forma natural enlazándolas según sea necesario con las flechas.
+Cualquier conocimiento procedimental y médico requerido por la guía como un todo o como una tarea individual se
+introduce utilizando plantillas vinculadas a cada tarea.
+
+*Herramientas* +
+
+La primera implementación de software para crear, visualizar y ejecutar guías clínicas modeladas con PRO__forma__ fue
+_Arezzo_, ahora un producto comercial disponible de InferMed Ltd., con sede en Londres. _Arezzo_ consiste en un
+_Composer_ (herramienta de creación de conocimiento gráfico) y _Performer_ (probador de aplicaciones y motor de
+ejecución). Las aplicaciones _Arezzo_ están diseñadas para ejecutarse en plataformas Microsoft Windows.
+
+_Tallis_ es una nueva implementación en Java de herramientas de creación y ejecución basadas en PRO__forma__,
+desarrollada por _Cancer Research UK_. Consiste en un _Compositor_ (para facilitar la creación, la edición y la
+visualización de manera gráfica), un _Tester_ y motor (para representar formalmente las guías).
 
 Métodos
 -------
@@ -2912,7 +2987,6 @@ todas las guías disponibles.
 .Flujo de trabajo del sistema.
 image::workflow.png[]
 
-
 Las acciones que tienen lugar entre los diferentes componentes, que se enumeran en el diagrama de la <<workflow>>, son:
 
 . El usuario selecciona una guía del listado de guías clínicas.
@@ -2920,7 +2994,8 @@ Las acciones que tienen lugar entre los diferentes componentes, que se enumeran 
 . En este momento, la aplicación AngularJS, hace una petición GET de la guía y de los arquetipos involucrados en la
 misma al componente _km-server.war_.
 . El componente _km-server.war_ recibe dicha petición, ejecuta su lógica de negocio asociada y hace la consulta
-correspondiente a la base de datos _CDS_, que  se alberga en un sistema gestor de bases de datos relacional PostgreSQL.
+correspondiente a la base de datos _CDS_ (Clinical Decisin Support), que  se alberga en un sistema gestor de bases de
+datos relacional PostgreSQL.
 . La base de datos recibe dicha consulta, la ejecuta y devuelve el resultado al componente _km-server.war_.
 . El componente que _km-server.war_ genera una representación en formato JSON y la envía a la aplicación AngularJS.
 
@@ -2988,7 +3063,6 @@ La segunda tarea de esta iteración se ha centrado en la funcionalidad básica c
  _backend_. Para que esto sea posible, el caso de uso (ver <<use-cases-iter-1>>) que se ha de implementar es el que
  permita navegar entre las guías clínicas (_Browse clinical guidelines_), el cual se describe a continuación.
 
-[discrete]
 Descripción de los casos de uso
 +++++++++++++++++++++++++++++++
 A continuación se describe el caso de uso _Browse clinical guidelines_.
@@ -3084,9 +3158,8 @@ clínicas.
 
 * `ui.router`: solución _de facto_ para el enrutado de vistas en SPAs. Este tipo de enrutado modela las aplicaciones
 como un árbol de estados jerárquico, cada estado se corresponde con una vista (con su controlador asociado).
-Proporciona una
-https://en.wikipedia.org/wiki/Finite-state_machine[máquina de estados] que permite gestionar las transiciones entre
-dichos estados.
+Proporciona una máquina de estadosfootnote:[https://en.wikipedia.org/wiki/Finite-state_machine] que permite gestionar
+las transiciones entre dichos estados.
 
 * `ui.bootstrap`: componente con un conjunto de directivas AngularJS nativas basadas en el marcado de Bootstrap y en
 CSS.
@@ -3128,18 +3201,20 @@ Implementación
 Como se ha comentado en la <<_analisis, sección de análisis>> se ha optado por seguir una aproximación LIFT para la
 estructura de directorios del proyecto.
 
+<<<
+
 ----
 app/
---- assets/                     // Recursos para la aplicación
------- css/                     // Ficheros relacionados con los estilos
------- img/                     // Imágenes e iconos de la aplicación
------- mocks/                   // Mocks utilizados para los tests unitarios, como respuestas de servicios web
---- components/                 // Cada componente se trata como una mini-aplicación AngularJS
+--- assets/                                       <1>
+------ css/                                       <2>
+------ img/                                       <3>
+------ mocks/                                     <4>
+--- components/                                   <5>
 ------ common/
 ------ expression-editor/
 ------ layout/
------- modals/                  // Los modales de la aplicación, como componentes reutilizables
------- tabs/                    // Cada una de las principales funcionalidades del editor
+------ modals/                                    <6>
+------ tabs/                                      <7>
 --------- tab-binding/
 --------- tab-definitions/
 --------- tab-description/
@@ -3156,20 +3231,30 @@ app/
 --- config/
 ------ constants.js
 ------ http.js
------- routes.js                // Enrutado, para que la SPA no tenga que recargar la página entera durante la navegación
+------ routes.js                                  <8>
 --- lib/
 --- app.js
 --- index.html
-docs/                           // Documentación de la aplicación
+docs/                                             <9>
 --- output/
 --- source/
 --- diagramas.astah
-e2e-tests/                      // Tests end-to-end
+e2e-tests/                                        <10>
 --- protractor.conf.js
 --- scenarios.js
 bower.json
 package.json
 ----
+<1> Recursos de la aplicación.
+<2> Ficheros relacionados con los estilos
+<3> Imágenes e iconos de la aplicación
+<4> Mocks utilizados para los tests unitarios, como respuestas de servicios web
+<5> Cada componente se trata como una mini-aplicación AngularJS
+<6> Los modales de la aplicación, como componentes reutilizables
+<7> Cada una de las principales funcionalidades del editor
+<8> Enrutado, para que la SPA no tenga que recargar la página entera durante la navegación
+<9> Documentación de la aplicación
+<10> Tests _end-to-end_
 
 El esquema anterior muestra una aproximación modularizada para construir aplicaciones AngularJS. Para la
 implementación de la primera iteración vamos a detallar los componentes que se han desarrollado para implementar la
@@ -3222,7 +3307,7 @@ Node.js.
 
 Para gestionar la navegación de la aplicación entre las diferentes vistas se ha utilizado el módulo `ui-router`, el
 cual permite cargar varias vistas simultáneamente en una misma página. La <<composite-view>> muestra una
-representación gráfica del patrón https://tiles.apache.org/framework/tutorial/pattern.html[Composite View], patrón
+representación gráfica del patrón Composite Viewfootnote:[https://tiles.apache.org/framework/tutorial/pattern.html], patrón
 clásico a la hora de desarrollar la capa de presentación, el cual define que la vista puede estar compuesta por varias
 subvistas que se actualizan de forma independiente.
 
@@ -3274,7 +3359,7 @@ relacionados en la tarea de _Navegar guías clínicas_ dedicada a esta iteració
  asociada se inserta automáticamente en la directiva `ui-view` de la plantilla asociada a su estado padre, con la
  excepción de que si es un estado de primer nivel, la plantilla (o vista) de su estado padre es `index.html`.
 
-En `index.html` se cuenta con dos https://docs.angularjs.org/guide/component[componentes], uno que define un panel
+En `index.html` se cuenta con dos componentesfootnote:[https://docs.angularjs.org/guide/component], uno que define un panel
 que indica la guía seleccionada y otro que define un conjunto de pestañas donde, cada una de ellas, va a permitir crear,
 editar o eliminar ciertas características de las guías clínicas.
 
@@ -3300,6 +3385,8 @@ Tal como indica el `routes.js`, esta vista tiene asociado un controlador con un 
 Este controlador se llama `GuidelineCtrl` y es definido en `tab.guidelines.controller.js`, a continuación se muestra
 dicho controlador.
 
+<<<
+
 [source,python]
 ----
 include::../../app/components/tabs/tab-guidelines/tab.guidelines.controller.js[]
@@ -3319,8 +3406,9 @@ include::../../app/components/tabs/tab-guidelines/tab.guidelines.service.js[]
 
 A su vez, este servicio, hace uso de los servicios nativos de AngularJS `$http` y `$q`. El primero se usa para la
 comunicación con servidores HTTP remotos y el segundo para la ejecución de funciones asíncronas y la utilización de
-los valores devueltos por dichas funciones. Se trata de una implementación compatible con https://promisesaplus.com/[Promises/A+],
-una implementación de promesas/objetos diferidos basado en https://github.com/kriskowal/q[Q de Kris Kowal].
+los valores devueltos por dichas funciones. Se trata de una implementación compatible con
+Promises/A+footnote:[https://promisesaplus.com/], una implementación de promesas/objetos diferidos basado en
+Q de Kris Kowalfootnote:[https://github.com/kriskowal/q].
 
 Lo que se ha obtenido en esta primera iteración es la definición de la estructura global del proyecto y la
 funcionalidad básica de la primera vista. En siguientes iteraciones, por tratarse de funcionalidades más complejas se
@@ -3344,6 +3432,8 @@ configuración necesaria para la ejecución de los tests. Como se ha mencionado,
 utilizado el _testrunner_ Karma, el cual necesita un fichero de configuración denominado `karma.conf` y que tiene que
 estar en el directorio raíz del proyecto. A continuación se muestra el contenido de dicho fichero para nuestro proyecto.
 
+<<<
+
 [source,python]
 ----
 include::../../karma.conf.js[]
@@ -3360,8 +3450,8 @@ open source para AngularJS: https://jasmine.github.io/]. En `browsers` se indica
 iniciar y capturar. Cuando Karma se inicia, también se iniciará cada navegador que se indique dentro de este elemento.
 Una vez que Karma se cierre, también cerrará estos navegadores. Puede capturar manualmente cualquier navegador
 abriendo el navegador y visitando la URL donde está escuchando el servidor web Karma
-(por defecto es http://localhost:9876/). El ajuste `plugins` se utiliza para indicar una lista de plugins a cargar
-(ver http://karma-runner.github.io/1.0/config/plugins.html[plugins] para más información). Por último,
+(por defecto es http://localhost:9876/). El ajuste `plugins` se utiliza para indicar una
+listafootnote:[http://karma-runner.github.io/1.0/config/plugins.html] de plugins a cargar. Por último,
 `junit-reporter` es uno de los plugins cargados donde le indicamos donde queremos que nos almacene los informes
 generados.
 
@@ -3369,9 +3459,6 @@ Para la primera iteración se han realizado tests unitarios para comprobar que t
 hacen lo que tienen que hacer, así como un test _end-to-end_ sencillo que se asegura que el enrutado está funcionando
 correctamente.
 
-[discrete]
-Probando el controlador `tab.guidelines.controller.js`
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++
 A continuación se detalla el procedimiento de pruebas para el controlador `tab.guidelines.controller.js` que se ha
 utilizado para la obtención de las guías clínicas. La librería `angular-mocks` que se ha añadido en el fichero `karma.conf`
 proporciona un servicio llamado `$controller` que se puede utilizar para testear un controlador. En el
@@ -3390,9 +3477,6 @@ mensaje de error en caso de fallo sea igual a `false`. Por otro lado se comprueb
 funciona correctamente, tanto si obtienen las guías de forma satisfactoria (`deferred.resolve`) como que se muestra el
 mensaje de error correspondiente cuando, por algún motivo, se ha producido un error (`deferred.reject`).
 
-[discrete]
-Probando el servicio `tab.guidelines.service.js`
-+++++++++++++++++++++++++++++++++++++++++++++++++
 A continuación se detalla el procedimiento de pruebas para el servicio `tab.guidelines.service.js`, que hace una
 petición HTTP para obtener las guías clínicas disponibles en el servidor. Siempre que se utiliza el servicio nativo
 `$http` para hacer una llamada remota, AngularJS utiliza por detrás otro servicio llamado `$httpBackend` que es el que
@@ -3424,7 +3508,6 @@ Para cumplir los objetivos marcados para esta segunda iteración, se implementan
 _Editar definiciones_ de una guía clínica. Para ello se hace un refinamiento de ambos casos de uso, estudiándolos con
 un nivel de detalle más fino.
 
-[discrete]
 Descripción de los casos de uso
 +++++++++++++++++++++++++++++++
 
@@ -3572,8 +3655,10 @@ include::samples/description.html[]
 <1> Uso de una directiva _transform-date_ para la manipulación de fechas.
 
 Cabe mencionar el desarrollo de una directiva para la gestión de fechas. En AngularJS la manipulación de cualquier
-elemento del DOM debe realizarse mediante una https://docs.angularjs.org/guide/directive[directiva]. A continuación se
+elemento del DOM debe realizarse mediante una directivafootnote:[https://docs.angularjs.org/guide/directive]. A continuación se
 muestra el código de la directiva `transformDate`.
+
+<<<
 
 [source,python]
 ----
@@ -3638,6 +3723,8 @@ El objeto de configuración de este árbol se define en el controlador, se hace 
 `$callbacks` del módulo, denominado `beforeDrop`, que se llama justo antes de que el objeto arrastrado sea soltado,
 de manera que antes de soltar el elemento, genere la instanciación que corresponda.
 
+<<<
+
 [source, python]
 ----
 vm.treeDefinitions = {
@@ -3664,7 +3751,7 @@ Como puede verse en el fragmento anterior, se utiliza un servicio denominado `de
 instanciación correspondiente dependiendo del nodo del panel derecho que se haya seleccionado. El panel principal
 renderiza los `archetypeBindings` de la guía. En el modelo, un `archetypeBinding` se representa mediante un objeto JSON
 con la siguiente estructura:
-
+ +
 ----
 {
   "id": "gt0016",                                                           <1>
@@ -3751,7 +3838,6 @@ Para cumplir los objetivos marcados para esta tercera iteración, se implementan
 reglas_ y _Editar precondiciones_ de una guía clínica. Para ello se descomponen ambos casos de uso en factores de
 casos de uso más simples.
 
-[discrete]
 Descripción de los casos de uso
 +++++++++++++++++++++++++++++++
 
@@ -3864,7 +3950,7 @@ condiciones y un panel inferior para las acciones. Cada uno de estos paneles tie
 donde se muestran las definiciones de las reglas y un panel lateral con los componentes _drag and drop_ necesarios
 para la creación de dichas reglas, cuya funcionalidad se describió en la subsección de <<analisis-3, Análisis>>.
 Tanto el código de la vista como el del controlador del editor de reglas no se muestran en la memoria por motivos de
-espacio, pero se puede acceder al mismo en el https://github.com/jbarcas/angular-gdl-editor[repositorio de GitHub].
+espacio, pero se puede acceder al mismo en el repositorio de GitHubfootnote:[https://github.com/jbarcas/angular-gdl-editor].
 Cabe mencionar, como se puede ver en la <<classes-iter-3>>, que se han desarrollado dos servicios `ConditionFactory` y
 `ActionFactory` sobre los que el controlador `RuleEditorCtrl` delega la funcionalidad de las condiciones y de las
 acciones respectivamente del editor de reglas. Se ha hecho de esta manera para simplificar y delimitar mejor las
@@ -3958,7 +4044,6 @@ guía clínica, así como una visualización en formato HTML de modo que el usua
 toda la información relacionada con la guía. Asimismo se necesita cubrir el caso de uso relacionado con el
 almacenamiento de la guía modificada en el _backend_.
 
-[discrete]
 Descripción de los casos de uso.
 +++++++++++++++++++++++++++++++
 
@@ -4206,8 +4291,8 @@ Ejemplo de aplicación
 ~~~~~~~~~~~~~~~~~~~~~
 Una vez terminado el desarrollo, en esta sección se muestra un ejemplo de la correspondencia entre las acciones del
 usuario en la interfaz gráfica y el efecto que tienen en la guía. Para ello nos basamos en el ejemplo de GDL mostrado
-en la <<_ejemplo_de_guia_gdl>> sobre el cálculo del
-https://es.wikipedia.org/wiki/Escala_CHA2DS2-VASc[CHA2DS2VASc Score].
+en la <<_ejemplo_de_guia_gdl>> sobre el cálculo del CHA2DS2VASc
+Scorefootnote:[https://es.wikipedia.org/wiki/Escala_CHA2DS2-VASc].
 
 Pestaña _Description_
 +++++++++++++++++++++
@@ -4325,6 +4410,8 @@ establecen los valores correspondientes a los DV_ORDINALsfootnote:[Tipo de dato 
 arquetipo correspondiente, en este caso el arquetipo CHA2DS2-VASc. La regla `gt0026`, _Calcular puntuación total_
 suma todos los valores y asigna dicho valor a la puntuación total.
 
+<<<
+
 ----
 include::samples/gdl-rules.gdl[]
 ----
@@ -4438,7 +4525,8 @@ datos dentro de las expresiones dentro de las dobles llaves `{{}}`.
 * Navegación 'Go to the symbol' para entidades.
 * Incorpora una colección de plantillas predefinidas.
 * Búsqueda rápida de documentación pulsando `Ctrl + Q`. Ver
-https://www.jetbrains.com/help/webstorm/viewing-inline-documentation.html[documentación on-line] para más detalles.
+documentación on-linefootnote:[https://www.jetbrains.com/help/webstorm/viewing-inline-documentation.html]
+para más detalles.
 * Soporte para diagramas `ui-router` de AngularJS.
 * Cuenta con un depurador de aplicaciones cliente y Node.js muy sencillo de utilizar que permite la colocación de
 puntos de interrupción en el código, explorar la pila de llamadas y variables, el uso de _timers_ y ofrece una consola
@@ -4460,7 +4548,7 @@ comerciales. Dicha comunidad se denomina PGDG (_PostgreSQL_ Global Development G
 diferentes motivos: proporciona ahorros considerables de costes de operación, se trata de un sistema estable y
 confiable ya que no se han presentado caídas importantes de la base de datos, es extensible, multiplataforma y
 diseñado para contextos con altos volúmenes de datos. Además posee una herramienta gráfica de administración bastante
-potente y sencilla de utilizar denominado https://www.pgadmin.org/[pgAdmin]. Proporciona una buena escalabilidad y un
+potente y sencilla de utilizar denominado pgAdminfootnote:[https://www.pgadmin.org/]. Proporciona una buena escalabilidad y un
 buen sistema de seguridad.
 
 Servidor de aplicaciones JBoss Server EAP 6.2
@@ -4509,7 +4597,7 @@ definición de entidades, etc.
 
 AsciiDoc como herramienta de generación de documentación
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Esta memoria ha sido utilizando _AsciiDoc_ (ver https://github.com/jbarcas/angular-gdl-editor/blob/master/docs/source/memoria.txt[código fuente]),
+Esta memoria ha sido utilizando _AsciiDoc_ (ver código fuentefootnote:[https://github.com/jbarcas/angular-gdl-editor/blob/master/docs/source/memoria.txt]),
 se trata tanto del propio formato del fichero fuente como de la herramienta que compila dicho fichero a un documento
 de salida. AsciiDoc es un lenguaje de marcado ligero para la creación de notas, artículos, documentación, libros,
 páginas web, diapositivas y manual en texto plano. Los archivos de AsciiDoc se pueden traducir a muchos formatos
@@ -4523,7 +4611,7 @@ usuario. _AsciiDoc_ es un software libre y está bajo los términos de la Licenc
 Un documento _AsciiDoc_ se escribe de la misma manera que escribiría un documento de texto normal, no hay etiquetas de
 marcado o notación de formato extraño. Los archivos _AsciiDoc_ están diseñados para ser vistos, editados e impresos
 directamente o traducidos a otros formatos de presentación usando el comando
-http://www.methods.co.nz/asciidoc/manpage.html[asciidoc].
+http://www.methods.co.nz/asciidoc/manpage.html[`asciidoc`].
 
 El comando `asciidoc` traduce archivos _AsciiDoc_ a marcado HTML, XHTML y DocBook. DocBook puede ser post-procesado a
 formatos de presentación como HTML, PDF, EPUB, DVI, LaTeX, roff y Postscript utilizando herramientas Open Source
@@ -4544,7 +4632,7 @@ un historial completo de confirmaciones.
 
 [[git]]
 .Desarrollo distribuido de _Git_.
-image::git.png[scaledwidth="60%"]
+image::git.png[scaledwidth="80%"]
 
 Tener una historia local completa hace que _Git_ sea rápido, ya que significa que no necesita una conexión de red para
 crear _commits_, inspeccionar versiones anteriores de un archivo o realizar _diffs_ entre _commits_. Aunque no aplica al
@@ -4565,13 +4653,13 @@ el servicio de Integración Continua distribuido _Travis CI_.
 
 ProjectLibre como software de gestión de proyectos
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-_ProjectLibre_, anteriormente denominada _OpenProj_ es un software de administración de proyectos diseñado como
-sustituto de completo para Microsoft Project, capaz de abrir archivos de proyecto nativos de dicho programa.
-ProjectLibre fue desarrollado por Projity en 2007. Se ejecuta en la máquina virtual de Java, lo que permite
-ejecutarlo en una gran variedad de sistemas operativos.
+__ProjectLibre__footnote:[https://www.projectlibre.com], anteriormente denominada _OpenProj_ es un software de
+administración de proyectos diseñado como sustituto de completo para Microsoft Project, capaz de abrir archivos de
+proyecto nativos de dicho programa. ProjectLibre fue desarrollado por Projity en 2007. Se ejecuta en la máquina
+virtual de Java, lo que permite ejecutarlo en una gran variedad de sistemas operativos.
 
-OpenProj dejó de estar en fase beta con el lanzamiento de la versión 1.0, el 10 de enero de 2008. Actualmente es
-mantenido por https://www.projectlibre.com[ProjectLibre]. Es una versión gratuita y soporta las siguientes
+_OpenProj_ dejó de estar en fase beta con el lanzamiento de la versión 1.0, el 10 de enero de 2008. Actualmente es
+mantenido por ProjectLibre. Es una versión gratuita y soporta las siguientes
 características:
 
 * Costos de valor acumulado.
@@ -4595,7 +4683,7 @@ más de veinte idiomas.
 Travis CI como herramienta de integración continua
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Se ha una metodología ágil para el desarrollo de esta aplicación. Como es usual en este tipo de
-metodologías se ha utilizado una herramienta de Integración Continua (IC), https://travis-ci.org/[_Travis CI_], Se
+metodologías se ha utilizado una herramienta de Integración Continua (IC), __Travis CI__footnote:[https://travis-ci.org/], Se
 trata de un servicio de IC alojado, distribuido utilizado para construir y probar proyectos de software alojados en
 GitHub.
 
@@ -4611,11 +4699,13 @@ tests que se ejecutaron cuando se realizó dicho _commit_.
 image::travis.png[scaledwidth="85%"]
 
 Travis CI se configura añadiendo un archivo denominado `.travis.yml`, que es un archivo de texto en formato
-https://en.wikipedia.org/wiki/YAML[YAML], al directorio raíz del proyecto. Este archivo especifica el lenguaje
+YAMLfootnote:[https://en.wikipedia.org/wiki/YAML], al directorio raíz del proyecto. Este archivo especifica el lenguaje
 de programación utilizado, el entorno de construcción y pruebas deseado (incluidas las dependencias que deben
 instalarse antes de que el software pueda ser construido y probado), además de otros parámetros de configuración.
 
 A continuación se muestra el contenido del fichero `.travis.yml` utilizado en este proyecto.
+
+<<<
 
 ----
 include::../../.travis.yml[]
@@ -4793,9 +4883,8 @@ adjuntan al elemento correspondiente. A continuación, se podrá acceder a estas
 directiva y vinculación causaron la sustitución (_e.g._ `<!-- ngIf: shouldShow () -->`).
 
 Esta información la necesitan herramientas como Protractor (ver <<protractor-testing>>) o
-https://chrome.google.com/webstore/detail/angularjs-batarang/ighdmehidhipcmcojjgiloacoafjmpfk[Batarang] para su
-ejecución, pero deben ser deshabilitadas en producción para una mejora significativa en el rendimiento. Se puede
-llevar a cabo de la siguiente manera:
+Batarangfootnote:[https://github.com/angular/batarang] para su ejecución, pero deben ser deshabilitadas en producción
+para una mejora significativa en el rendimiento. Se puede llevar a cabo de la siguiente manera:
 
 [source, python]
 ----
@@ -4857,7 +4946,7 @@ angular.module('myApp', [])
 ----
 
 Cuando se instancia el servicio `willBreak`, AngularJS lanzará una excepción debido al modo estricto. Esto es útil
-cuando  se utilizan herramientas como https://github.com/olov/ng-annotate[ng-annotate] para asegurarse de que todos
+cuando  se utilizan herramientas como https://github.com/olov/ng-annotate[`ng-annotate`] para asegurarse de que todos
 los componentes de la aplicación tengan anotaciones.
 
 Si está utilizando una inicialización manual de la aplicación, también puede usar _Strict DI_ indicando
@@ -4905,21 +4994,21 @@ https://docs.angularjs.org/api/ng/provider/$compileProvider#cssClassDirectivesEn
 
 Resultados
 ----------
-En esta sección se presentan los resultados obtenidos del proyecto, que muestran una mejora general con respecto a lo
-existente, lo cual se consigue permitiendo la edición de guías clínicas GDL a través de Internet utilizando un
-navegador web. A continuación se destacan los aspectos más importantes de dichos resultados, esta aplicación web:
+El principal resultado de este trabajo es una aplicación web para la gestión de guías clínicas basadas en arquetipos
+y expresadas en lenguaje GDL. Esta aplicación permite gestionar ficheros GDL de forma rápida e intuitiva usando un
+navegador web y está preparada para ser integrada con el CKM de openEHR. Además, la aplicación desarrollada:
 
-* Permitirá a los profesionales sanitarios la creación, validación, edición y gestión de guías clínicas en formato GDL
-desde una plataforma colaborativa, con los consiguientes beneficios que ello conlleva, como evitar la duplicación de
+* Permitirá a los expertos en el dominio clínico la creación, validación, edición y gestión de guías clínicas en formato
+GDL desde una plataforma colaborativa, con los consiguientes beneficios que ello conlleva, como evitar la duplicación de
 esfuerzos al utilizar guías comunes, la rápida diseminación de las modificaciones, el fomento del desarrollo de
 nuevas herramientas para recuperar y usar la información de las guías y el fomento de la creación de guías más
 rigurosas (con menos ambigüedad) por parte de los autores.
 
-* Al ser una aplicación web, accesible a todo el mundo a través de Internet, se ha creado un mecanismo que brinda la
-oportunidad a los profesionales sanitarios a que colaboren en la creación de conocimiento clínico y puedan llevar a
-cabo un consenso sobre sus guías clínicas.
+* Facilita la gestión de guías clínicas de manera colaborativa. Al ser una aplicación web, accesible a todo el mundo a
+través de Internet, se ha creado un mecanismo que brinda la oportunidad a los profesionales sanitarios a que
+colaboren en la creación de conocimiento clínico y puedan llevar a cabo un consenso sobre sus guías clínicas.
 
-* La aplicación está preparada para ser integrada en el CKM de __open__EHR
+* Ha sido diseñada para ser fácilmente integrada en el CKM de __open__EHR
 (http://www.openehr.org/ckm[www.openehr.org/ckm]) y, en general, en cualquier servidor que soporte el despliegue de
 aplicaciones web.
 
@@ -4946,24 +5035,25 @@ Conclusiones
 A continuación se mencionan las principales conclusiones que se han obtenido tras la realización de este proyecto.
 
 * Actualmente existe una necesidad importante en el contexto médico de disponer de sistemas que permitan interoperar
-a nivel semántico de manera universal. De poco sirve que las organizaciones representen sus procedimientos
-en forma de guías de práctica clínica si no se comparten o si se comparten sin preservar su significado. Estas
-representaciones del conocimiento clínico deben estar disponibles públicamente para que puedan ser utilizadas por los
-sistemas sanitarios y para que los profesionales puedan generar, discutir, modificar y aprobar las guías de manera
-colaborativa a través de plataformas de intercambio de conocimiento.
+a nivel semántico de manera universal. El hecho de que las organizaciones representen sus procedimientos en forma de
+guías de práctica clínica y estas no sean compartidas (o sí lo sean, pero sin preservar su significado) resta
+utilidad a la adopción de este tipo de herramientas. Estas representaciones del conocimiento clínico deben estar
+disponibles públicamente para que puedan ser utilizadas por otros sistemas sanitarios y para que los profesionales
+puedan generar, discutir, modificar y aprobar las guías de manera colaborativa a través de plataformas de intercambio
+de conocimiento.
 
-* La utilización de guías clínicas basadas en estándares de interoperabilidad va a permitir almacenar la información
-relacionada con la guía de una manera normalizada. Esta normalización de los datos provocará un impacto
+* La utilización de guías clínicas basadas en estándares de interoperabilidad permiten almacenar la información
+relacionada con la guía de una manera normalizada. Esta normalización de los datos tendrá un efecto
 positivo en investigación sanitaria, farmacéutica, estadística y, en general, en todas aquellas actividades en las que
 la información deba viajar de una organización a otra.
 
 * El contexto en el que reside este proyecto se encuentra en auge hoy en día a nivel internacional. En España el
-https://www.msssi.gob.es/profesionales/hcdsns/areaRecursosSem/Rec_mod_clinico_arquetipos.htm[Ministerio de Sanidad]
-está fomentando el uso de arquetipos clínicos en las herramientas de software médico con la idea de
-que, en un futuro, sea obligatoria la comunicación de registros clínicos electrónicos utilizando este tipo de normas.
-La mayoría gobiernos a nivel internacional están trabajando en el mismo sentido apostando por la interoperabilidad
-semántica en la medicina, ya que es evidente la necesidad de que la información sanitaria del ciudadano pueda estar
-accesible desde cualquier lugar y en cualquier momento.
+Ministerio de Sanidad está fomentando el uso de arquetipos
+clínicosfootnote:[https://www.msssi.gob.es/profesionales/hcdsns/areaRecursosSem/Rec_mod_clinico_arquetipos.htm] en las herramientas de software médico
+con la idea de que, en un futuro, sea obligatoria la comunicación de registros clínicos electrónicos utilizando este
+tipo de normas. La mayoría gobiernos a nivel internacional están trabajando en el mismo sentido apostando por la
+interoperabilidad semántica en la medicina, ya que es evidente la necesidad de que la información sanitaria del
+ciudadano pueda estar accesible desde cualquier lugar y en cualquier momento.
 
 * La curva de aprendizaje de estos estándares para desarrolladores es compleja debido a la dificultad de
 representación de los datos clínicos, algo que es abordable con la normalización. Actualmente, en este área, se está
@@ -4972,8 +5062,8 @@ desarrollo de herramientas que soporten estándares de interoperabilidad.
 
 * A pesar de ser un ámbito en auge, no existen muchas herramientas para representar el conocimiento médico utilizando
 estándares de  interoperabilidad. Para la edición de arquetipos clínicos existen muy pocas herramientas, (todas
-son aplicaciones de escritorio) como http://www.linkehr.com/[LinkEHR] y
-http://www.openehr.org/downloads/archetypeeditor/home:[Archetype Editor].
+son aplicaciones de escritorio) como LinkEHRfootnote:[http://www.linkehr.com/] y
+Archetype Editorfootnote:[http://www.openehr.org/downloads/archetypeeditor/home].
 
 * El framework AngularJS es adecuado para la construcción de aplicaciones web de una sola página, como la desarrollado
 en este proyecto, facilitando considerablemente la construcción del software, el mantenimiento y la prueba de
@@ -5020,15 +5110,14 @@ explícitamente, o con patrones de expresiones regulares, qué arquetipos acepta
 dicho nodo. Es una situación poco común, pero la versión actual del editor GDL no puede resolver dichos _slots_. Se
 pretende resolver esta situación a corto plazo.
 
-* Por último, mencionar el objetivo no alcanzado de la ejecución de guías clínicas. Como se comentó en el
-apartado anterior la funcionalidad de la compilación de guías está disponible en el _backend_. Se trata de una
-utilidad adicional que permite la ejecución de las guías para que puedan probarse. Dicha funcionalidad generará un
-formulario con un conjunto de entradas basado en el contenido definido en la guía. Estos datos se usarán para
-ejecutar las reglas definidas en la guía y presentar el resultado con los valores calculados. Un ejemplo sencillo,
-sobre la guía creada en el Manual de usuario, cálculo del Índice de Masa Corporal (IMC), sería la implementación de un
-componente gráfico que al utilizarlo renderizase un formulario para que se introdujese el peso y la altura del
-individuo, la ejecución se realizaría en el servidor teniendo en cuenta las reglas y las precondiciones y el sistema
-devolvería los datos calculados al usuario.
+* Como se comentó en el apartado anterior la funcionalidad de la compilación de guías está disponible en el _backend_.
+Se trata de una utilidad adicional que permite la ejecución de las guías para que puedan probarse. Dicha
+funcionalidad generará un formulario con un conjunto de entradas basado en el contenido definido en la guía. Estos
+datos se usarán para ejecutar las reglas definidas en la guía y presentar el resultado con los valores calculados. Un
+ejemplo sencillo, sobre la guía creada en el Manual de usuario, cálculo del Índice de Masa Corporal (IMC), sería la
+implementación de un componente gráfico que al utilizarlo renderizase un formulario para que se introdujese el peso y
+la altura del individuo, la ejecución se realizaría en el servidor teniendo en cuenta las reglas y las precondiciones
+y el sistema devolvería los datos calculados al usuario.
 
 
 Índice de abreviaturas
@@ -5046,6 +5135,7 @@ se han utilizado en este documento.
 |API          |Application Programming Interface
 |AS           |Application Server
 |ASP          |Active Server Pages
+|BNF          |Backus-Naur Form
 |cADL         |Constraint ADL
 |CDA          |Clinical Document Architecture
 |CDISC        |Clinical Data Interchange Standards Consortium
@@ -5057,7 +5147,6 @@ se han utilizado en este documento.
 |dADL         |Definition ADL
 |DOM          |Document Object Model
 |EDT          |Estructura de Descomposición del Trabajo
-|ECA          |Evento-Condición-Acción
 |EJB          |Enterprise JavaBean
 |GDL          |Guideline Definition Language
 |GLIF         |GuideLine Interchange Format,
@@ -5101,6 +5190,7 @@ se han utilizado en este documento.
 |UML          |Unified Modeling Language
 |UNE-EN       |Una Norma Española - European Norm
 |URL          |Uniform Resource Locator
+|vMR          |virtual Medical Record
 |XHR          |XMLHttpRequest
 |XML          |Extensible Markup Language
 |===
@@ -5505,12 +5595,9 @@ Bibliografía
 - [[[WARN61]]] H. Warner, A. Toronto, L. Veasey, R. Stephenson, ``Mathematical approach to medical diagnosis'' MD Comput, 1992.
 - [[[EDWA77]]] E. Shortliffe, ``Mycin: A Knowledge-Based Computer Program Applied to Infectious Diseases''. Stanford University School of Medicine, 1977. Disponible en: ttps://www.ncbi.nlm.nih.gov/pmc/articles/PMC2464549/pdf/procascamc00015-0074.pdf.
 - [[[RAND86]]] R. Miller, M. McNeil, S. Challinor, F. Masarie, J. Myers, ``The INTERNIST-1/Quick medical reference Project', University of Pittsburgh School of Medicine, Pittsburgh, 1986.
-- [[[GULL06]]] M. Gulliford, S. Naithani, M. MorganWhat, ``What is continuity of care?''. Journal of Health Services Research & Policy, DOI: 10.1258/135581906778476490, 2006
-- [[[ISOH08]]] ISO 13606, “Health informatics - Electronic health record communication - Part 1: Reference model. International Organization for Standardization, 2008.
-- [[[ISOG08]]] ISO 13606, “Health informatics - Electronic health record communication - Part 2: Archetype interchange specification”. International Organization for Standardization, 2008.
-- [[[ISOD08]]] International Organization for Standardization. ISO/DIS 21090. Health Informatics — Harmonized data types for information interchange. Geneva. © ISO 2008.
 - [[[MICH11]]] M. Yuan, ``Watson and healthcare:  How natural language processing and semantic search could revolutionize clinical decision support''. Developer Works, IBM. 2011. Disponible en: https://www.ibm.com/developerworks/library/os-ind-watson/os-ind-watson-pdf.pdf
 - [[[LEHM06]]] H. Lehman, P. Abbott, N. Roderer, A. Rothschild, _et al._ ``Aspects of electronic Health Record Systems''. Springer, 2006.
+- [[[GULL06]]] M. Gulliford, S. Naithani, M. MorganWhat, ``What is continuity of care?''. Journal of Health Services Research & Policy, DOI: 10.1258/135581906778476490, 2006
 - [[[WEBA17]]] Wikipedia en español. URL: https://es.wikipedia.org/wiki/Aplicaci%C3%B3n_web. Último acceso: junio 2017.
 - [[[MACC11]]] A. MacCaw, ``JavaScript Web Applicactions''. O'Reilly, 2011, pp. 2-5.
 - [[[GAMM02]]] E. Gamma, R. Helm, R. Johnson, J. Vlissides, ``Patrones de diseño''. Addison Wesley, 2002. ISBN: 8478290591.
@@ -5521,6 +5608,9 @@ Bibliografía
 - [[[DIRE17]]] Documentación oficial de AngularJS. URL: https://docs.angularjs.org/guide/directive. Último acceso: junio 2017.
 - [[[DATA17]]] Documentación oficial de AngularJS. URL: https://docs.angularjs.org/guide/databinding. Último acceso: junio 2017.
 - [[[MUNO13]]] A. Muñoz _et al._ ``Manual práctico de interoperabilidad semántica para entornos sanitarios basada en arquetipos''. Unidad de investigación en Telemedicina y e-Salud, Instituto de Salud Carlos III, julio de 2013.
+- [[[ISOD08]]] International Organization for Standardization. ISO/DIS 21090. Health Informatics — Harmonized data types for information interchange. Geneva. © ISO 2008.
+- [[[ISOH08]]] ISO 13606, “Health informatics - Electronic health record communication - Part 1: Reference model. International Organization for Standardization, 2008.
+- [[[ISOG08]]] ISO 13606, “Health informatics - Electronic health record communication - Part 2: Archetype interchange specification”. International Organization for Standardization, 2008.
 - [[[AOM15]]] The __open__EHR Foundation. ``The __open__EHR Archetype Model. Archetype Object Model''. URL: http://www.openehr.org/releases/trunk/architecture/am/aom2.pdf. The __open__EHR Foundation, 2015. Último acceso: agosto 2017.
 - [[[BEAL07]]] T. Beale, S. Heard, ``Archetype Definition Language''. The __openEHR__ Foundation, 2015.
 - [[[MSAN17]]] T. Benson, ``Principles of Health Interoperability HL7 and SNOMED''. London: Springer, 2012. ISBN: 978-1-4471-2800-7.
@@ -5528,7 +5618,11 @@ Bibliografía
 - [[[RUCH12]]] P. Ruch, J. Gobeill, C. Lovis, A. Geissbühler, ``Automatic medical encoding with SNOMED categories''. 2008. _BMC Medical Informatics and Decision Making_. DOI:https://bmcmedinformdecismak.biomedcentral.com/articles/10.1186/1472-6947-8-S1-S6[10.1186/1472-6947-8-S1-S6].
 - [[[CIEM17]]] ``ICD-10 Second Edition, Volume 2'', World Health Organization, mayo de 2017. URL: http://www.who.int/classifications/icd/ICD-10_2nd_ed_volume2.pdf. Último acceso: agosto de 2017.
 - [[[KAHN96]]] K. Kahn, M. Chassin, _et.al._ ``Variations in the use of medical and surgical services by the Medicare population''. Journal Medicine. 1986, 314(5):285-90.
+- [[[PELE13]]] M. Peleg, ``Computer-interpretable clinical guidelines: a methodological review'', Journal of Biomedical Informatics. 46(4):744-63. doi: 10.1016/j.jbi.2013.06.009, 2013.
+- [[[MEIJ11]]] J. Mei, H. Liu, G. Xie, S. Liu, B. Zhou, ``An OCL-compliant GELLO engine. Stud Health Technol Inform'', 169: 130-134, 2011.
+- [[[KOUT11]]] V. Koutkias, K. Lazou, P. de Clercq, N. Maglaveras, ``Towards a standardised representation of a knowledge base for adverse drug event prevention''. Stud Health Technol Inform. 166: 139-147, 2011.
 - [[[PELE00]]] M. Peleg,A. Boxwala, O. Ogunyemi, _et. al._, ``GLIF3: the evolution of a guideline representation format''. Proceedings / AMIA Annual Symposium, pp. 645-649.
+- [[[SUTT03]]] D. Sutton, J. Fox, ``The syntax and semantics of the PROforma guideline modeling language'', J Am Med Inform Assoc, 2003.
 - [[[SCRU12]]] P. Deemer, G. Benefield, C. Larman, B. Vodde. ``The Scrum Primer''. 2012.
 
 [index]

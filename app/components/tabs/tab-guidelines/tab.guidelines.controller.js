@@ -1,7 +1,3 @@
-/**
- * Created by jbarros on 16/08/16.
- */
-
 angular.module('app.controllers')
     .controller('GuidelineCtrl', GuidelineCtrl);
 
