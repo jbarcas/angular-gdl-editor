@@ -1,12 +1,14 @@
 <div class="panel panel-default">
-    <div class="panel-heading">
-        <h3 class="panel-title">Guidelines ({{vm.guidelines.length}})</h3>
+  <div class="panel-heading">
+    <h3 class="panel-title">Guidelines ({{vm.guidelines.length}})</h3>
+  </div>
+  <div class="panel-body gdl-columns gdl-overflow-x">
+    <div class="radio" ng-repeat="guideline in vm.guidelines | orderBy">
+      <label>
+        <input type="radio" ng-model="vm.checked"
+               ng-click="vm.getGuideline(guideline)"
+               ng-value="guideline">{{ guideline }}
+      </label>
     </div>
-    <div class="panel-body gdl-columns gdl-overflow-x">
-        <div class="radio" ng-repeat="guideline in vm.guidelines | orderBy">
-            <label>
-                <input type="radio" ng-model="vm.checked" ng-click="vm.getGuideline(guideline)" ng-value="guideline">{{ guideline }}
-            </label>
-        </div>
-    </div>
+  </div>
 </div>

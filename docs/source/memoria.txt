@@ -249,8 +249,8 @@ que proporcione una usabilidad adecuada, con una interfaz sencilla, accesible y 
 sencillo añadir, modificar y eliminar funcionalidades. Esta herramienta estará preparada para ser integrada en la
 plataforma CKM con el fin de que dichas guías sean públicas y compartidas, aportando importantes beneficios a la
 comunidad, como evitar la duplicidad de esfuerzos en la elaboración, una difusión instantánea de las actualizaciones
-y el fomento de una mejora en la calidad de las guías al implicar a un conjunto multidisciplinar de autores, en
-definitiva se busca mejorar la práctica clínica y la salud de la población.
+y el fomento de una mejora en la calidad de las guías al implicar a un conjunto multidisciplinar de autores. En
+definitiva, se busca mejorar la práctica clínica y la salud de la población.
 
 Esta herramienta supondrá el punto de partida hacia una serie de nuevas funcionalidades de gran utilidad para la
 comunidad, como la edición colaborativa en tiempo real, la resolución de conflictos, la gestión de historial y de
@@ -276,7 +276,7 @@ fácilmente reutilizados y de forma que resulte sencillo incorporar nuevas funci
 
 * Se diseñará una interfaz de usuario sencilla e intuitiva, teniendo en cuenta aspectos de usabilidad, de forma que
 el proceso de gestión de las guías clínicas resulte fácilmente asimilable por los expertos en el dominio clínico y
-disfruten de una experiencia agradable durante el uso de la herramienta.
+disfruten de una experiencia de usuario agradable durante el uso de la herramienta.
 
 Fundamentos
 -----------
@@ -781,7 +781,7 @@ Para responder a este tipo de preguntas es muy importante que podamos aislar la 
 probar. Esto se debe a que, cuando se quiere probar la función de ordenación, no queremos ser forzados a crear otros
 ítems relacionados en el proceso, como los elementos del Document Object Modelfootnote:[Interfaz, independiente del lenguaje y plataforma
 que permite a programas y scripts acceder dinámicamente y actualizar el contenido, estructura y estilos de documentos
-HTML, XHTML y XML. Especificación técnica de w3c: https://www.w3.org/DOM/DOMTR] (DOM) o hacer llamadas XMLHttpRequest
+HTML, XHTML y XML. Especificación técnica de w3c: https://www.w3.org/DOM/DOMTR.] (DOM) o hacer llamadas XMLHttpRequest
 (XHR) para buscar los datos para ordenarlos.
 
 AngularJS trata de hacer que sea fácil para el desarrollador hacer lo correcto. Para las peticiones XHR, se
@@ -862,17 +862,18 @@ Entre otras funcionalidades, Karma permite:
 * Hacer pruebas de código en diferentes tipos de navegadores (escritorio, móviles, tablets, etc.).
 * Ejecutar las pruebas en local durante el desarrollo.
 * Ejecutar las pruebas en un servidor de integración continua, como se ha hecho en este proyecto, usando
-https://travis-ci.org/[Travis CI] y https://github.com/[GitHub].
+Travis CIfootnote:[https://travis-ci.org/] y GitHubfootnote:[https://github.com/].
 * Ejecutar las pruebas cada vez que se guarde un fichero.
 * Hacer la vida más cómoda a los desarrolladores que prueban el software.
-* Utilizar https://github.com/gotwarlost/istanbul[Estambul] para la generación automática de informes.
-* Utilizar http://requirejs.org/[RequireJS] para la gestión de los ficheros de la aplicación.
+* Utilizar Estambulfootnote:[https://github.com/gotwarlost/istanbul] para la generación automática de informes.
+* Utilizar RequireJSfootnote:[http://requirejs.org/] para la gestión de los ficheros de la aplicación.
 
 _Karma_ no es un _framework_ de pruebas, ni una librería de aserciones. _Karma_ es un _testrunner_, simplemente lanza
 un servidor HTTP, y genera el fichero HTML a ser utilizado por el _framework_ de pruebas que se quiera utilizar,
-entre ellos https://github.com/karma-runner/karma-jasmine[Jasmine],
-https://github.com/karma-runner/karma-mocha[Mocha], https://github.com/karma-runner/karma-qunit[QUnit], y
-https://www.npmjs.org/browse/keyword/karma-adapter[muchos otros]. _Karma_ soporta la mayoría de navegadores
+entre ellos Jasminefootnote:[https://github.com/karma-runner/karma-jasmine],
+Mochafootnote:[https://github.com/karma-runner/karma-mocha],
+QUnitfootnote:[https://github.com/karma-runner/karma-qunit], y
+muchos otrosfootnote:[https://www.npmjs.org/browse/keyword/karma-adapter]. _Karma_ soporta la mayoría de navegadores
 disponiblesfootnote:[Navegadores soportados por _Karma_: https://karma-runner.github.io/latest/config/browsers.html].
 Las instrucciones completas de instalaciónfootnote:[Documentación sobre la instalación de _Karma_:
 https://karma-runner.github.io/latest/intro/installation.html] y configuraciónfootnote:[Documentación sobre la
@@ -890,7 +891,7 @@ pruebas de extremo a extremo para detectar este tipo de problemas.
 
 Protractor es un _testrunner_ de pruebas _end-to-end_ que simula las interacciones del usuario que ayudan a verificar
 la salud de una aplicación AngularJS. Es una aplicación Node.js y ejecuta las pruebas en Node. Utiliza
-https://code.google.com/p/selenium/wiki/GettingStarted[WebDriver] para controlar los navegadores y simular las
+WebDriverfootnote:[http://www.seleniumhq.org/projects/webdriver/] para controlar los navegadores y simular las
 acciones de los usuarios.
 
 Protractor utiliza Jasmine como su sintaxis para las pruebas. Al igual que en las pruebas unitarias, un archivo de
@@ -1803,7 +1804,7 @@ medicina. Este sistema está diseñado para promover la comparación internacion
 clasificación y presentación de estas estadísticas.
 
 La OMS proporciona información _on-line_ detallada sobre la CIE y pone a disposición un conjunto de materiales
-_on-line_, como un navegador en línea de la CIE-10footnote:[http://apps.who.int/classifications/icd10/browse/2016/en#/: última versión disponible en el momento de escribir este documento],
+_on-line_, como un navegador en línea de la CIE-10footnote:[http://apps.who.int/classifications/icd10/browse/2016/en#/: última versión disponible en el momento de escribir este documento.],
 cursos de formación de la CIE-10footnote:[http://apps.who.int/classifications/apps/icd/icd10training/], ayuda a la
 formación _on-line de CIE-10footnote:[http://sites.google.com/site/icd10onlinetraining] y materiales de estudio para
 su descarga.
@@ -2008,7 +2009,7 @@ Principios de diseño
 ^^^^^^^^^^^^^^^^^^^^^
 Teniendo en cuenta los requisitos mencionados anteriormente, se han tomado las siguientes decisiones de diseño.
 
-.Arquetipos tanto como entradas como salidas de las reglas.
+*Arquetipos tanto como entradas como salidas de las reglas* +
 Esto se consigue mediante la creación de enlaces entre los elementos de los datos definidos por los arquetipos y las
 variables utilizadas por las reglas del CDS. Cada variable de regla CDS se identifica de forma unívoca en el contexto
 de una guía y se enlaza con un elemento específico definido por un arquetipo utilizando su _Archetype ID_ y
@@ -2016,7 +2017,7 @@ su __path__footnote:[El _path_ de un elemento de un arquetipo es la ruta unívoc
 del arquetipo.]. Una vez definida, la variable se puede usar dentro de las sentencias _when_ y _then_ como entrada o
 como salida durante la ejecución de la regla.
 
-.Independencia del lenguaje natural.
+*Independencia del lenguaje natural* +
 Se han utilizado varias ideas de diseño del formalismo de arquetipos de __open__EHR para lograr la neutralidad del
 lenguaje natural. En primer lugar, toda la meta-información dependiente del idioma sobre el propósito, el uso, el uso
 desaconsejado y las referencias de las reglas se agrupan bajo la sección _description_ y se indexan por los códigos
@@ -2025,24 +2026,24 @@ natural, _e.g._ el nombre de una variable de regla, se definen en la sección _t
 se indexan mediante códigos de idioma ISO. En tercer lugar, en las expresiones de la regla, se utilizan los
 identificadores únicos de variables y reglas, en lugar de sus nombres, ya que estos últimos dependen del idioma.
 
-.Independencia de terminologías de referencia.
+*Independencia de terminologías de referencia* +
 Cuando se utiliza el operador _IS_A_ en las instrucciones de evaluación para la verificación de relaciones de
 pertenencia, se utiliza un término definido localmente en lugar de un código externo. Esta indirección hace posible
 modificar el código o añadir nuevos códigos de otras terminologías sin cambiar las definiciones de las reglas. Los
 enlaces entre los códigos definidos localmente y las terminologías de referencia externas se mantienen en la sección
 _term_bindings_ del documento GDL.
 
-.Independencia del lenguaje de reglas.
+*Independencia del lenguaje de reglas* +
 GDL sólo utiliza un conjunto de características comunes de lenguaje de reglas, como _when_ y _then_. Las expresiones
 en las declaraciones _when_ y _then_ soportan cálculos aritméticos comunes, operadores lógicos y funciones.
 
-.Agrupación y reutilización de reglas.
+*Agrupación y reutilización de reglas* +
 Un documento GDL (guía clínica) puede contener varias reglas que se relacionen entre sí. Cada guía es autocontenida y
 debe ser reutilizable en diferentes contextos clínicos. Se pueden encadenar diferentes guías para permitir el soporte de
 decisiones complejas. Esto se logra seleccionando la salida de una regla, como un elemento específico de un
 arquetipo, como entrada de otra regla.
 
-.Meta-información de las reglas CDS.
+*Meta-información de las reglas CDS* +
 La información de autoría, el estado del ciclo de vida y varias meta-informaciones son compatibles con la reutilización
 de la clase _RESOURCE_DESCRIPTION_ del diseño __open__EHR.
 
@@ -2562,7 +2563,7 @@ Sprint, no se pueden agregar nuevos elementos, estos quedarían para la siguient
 actual está destinado a centrarse en un objetivo pequeño, claro y relativamente estable. Todos los días el Equipo se
 reúne brevemente para inspeccionar su progreso, y ajustar los pasos siguientes necesarios para completar el trabajo
 restante. Al final del Sprint, el equipo revisa el Sprint con los __stakeholders__footnote:[_stakeholder_: cualquier
-parte interesada que es afectado o puede ser afectado por el desarrollo del producto], y demuestra lo que ha
+parte interesada que es afectado o puede ser afectado por el desarrollo del producto.], y demuestra lo que ha
 construido. La gente obtiene retroalimentación que se puede incorporar en el próximo Sprint. Scrum hace hincapié en
 que el producto tiene que ser funcional al final de la iteración que, en el caso del software, esto significa un
 sistema integrado, completamente probado, documentado para el usuario final y potencialmente enviable. Las funciones
@@ -2975,8 +2976,9 @@ continuación, utilizando para la comunicación entre ambos el protocolo HTTP.
  de datos de
 conocimiento y motor de reglas), este sistema se está utilizando en producción en varios hospitales suecos.
 Proporciona una API que consume la aplicación AngularJS con funcionalidades de persistencia y de ejecución de reglas.
-* El nodo _PostgreSQL_ representa un sistema gestor de bases de datos relacional, con una base de datos denominada _CDS_
-que contiene los recursos del sistema, _i.e._ guías clínicas, arquetipos y terminologías.
+* El nodo _PostgreSQL_ representa un sistema gestor de bases de datos relacional, con una base de datos denominada
+CDS (Clinical Decision Support) que contiene los recursos del sistema, _i.e._ guías clínicas, arquetipos y
+terminologías.
 
 A continuación se va a mostrar, con el diagrama de secuencia reflejado en la <<workflow>>, cómo interactúan dichos
 componentes para realizar una operación sencilla del sistema: la petición de una guía clínica para poder comenzar con la
@@ -2994,10 +2996,11 @@ Las acciones que tienen lugar entre los diferentes componentes, que se enumeran 
 . En este momento, la aplicación AngularJS, hace una petición GET de la guía y de los arquetipos involucrados en la
 misma al componente _km-server.war_.
 . El componente _km-server.war_ recibe dicha petición, ejecuta su lógica de negocio asociada y hace la consulta
-correspondiente a la base de datos _CDS_ (Clinical Decisin Support), que  se alberga en un sistema gestor de bases de
+correspondiente a la base de datos _CDS_, que  se alberga en un sistema gestor de bases de
 datos relacional PostgreSQL.
 . La base de datos recibe dicha consulta, la ejecuta y devuelve el resultado al componente _km-server.war_.
-. El componente que _km-server.war_ genera una representación en formato JSON y la envía a la aplicación AngularJS.
+. El componente _km-server.war_ genera una representación en formato JSON de la respuesta recibida y la envía a la
+aplicación AngularJS.
 
 En este momento la aplicación AngularJS tiene en memoria una representación de la guía clínica y de los
 arquetipos correspondientes. Se trabaja sobre la guía clínica utilizando dichos arquetipos (u otros que se solicitarían
@@ -3009,9 +3012,10 @@ pantalla de las funcionalidades más relevantes llevadas a cabo durante dicha it
 
 Iteración 1
 ~~~~~~~~~~~
-En la primera iteración se ha establecido el objetivo básico de tener una primera versión funcional para
-posteriormente, ir añadiéndole el resto. De modo que lo que se pretendió llevar a cabo en este Sprint fue la decisión de
-la estructura de directorios de la aplicación y el desarrollo de permitir visualizar las guías clínicas existentes.
+En la primera iteración se ha establecido el objetivo básico de tener una primera versión funcional para,
+posteriormente, ir añadiéndole el resto. De modo que lo que se pretendió llevar a cabo durante este Sprint fue la
+decisión de la estructura de directorios de la aplicación y el desarrollo de permitir visualizar las guías clínicas
+existentes.
 
 Análisis
 ^^^^^^^^
@@ -3048,9 +3052,9 @@ aproximación es la adecuada para proyectos que no sean pequeños, aportando una
 editar el código de una manera sencilla.
 
 * Escalabilidad: la aplicación será mucho más escalable. Agregar nuevas directivas y plantillas no incrementará las
-carpetas existentes. La incorporación de nuevos desarrolladores también debería ser mucho más fácil una vez que se
-aplica esta aproximación. Además, con este enfoque, se podrán añadir y eliminar funcionalidades de la aplicación con
-relativa facilidad de manera que testear nuevas funcionalidades debería ser bastante sencillo.
+carpetas existentes. La incorporación de nuevos desarrolladores al proyecto también debería ser mucho más fácil una vez
+que se aplica esta aproximación. Además, con este enfoque, se podrán añadir y eliminar funcionalidades de la
+aplicación con relativa facilidad de manera que hacer pruebas de nuevas funcionalidades debería ser bastante sencillo.
 
 * Depuración: con esta aproximación modularizada es mucho más fácil depurar el código. Facilita encontrar las piezas
 de código erróneo y solucionar dichos errores.
@@ -3058,17 +3062,17 @@ de código erróneo y solucionar dichos errores.
 * Pruebas: escribir tests unitarios y probar aplicaciones modularizadas es mucho más sencillo que las no modularizadas.
 
 La segunda tarea de esta iteración se ha centrado en la funcionalidad básica consistente en la visualización de todas
- las guías clínicas existentes para que se puedan seleccionar individualmente y, a partir de ahí, las guías puedan
- ser modificadas. Esta tarea se ha limitado a la visualización del listado de guías  clínicas almacenadas en el
- _backend_. Para que esto sea posible, el caso de uso (ver <<use-cases-iter-1>>) que se ha de implementar es el que
- permita navegar entre las guías clínicas (_Browse clinical guidelines_), el cual se describe a continuación.
+las guías clínicas existentes para que se puedan seleccionar individualmente y, a partir de ahí, las guías puedan
+ser editadas. Esta tarea se ha limitado a la visualización del listado de guías  clínicas almacenadas en el
+_backend_. Para que esto sea posible, el caso de uso (ver <<use-cases-iter-1>>) que se ha de implementar es el que
+permite navegar entre las guías clínicas (_Navegar guías clínicas_), el cual se describe a continuación.
 
 Descripción de los casos de uso
 +++++++++++++++++++++++++++++++
-A continuación se describe el caso de uso _Browse clinical guidelines_.
+A continuación se describe el caso de uso _Navegar guías clínicas_.
 
 *Navegar guías clínicas* +
-Para que el profesional sanitario pueda editar un guía clínica existente, primero debe poder visualizar las guías que
+Para que el profesional sanitario pueda editar una guía clínica existente, primero debe poder visualizar las guías que
 ya están creadas. Cuando se muestre el listado con las guías, el usuario simplemente seleccionará la que desee editar.
 
 Diseño
@@ -3077,8 +3081,8 @@ Una aplicación profesional debe ir acompañada siempre de una documentación de
 cierto nivel de detalle, _i.e._ no demasiado detallado. El diseño debe ser suficiente para posteriormente encontrar
 más detalles en el código fuente. Si el código fuente aún no ha sido escrito, el diseño debe ser suficiente para que
 el desarrollador rellene los detalles a su propia discreción. Esta documentación permite ahorrar tiempo (y por lo
-tanto, dinero) y permite que los usuarios obtengan una aplicación de mayor calidad. El ahorro surge del hecho de que
-el diseño proporciona una visión de la estructura del software y por lo tanto reduce la posibilidad de una mala
+tanto, dinero) y permite que los usuarios dispongan de una aplicación de mayor calidad. El ahorro surge del hecho de que
+el diseño proporciona una visión de la estructura del software y, por lo tanto, reduce la posibilidad de una mala
 organización (_spaghetti code_, inconsistencias, código duplicado). Esta visión general de la estructura del software
 permite disminuir:
 
@@ -3086,8 +3090,8 @@ permite disminuir:
 * El tiempo que se tarda en determinar la mejor manera de integrar un cambio o extensión en particular.
 * El tiempo que se tarda en corregir defectos en la estructura más adelante.
 
-En la fase de diseño de la primera iteración hemos realizado el diseño básico de toda la aplicación, esto conlleva
-los principales diagramas orientados a las funcionalidades generales.
+En la fase de diseño de la primera iteración hemos realizado el diseño de más alto nivel toda la aplicación, esto
+conlleva la realización de los principales diagramas orientados a las funcionalidades generales.
 
 En un editor de guías clínicas las funciones básicas que se deben poder realizar son las de crear una guía clínica
 desde el principio y el de poder navegar entre las guías existentes para poder seleccionar una y modificarla. Los
@@ -3100,11 +3104,10 @@ image::use-cases-iter-1.png[scaledwidth="80%"]
 El único actor que tenemos en este desarrollo es el de _Profesional Sanitario_ que, como conocedor del dominio médico,
 será el que elabore las guías clínicas.
 
-Se ha dedicado una iteración para cada uno de los casos de uso que extienden del caso de uso base _Editar guía
-clínica_, por lo que la explicación de cada uno de ellos se indicará en la iteración correspondiente. La creación de
-una guía nueva se entiende como la edición de una guía con sus secciones vacías, excepto las obligatorias (ver
-<<_paquete_de_guias_clinicas>>), que se rellenarán en el proceso que implementa el caso de uso _Crear nueva guía
-clínica_.
+Se ha ha decidido realizar 4 iteraciones y agrupar, en la medida de lo posible, funcionalidades similares dentro de
+la misma iteración. La creación de una guía nueva se entiende como la edición de una guía con sus secciones vacías,
+excepto las obligatorias (ver <<_paquete_de_guias_clinicas>>), que se rellenarán en el proceso que implementa el caso
+de uso _Crear nueva guía clínica_.
 
 Como se ha comentado en la <<_modulos_en_angularjs>>, la arquitectura de alto nivel de una aplicación AngularJS se
 estructura en módulos, de tal manera que lo natural es comenzar el diseño creando un diagrama que represente los
@@ -3121,13 +3124,13 @@ continuación se describen dichos módulos entrando un poco más en detalle e in
 responsabilidades de cada uno:
 
 * `app`: es el módulo raíz de la aplicación. Se le pasa a la directiva https://docs.angularjs.org/api/ng/directive/ngApp[ngApp]
-para lo cargue en el https://docs.angularjs.org/api/auto/service/$injector[$injector] cuando se inicia la aplicación
+para que lo cargue en el https://docs.angularjs.org/api/auto/service/$injector[$injector] cuando se inicia la aplicación
 AngularJS. Debe contener todo el código necesario para que la aplicación pueda funcionar o tener las dependencias
 sobre otros módulos que contengan dicho código.
 
 * `app.services`: módulo que contiene los servicios personalizados de la aplicación. La idea básica de los servicios
 es agrupar funcionalidad que permita posteriormente ser utilizada en los controladores, mejorando la claridad y
-favoreciendo la reutilización del código.
+favoreciendo la reutilización de código.
 
 * `app.controllers`: módulo que contiene los controladores personalizados de la aplicación. Se responsabilizan de
 proporcionar a la aplicación el comportamiento que soporte un marcado declarativo en la vista (plantilla HTML).
@@ -3246,15 +3249,15 @@ bower.json
 package.json
 ----
 <1> Recursos de la aplicación.
-<2> Ficheros relacionados con los estilos
-<3> Imágenes e iconos de la aplicación
-<4> Mocks utilizados para los tests unitarios, como respuestas de servicios web
-<5> Cada componente se trata como una mini-aplicación AngularJS
-<6> Los modales de la aplicación, como componentes reutilizables
-<7> Cada una de las principales funcionalidades del editor
-<8> Enrutado, para que la SPA no tenga que recargar la página entera durante la navegación
-<9> Documentación de la aplicación
-<10> Tests _end-to-end_
+<2> Ficheros relacionados con los estilos.
+<3> Imágenes e iconos de la aplicación.
+<4> Mocks utilizados para los tests unitarios, como respuestas de servicios web.
+<5> Cada componente se trata como una mini-aplicación AngularJS.
+<6> Los modales de la aplicación, como componentes reutilizables.
+<7> Cada una de las principales funcionalidades del editor.
+<8> Enrutado, para que la SPA no tenga que recargar la página entera durante la navegación.
+<9> Documentación de la aplicación.
+<10> Tests _end-to-end_.
 
 El esquema anterior muestra una aproximación modularizada para construir aplicaciones AngularJS. Para la
 implementación de la primera iteración vamos a detallar los componentes que se han desarrollado para implementar la
@@ -3319,14 +3322,15 @@ Para configurar AngularJS para que utilice el módulo `ui-router` lo registramos
 como se ha mostrado en la sección anterior. El módulo en cuestión es el `ui.router` y se apoya en el concepto de
 _estado_ para definir la navegación entre vistas:
 
-* Un _estado_ se corresponde a un "lugar" en la aplicación en términos de la interfaz de usuario general y de la
+* Un _estado_ se corresponde a un ``lugar'' en la aplicación en términos de la interfaz de usuario general y de la
 navegación.
-* Un _estado_ (a través de las propiedades controlador / plantilla / vista) describe lo que muestra la interfaz de
+* Un _estado_ (a través de las propiedades `controller`/`template`/`view`) describe lo que muestra la interfaz de
 usuario y lo que se hace en ese lugar.
 * Los _estados_ tienen a menudo cosas en común, y la manera de refactorizar estos puntos en común en
-este modelo se hace a través de una jerarquía de estados.
+este modelo se hace a través de una jerarquía de estados (anidamiento de estados).
 
-El enrutado de la aplicación se ha definido en el fichero `routes.js`, cuyo contenido se muestra a continuación:
+El enrutado de la aplicación se ha definido en el fichero `routes.js`, cuyo contenido, en este punto del proceso de
+desarrollo (en etapas posteriores se irán añadiendo el resto de rutas de la aplicación), se muestra a continuación:
 
 [source, python]
 ----
@@ -3344,22 +3348,25 @@ angular.module('app')
 ----
 <1> _path_ asociado al estado _tab-guidelines_.
 <2> Plantilla (vista HTML) asociada a dicho estado.
-<3> Controlador vinculado al estado en cuestión,
-<4> Sintaxis que proporciona un código más claro en los controladores.
+<3> Controlador vinculado al estado en cuestión.
+<4> Sintaxis que proporciona un código más claro en los
+controladoresfootnote:[https://johnpapa.net/angularjss-controller-as-and-the-vm-variable/].
 
 El módulo `ui-route` proporciona, entre otros, los servicios usados en el listado anterior, _i.e._ `$stateProvider` y
 `$urlRouterProvider`. El primero nos permite dar nombres a las rutas. Entre otras cosas, permite a cada estado
-asignarle un _path_, una vista y un controlador, de tal manera que, cuando se active dicho estado, renderizará su
+asignarle una ruta, una vista y un controlador, de tal manera que, cuando se active dicho estado, renderizará su
 vista correspondiente, con su controlador y su `$scope` de manera aislada garantizando de este modo un bajo
-acoplamiento entre las vistas. Para esta primera iteración, solamente tendremos un estado que define la primera de
-las pestañas donde se muestran todas las guías clínicas y se le permite al usuario seleccionar una de ellas.
+acoplamiento entre las vistas. Para esta primera iteración, como se muestra en el fragmento de código anterior,
+solamente existe un estado (`tab-guidelines`), que define la primera de las pestañas donde se muestra la lista de
+guías disponibles y se le permite al usuario seleccionar una de ellas.
 
 Una vez mencionados los principales ficheros a tener en cuenta a nivel de proyecto, ahora nos centramos en los
 relacionados en la tarea de _Navegar guías clínicas_ dedicada a esta iteración. Cuando se activa un _estado_ su vista
- asociada se inserta automáticamente en la directiva `ui-view` de la plantilla asociada a su estado padre, con la
- excepción de que si es un estado de primer nivel, la plantilla (o vista) de su estado padre es `index.html`.
+asociada se inserta automáticamente en la directiva `ui-view` de la plantilla asociada a su estado
+padrefootnote:[footnote:[https://github.com/angular-ui/ui-router/wiki], con la excepción de que si es un estado de
+primer nivel, la plantilla (o vista) de su estado padre es `index.html`.
 
-En `index.html` se cuenta con dos componentesfootnote:[https://docs.angularjs.org/guide/component], uno que define un panel
+En `index.html` existen dos componentesfootnote:[https://docs.angularjs.org/guide/component], uno que define un panel
 que indica la guía seleccionada y otro que define un conjunto de pestañas donde, cada una de ellas, va a permitir crear,
 editar o eliminar ciertas características de las guías clínicas.
 
@@ -3373,7 +3380,7 @@ editar o eliminar ciertas características de las guías clínicas.
 
 El componente `tabs.component.js` contiene la directiva `ui-view` donde se insertarán cada una de las pestañas que
 permiten editar las guías. Las guías tienen que mostrarse en la vista que se cargue al iniciar la aplicación, que es
-la que está asociada con el _estado_ anteriormente definido (_tab-guidelines_). Este estado hace que se cargue la
+la que está asociada con el estado anteriormente definido (`tab-guidelines`). Este estado hace que se cargue la
 vista correspondiente en dicha pestaña, a continuación se muestra la vista y el controlador asociados a dicho estado.
 
 [source,html]
@@ -3392,11 +3399,14 @@ dicho controlador.
 include::../../app/components/tabs/tab-guidelines/tab.guidelines.controller.js[]
 ----
 
-En este controlador es donde definimos las propiedades que estarán enlazadas con la vista, en este caso `vm
-.guidelines` que contendrá las guías almacenadas en el _backend_. Para hacer la petición de las guías, a este
-controlador se le inyecta un servicio (`guidelinesFactory`), que se ha definido _a priori_, que es el encargado de
-realizar la petición correspondiente a la API Representational State Transfer (REST) proporcionada por el Knowledge
-Manager (KM). Como vemos a continuación, este servicio cuenta con un método `getGuidelines()` que recupera las guías
+En este controlador es donde definimos las propiedades que estarán enlazadas con la vista, en este caso
+`vm.guidelines` que contendrá las guías almacenadas en el _backend_. Esta propiedad `vm` (de ViewModel), definida en
+el fichero `routes.js` es recurrente en todos los controladores y hace referencia al modelo de la aplicación, es
+decir, es el nexo de unión del
+controlador con la vista. Para hacer la petición de las guías, a este controlador se le inyecta un servicio
+(`guidelinesFactory`), que se ha definido _a priori_, que es el encargado de realizar la petición correspondiente a
+la API Representational State Transfer (REST) proporcionada por el Knowledge Manager (KM). Como vemos a continuación,
+este servicio cuenta con un método `getGuidelines()` que recupera las guías
 clínicas.
 
 [source,python]
@@ -3430,7 +3440,7 @@ en la <<testing>>.
 Es esta sección nos centraremos en los tests de cada una de las iteraciones, comenzando por la
 configuración necesaria para la ejecución de los tests. Como se ha mencionado, para los tests unitarios se ha
 utilizado el _testrunner_ Karma, el cual necesita un fichero de configuración denominado `karma.conf` y que tiene que
-estar en el directorio raíz del proyecto. A continuación se muestra el contenido de dicho fichero para nuestro proyecto.
+estar en el directorio raíz del proyecto. A continuación se muestra el contenido de dicho fichero para este proyecto.
 
 <<<
 
@@ -3440,31 +3450,30 @@ include::../../karma.conf.js[]
 ----
 
 En la configuración se pueden observar diferentes elementos que requieren mención. `basePath` se utiliza para indicar
-una ubicación de la ruta raíz que será usada para resolver todas las rutas relativas definidas en los patrones, como
+la ubicación de la ruta raíz que será usada para resolver todas las rutas relativas definidas en los patrones, como
 por ejemplo ficheros (_files_), exclusiones (_exclude_), etc. `files` es un array que contiene todos los ficheros
 necesarios para ejecutar un test, son los ficheros (o los patrones) que se cargarán en el navegador. `autoWatch` se
 utiliza para habilitar o deshabilitar la auto-observación de ficheros, de tal modo que los tests se estén ejecutando
 continuamente cada vez que se guarda un fichero. `frameworks` es un array que contiene la lista de _frameworks_ de
-tests que se quieren utilizar, en nuestro caso sólo utilizaremos el framework Jasminefootnote:[_Framework_ de tests
-open source para AngularJS: https://jasmine.github.io/]. En `browsers` se indica una lista de navegadores para
-iniciar y capturar. Cuando Karma se inicia, también se iniciará cada navegador que se indique dentro de este elemento.
-Una vez que Karma se cierre, también cerrará estos navegadores. Puede capturar manualmente cualquier navegador
-abriendo el navegador y visitando la URL donde está escuchando el servidor web Karma
-(por defecto es http://localhost:9876/). El ajuste `plugins` se utiliza para indicar una
+tests que se quieren utilizar, en este proyecto sólo se utiliza el framework
+Jasminefootnote:[_Framework_ de tests open source para AngularJS: https://jasmine.github.io/]. En `browsers` se
+indica una lista de navegadores para iniciar y capturar, cuando Karma se inicia, también se iniciará cada navegador
+que se indique dentro de este elemento. Una vez que Karma se cierre, también cerrará estos navegadores. Puede
+capturar manualmente cualquier navegador abriendo el navegador y visitando la URL donde está escuchando el servidor
+web Karma (por defecto es http://localhost:9876/). El ajuste `plugins` se utiliza para indicar una
 listafootnote:[http://karma-runner.github.io/1.0/config/plugins.html] de plugins a cargar. Por último,
 `junit-reporter` es uno de los plugins cargados donde le indicamos donde queremos que nos almacene los informes
 generados.
 
-Para la primera iteración se han realizado tests unitarios para comprobar que tanto el controlador como el servicio
-hacen lo que tienen que hacer, así como un test _end-to-end_ sencillo que se asegura que el enrutado está funcionando
-correctamente.
+Para la primera iteración se han realizado tests unitarios para realizar una validación tanto del controlador como
+del servicio, así como un test _end-to-end_ sencillo que se asegura que el enrutado está funcionando correctamente.
 
 A continuación se detalla el procedimiento de pruebas para el controlador `tab.guidelines.controller.js` que se ha
 utilizado para la obtención de las guías clínicas. La librería `angular-mocks` que se ha añadido en el fichero `karma.conf`
-proporciona un servicio llamado `$controller` que se puede utilizar para testear un controlador. En el
+proporciona un servicio llamado `$controller` que se puede utilizar para hacer pruebas de un controlador. En el
 `beforeEach()` que se muestra más abajo, se inyecta el servicio `$controller` con las dependencias necesarias para
 instanciar dicho controlador. Siguiendo la guía de buenas prácticas, al fichero que contiene los tests unitarios para
-testear el controlador `tab.guidelines.controller.js` le hemos llamado `tab.guidelines.controller.spec.js`
+probar el controlador `tab.guidelines.controller.js` le hemos llamado `tab.guidelines.controller.spec.js`
 
 [source,python]
 ----
@@ -3480,10 +3489,10 @@ mensaje de error correspondiente cuando, por algún motivo, se ha producido un e
 A continuación se detalla el procedimiento de pruebas para el servicio `tab.guidelines.service.js`, que hace una
 petición HTTP para obtener las guías clínicas disponibles en el servidor. Siempre que se utiliza el servicio nativo
 `$http` para hacer una llamada remota, AngularJS utiliza por detrás otro servicio llamado `$httpBackend` que es el que
-realmente hace el trabajo duro. La librería `angular-mocks` que se ha añadido al fichero `karma.conf` cuenta con su
-propia versión de `$httpBackend` con ciertas ventajas que nos ayudan a simular llamadas al _backend_ real. Siguiendo
-la guía de buenas prácticas, al fichero que contiene los tests unitarios para testear el servicio `tab.guidelines.service.js`
-le hemos llamado `tab.guidelines.service.spec.js`
+realmente hace el trabajo pesado. La librería `angular-mocks` que se ha añadido al fichero `karma.conf` cuenta con su
+propia versión de `$httpBackend` con ciertas ventajas que nos ayudan a simular llamadas al _backend_ real. Por
+convención, al fichero que contiene los tests unitarios para hacer pruebas del servicio
+`tab.guidelines.service.js` se le ha llamado `tab.guidelines.service.spec.js`.
 
 [source,python]
 ----
@@ -3491,16 +3500,16 @@ include::../../app/components/tabs/tab-guidelines/tab.guidelines.service.spec.js
 ----
 En el anterior test se comprueban varias cosas, por un lado que la inicialización del servicio no es `undefined`. Si
 se llama a `getGuidelines()` desde el test, hará una petición HTTP real al _endpoint_ indicado. Sin embargo, lo que
-hacemos es interceptar dicha llamada con `$httpBackend` y definimos la respuesta en vez de hacer la llamada remota real.
+se hace es interceptar dicha llamada con `$httpBackend` y se define la respuesta en vez de hacer la llamada remota real.
 Obsérvese que es necesario hacer `$httpBackend.flush()` ya que la llamada `$http` normalmente es asíncrona, pero en
-el test lo queremos ejecutar de forma síncrona. La llamada a `flush()` asegura que el `.then()` de la promesa
-devuelta por `$http` sea ejecutada inmediatamente.
+el test lo queremos ejecutar de forma síncrona. La llamada a `flush()` asegura que el
+`.then()` de la promesa devuelta por `$http` sea ejecutado inmediatamente.
 
 Iteración 2
 ~~~~~~~~~~~
-En la primera iteración se desarrolló la funcionalidad básica de mostrar un listado con las guías clínicas
-disponibles. En la segunda iteración se busca acometer el desarrollo de dos funcionalidades: por un lado la edición
-de la descripción de las guías y por otro la edición de las definiciones.
+En la primera iteración se desarrolló la funcionalidad básica de mostrar la lista de las guías clínicas
+disponibles en la aplicación. En la segunda iteración se busca acometer el desarrollo de dos nuevas funcionalidades:
+por un lado la edición de la descripción de las guías y por otro la edición de las definiciones.
 
 Análisis
 ^^^^^^^^
@@ -3520,7 +3529,7 @@ _copyright_ debe existir un apartado para indicar quién es el propietario de di
 mecanismo
 para gestionar palabras clave y colaboradores relacionados con la guía, así como una descripción que defina de forma
 clara y concisa la misma, un propósito que indique claramente para qué se ha desarrollado, dos campos para indicar el
-uso aconsejado y el desaconsejado de la guía y un medio para indicar referencias relacionadas con la guía clínica.
+uso aconsejado y el desaconsejado de la guía y un medio para indicar referencias relacionadas con ella.
 
 *Editar definición* +
 La edición de las definiciones es más compleja. Las definiciones se encargan de enlazar los términos utilizados en
@@ -3540,7 +3549,7 @@ de predicados:
 elemento del arquetipo. El operador puede ser un operador de igualdad (==), de mayor o igual (>=), de menor o igual
 (\<=) o un operador jerárquico (IS_A). El operando derecho debe de tener en cuenta dos cosas: el tipo de operador y
 el tipo de datofootnote:[Cada elemento del arquetipo tiene un tipo de datos. Tipos de datos de __open__EHR:
-http://www.openehr.org/releases/RM/latest/docs/data_types/data_types.html] del operador izquierdo, de tal manera que,
+http://www.openehr.org/releases/RM/latest/docs/data_types/data_types.html] del operando izquierdo, de tal manera que,
  si el operador es un operador jerárquico (IS_A) lo que se tiene que mostrar al editar el lado derecho es un árbol
  con las variables locales de la guía, se trata de que el predicado restrinja el valor de un elemento manifestando
  que este _es un_ elemento de la parte derecha. Si el operador no es  un operador jerárquico, entonces hay que tener
@@ -3562,7 +3571,7 @@ operando es un atributo de un elemento de un arquetipo. El operador puede ser un
 o igual (>=) o de menor o igual (\<=). La edición del segundo operador depende del atributo del primer operador. Cada
 tipo de dato tiene una serie de atributos que son los que regularán el segundo operador, _e.g._ si el atributo es un
 _units_ de un _DV_QUANTITY_ se mostrará un combobox con las unidades en __Unified Code for Units of
-Measure__footnote:[Sistema de codificación para representar de forma inequívoca unidades de medida] (UCUM) para el
+Measure__footnote:[Sistema de codificación para representar de forma inequívoca unidades de medida.] (UCUM) para el
 atributo de ese elemento o si el atributo es un _magnitude_ de _DV_AMOUNT_ se renderizará el
 <<_editor_de_expresiones, editor de expresiones>> para que se pueda introducir un valor constante o una expresión.
 
@@ -3592,22 +3601,24 @@ guía):
 image::sequence-guideline.png[]
 
 Se verá con más detalle en la siguiente sección. Básicamente el usuario cuando selecciona una guía se obtiene un
-objeto JSON enlazado con el `$scope` de AngularJS que representa dicha guía. Una vez seleccionada,
-se puede editar cualquier sección de la misma usando las pestañas de la aplicación. Eligiendo la pestaña
-_Definitions_ se pueden editar las definiciones, a continuación, en la <<sequence-elementInst>>, se muestra un diagrama
-de secuencia que muestra qué ocurre por detrás cuando se instancia un arquetipo y un elemento de arquetipo.
+objeto JSON que se enlaza con el `$scope` de AngularJS que representa dicha guía, representando el modelo que está al
+alcance del controlador `GuidelineCtrl`. Una vez seleccionada, se puede editar cualquier sección de la misma usando
+las pestañas de la aplicación. Eligiendo la pestaña _Definitions_ se pueden editar las definiciones, a continuación,
+en la <<sequence-elementInst>>, se muestra un diagrama de secuencia que muestra qué ocurre por detrás cuando se
+instancia un arquetipo y un elemento de arquetipo.
 
 [[sequence-elementInst]]
 .Diagrama de secuencia: instanciar un elemento de arquetipo.
 image::sequence-elementInst.png[]
 
 Para _Instanciar un predicado_, el procedimiento es similar, la instanciación de arquetipo es idéntica. Se arrastra
-el predicado--de los cuatro disponibles--que se quiera instanciar y se suelta dentro de la instanciación de arquetipo
-que se desee. A partir de entonces se puede seleccionar el operando (u operandos) y el operador del predicado.
+el predicado--de los cuatro disponibles--que se quiera instanciar y se suelta dentro, de forma anidada, de la
+instanciación de arquetipo que se desee. A partir de entonces se puede seleccionar el operando (u operandos) y el
+operador del predicado.
 
 Debido a las funcionalidades incorporadas en esta segunda iteración, en esta fase de diseño se ha elaborado un
-diagrama de clases que manifiesta el comportamiento de cada uno de los componentes--controladores, factorías,
-servicios, etc.--que intervienen en dichos escenarios, y las relaciones entre ellos.
+diagrama de clases que manifiesta el comportamiento de cada uno de los componentes (controladores, factorías,
+servicios, etc.) que intervienen en dichos escenarios, y las relaciones entre ellos.
 
 [[classes-iter-2]]
 .Diagrama de colaboraciones entre componentes en la iteración 2.
@@ -3620,8 +3631,8 @@ unas opciones por defecto que pueden ser sobreescritas con los parámetros que q
 gráficos. El caso de uso _Editar definiciones_ utiliza el servicio `GuidelineFactory` que proporcionará los
 arquetipos con los que está vinculados la guía actual, permite obtener las descripciones de los términos utilizados
 en la guía, obtener la ontología, etc. Utiliza el `modalService` para proporcionar los diálogos que facilitan la
-comunicación con el usuario permitiendo seleccionar arquetipos y elementos de estos. la gestión de las expresiones
-(utilizadas en los predicados) se delegan en el servicio `expressionItemFactory` y la gestión de los conceptos
+comunicación con el usuario permitiendo seleccionar arquetipos y elementos de estos. La gestión de las expresiones
+(utilizadas en los predicados) se delega en el servicio `expressionItemFactory` y la gestión de los conceptos
 terminológicos en `terminologyFactory`.
 
 Implementación
@@ -3633,12 +3644,12 @@ de la estructura de directorios).
 Como se muestra en la <<sequence-guideline>>, el profesional sanitario selecciona la pestaña _Guidelines_ (o se le
 muestra por defecto al iniciarse la aplicación) donde puede ver el listado de guías clínicas. Al seleccionar una guía,
 se llama a un método del controlador `GuidelineCtrl`, este método utiliza un servicio que se le ha inyectado
-denominado `guidelineFactory`. Este servicio a su vez hace uso de un servicio nativo de AngularJS llamado `$http` el
+denominado `guidelineFactory`. Este servicio, a su vez, hace uso de un servicio nativo de AngularJS llamado `$http` el
 cual hace una petición GET a la API REST. `$http` devuelve una promesa que, en cuanto se resuelva, se le asigna al
 `$scope` del controlador `GuidelineCtrl`, en ese momento ya tenemos un objeto en memoria que representa la guía
 clínica. En el momento que se resuelve la promesa que devuelve `$http`, `guidelineFactory` hace una petición de los
 arquetipos que contiene la guía en su sección `archetypeBinding`. Esta petición se ha decidido hacerla en este punto,
-y no cuando pasemos a editar las definiciones, porque mejora el rendimiento de tal modo que cuando se renderice la
+y no cuando pasemos a editar las definiciones, porque mejora el rendimiento, de tal modo que cuando se renderice la
 vista de las definiciones el `$scope` ya cuente con los arquetipos en memoria, por lo que no tiene que hacer dicha
 petición y la vista se carga de forma inmediata.
 
@@ -3665,10 +3676,10 @@ muestra el código de la directiva `transformDate`.
 include::../../app/components/tabs/tab-description/tab.description.directive.js[]
 ----
 
-Se ha creado un controlador `DescriptionCtrl` para gestionar la vista anteriormente mencionada donde se declaran los
+Se ha creado un controlador `DescriptionCtrl` para gestionar la vista anteriormente mencionada donde se declaran
 las propiedades del modelo que se vinculan con la vista. Como puede observarse en la plantilla HTML, se hace uso de la
 directiva https://docs.angularjs.org/api/ng/directive/ngModel[ngModel] que vincula elementos del DOM con propiedades del
-`$scope` de AngularJS. Además de esta vinculación se definen dos métodos para gestionar las palabras clave y
+`$scope` de AngularJS. Además de esta vinculación se definen dos métodos para gestionar las palabras clave y los
 colaboradores. A continuación se muestra dicho controlador.
 
 [source,python]
@@ -3678,10 +3689,11 @@ include::../../app/components/tabs/tab-description/tab.description.controller.js
 
 La implementación del caso de uso _Editar definiciones_, al igual que el diseño, es más compleja que _Editar
 descripción_. Uno de los requisitos de la aplicación fue que tanto la edición de las definiciones, como la de las
-reglas y las precondiciones tendrían que ser utilizando un componente en forma de árbol con _drag and drop_, de manera
+reglas y las precondiciones tendrían que ser utilizando un componente en forma de árbol con funcionalidad
+de _drag and drop_, de manera
 que el usuario pudiese ir generando las guías arrastrando y soltando los elementos correspondientes. Para este
 cometido se ha utilizado un componente en forma de árbol llamado `ui-tree` (ver <<architecture>>). Este componente,
-para gestionar su jerarquía, utiliza arrays de objetos y lo que queremos representar usándolo son objetos compuestos,
+para gestionar su jerarquía, utiliza arrays de objetos y lo que queremos representar usándolo, son objetos compuestos,
 por lo que se ha tenido que trabajar con una transformación del modelo en memoria y hacer una reconversión en el
 momento que se hace un POST de la guía.
 
@@ -3783,7 +3795,7 @@ con la siguiente estructura:
 }
 ----
 <1> Identificador del _archetypeBinding_.
-<2> Identificador del arquetipo al que se pretende enlazar.
+<2> Identificador del arquetipo con el que se enlaza.
 <3> Espacio en el que residen las variables de regla: EHR o CDS.
 <4> Lista de elementos definidos en el _archetypeBinding_ actual.
 <5> _path_ unívoco del elemento en el arquetipo.
@@ -3792,14 +3804,14 @@ con la siguiente estructura:
 El controlador `DefinitionsCtrl` cuenta con diferentes métodos que permiten la edición de las definiciones, se
 destacan varios métodos: un método `updateArchetype()` que permite actualizar un arquetipo seleccionándolo de una
 lista de arquetipos (si se está sustituyendo por otro, automáticamente los elementos del arquetipo a sustituir se
-eliminarían). Un método `updateLeftItem()` que permite actualizar tanto instanciaciones de elementos como de
+eliminan). Un método `updateLeftItem()` que permite actualizar tanto instanciaciones de elementos como de
 predicados, en este último caso sería el elemento de la parte izquierda del predicado. Por último, mencionar el
 método `updateRightItem()` que permite actualizar la parte derecha de los predicados, teniendo en cuenta el tipo de
 dato del elemento de la parte izquierda, tal como se comentó en la definición de los casos de uso de la segunda
 iteración.
 
 En la <<screenshot-usecase2-1>> y en la <<screenshot-usecase2-2>> se muestra una captura de pantalla de la interfaz
-correspondiente al desarrollo de dos funcionalidades importantes dentro de esta iteración.
+correspondiente al desarrollo de estas dos funcionalidades importantes correspondientes a la iteración 2.
 
 [[screenshot-usecase2-1]]
 .Iteración 2: caso de uso _Editar descripción_ .
@@ -3811,8 +3823,9 @@ image::definitions-2.png[]
 
 Pruebas
 ^^^^^^^
-Siguiendo la guía de buenas prácticas, al fichero que contiene los test unitarios para testear el controlador
-`DefinitionsCtrl` definido en el fichero `tab.definitions.controller.js`, le hemos llamado `tab.definitions.controller.spec.js`.
+Por convención, al fichero que contiene los test unitarios para probar el controlador
+`DefinitionsCtrl` definido en el fichero `tab.definitions.controller.js`, se le ha llamado
+`tab.definitions.controller.spec.js`.
 
 [source,python]
 ----
@@ -3843,8 +3856,8 @@ Descripción de los casos de uso
 
 Crear nueva regla::
 La pestaña _Rule list_ muestra un listado de todas las reglas definidas para una guía. A las reglas se les puede
-asignar una prioridad para asegurar el orden de ejecución de las mismas--puede haber reglas que dependan de otras
-anteriores--. La lista se muestra en un componente _drag and drop_ de modo que podamos arrastrar y soltar cada regla
+asignar una prioridad para asegurar el orden de ejecución de las mismas (puede haber reglas que dependan de otras
+anteriores). La lista se muestra en un componente _drag and drop_ de modo que podamos arrastrar y soltar cada regla
 pudiendo asignar la posición de esa manera.
 
 Editar regla::
@@ -3860,18 +3873,19 @@ _i.e._ un conjunto de condiciones y un conjunto de acciones. La edición de cond
 de las definiciones. La versión actual de GDL soporta seis tipos de condiciones:
 
 * _Compare (DataValue)_: compara el valor de una instancia de elemento con un valor de datos (constante).
-* _Compare (NullValue)_: compara el valor nulo de una instancia de elemento con un código __open__EHR NULL_FLAVOUR.
+* _Compare (NullValue)_: compara el valor nulo de una instancia de elemento con un código __open__EHR
+NULL_FLAVOURfootnote:[Posibles valores nulos en __open__EHR: http://bit.ly/2f3Exoe].
 * _Compare (Element)_: compara el valor de una instancia de elemento con el valor de otra instancia de elemento.
 * _Compare (Attribute)_: compara el atributo de una instancia de elemento con una constante o una expresión (véase
 <<_editor_de_expresiones, Editor de expresiones>>).
-* _Element exists_: comprueba si la instancia del elemento tiene o no tiene ningún valor asignado.
+* _Element exists_: comprueba si la instancia del elemento tiene o no tiene un valor asignado.
 * _Or operator_: realiza una disyunción lógica entre dos condiciones.
 
 Gestionar acciones::
 Se trata de las acciones que se ejecutan cuando se cumplen las condiciones, actualmente se soportan cuatro tipos de
 acciones:
 
-* _Set (DataValue)_: inicializa la instancia del elemento con el valor de datos seleccionado.
+* _Set (DataValue)_: inicializa la instancia del elemento con el valor del dato seleccionado.
 * _Set (NullValue)_: elimina el valor de la instancia del elemento y establece el código NULL_FLAVOUR seleccionado.
 * _Set (Element)_: copia el valor de una instancia de elemento a otra.
 * _Set (Attribute)_: establece el valor de un atributo utilizando una constante o una expresión (consulte
@@ -3879,10 +3893,10 @@ acciones:
 
 Gestionar precondiciones::
 Se trata de una serie de condiciones que se tienen que cumplir para que la guía pueda ser ejecutada. Las precondiciones
-se gestionan en la pestaña _Preconditions_, de manera similar a cómo se gestionan las _condiciones_ y las _acciones_.
-Poseen su propio editor de precondiciones. Están soportados los mismos tipos de precondiciones que de condiciones,
-_i.e._ _Compare (DataValue)_, _Compare (NullValue)_, _Compare (Element)_, _Compare (Attribute)_, _Element exists_ y
-_Or operator_.
+se gestionan en la pestaña _Preconditions_, de manera similar a cómo se gestionan las _condiciones_ y las _acciones_
+en el editor de reglas. Poseen su propio editor de precondiciones. Están soportados los mismos tipos de
+precondiciones que de condiciones, _i.e._ _Compare (DataValue)_, _Compare (NullValue)_, _Compare (Element)_,
+_Compare (Attribute)_, _Element exists_ y _Or operator_.
 
 Diseño
 ^^^^^^
@@ -3929,9 +3943,9 @@ include::../../app/components/tabs/tab-rulelist/tab-rulelist.html[]
 La lista se gestiona con el componente `ui-tree`, de manera que los nodos de la vista se puedan arrastrar y soltar
 para indicar la prioridad de cada regla. Se implementa un botón que permite la adición de nuevas reglas y se
 renderizan las ya creadas haciendo uso de la directiva https://docs.angularjs.org/api/ng/directive/ngRepeat[ngRepeat]
-asignándole a cada una de ellas las funcionalidades de edición y de eliminado. Dentro del `ng-repeat` hacemos uso del
+asignándole a cada una de ellas las funcionalidades de edición y de eliminación. Dentro del `ng-repeat` hacemos uso del
 filtro nativo de AngularJS https://docs.angularjs.org/api/ng/filter/orderBy[orderBy], de modo que las reglas se
-ordenarán automáticamente para su visualización. En el objeto de configuración que se le para a la directiva `uiTree`
+ordenarán automáticamente para su visualización. En el objeto de configuración que se le pasa a la directiva `uiTree`
 se le indica que cuando se suelte un nodo se recalcule la prioridad de la guía dependiendo de donde se haya colocado
 dicho nodo.
 
@@ -3953,7 +3967,7 @@ Tanto el código de la vista como el del controlador del editor de reglas no se 
 espacio, pero se puede acceder al mismo en el repositorio de GitHubfootnote:[https://github.com/jbarcas/angular-gdl-editor].
 Cabe mencionar, como se puede ver en la <<classes-iter-3>>, que se han desarrollado dos servicios `ConditionFactory` y
 `ActionFactory` sobre los que el controlador `RuleEditorCtrl` delega la funcionalidad de las condiciones y de las
-acciones respectivamente del editor de reglas. Se ha hecho de esta manera para simplificar y delimitar mejor las
+acciones respectivamente del editor de reglas. Se ha hecho de esta manera para simplificar y delimitar adecuadamente las
 funcionalidades de cada una de ellas, obteniendo unos servicios más manejables y fáciles de comprender.
 
 La implementación de las precondiciones es más sencilla y se ha desarrollado una vista muy parecida a la de las
@@ -4012,7 +4026,7 @@ el servicio que es responsable de instanciar los controladores.
 include::../../app/components/tabs/tab-rulelist/tab.rulelist.controller.spec.js[]
 ----
 
-Se está utilizando la notación de guion bajo para tener una referencia global a los servicios inyectado en el
+Se está utilizando la notación de guion bajo para tener una referencia global a los servicios inyectados en el
 controlador, _i.e._ `guidelineFactory` y `rulelistFactory`.  Los guiones bajos serán ignorados por el inyector cuando
 la referencia se resuelva. En el test anterior se comprueba la funcionalidad del controlador `RulelistCtrl`.
 
@@ -4041,7 +4055,7 @@ Análisis
 En esta última iteración se han implementado los restantes casos de uso, es decir, aquellas funcionalidades que
 permitan editar la terminología de las guías, los enlaces con terminologías externas, visualizar el código GDL de la
 guía clínica, así como una visualización en formato HTML de modo que el usuario pueda, con un sólo vistazo conocer
-toda la información relacionada con la guía. Asimismo se necesita cubrir el caso de uso relacionado con el
+toda la información relacionada con la guía. Asimismo, se necesita cubrir el caso de uso relacionado con el
 almacenamiento de la guía modificada en el _backend_.
 
 Descripción de los casos de uso.
@@ -4269,9 +4283,9 @@ include::../../app/components/tabs/tab-binding/tab.bindings.controller.spec.js[]
 ----
 
 Se comienza el test cargando los módulos necesarios para ejecutar las funcionalidades que vamos a probar, al igual
-que se ha hecho en iteraciones anteriores. Hacemos un _mock_ de una guía de pruebas para comprobar que los métodos
-que testeamos del controlador van a devolver correctamente lo que se le solicita. A continuación, usando el servicio
-`$controller`, se instancia el controlador que se quiere probar, en este caso, `BindingCtrl` con los servicios
+que se ha hecho en iteraciones anteriores. Se simula una guía de pruebas para comprobar que los métodos
+que se están probando del controlador van a devolver correctamente lo que se le solicita. A continuación, usando el
+servicio `$controller`, se instancia el controlador que se quiere probar, en este caso, `BindingCtrl` con los servicios
 inyectados que interesen para dichas funcionalidades. Las comprobaciones que se hacen para este controlador son, en
 primer lugar, que el controlador esté definido. se comprueba que la propiedad `terminologies` utilizada
 constantemente para esta funcionalidad esté definida y vacía antes de que se ejecute el controlador, que los métodos
@@ -4406,7 +4420,7 @@ definidas localmente para expresar la lógica clínica. Cada regla tiene un nomb
 definido localmente, cuyo nombre y descripción, que dependen del lenguaje natural, se indexan en la sección
 _term_definitions_. El campo _priority_ representa la prioridad que asegura el orden de ejecución de las reglas. Este
 ejemplo ilustra las reglas que inspeccionan diferentes diagnósticos relevantes para la puntuación CHA2DS2-VASc y
-establecen los valores correspondientes a los DV_ORDINALsfootnote:[Tipo de dato de __open__EHR] existentes en el
+establecen los valores correspondientes a los DV_ORDINALsfootnote:[Tipo de dato de __open__EHR.] existentes en el
 arquetipo correspondiente, en este caso el arquetipo CHA2DS2-VASc. La regla `gt0026`, _Calcular puntuación total_
 suma todos los valores y asigna dicho valor a la puntuación total.
 
@@ -5051,7 +5065,7 @@ la información deba viajar de una organización a otra.
 Ministerio de Sanidad está fomentando el uso de arquetipos
 clínicosfootnote:[https://www.msssi.gob.es/profesionales/hcdsns/areaRecursosSem/Rec_mod_clinico_arquetipos.htm] en las herramientas de software médico
 con la idea de que, en un futuro, sea obligatoria la comunicación de registros clínicos electrónicos utilizando este
-tipo de normas. La mayoría gobiernos a nivel internacional están trabajando en el mismo sentido apostando por la
+tipo de normas. Muchos gobiernos a nivel internacional están trabajando en el mismo sentido apostando por la
 interoperabilidad semántica en la medicina, ya que es evidente la necesidad de que la información sanitaria del
 ciudadano pueda estar accesible desde cualquier lugar y en cualquier momento.
 
@@ -5091,34 +5105,28 @@ partes de la guía que están siendo modificadas.
 simultáneamente habría que plantear un medio de resolución de conflictos a la hora de almacenar los cambios de la
 guía cuando dos o más usuarios hayan modificado un mismo elemento.
 
-* Implementación de un sistema de ejecución de guías basado en formularios para probar las guías. Estos formularios
-se renderizarán en función del tipo de dato de __open__EHR de cada uno de los elementos que componen la guía. Esta
-funcionalidad ya está disponible en el _backend_, se trata de una característica que está prevista para su
-realización a corto plazo.
+* Implementación de un sistema de ejecución de guías basado en formularios. Se trata de una utilidad adicional que
+permite la ejecución de las guías para que puedan probarse. Esta funcionalidad ya está disponible en el _backend_.
+Se generará un formulario con un conjunto de entradas basado en el contenido definido en la guía, los datos
+introducidos en los formularios se usarán para ejecutar las reglas definidas en la guía y presentar el resultado con
+los valores calculados. Un ejemplo sencillo, sobre la guía creada en el Manual de usuario, cálculo del Índice de Masa
+Corporal (IMC), sería la implementación de un componente gráfico que al utilizarlo renderizase un formulario para
+que se introdujese el peso y la altura del individuo, la ejecución se realizaría en el servidor teniendo en cuenta
+las reglas y las precondiciones y el sistema devolvería los datos  calculados al usuario.
 
 * Gestión del historial y de versiones: con la modificación de una guía aparece el concepto de versión de una guía
-clínica. La versión de las guías clínicas, al igual que en los arquetipos, se indica en el propio nombre del fichero
-GDL. Con la edición colaborativa habría que diseñar un mecanismo de gestión automática de guías.
+clínica. Por convención, la versión de las guías clínicas, al igual que en los arquetipos, se indica en el propio
+nombre del fichero GDL. Con la edición colaborativa habría que diseñar un mecanismo de gestión automática de guías.
 
-* Internacionalización de la aplicación: de momento la aplicación se encuentra en idioma inglés ya que fue unos de
+* Internacionalización de la aplicación: de momento la aplicación se encuentra en idioma inglés ya que fue uno de
 los requisitos impuestos. Una funcionalidad a corto plazo es la de permitir elegir el idioma de la interfaz gráfica.
 Asimismo, se pretende añadir a corto plazo el soporte de términos locales (pestaña _Terminology_) en cualquier idioma.
 
 * Soporte para Slots: como se ha comentado a lo largo de la memoria, los arquetipos son jerárquicos. Un arquetipo se
 puede reutilizar para definir un nodo de otro arquetipo, esto se llama _slot_. En el arquetipo se puede definir
 explícitamente, o con patrones de expresiones regulares, qué arquetipos acepta (o rechaza) que sean insertados en
-dicho nodo. Es una situación poco común, pero la versión actual del editor GDL no puede resolver dichos _slots_. Se
+dicho nodo. Es una situación poco común, pero la versión actual del editor GDL no resuelve dichos _slots_. Se
 pretende resolver esta situación a corto plazo.
-
-* Como se comentó en el apartado anterior la funcionalidad de la compilación de guías está disponible en el _backend_.
-Se trata de una utilidad adicional que permite la ejecución de las guías para que puedan probarse. Dicha
-funcionalidad generará un formulario con un conjunto de entradas basado en el contenido definido en la guía. Estos
-datos se usarán para ejecutar las reglas definidas en la guía y presentar el resultado con los valores calculados. Un
-ejemplo sencillo, sobre la guía creada en el Manual de usuario, cálculo del Índice de Masa Corporal (IMC), sería la
-implementación de un componente gráfico que al utilizarlo renderizase un formulario para que se introdujese el peso y
-la altura del individuo, la ejecución se realizaría en el servidor teniendo en cuenta las reglas y las precondiciones
-y el sistema devolvería los datos calculados al usuario.
-
 
 Índice de abreviaturas
 ----------------------
