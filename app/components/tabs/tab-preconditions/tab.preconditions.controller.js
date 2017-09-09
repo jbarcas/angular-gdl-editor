@@ -6,7 +6,7 @@ function PreconditionsCtrl(guidelineFactory, expressionItemFactory, conditionFac
   vm = this;
 
   vm.terms = guidelineFactory.getOntology() ? guidelineFactory.getOntology().termDefinitions.en.terms : {};
-  vm.preConditions = guidelineFactory.getPreConditions();
+  vm.preConditions = guidelineFactory.getPreConditions() || [];
   vm.getOptions = getOptions;
   vm.showRightName = showRightName;
   vm.updateConditionLeft = updateConditionLeft;

@@ -7,7 +7,8 @@ angular.module('app.services')
     .factory('SharedProperties', function() {
 
         var sharedProperty = {
-            checked: ''
+            checked: '',
+            checkedName: ''
         };
 
         return {
@@ -17,6 +18,13 @@ angular.module('app.services')
             },
             setChecked: function(checked) {
                 sharedProperty.checked = checked;
+            },
+
+            getCheckedName: function () {
+                return sharedProperty.checkedName;
+            },
+            setCheckedName: function(checkedName) {
+                sharedProperty.checkedName = checkedName;
             }
         };
 

@@ -21,11 +21,14 @@ function BindingsCtrl($log, guidelineFactory, terminologyFactory, utilsFactory, 
     vm.removeBinding = removeBinding;
     vm.newTerminology = newTerminology;
     vm.removeBindingTerminology = removeBindingTerminology;
+    //vm.termBindings = {};
     vm.errorMsg = false;
 
     vm.magnifier = "../assets/img/magnifier.png";
     vm.pencil = "../assets/img/pencil.png";
     vm.delete = "../assets/img/del.png";
+
+    vm.isEmpty = isEmpty;
 
     getTerminologies();
 
@@ -56,6 +59,10 @@ function BindingsCtrl($log, guidelineFactory, terminologyFactory, utilsFactory, 
             codes = codes.concat(code.codeString + ", ");
         });
         return codes.substring(0, codes.length - 2);
+    }
+
+    function isEmpty (obj) {
+        return angular.isUndefined(obj) || Object.keys(obj).length === 0;
     }
 
     function showTerminologyCodes(node) {
@@ -293,50 +300,39 @@ function BindingsCtrl($log, guidelineFactory, terminologyFactory, utilsFactory, 
     }
 
     function newBinding() {
-        var modalOptions = {
-            component: "modalWithInputAndDropdownComponent",
-            resolve: {
-                input: {
-                    value: ""
-                }
-            }
-        };
-
-        var modalData = {
-            headerText: "Add local term",
-            bodyText: "Name"
-        };
-
-        modalService.showModal(modalOptions, modalData).then(showModalComplete, showModalFailed);
+        var modalOptions = {};
+        modalOptions.resolve = {};
+        modalOptions.component = "modalWithTreeComponent";
+        modalOptions.resolve.items = function() {
+            var terms = guidelineFactory.getOntology().termDefinitions.en.terms;
+            var modalItems = [];
+            angular.forEach(terms, function (term) {
+                term.viewText = term.id + " - " + term.text;
+                //term.type = leftElementType;
+                modalItems.push(term);
+            });
+            modalItems = modalItems.sort(compare);
+            return modalItems;
+        }
+        modalService.showModal(modalOptions, {headerText: "Select local term"}).then(showModalComplete, showModalFailed);
 
         function showModalComplete(modalResponse) {
-            if (modalResponse.data === undefined) {
-                return;
-            }
-
-            // First, we create the corresponding termDefinition
-
-            var gtCode = utilsFactory.generateGt(guidelineFactory.getCurrentGuide());
-            var temDefinition = {
-                id: gtCode,
-                text: modalResponse.data.input.value,
-                description: "*"
-            };
-            guidelineFactory.setTermDefinition(temDefinition);
-
+            var response = modalResponse.data.selectedItem;
             var termBinding = {
-                id: gtCode,
+                id: response.id,
                 codes: [],
                 uri: ''
             };
             guidelineFactory.getCurrentGuide().ontology.termBindings[vm.terminology].bindings[termBinding.id] = termBinding;
+            console.log(modalResponse);
         }
 
-        function showModalFailed() {
-            $log.info('Modal dismissed at: ' + new Date() + ' in updateRightItem');
+        function showModalFailed(modalResponse) {
+            console.log(modalResponse);
         }
-
     }
+
+
 
     /**
      * Create a new terminology in which you can add termBindings.
@@ -494,4 +490,6 @@ function BindingsCtrl($log, guidelineFactory, terminologyFactory, utilsFactory, 
         }
 
     }
+
+
 }

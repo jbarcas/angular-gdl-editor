@@ -24,6 +24,11 @@
         $state.go(route);
       };
 
+      $ctrl.showUpdateButton = function () {
+        return !!SharedProperties.getChecked();
+      }
+
+
       var item;
       /*
        * Check if there are elements unselected (i.e. in process of creation [marked in red])
@@ -54,8 +59,6 @@
             }
           }
         }
-
-
         return false;
       }
 

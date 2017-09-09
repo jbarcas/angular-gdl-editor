@@ -6,7 +6,11 @@ angular.module('app.controllers')
     .controller('DefinitionsCtrl', DefinitionsCtrl);
 
 
-function DefinitionsCtrl($log, $scope, $filter, archetypeFactory, utilsFactory, guidelineFactory, expressionItemFactory, definitionsFactory, terminologyFactory, modalService, DV, ATTRIBUTES) {
+function DefinitionsCtrl($log, $scope, $filter, archetypeFactory, utilsFactory, SharedProperties, guidelineFactory, expressionItemFactory, definitionsFactory, terminologyFactory, modalService, DV, ATTRIBUTES) {
+
+    if(!SharedProperties.getChecked()) {
+        return;
+    }
 
     vm = this;
 
@@ -128,15 +132,37 @@ function DefinitionsCtrl($log, $scope, $filter, archetypeFactory, utilsFactory, 
         });
 
         if (unused) {
-            /**
-             * Remove the archetype from the service
-             */
-            guidelineFactory.deleteGuidelineArchetype(archetype.archetypeId);
-            /**
-             * Remove the terms from the service
-             */
-            guidelineFactory.removeTerm(archetype.archetypeId);
-            scope.remove();
+
+            var archetypeId = archetype.archetypeId;
+
+            if(archetypeId === "Select an archetype") {
+                scope.remove();
+                return;
+            }
+
+            modalService.showModal(
+                {component: 'dialogComponent'},
+                {bodyText: 'Are you sure you want remove the archetype" ' + archetype.archetypeId +'"'}
+            ).then(showModalComplete, showModalFailed);
+
+            function showModalComplete() {
+                /**
+                 * Remove the archetype from the service
+                 */
+                guidelineFactory.deleteGuidelineArchetype(archetype.archetypeId);
+                /**
+                 * Remove the terms from the service
+                 */
+                guidelineFactory.removeTerm(archetype.archetypeId);
+                scope.remove();
+            }
+
+            function showModalFailed() {
+                $log.info('Modal dismissed at: ' + new Date() + ' in removeArchetype()');
+            }
+
+
+
         } else {
             showModal();
         }

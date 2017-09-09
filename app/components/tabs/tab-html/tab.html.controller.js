@@ -5,7 +5,11 @@
 angular.module('app.controllers')
   .controller('HtmlCtrl', HtmlCtrl);
 
-function HtmlCtrl(htmlFactory) {
+function HtmlCtrl(htmlFactory, SharedProperties) {
+
+  if(!SharedProperties.getChecked()) {
+    return;
+  }
 
   vm = this;
   vm.html = {};

@@ -1,9 +1,13 @@
 <div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">Guidelines ({{vm.guidelines.length}})</h3>
+  <div class="panel-heading gdl-display-flex">
+    <h3 class="panel-title gdl-center-header">Guidelines ({{vm.guidelines.length}})</h3>
+    <span id="last">
+      <input id="guide-filter" type="text" class="form-control" ng-model="filterText" placeholder="Search guideline..." autofocus>
+    </span>
+
   </div>
   <div class="panel-body gdl-columns gdl-overflow-x">
-    <div class="radio" ng-repeat="guideline in vm.guidelines | orderBy">
+    <div class="radio" ng-repeat="guideline in vm.guidelines | filter: filterText | orderBy">
       <label>
         <input type="radio" ng-model="vm.checked"
                ng-click="vm.getGuideline(guideline)"

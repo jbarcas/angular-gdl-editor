@@ -48,6 +48,12 @@ function DescriptionCtrl(guidelineFactory, modalService, $log) {
             }
             var language = "en";
             var keyword = response.data.input.value;
+            if(angular.isUndefined(vm.guide.description.details)) {
+                vm.guide.description.details = {
+                    "en": {}
+                };
+            }
+
             if(angular.isUndefined(vm.guide.description.details[language].keywords)) {
                 vm.guide.description.details[language].keywords = [];
             }

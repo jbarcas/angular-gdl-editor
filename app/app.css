@@ -110,9 +110,9 @@ sup {
  * Prevents remove vertical scroll bar when the modal is open
  * Source: http://stackoverflow.com/questions/25070144/bootstrap-modal-removes-scroll-bar
  */
-.modal-open {
+/*.modal-open {
     overflow-y: scroll !important;
-}
+} */
 
 /*
  *
@@ -148,6 +148,23 @@ sup {
 
 .gdl-inline {
     display: inline-block;
+}
+
+#guide-filter {
+    margin-left: 20px;
+}
+
+/* display inline the header an the filter input text box */
+.gdl-display-flex {
+    display: flex;
+}
+
+/* Center header text vertically. It is used in the 'guidelines' tab */
+.gdl-center-header {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Datavalue glyphicons */

@@ -54,7 +54,7 @@ angular.module('app.components')
         } else {
           response.selectedItem =  $ctrl.selected.item;
           response.domain = $ctrl.domain;
-          response.type = $ctrl.selected.item.type;
+          response.type = $ctrl.domain;
         }
         $ctrl.close({$value: {data: response }});
       };

@@ -13,11 +13,11 @@
     controller: function ($scope, SharedProperties) {
 
       var getChecked = function () {
-        return SharedProperties.getChecked();
+        return SharedProperties.getCheckedName();
       }
 
       $scope.$watch(getChecked, function (newValue, oldValue) {
-        if (newValue !== oldValue) $scope.checked = newValue;
+        if (newValue !== oldValue) $scope.checkedName = newValue;
       });
     }
   });

@@ -6,7 +6,7 @@
     <div class="col-sm-6">
       <form class="form-inline">
         <div class="form-group gdl-padding">
-          <input type="text" ng-model="predicate" placeholder="Filter" class="form-control">
+          <input type="text" ng-model="predicate" placeholder="Filter" class="form-control" autofocus>
           <img ng-src="{{$ctrl.image.expand.url}}" uib-tooltip="{{$ctrl.image.expand.text}}" ng-click="$ctrl.expand()">
           <img ng-src="{{$ctrl.image.contract.url}}" uib-tooltip="{{$ctrl.image.contract.text}}" ng-click="$ctrl.contract()">
         </div>

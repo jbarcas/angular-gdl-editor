@@ -69,6 +69,9 @@ function utilsFactory(guidelineFactory, GT_HEADER) {
      * @returns {*} The guideline as gdl backend understands
      */
     function convertToPost(guideline) {
+        if (!angular.isArray(guideline.definition.archetypeBindings)) {
+            return guideline;
+        }
         for (var archetypeBinding in guideline.definition.archetypeBindings) {
             if (guideline.definition.archetypeBindings.hasOwnProperty(archetypeBinding)) {
                 var elements = guideline.definition.archetypeBindings[archetypeBinding].elements;

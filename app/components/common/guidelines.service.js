@@ -1,7 +1,7 @@
 angular.module('app.services')
     .factory('guidelineFactory', guidelineFactory);
 
-function guidelineFactory($http, API_URL, $q, archetypeFactory, terminologyFactory) {
+function guidelineFactory($http, API_URL, $q, archetypeFactory, terminologyFactory, SharedProperties) {
     
     var guideline = {};
     var guidelineArchetypes = [];
@@ -88,7 +88,7 @@ function guidelineFactory($http, API_URL, $q, archetypeFactory, terminologyFacto
                         "terms": {
                             "gt0000": {
                                 "id": "gt0000",
-                                "text": "Body Mass Index calculation",
+                                "text": toName(guidelineId),
                                 "description": "*"
                             }
                         }
@@ -483,4 +483,12 @@ function guidelineFactory($http, API_URL, $q, archetypeFactory, terminologyFacto
         guideline.ontology.termDefinitions.en.terms[termDefinitionId] = termDefinition;
     }
 
+    function toName (guidelineId) {
+        var name = guidelineId.charAt(0).toUpperCase() + guidelineId.substr(1).toLowerCase().replace(/\./g, ' ');
+        if(/v\d+/.test(name)) {
+            name = name.slice(0, name.lastIndexOf(".")-1);
+        }
+        SharedProperties.setCheckedName(name);
+        return name;
+    }
 }
