@@ -7,7 +7,7 @@
 </div>
 
 <div class="row">
-  <div ui-tree="vm.treeRulelist">
+  <div ui-tree="vm.treeRulelist" data-empty-placeholder-enabled="false">
     <ol ui-tree-nodes="" ng-model="vm.rules">
       <li ng-repeat="rule in vm.rules | orderBy:'priority':true" ui-tree-node>
         <div ui-tree-handle class="tree-node tree-node-content">

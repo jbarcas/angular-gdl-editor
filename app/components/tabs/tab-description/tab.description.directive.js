@@ -1,4 +1,4 @@
-angular.module('app.directives', [])
+angular.module('app.directives')
     .directive('transformDate', transformDate);
 
 function transformDate() {

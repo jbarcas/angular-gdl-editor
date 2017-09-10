@@ -18,5 +18,5 @@
 </div>
 <div class="modal-footer">
     <button class="btn btn-default" data-ng-click="$ctrl.cancel()">{{$ctrl.labels.closeButtonText}}</button>
-    <button class="btn btn-primary" data-ng-click="$ctrl.ok()">{{$ctrl.labels.actionButtonText}}</button>
+    <button class="btn btn-primary" ng-enter="$ctrl.ok();" data-ng-click="$ctrl.ok()">{{$ctrl.labels.actionButtonText}}</button>
 </div>

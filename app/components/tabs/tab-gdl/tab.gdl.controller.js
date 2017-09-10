@@ -17,12 +17,6 @@ function GdlCtrl(gdlFactory, guidelineFactory, utilsFactory, modalService) {
 
     update();
 
-    function getGdl(guideline) {
-        return gdlFactory.getGdl(guideline).then(function(response) {
-            vm.gdl = response;
-        })
-    }
-
     function update() {
         var guideline = guidelineFactory.getCurrentGuide();
 
@@ -75,6 +69,12 @@ function GdlCtrl(gdlFactory, guidelineFactory, utilsFactory, modalService) {
                 vm.errorMsg = error.error;
             }
         );
+    }
+
+    function getGdl(guideline) {
+        return gdlFactory.getGdl(guideline).then(function(response) {
+            vm.gdl = response;
+        })
     }
 
     function areUnselectedItems (guideline) {
