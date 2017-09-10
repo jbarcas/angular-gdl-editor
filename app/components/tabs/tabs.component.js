@@ -26,7 +26,7 @@
 
       $ctrl.anyChecked = function () {
         return !!SharedProperties.getChecked();
-      }
+      };
 
 
       var item;

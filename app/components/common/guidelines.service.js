@@ -59,11 +59,14 @@ function guidelineFactory($http, API_URL, $q, archetypeFactory, terminologyFacto
         addElementToDefinitions: addElementToDefinitions,
         getText: getText,
         //getDescription: getDescription
+        getTermDefinitions: getTermDefinitions,
+        setTermDefinitions: setTermDefinitions,
         getTermBindings: getTermBindings,
         getTermBinding: getTermBinding,
         setTermBinding: setTermBinding,
         removeBindingTerminology: removeBindingTerminology,
-        setTermDefinition: setTermDefinition
+        setTermDefinition: setTermDefinition,
+        getLanguages: getLanguages
     };
 
     function newGuideline(guidelineId) {
@@ -455,6 +458,21 @@ function guidelineFactory($http, API_URL, $q, archetypeFactory, terminologyFacto
         return null;
     }*/
 
+    function getTermDefinitions() {
+        if(!guideline.ontology) {
+            return null;
+        }
+        return guideline.ontology.termDefinitions;
+    }
+
+    // TODO: merge with setTermDefinition method
+    function setTermDefinitions(termDefinition) {
+        if(!guideline.ontology.termDefinitions) {
+            guideline.ontology.termDefinitions = {};
+        }
+        guideline.ontology.termDefinitions[termDefinition.id] = termDefinition;
+    }
+
     function getTermBindings() {
         if(!guideline.ontology) {
             return null;
@@ -490,5 +508,10 @@ function guidelineFactory($http, API_URL, $q, archetypeFactory, terminologyFacto
         }
         SharedProperties.setCheckedName(name);
         return name;
+    }
+
+    function getLanguages() {
+        console.log(guideline.ontology.termDefinitions);
+        return Object.keys(guideline.ontology.termDefinitions);
     }
 }

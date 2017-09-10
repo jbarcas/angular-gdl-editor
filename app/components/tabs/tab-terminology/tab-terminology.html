@@ -1,4 +1,12 @@
-<div ng-show="vm.guide.ontology.termDefinitions['en'].terms">
+<div ng-show="vm.termDefinitions['en'].terms">
+
+    <uib-tabset active="vm.active">
+        <uib-tab ng-repeat="language in vm.termDefinitions"
+                 heading="{{vm.getLanguageName(language.id)}}"
+                 select="vm.changeLanguage(language)">
+        </uib-tab>
+    </uib-tabset>
+    <br>
     <table class="table table-bordered table-hover table-condensed table-striped">
         <tr style="font-weight: bold">
             <td style="width:10%">Code</td>
@@ -6,7 +14,7 @@
             <td style="width:45%">Description</td>
             <td style="width:15%">Edit</td>
         </tr>
-        <tr ng-repeat="term in vm.guide.ontology.termDefinitions['en'].terms">
+        <tr ng-repeat="term in vm.termDefinitions[vm.termDefinition.id].terms">
             <td>
                 <!-- editable id -->
                 <span>{{ term.id || 'empty' }}</span>
@@ -33,5 +41,7 @@
             </td>
         </tr>
     </table>
-    <button class="btn btn-primary" ng-click="vm.addTerm()">Add local term</button>
+    <button class="btn btn-primary" ng-click="vm.newLanguage()">New language</button>
+    <button class="btn btn-primary" ng-click="vm.newTerm()">Add local term</button>
+    <button class="btn btn-primary" ng-click="vm.addTerm()">New term</button>
 </div>

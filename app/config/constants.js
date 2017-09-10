@@ -74,7 +74,53 @@ angular.module('app.constants', [])
         ],
         OR: [
             {label: 'OR', value: 'OR'}
-        ]    })
-
-
+        ]
+    })
+    .constant('LANGUAGES', {
+        'ab': 'Abkhazian',
+        'aa': 'Afar',
+        'af': 'Afrikaans',
+        'ak': 'Akan',
+        'sq': 'Albanian',
+        'am': 'Amharic',
+        'ar': 'Arabic',
+        'an': 'Aragonese',
+        'hy': 'Armenian',
+        'as': 'Assamese',
+        'av': 'Avaric',
+        'az': 'Azerbaijani',
+        'eu': 'Basque',
+        'bg': 'Bulgarian',
+        'zh': 'Chinese',
+        'da': 'Danish',
+        'en': 'English',
+        'et': 'Estonian',
+        'fr': 'French',
+        'gl': 'Galician',
+        'de': 'German',
+        'el': 'Greek',
+        'he': 'Hebrew',
+        'id': 'Indonesian',
+        'ga': 'Irish',
+        'it': 'Italian',
+        'ja': 'Japanese',
+        'ko': 'Korean',
+        'ku': 'Kurdish',
+        'lv': 'Latvian',
+        'lt': 'Lithuanian',
+        'no': 'Norwegian',
+        'fa': 'Persian',
+        'pl': 'Polish',
+        'pt': 'Portuguese',
+        'ro': 'Romanian',
+        'ru': 'Russian',
+        'sr': 'Serbian',
+        'sk': 'Slovak',
+        'sl': 'Slovenian',
+        'es': 'Spanish',
+        'sv': 'Swedish',
+        'tk': 'Turkmen',
+        'tr': 'Turkish',
+        'uk': 'Ukrainian'
+    })
 ;

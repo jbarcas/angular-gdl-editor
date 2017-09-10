@@ -16,7 +16,7 @@ function utilsFactory(guidelineFactory, GT_HEADER) {
         objectToArray: objectToArray
     };
 
-    function generateGt(guide) {
+    function generateGt(guide, language) {
 
         if (!guide.ontology) {
             guide.ontology = guidelineFactory.getOntology();
@@ -24,7 +24,7 @@ function utilsFactory(guidelineFactory, GT_HEADER) {
 
         //var originalLanguage = guide.language.originalLanguage.codeString;
         // TODO: Other languages
-        var originalLanguage = "en";
+        var originalLanguage = language || "en";
         /*
          * First, we fetch the gt codes from the Ontology section
          */

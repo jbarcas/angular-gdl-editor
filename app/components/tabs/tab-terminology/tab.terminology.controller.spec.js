@@ -5,6 +5,7 @@ describe('Terminology functionality:', function() {
   beforeEach(module('app.controllers'));
   beforeEach(module('app.constants'));
   beforeEach(module('app.services'));
+  beforeEach(module('ui.bootstrap'));     // Needed to load modalService
 
   var terminologyCtrl, $httpBackend, guidelineFactory;
 
