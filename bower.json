@@ -10,7 +10,7 @@
     "angular-route": "~1.5.0",
     "angular-mocks": "~1.5.0",
     "html5-boilerplate": "^5.3.0",
-    "angular-xeditable": "~0.1.9",
+    "angular-xeditable": "0.8.0",
     "angular-ui-router": "~0.2.18",
     "bootstrap": "~3.3.7",
     "angular-bootstrap": "~2.5.0",

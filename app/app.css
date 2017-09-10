@@ -106,6 +106,18 @@ sup {
   text-align: center;
 }
 
+/* Style for the 'terminology' tab input to fit the whole row */
+.editable-wrap {
+    display:block;
+    width: 100%;
+}
+.editable-wrap .editable-controls > input,
+.editable-wrap .editable-controls > select,
+.editable-wrap .editable-controls > textarea {
+    display: inline-block;
+    width: 100%;
+}
+
 /*
  * Prevents remove vertical scroll bar when the modal is open
  * Source: http://stackoverflow.com/questions/25070144/bootstrap-modal-removes-scroll-bar
@@ -296,5 +308,10 @@ treecontrol.tree-boot li.tree-leaf i.tree-leaf-head {
 .gdl-terminology-icons {
     display: flex;
     justify-content: center;
+}
+
+/* Styles for rule list tab */
+.gdl-margin-bottom {
+    margin-bottom: 15px;
 }
 

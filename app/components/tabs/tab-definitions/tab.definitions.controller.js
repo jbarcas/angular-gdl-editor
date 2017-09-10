@@ -603,6 +603,9 @@ function DefinitionsCtrl($log, $scope, $filter, archetypeFactory, utilsFactory, 
             return;
         }
         var path = node.expressionItem.left.expressionItem.path;
+        if(angular.isUndefined(path)) {
+            return;
+        }
         var attribute = path.split(/\/value(.+)/)[1];
         return attribute.substring(1);
     }

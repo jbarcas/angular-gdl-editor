@@ -3,12 +3,12 @@
     <uib-tab ng-repeat="tab in $ctrl.tabs"
       heading="{{tab.heading}}"
       select="$ctrl.go(tab.route)"
-      disable="tab.disabled">
+      disable="!$ctrl.anyChecked()">
     </uib-tab>
     <a href="#" class="btn btn-info pull-right" ng-click="$ctrl.newGuide()">
       <span class="glyphicon glyphicon-plus"></span> New guideline
     </a>
-    <a href="#" ng-if="$ctrl.showUpdateButton()" class="btn btn-success pull-right" ng-click="$ctrl.insertGuide()">
+    <a href="#" ng-if="$ctrl.anyChecked()" class="btn btn-success pull-right" ng-click="$ctrl.insertGuide()">
       <span class="glyphicon glyphicon-upload"></span> Update guideline
     </a>
   </uib-tabset>

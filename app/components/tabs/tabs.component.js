@@ -24,7 +24,7 @@
         $state.go(route);
       };
 
-      $ctrl.showUpdateButton = function () {
+      $ctrl.anyChecked = function () {
         return !!SharedProperties.getChecked();
       }
 

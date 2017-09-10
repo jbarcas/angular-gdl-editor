@@ -1159,6 +1159,9 @@ function expressionItemFactory($log, guidelineFactory, utilsFactory, modalServic
             return str;
         }
         var str = "";
+        if(angular.equals({}, expression.expressionItem.left) && angular.equals({}, expression.expressionItem.right)) {
+            return "Set expression";
+        }
         if(expression.unselected) {
             return str;
         }
