@@ -5,7 +5,7 @@
 angular.module('app.controllers')
     .controller('RuleEditorCtrl', RuleEditorCtrl);
 
-function RuleEditorCtrl($stateParams, guidelineFactory, conditionFactory, actionFactory, expressionItemFactory) {
+function RuleEditorCtrl($stateParams, $log, guidelineFactory, conditionFactory, actionFactory, expressionItemFactory, modalService) {
 
     vm = this;
     vm.rule = guidelineFactory.getRule($stateParams.ruleId);
@@ -62,9 +62,20 @@ function RuleEditorCtrl($stateParams, guidelineFactory, conditionFactory, action
         }
     };
 
-    function removeCondition (condition) {
-        // TODO: Check if the condition is used somewhere
-        condition.remove();
+    function removeCondition (scope) {
+
+        modalService.showModal(
+            {component: 'dialogComponent'},
+            {bodyText: 'Are you sure you want remove the condition?', headerText: 'Remove condition?'}
+        ).then(showModalComplete, showModalFailed);
+
+        function showModalComplete() {
+            scope.remove();
+        }
+
+        function showModalFailed() {
+            $log.info('Modal dismissed at: ' + new Date() + ' in removePrecondition()');
+        }
     }
 
     /**

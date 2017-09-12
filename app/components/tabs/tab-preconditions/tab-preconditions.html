@@ -7,8 +7,8 @@
       <!-- Left panel -->
       <div class="col-sm-9">
         <div ui-tree data-drag-delay="300">
-          <ol ui-tree-nodes ng-model="vm.preConditions">
-            <li ng-repeat="preCondition in vm.preConditions" ui-tree-node>
+          <ol ui-tree-nodes ng-model="vm.guide.definition.preConditionExpressions">
+            <li ng-repeat="preCondition in vm.guide.definition.preConditionExpressions" ui-tree-node>
               <div ui-tree-handle class="tree-node tree-node-content">
                 <form role="form"  class="form-inline">
                   <a class="btn btn-success btn-xs"><span class="glyphicon glyphicon-list"></span></a>
@@ -17,7 +17,7 @@
                     <option ng-repeat="option in vm.getOptions(this.$modelValue)" value="{{ option.value }}" ng-bind="option.label"></option>
                   </select>
                   <a ng-show="preCondition.expressionItem.right.expressionItem.value !== 'null'" ng-style="preCondition.expressionItem.right.unselected && {color:'red'}" ng-click="vm.updateConditionRight(this)"> {{vm.showRightName(this) | parseLocal}} </a>
-                  <a class="pull-right btn btn-xs" data-nodrag ng-click="vm.removeCondition(this)"><img ng-src="{{vm.delete}}"></a>
+                  <a class="pull-right btn btn-xs" data-nodrag ng-click="vm.removePrecondition(this)"><img ng-src="{{vm.delete}}"></a>
                 </form>
               </div>
             </li>
@@ -42,3 +42,4 @@
     </div>
   </div>
 </div>
+

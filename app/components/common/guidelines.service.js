@@ -28,6 +28,7 @@ function guidelineFactory($http, API_URL, $q, archetypeFactory, terminologyFacto
         setOntology: setOntology,
         //-------------------------
         insertGuideline: insertGuideline,
+        insertSourceGuideline: insertSourceGuideline,
         updateGuideline: updateGuideline,
         deleteGuideline: deleteGuideline,
         getSourceGuideline: getSourceGuideline,
@@ -244,6 +245,19 @@ function guidelineFactory($http, API_URL, $q, archetypeFactory, terminologyFacto
         return deferred.promise;
     }
 
+    function insertSourceGuideline(guideId, gdlCode) {
+        var deferred = $q.defer();
+        $http.post(API_URL + '/guidelines/' + guideId, gdlCode, {headers:{'Content-Type': 'text/plain'}}).then(
+            function (response) {
+                deferred.resolve(response);
+            },
+            function (response) {
+                deferred.reject(response);
+            }
+        );
+        return deferred.promise;
+    }
+
     function updateGuideline(guide) {
         var deferred = $q.defer();
         $http.put(API_URL + '/guidelines/json/' + guide.id, guide).then(
@@ -446,6 +460,9 @@ function guidelineFactory($http, API_URL, $q, archetypeFactory, terminologyFacto
 
     function getText(gtCode) {
         if(gtCode && getOntology().termDefinitions.en.terms) {
+            if(gtCode==="currentDateTime") {
+                return gtCode;
+            }
             return getOntology().termDefinitions.en.terms[gtCode].text;
         }
         return null;

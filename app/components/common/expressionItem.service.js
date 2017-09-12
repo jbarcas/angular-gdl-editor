@@ -1177,7 +1177,7 @@ function expressionItemFactory($log, guidelineFactory, utilsFactory, modalServic
     function getLiteralExpression(expression) {
 
         function createLiteralExpression(expression) {
-            if(expression.type === "ConstantExpression") {
+            if(expression.type === "ConstantExpression" || expression.type === "QuantityConstant") {
                 str += expression.expressionItem.value;
             } else if (expression.type === "Variable") {
                 str += guidelineFactory.getText(expression.expressionItem.code);

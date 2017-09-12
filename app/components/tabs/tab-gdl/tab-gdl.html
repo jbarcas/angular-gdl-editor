@@ -1,3 +1,7 @@
 <div class="panel panel-default">
+  <div class="text-center">
+    <!--<button class="btn btn-primary" ng-click="vm.updateGdl(this)">Update GDL</button>-->
+    <a class="btn btn-xs gdl-center-update" ng-click="vm.updateGdl(this)"><img ng-src="{{vm.updateIcon}}"></a>
+  </div>
   <div ui-codemirror ui-codemirror-opts="vm.editorOptions" ng-model="vm.gdl"></div>
 </div>

@@ -1,18 +1,25 @@
 angular.module('app.controllers')
     .controller('PreconditionsCtrl', PreconditionsCtrl);
 
-function PreconditionsCtrl(guidelineFactory, expressionItemFactory, conditionFactory) {
+function PreconditionsCtrl($log, guidelineFactory, expressionItemFactory, conditionFactory, modalService) {
 
   vm = this;
 
+  vm.guide = {};
+  vm.guide.definition = guidelineFactory.getDefinition();
+  if(!vm.guide.definition.preConditionExpressions) {
+    vm.guide.definition.preConditionExpressions = [];
+  }
+
+
   vm.terms = guidelineFactory.getOntology() ? guidelineFactory.getOntology().termDefinitions.en.terms : {};
-  vm.preConditions = guidelineFactory.getPreConditions() || [];
   vm.getOptions = getOptions;
   vm.showRightName = showRightName;
   vm.updateConditionLeft = updateConditionLeft;
   vm.updateConditionRight = updateConditionRight;
   vm.delete = "../assets/img/del.png";
   vm.add = "../assets/img/add.png";
+  vm.removePrecondition = removePrecondition;
 
   /**
    * Property used to clone the preCondition nodes
@@ -51,6 +58,22 @@ function PreconditionsCtrl(guidelineFactory, expressionItemFactory, conditionFac
 
   function updateConditionRight(preCondition) {
     expressionItemFactory.updateConditionRight(preCondition);
+  }
+
+  function removePrecondition (scope) {
+
+    modalService.showModal(
+        {component: 'dialogComponent'},
+        {bodyText: 'Are you sure you want remove the precondition?', headerText: 'Remove precondition?'}
+    ).then(showModalComplete, showModalFailed);
+
+    function showModalComplete() {
+      scope.remove();
+    }
+
+    function showModalFailed() {
+      $log.info('Modal dismissed at: ' + new Date() + ' in removePrecondition()');
+    }
   }
 
 }

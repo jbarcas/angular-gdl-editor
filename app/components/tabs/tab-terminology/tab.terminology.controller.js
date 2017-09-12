@@ -65,7 +65,7 @@ function TerminologyCtrl(utilsFactory, guidelineFactory, LANGUAGES, modalService
 
         var items = [];
         angular.forEach(LANGUAGES, function(language, code) {
-            items.push({viewText: language + "(" + code + ")", code: code});
+            items.push({viewText: language + " (" + code + ")", code: code});
         });
 
         var modalOptions = {

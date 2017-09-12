@@ -5,11 +5,12 @@
 angular.module('app.services')
     .factory('gdlFactory', gdlFactory);
 
-function gdlFactory($http, API_URL, $q) {
+function gdlFactory($http, API_URL, $q, guidelineFactory) {
 
 
     return {
-        getGdl: getGdl
+        getGdl: getGdl,
+        updateGdl: updateGdl
     };
 
     function getGdl(guidelineId) {
@@ -24,5 +25,11 @@ function gdlFactory($http, API_URL, $q) {
         );
         return deferred.promise;
     }
+
+    function updateGdl(guidelineId, gdlCode) {
+        return guidelineFactory.insertSourceGuideline(guidelineId, gdlCode);
+    }
+
+
 
 }

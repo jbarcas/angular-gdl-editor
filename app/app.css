@@ -315,3 +315,10 @@ treecontrol.tree-boot li.tree-leaf i.tree-leaf-head {
     margin-bottom: 15px;
 }
 
+/* Styles for the 'update' icon in GDL tab*/
+.gdl-center-update{
+    text-align: center;
+    width: 100%;
+    position: relative;
+}
+

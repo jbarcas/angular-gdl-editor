@@ -5,11 +5,15 @@
 angular.module('app.controllers')
     .controller('GdlCtrl', GdlCtrl);
 
-function GdlCtrl(gdlFactory, guidelineFactory, utilsFactory, modalService) {
+function GdlCtrl($timeout, $log, gdlFactory, guidelineFactory, utilsFactory, modalService) {
 
     vm = this;
     vm.guide = {};
     vm.guide.id = guidelineFactory.getId();
+    vm.updateGdl = updateGdl;
+    vm.errorMsg;
+
+    vm.updateIcon = "../assets/img/entry_evaluation.png";
 
     vm.editorOptions = {
         lineNumbers: true
@@ -108,5 +112,18 @@ function GdlCtrl(gdlFactory, guidelineFactory, utilsFactory, modalService) {
         return false;
     }
 
+    function updateGdl(node) {
+        var guidelineId = node.vm.guide.id;
+        var gdl = node.vm.gdl;
+        gdlFactory.updateGdl(guidelineId, gdl).then(function() {
+            $timeout(function () {
+                guidelineFactory.getGuideline(guidelineId).then(function(data) {
+                    guidelineFactory.setCurrentGuideline(data);
+                });
+            }, 1000, guidelineId);
+        })
+    }
 
-};
+
+
+}
