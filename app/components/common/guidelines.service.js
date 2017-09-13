@@ -234,7 +234,7 @@ function guidelineFactory($http, API_URL, $q, archetypeFactory, terminologyFacto
   
     function insertGuideline(guide) {
         var deferred = $q.defer();
-        $http.post(API_URL + '/guidelines/json/' + guide.id, guide).then(
+        $http.post(API_URL + '/guidelines/json/' + guide.id, guide, {headers:{'Content-Type': 'text/plain; charset=UTF-8'}}).then(
             function (response) {
                 deferred.resolve(response);
             },
@@ -247,7 +247,7 @@ function guidelineFactory($http, API_URL, $q, archetypeFactory, terminologyFacto
 
     function insertSourceGuideline(guideId, gdlCode) {
         var deferred = $q.defer();
-        $http.post(API_URL + '/guidelines/' + guideId, gdlCode, {headers:{'Content-Type': 'text/plain'}}).then(
+        $http.post(API_URL + '/guidelines/' + guideId, gdlCode, {headers:{'Content-Type': 'text/plain; charset=UTF-8'}}).then(
             function (response) {
                 deferred.resolve(response);
             },
