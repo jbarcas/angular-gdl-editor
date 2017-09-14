@@ -192,7 +192,9 @@ function BindingsCtrl($log, guidelineFactory, terminologyFactory, utilsFactory, 
                         }
 
                         //Let's add the current node as a child of the parent node.
-                        parentNode.children.push(term);
+                        if(parentNode) {
+                            parentNode.children.push(term);
+                        }
                     }
                 });
                 return idToNodeMap[Object.keys(idToNodeMap)[0]];

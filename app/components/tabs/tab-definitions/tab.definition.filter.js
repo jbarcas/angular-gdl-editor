@@ -15,6 +15,10 @@ function capitalize() {
 
 function removeUnderscore() {
     return function (input) {
+        // TODO: remove this 'if'
+        if(input==="ALERTS" || input==="ALERT_CATEGORY" || input==="ATC" || input==="ICD10" || input==="RISKS" || input==="SNOMED-CT" || input.match(/gt\d\d\d\d*/)) {
+            return input;
+        }
         return (!!input) ? input.charAt(0).toUpperCase() + input.substr(1).toLowerCase().replace(/_/g, ' ') : ' ';
     }
 }
