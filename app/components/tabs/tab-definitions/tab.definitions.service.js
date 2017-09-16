@@ -315,8 +315,17 @@ function definitionsFactory(DV, expressionItemFactory, guidelineFactory, utilsFa
                 return input;
             };
             modalOptions.resolve.items = function() {
-                // FIXME: Get the options in a right way
-                var options = ["cm", "in"];
+                // FIXME: Get the options in a right way (currently there is a bug in Knowledge manager)
+                var options = [];
+                if(leftElementName==="diastolic" || leftElementName==="systolic") {
+                    options = ["mmHg"];
+                } else if (leftElementName==="weight") {
+                    options = ["kg", "lb"];
+                } else if (leftElementName==="height_length") {
+                    options = ["cm", "in"];
+                } else if (leftElementName==="body_mass_index") {
+                    options = ["kg/m2", "lb/in2"];
+                }
                 var modalItems = [];
                 for(var i in options) {
                     modalItems.push({viewText: options[i], type: leftElementType});
