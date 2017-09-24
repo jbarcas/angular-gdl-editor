@@ -264,7 +264,8 @@ Como objetivos específicos, se plantean los siguientes:
 
 * El software a construir se debe integrar con un sistema existente
 (Knowledge Manager)footnote:[http://www.cambiohealthcare.co.uk/wp-content/uploads/2016/02/C_CDS-Knowledge-manager.pdf],
-dicho sistema se está utilizando actualmente, en producción, en varios hospitales de Suecia.
+dicho sistema es un producto de __Cambio Healthcare Systems__footnote:[http://www.cambio.se/] que se está utilizando
+actualmente, en producción, en varios hospitales de Suecia.
 
 * Se desarrollará siguiendo un _framework_ Modelo-vista-controlador (MVC), de manera que haya una separación clara entre
 la lógica de negocio, el modelo y la vista de la aplicación, fomentando de esta manera la mantenibilidad y la
@@ -1806,7 +1807,7 @@ clasificación y presentación de estas estadísticas.
 La OMS proporciona información _on-line_ detallada sobre la CIE y pone a disposición un conjunto de materiales
 _on-line_, como un navegador en línea de la CIE-10footnote:[http://apps.who.int/classifications/icd10/browse/2016/en#/: última versión disponible en el momento de escribir este documento.],
 cursos de formación de la CIE-10footnote:[http://apps.who.int/classifications/apps/icd/icd10training/], ayuda a la
-formación _on-line de CIE-10footnote:[http://sites.google.com/site/icd10onlinetraining] y materiales de estudio para
+formación _on-line_ de CIE-10footnote:[http://sites.google.com/site/icd10onlinetraining] y materiales de estudio para
 su descarga.
 
 Cada condición de salud puede ser asignada a una categoría y recibir un código de hasta seis caracteres de longitud
@@ -1966,8 +1967,15 @@ Una guía clínica debe aportar aspectos tales como la justificación para la el
 descripción de los pacientes objeto de la guía, los aspectos clínicos que van a ser tratados, el ámbito de aplicación,
 los usuarios finales y aquellos aspectos que quedarán excluidosfootnote:[http://www.sign.ac.uk/guidelines/fulltext/50/].
 
+<<<
+
 Especificación GDL
 ~~~~~~~~~~~~~~~~~~
+GDL es un lenguaje formal para expresar lógica de soporte a la decisión clínica. Está diseñado para ser agnóstico a los
+lenguajes naturales y a las terminologías de referencia clínicas mediante el aprovechamiento de los diseños del Modelo de
+Referencia y del Modelo de Arquetipos de __open__EHR. La especificación completa completa y actualizada de la sintaxis
+se puede encontrar en el sitio web openEHR: http://www.openehr.org/releases/CDS/latest/docs/GDL/GDL.html.
+
 Introducción y requisitos
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 .Propósito.
@@ -2457,7 +2465,7 @@ entre las Universidades de Stanford, Harvard y Columbia.
 Actualmente el desarrollo se encuentra en la versión 3 y cuenta con un modelo de datos orientado a objetos. Para
 realizar el modelado de los documentos clínicos, se basa en un algoritmo, utilizando un diagrama de flujo, que
 diferencia varias fases y especifica los valores de los atributos en dichas fases: _accion_, _decisión_, _estado del
-paciente_, _rama y __sincronización__. Se ha desarrollado una herramienta de software para la creación de guías en
+paciente_, _rama_ y __sincronización__. Se ha desarrollado una herramienta de software para la creación de guías en
 GLIF, dicha herramienta almacena las guías en formato Resource Description Frameworkfootnote:[Framework general para
 describir cualquier recurso en Internet y su contenido: https://www.w3.org/RDF/] (RDF).
 
@@ -3022,12 +3030,12 @@ Análisis
 En la fase de análisis del primer Sprint se han identificado dos tareas a ser tratadas. Por una parte se ha
 analizado la estructura organizativa de directorios de la aplicación y por la otra el desarrollo de la funcionalidad
 básica consistente en la visualización de las guías clínicas existentes en el Knowledge Managerfootnote:[COSMIC CDS
-Knowledge Manager es una base de datos de conocimiento y un motor de reglas para la gestión de normalización médica y
-modelos de información clínica. El conocimiento clínico se desglosa en reglas interpretables por las máquinas
-basadas en estándares internacionales y en terminologías clínicas, de modo que las reglas de soporte a la decisión
-puedan ser compartidas de forma sencilla entre diferentes aplicaciones de soporte a la decisión, independientemente
-del proveedor. Las reglas pueden ser usadas para construir un poderoso y flexible sistema de soporte a las
-decisiones clínicas.].
+Knowledge Manager es una base de datos de conocimiento y un motor de reglas, propiedad de la empresa _Cambio Healthcare
+Systems_, para la gestión de normalización médica y modelos de información clínica. El conocimiento clínico se desglosa
+en reglas interpretables por las máquinas basadas en estándares internacionales y en terminologías clínicas, de modo
+que las reglas de soporte a la decisión puedan ser compartidas de forma sencilla entre diferentes aplicaciones de
+soporte a la decisión, independientemente del proveedor. Las reglas pueden ser usadas para construir un poderoso
+y flexible sistema de soporte a las decisiones clínicas.].
 
 Para la primera tarea, se ha estudiado la mejor mejor forma de estructurar la aplicación web. En numerosas ocasiones, en
 las primeras fases de un proyecto AngularJS, la estructura de directorios no importa demasiado y se tiende a ignorar
