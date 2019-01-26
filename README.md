@@ -191,4 +191,4 @@ For more information on Angular GDL Editor please send an e-mail to the [author]
 [travis]: https://travis-ci.org/
 [http-server]: https://github.com/nodeapps/http-server
 [openEHR]: http://www.openehr.org/
-[author]: mailto:j.barros@udc.es
+[author]: mailto:jesus.barros.castro@gmail.com
